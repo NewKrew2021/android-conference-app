@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.view.detail
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
+import com.survivalcoding.ifkakao.extensions.playMedia
 import com.survivalcoding.ifkakao.view.MainViewModel
 
 class DetailFragment : Fragment() {
@@ -24,6 +26,16 @@ class DetailFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.eventLiveData.observe(viewLifecycleOwner) {
+            when (it.type) {
+                MainViewModel.Action.Type.VIDEO_PLAY -> requireContext().playMedia(Uri.parse(it.url))
+            }
+        }
     }
 
     override fun onDestroyView() {

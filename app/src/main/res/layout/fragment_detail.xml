@@ -22,6 +22,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:onClick="@{() -> viewModel.playMedia(viewModel.selectedItem.linkList.VIDEO[0].url)}"
                 android:scaleType="centerCrop"
                 app:videoUrl="@{viewModel.selectedItem.linkList.VIDEO[0].url}"
                 tools:srcCompat="@tools:sample/avatars" />
