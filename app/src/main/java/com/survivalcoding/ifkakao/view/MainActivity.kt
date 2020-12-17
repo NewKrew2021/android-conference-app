@@ -1,9 +1,10 @@
-package com.survivalcoding.ifkakao
+package com.survivalcoding.ifkakao.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
