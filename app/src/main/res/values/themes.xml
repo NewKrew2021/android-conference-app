@@ -17,5 +17,7 @@
 <!--        <color name="primaryLightColor">#484848</color>-->
 <!--        <color name="primaryDarkColor">#000000</color>-->
 <!--        <color name="primaryTextColor">#ffffff</color>-->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@color/black</item>
     </style>
 </resources>
