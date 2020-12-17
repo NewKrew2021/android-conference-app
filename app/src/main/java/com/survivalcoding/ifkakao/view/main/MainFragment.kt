@@ -8,13 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.view.main.adapter.ConferenceRecyclerAdapter
 
 class MainFragment : Fragment() {
     private val viewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    private val conferenceAdapter by lazy {
+        ConferenceRecyclerAdapter {
+
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +36,18 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("MainFragment", "onViewCreated: ${viewModel.getContents()}")
+
+        with(binding.recyclerView) {
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    LinearLayoutManager.VERTICAL
+                )
+            )
+            adapter = conferenceAdapter
+        }
+
+        conferenceAdapter.submitList(viewModel.getContents())
     }
 
     override fun onDestroyView() {
