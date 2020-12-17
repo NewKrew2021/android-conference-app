@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
-import com.survivalcoding.ifkakao.extensions.navigateTo
+import com.survivalcoding.ifkakao.util.extensions.navigateTo
 import com.survivalcoding.ifkakao.view.MainViewModel
 import com.survivalcoding.ifkakao.view.detail.DetailFragment
 import com.survivalcoding.ifkakao.view.main.adapter.ConferenceRecyclerAdapter

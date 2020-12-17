@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.extensions
+package com.survivalcoding.ifkakao.util.extensions
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit

@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.extensions
+package com.survivalcoding.ifkakao.util.extensions
 
 import android.content.Context
 import android.content.Intent
