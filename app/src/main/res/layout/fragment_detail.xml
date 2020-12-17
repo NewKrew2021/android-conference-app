@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="data"
-            type="com.survivalcoding.ifkakao.model.Data" />
+            name="viewModel"
+            type="com.survivalcoding.ifkakao.view.MainViewModel" />
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,13 +23,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="centerCrop"
-                app:videoUrl="@{data.linkList.VIDEO[0].url}"
+                app:videoUrl="@{viewModel.selectedItem.linkList.VIDEO[0].url}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:title="@{data.title}"
+                app:title="@{viewModel.selectedItem.title}"
                 tools:text="제목" />
         </LinearLayout>
     </ScrollView>
