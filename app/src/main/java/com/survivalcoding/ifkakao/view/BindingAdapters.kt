@@ -1,9 +1,12 @@
 package com.survivalcoding.ifkakao.view
 
+import android.view.LayoutInflater
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.survivalcoding.ifkakao.databinding.ItemSpeakerProfileBinding
 
 @BindingAdapter("videoUrl")
 fun setVideoThumbnail(imageView: ImageView, url: String) {
@@ -39,4 +42,22 @@ fun setImage(imageView: ImageView, url: String) {
     Glide.with(imageView)
         .load(url)
         .into(imageView)
+}
+
+@BindingAdapter("mainViewModel")
+fun setSpeakersList(viewGroup: LinearLayout, viewModel: MainViewModel) {
+    viewModel.selectedItem.value?.let { data ->
+        data.contentsSpeackerList.zip(data.linkList.SPEACKER_PROFILE).map {
+            val view = ItemSpeakerProfileBinding.inflate(
+                LayoutInflater.from(viewGroup.context),
+                viewGroup,
+                false
+            )
+            view.contentsSpeacker = it.first
+            view.imgUrl = it.second.url
+            view
+        }.forEach {
+            viewGroup.addView(it.root)
+        }
+    }
 }
