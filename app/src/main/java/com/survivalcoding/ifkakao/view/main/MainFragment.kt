@@ -56,7 +56,11 @@ class MainFragment : Fragment() {
             adapter = conferenceAdapter
         }
 
-        conferenceAdapter.submitList(viewModel.getContents())
+        viewModel.contents.observe(viewLifecycleOwner) {
+            conferenceAdapter.submitList(it.data)
+        }
+
+        viewModel.fetchContents()
     }
 
     override fun onDestroyView() {

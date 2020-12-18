@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.survivalcoding.ifkakao.data.ContentsRepository
+import com.survivalcoding.ifkakao.model.ContentsResult
 import com.survivalcoding.ifkakao.model.Data
 import com.survivalcoding.ifkakao.util.SingleLiveEvent
 
@@ -22,7 +23,16 @@ class MainViewModel : ViewModel() {
     private val _eventLiveData = SingleLiveEvent<Action>()
     val eventLiveData: LiveData<Action> get() = _eventLiveData
 
-    fun getContents(): List<Data> = contentsRepository.contents?.data ?: emptyList()
+    private val _contents = MutableLiveData<ContentsResult>()
+    val contents: LiveData<ContentsResult> get() = _contents
+
+    fun fetchContents() {
+        contentsRepository.getContents {
+            it?.let {
+                _contents.value = it
+            }
+        }
+    }
 
     fun selectItem(item: Data) {
         _selectedItem.value = item
