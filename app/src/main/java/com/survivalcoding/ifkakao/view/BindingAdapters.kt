@@ -33,3 +33,10 @@ fun setVideoThumbnail(imageView: ImageView, url: String) {
 fun replaceBr(textView: TextView, text: String) {
     textView.text = text.replace("<br>", "\n")
 }
+
+@BindingAdapter("imgUrl")
+fun setImage(imageView: ImageView, url: String) {
+    Glide.with(imageView)
+        .load(url)
+        .into(imageView)
+}
