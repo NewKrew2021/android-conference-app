@@ -1,0 +1,34 @@
+package com.survivalcoding.ifkakao.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.survivalcoding.ifkakao.databinding.ItemConferenceBinding
+import com.survivalcoding.ifkakao.model.ConferenceInfo
+import com.survivalcoding.ifkakao.model.Repository
+
+class ConferenceAdapter(private val repository: Repository) :
+    RecyclerView.Adapter<ConferenceAdapter.ConferenceViewHolder>() {
+    private lateinit var binding: ItemConferenceBinding
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceViewHolder {
+        binding = ItemConferenceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ConferenceViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
+        holder.bind(repository.getConferenceData()[position])
+    }
+
+    override fun getItemCount(): Int = repository.getConferenceData().size
+
+    class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ConferenceInfo) {
+            binding.apply {
+                nameText.text = item.name
+                locationText.text = item.location
+            }
+        }
+    }
+}
