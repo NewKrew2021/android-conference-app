@@ -1,19 +1,20 @@
 package com.survivalcoding.ifkakao.view.main.model
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-import com.google.gson.annotations.SerializedName
-
+@JsonClass(generateAdapter = true)
 data class Conference(
-    @SerializedName("name")
+    @Json(name = "name")
     val name: String,
-    @SerializedName("link")
+    @Json(name = "link")
     val link: String,
-    @SerializedName("start")
+    @Json(name = "start")
     val start: String,
-    @SerializedName("end")
+    @Json(name = "end")
     val end: String,
-    @SerializedName("location")
+    @Json(name = "location")
     val location: String,
-    @SerializedName("cocoa-only")
-    val cocoaOnly: Boolean? = null
+    @Json(name = "cocoa-only")
+    val cocoaOnly: Boolean? = null,
 )

@@ -1,8 +1,11 @@
 package com.survivalcoding.ifkakao.data.repository
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.survivalcoding.ifkakao.view.main.model.Conference
+
 
 class ConferenceRepository : Repository {
     private val dummyData = """
@@ -66,9 +69,15 @@ class ConferenceRepository : Repository {
            }
          ]
     """.trimIndent()
-    private val gson = Gson()
+    private val moshi =
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
     override fun getItems(): List<Conference> {
-        return gson.fromJson(dummyData, object : TypeToken<List<Conference>>(){}.type)
+        val listType = Types.newParameterizedType(List::class.java, Conference::class.java)
+        val adapter: JsonAdapter<List<Conference>> = moshi.adapter(listType)
+
+        return adapter.fromJson(dummyData) ?: listOf()
     }
 }
