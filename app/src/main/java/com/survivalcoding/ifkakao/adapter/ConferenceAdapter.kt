@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.databinding.ItemConferenceBinding
 import com.survivalcoding.ifkakao.model.ConferenceInfo
 import com.survivalcoding.ifkakao.model.Repository
+import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
-class ConferenceAdapter(private val repository: Repository) :
+class ConferenceAdapter(private val viewModel: ConferenceViewModel) :
     RecyclerView.Adapter<ConferenceAdapter.ConferenceViewHolder>() {
     private lateinit var binding: ItemConferenceBinding
 
@@ -17,10 +18,10 @@ class ConferenceAdapter(private val repository: Repository) :
     }
 
     override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
-        holder.bind(repository.getConferenceData()[position])
+        holder.bind(viewModel.getConferenceData()[position])
     }
 
-    override fun getItemCount(): Int = repository.getConferenceData().size
+    override fun getItemCount(): Int = viewModel.getConferenceData().size
 
     class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
         RecyclerView.ViewHolder(binding.root) {

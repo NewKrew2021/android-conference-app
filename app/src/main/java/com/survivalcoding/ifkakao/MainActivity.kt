@@ -1,17 +1,18 @@
 package com.survivalcoding.ifkakao
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.model.ConferenceRepository
+import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val adapter = ConferenceAdapter(ConferenceRepository())
+    private val viewModel = ConferenceViewModel()
+    private val adapter = ConferenceAdapter(viewModel)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
