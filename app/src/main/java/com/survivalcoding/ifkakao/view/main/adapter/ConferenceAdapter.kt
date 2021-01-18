@@ -7,7 +7,9 @@ import com.survivalcoding.ifkakao.databinding.ConferenceItemLayoutBinding
 import com.survivalcoding.ifkakao.view.main.holder.ConferenceViewHolder
 import com.survivalcoding.ifkakao.view.main.model.Conference
 
-class ConferenceAdapter : RecyclerView.Adapter<ConferenceViewHolder>() {
+class ConferenceAdapter(
+    private val itemClickListener: (item: Conference) -> Unit,
+) : RecyclerView.Adapter<ConferenceViewHolder>() {
 
     private val items = mutableListOf<Conference>()
 
@@ -18,7 +20,7 @@ class ConferenceAdapter : RecyclerView.Adapter<ConferenceViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
-        holder.bind(items[holder.adapterPosition])
+        holder.bind(items[holder.adapterPosition], itemClickListener)
     }
 
     override fun getItemCount(): Int = items.size

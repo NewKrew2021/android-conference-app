@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
@@ -22,7 +24,17 @@ class ConferenceListFragment(repository: Repository) : Fragment() {
         get() = _binding!!
 
     private val adapter by lazy {
-        ConferenceAdapter()
+        ConferenceAdapter {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                addToBackStack(null)
+                replace(
+                    R.id.fragment_container_view,
+                    ConferenceDetailFragment::class.java,
+                    bundleOf(MainActivity.CONFERENCE_ITEM_KEY to it)
+                )
+            }
+        }
     }
 
     private val viewModel = ConferenceViewModel(repository)
@@ -72,8 +84,10 @@ class ConferenceListFragment(repository: Repository) : Fragment() {
     }
 
     private fun setUpActivity() {
-        listener?.setTitle(getString(R.string.fragment_conference_list_title))
-        listener?.setButtonVisibility(View.INVISIBLE)
+        listener?.let {
+            it.setTitle(getString(R.string.fragment_conference_list_title))
+            it.setButtonVisibility(View.INVISIBLE)
+        }
     }
 
     private fun updateUI() {

@@ -25,6 +25,10 @@ class MainActivity : AppCompatActivity(), ActivityListener {
     override fun setButtonVisibility(visibility: Int) {
         binding.btnBack.visibility = visibility
     }
+
+    companion object {
+        const val CONFERENCE_ITEM_KEY = "CONFERENCE_ITEM_KEY"
+    }
 }
 
 interface ActivityListener {
