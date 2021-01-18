@@ -65,10 +65,10 @@
         android:id="@+id/official_link_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:autoLink="web"
-        android:text="@string/official_link"
-        android:textSize="20sp"
         android:layout_marginTop="16sp"
+        android:text="@string/official_link"
+        android:textColorLink="@color/link"
+        android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="@id/start_time_text"
         app:layout_constraintTop_toBottomOf="@id/start_time_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
