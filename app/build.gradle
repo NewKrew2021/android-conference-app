@@ -27,8 +27,8 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
-        dataBinding true
+        viewBinding = true
+        dataBinding = true
     }
 
     compileOptions {
@@ -83,8 +83,8 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okHttp_version"
 
     // glide
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt "com.github.bumptech.glide:compiler:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     // lifecycle
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
@@ -102,4 +102,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
     implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+
+    // gson
+    implementation "com.google.code.gson:gson:$gson_version"
 }
