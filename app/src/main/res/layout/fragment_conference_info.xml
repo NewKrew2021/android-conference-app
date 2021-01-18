@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ConferenceInfoFragment">
+
+    <TextView
+        android:id="@+id/conference_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="SwiftLeeds" />
+
+    <TextView
+        android:id="@+id/conference_location_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conference_title_text"
+        tools:text="🇬🇧 Leeds, UK" />
+
+    <TextView
+        android:id="@+id/start_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conference_location_text"
+        tools:text="2020-10-07" />
+
+    <TextView
+        android:id="@+id/time_divider_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/time_divider"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/start_time_text"
+        app:layout_constraintTop_toTopOf="@id/start_time_text" />
+
+    <TextView
+        android:id="@+id/end_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toRightOf="@id/time_divider_text"
+        app:layout_constraintTop_toTopOf="@id/start_time_text"
+        tools:text="2020-10-08" />
+
+    <TextView
+        android:id="@+id/official_link_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="@string/official_link"
+        android:textColorLink="@color/link"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="@id/start_time_text"
+        app:layout_constraintTop_toBottomOf="@id/start_time_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>
