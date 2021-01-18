@@ -19,4 +19,6 @@ data class Conference(
     val location: String,
     @Json(name = "cocoa-only")
     val cocoaOnly: Boolean? = null,
-) : Parcelable
+) : Parcelable {
+    fun getPeriod(): String = "$start - $end"
+}

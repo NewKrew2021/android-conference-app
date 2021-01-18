@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.survivalcoding.ifkakao.databinding.FragmentConferenceDetailBinding
 import com.survivalcoding.ifkakao.view.main.ActivityListener
 import com.survivalcoding.ifkakao.view.main.MainActivity
+import com.survivalcoding.ifkakao.view.main.model.Conference
 
 class ConferenceDetailFragment : Fragment() {
     private var _binding: FragmentConferenceDetailBinding? = null
@@ -44,12 +45,20 @@ class ConferenceDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpActivity()
+        arguments?.getParcelable<Conference>(MainActivity.CONFERENCE_ITEM_KEY)?.let { item ->
+            setUpActivity(item)
+
+            with(binding) {
+                textConfLocation.text = item.location
+                textConfPeriod.text = item.getPeriod()
+                textLink.text = item.link
+            }
+        }
     }
 
-    private fun setUpActivity() {
+    private fun setUpActivity(item: Conference) {
         listener?.let {
-            it.setTitle("")
+            it.setTitle(item.name)
             it.setButtonVisibility(View.VISIBLE)
         }
     }
