@@ -20,6 +20,6 @@ class ApiExampleTest {
 
     @Test
     fun getData() {
-        assertEquals(repository.getConferences().size, 8)
+        assertEquals(8, repository.getConferences().size)
     }
 }
