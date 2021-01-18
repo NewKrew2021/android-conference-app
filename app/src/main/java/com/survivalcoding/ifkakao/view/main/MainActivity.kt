@@ -6,7 +6,7 @@ import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.factory.ConferenceFragmentFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ActivityListener {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,4 +17,17 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
     }
+
+    override fun setTitle(text: String) {
+        binding.textTitle.text = text
+    }
+
+    override fun setButtonVisibility(visibility: Int) {
+        binding.btnBack.visibility = visibility
+    }
+}
+
+interface ActivityListener {
+    fun setTitle(text: String)
+    fun setButtonVisibility(visibility: Int)
 }
