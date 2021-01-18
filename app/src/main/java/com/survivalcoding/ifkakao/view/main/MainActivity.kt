@@ -16,6 +16,12 @@ class MainActivity : AppCompatActivity(), ActivityListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        with(binding) {
+            btnBack.setOnClickListener {
+                supportFragmentManager.popBackStack()
+            }
+        }
     }
 
     override fun setTitle(text: String) {
