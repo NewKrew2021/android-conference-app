@@ -86,7 +86,7 @@ class ConferenceListFragment(repository: Repository) : Fragment() {
     private fun setUpActivity() {
         listener?.let {
             it.setTitle(getString(R.string.fragment_conference_list_title))
-            it.setButtonVisibility(View.INVISIBLE)
+            it.setButton(visibility = View.INVISIBLE)
         }
     }
 

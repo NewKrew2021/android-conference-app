@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentConferenceDetailBinding
 import com.survivalcoding.ifkakao.view.main.ActivityListener
 import com.survivalcoding.ifkakao.view.main.MainActivity
@@ -59,7 +60,7 @@ class ConferenceDetailFragment : Fragment() {
     private fun setUpActivity(item: Conference) {
         listener?.let {
             it.setTitle(item.name)
-            it.setButtonVisibility(View.VISIBLE)
+            it.setButton(getString(R.string.fragment_conference_list_title), View.VISIBLE)
         }
     }
 }

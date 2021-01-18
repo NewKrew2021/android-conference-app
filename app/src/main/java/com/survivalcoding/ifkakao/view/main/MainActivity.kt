@@ -22,8 +22,11 @@ class MainActivity : AppCompatActivity(), ActivityListener {
         binding.textTitle.text = text
     }
 
-    override fun setButtonVisibility(visibility: Int) {
-        binding.btnBack.visibility = visibility
+    override fun setButton(text: String, visibility: Int) {
+        with(binding.btnBack) {
+            this.text = text
+            this.visibility = visibility
+        }
     }
 
     companion object {
@@ -33,5 +36,5 @@ class MainActivity : AppCompatActivity(), ActivityListener {
 
 interface ActivityListener {
     fun setTitle(text: String)
-    fun setButtonVisibility(visibility: Int)
+    fun setButton(text: String = "", visibility: Int)
 }
