@@ -20,4 +20,8 @@ class ConferenceRepositoryTest {
     fun getConferenceList() {
         assertEquals(8, repository.getConferenceList().size)
     }
+    @Test
+    fun getRequest(){
+        assertNotEquals(0, repository.getRequests().size)
+    }
 }
