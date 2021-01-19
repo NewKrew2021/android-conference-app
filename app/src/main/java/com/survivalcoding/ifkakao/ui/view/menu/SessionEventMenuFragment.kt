@@ -1,17 +1,19 @@
-package com.survivalcoding.ifkakao.ui.view
+package com.survivalcoding.ifkakao.ui.view.menu
 
-import android.widget.Toast
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.ActivitySessionEventMenuBinding
-import com.survivalcoding.ifkakao.ui.base.BaseActivity
+import com.survivalcoding.ifkakao.databinding.FragmentSessionEventMenuBinding
+import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.ui.base.BaseFragment
+import com.survivalcoding.ifkakao.ui.view.event.EventFragment
+import com.survivalcoding.ifkakao.ui.view.session.SessionFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionEventMenuViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SessionEventMenuActivity :
-    BaseActivity<ActivitySessionEventMenuBinding, SessionEventMenuViewModel>() {
+class SessionEventMenuFragment :
+    BaseFragment<FragmentSessionEventMenuBinding, SessionEventMenuViewModel>() {
 
     override val layoutResourceId: Int
-        get() = R.layout.activity_session_event_menu
+        get() = R.layout.fragment_session_event_menu
 
     override val viewModel: SessionEventMenuViewModel by viewModel()
 
@@ -32,15 +34,15 @@ class SessionEventMenuActivity :
 
         binding.run {
             ivCloseSessionEventMenu.setOnClickListener {
-                finish()
+                parentFragmentManager.popBackStack()
             }
 
             tvSessionSessionEvent.setOnClickListener {
-                Toast.makeText(applicationContext, "go session fragment", Toast.LENGTH_SHORT).show()
+                replaceFragment<SessionFragment>(R.id.fragment_container_view)
             }
 
             tvEventSessionEvent.setOnClickListener {
-                Toast.makeText(applicationContext, "go event fragment", Toast.LENGTH_SHORT).show()
+                replaceFragment<EventFragment>(R.id.fragment_container_view)
             }
         }
     }
