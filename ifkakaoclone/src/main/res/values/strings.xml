@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">IfKakaoClone</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_title">if(kakao)2020</string>
+
+    <!-- menu/toolbar -->
+    <string name="toolbar_nav">Navigation</string>
+</resources>
