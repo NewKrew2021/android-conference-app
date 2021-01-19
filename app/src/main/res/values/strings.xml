@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">IfKakao</string>
+    <string name="hyperlink_text">Go to official website</string>
 </resources>
