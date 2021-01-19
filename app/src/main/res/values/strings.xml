@@ -4,4 +4,9 @@
 
     <!-- Menu -->
     <string name="toolbar_item_main">toolbar_item_main</string>
+
+    <!-- fragment_main -->
+    <string name="tv_highlight_main">Highlight</string>
+    <string name="btn_all_session_main">전체세션 보기</string>
+    <string name="tv_kakao_corp_main">©kakao corp.</string>
 </resources>

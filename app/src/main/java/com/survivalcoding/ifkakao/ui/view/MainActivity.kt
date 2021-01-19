@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao.ui.view
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
@@ -34,7 +35,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     private fun setInstanceState() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            //add<MainFragment>(R.id.fragment_container_view, "main")
+            add<MainFragment>(R.id.fragment_container_view, "main")
         }
     }
 

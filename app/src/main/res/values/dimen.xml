@@ -12,4 +12,9 @@
     <!-- text size -->
     <dimen name="body_14">14sp</dimen>
     <dimen name="body_16">16sp</dimen>
+    <dimen name="body_24">24sp</dimen>
+    <dimen name="body_32">32sp</dimen>
+
+    <!-- fragment_main -->
+    <dimen name="iv_title_poster_height">550dp</dimen>
 </resources>
