@@ -20,10 +20,8 @@ class ConferenceRepository {
     val request = Request.Builder().url(url).build()
     var _listData = mutableListOf<ConferenceAppFront>()
     val listData get() = _listData
-    var isFinish ="1"
+    var isFinish = "1"
     //lateinit var tmpAdapter : RecyclerAdapter  //나중에 삭제,, 임시
-
-
 
 
     fun getData() {
@@ -42,18 +40,17 @@ class ConferenceRepository {
                     for (i in 0..topData.data.size - 1) {
                         var length = topData.data[i].linkList.VIDEO[0].description
                         var field = topData.data[i].field
-                        var title = topData.data[i].title
-                        //Log.d("로", "$length $field  $title")
-
-
-                        _listData.add(ConferenceAppFront(length, field, title))
+                        var titleTmp = topData.data[i].title
+                        var imageUrl = topData.data[i].linkList.PC_IMAGE[0].url
+                        var title = titleTmp.replace("<br>", "\n")
+                        _listData.add(ConferenceAppFront(length, field, title, imageUrl))
                     }
                 }
 
 
-               // tmpAdapter.submitList(null)
-               // tmpAdapter.submitList(listData.toList())
-               // tmpAdapter.notifyDataSetChanged()
+                // tmpAdapter.submitList(null)
+                // tmpAdapter.submitList(listData.toList())
+                // tmpAdapter.notifyDataSetChanged()
                 //Log.d("로그", "$listData ")
                 //isFinish="changed"
             }
@@ -61,9 +58,6 @@ class ConferenceRepository {
         })
 
     }
-
-
-
 
 
 }
