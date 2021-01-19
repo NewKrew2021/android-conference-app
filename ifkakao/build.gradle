@@ -42,4 +42,11 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    /*
+    Cannot access 'androidx.lifecycle.HasDefaultViewModelProviderFactory' which is a supertype of 'com.example.ifkakao.MainActivity'.
+    Check your module classpath for missing or conflicting dependencies
+    해당 오류 해결을 위해 의존성 추가
+     */
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 }
