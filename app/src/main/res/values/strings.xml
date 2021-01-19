@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">IfKakao</string>
+    <!-- Application -->
+    <string name="app_name">If(kakao)2020</string>
+
+    <!-- Menu -->
+    <string name="toolbar_item_main">toolbar_item_main</string>
+
+    <!-- fragment_main -->
+    <string name="tv_highlight_main">Highlight</string>
+    <string name="btn_all_session_main">전체세션 보기</string>
+    <string name="tv_kakao_corp_main">©kakao corp.</string>
+
+    <!-- activity session event menu -->
+    <string name="tv_session_session_event">Session</string>
+    <string name="tv_event_session_event">Event</string>
+    <string name="tv_inquire_session_event">문의하기</string>
+    <string name="tv_talk_channel_session_event">ifkakao(톡채널)</string>
+    <string name="tv_address_session_event">ifkakao@kakako.com</string>
+
+
+    <!-- fragment session -->
+    <string name="fragment_session">fragment session</string>
+
+    <!-- fragment event -->
+    <string name="fragment_event">fragment event</string>
+
+    <!-- fragment detail session -->
+    <string name="fragment_session_detail">fragment session detail</string>
+
 </resources>
