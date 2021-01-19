@@ -8,7 +8,7 @@ import org.junit.Assert.*
 
 class ConferenceRepositoryTest {
 
-    val repository = ConferenceRepository()
+    val repository = TmpConferenceRepository()
     @Before
     fun setUp() {
     }
