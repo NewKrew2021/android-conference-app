@@ -10,13 +10,13 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
-import com.survivalcoding.ifkakao.first.model.repository.Repository
 import com.survivalcoding.ifkakao.first.view.MainActivity.Companion.MAIN_TO_DETAIL
 import com.survivalcoding.ifkakao.first.view.detail.DetailFragment
 import com.survivalcoding.ifkakao.first.view.main.adapter.ConferenceMainAdapter
+import com.survivalcoding.ifkakao.first.viewmodel.ConferenceViewModel
 
 
-class MainFragment(private val repository: Repository) : Fragment() {
+class MainFragment(private val viewModel: ConferenceViewModel) : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy {
@@ -53,6 +53,6 @@ class MainFragment(private val repository: Repository) : Fragment() {
     }
 
     private fun updateUI() {
-        adapter.submitList(repository.getData())
+        adapter.submitList(viewModel.getData())
     }
 }
