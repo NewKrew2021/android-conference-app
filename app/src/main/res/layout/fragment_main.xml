@@ -11,6 +11,7 @@
     </data>
 
     <ScrollView
+        android:id="@+id/sv_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -72,9 +73,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_56"
-                android:textSize="@dimen/body_24"
                 android:layout_marginBottom="@dimen/spacing_16"
                 android:text="@string/tv_kakao_corp_main"
+                android:textSize="@dimen/body_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_video_main" />
@@ -83,11 +84,11 @@
                 android:id="@+id/iv_up_scroll_main"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#000000"
-                android:src="@drawable/ic_baseline_arrow_upward_24"
-                android:layout_marginBottom="@dimen/spacing_16"
                 android:layout_marginTop="@dimen/spacing_56"
                 android:layout_marginEnd="@dimen/spacing_16"
+                android:layout_marginBottom="@dimen/spacing_16"
+                android:background="#000000"
+                android:src="@drawable/ic_baseline_arrow_upward_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
