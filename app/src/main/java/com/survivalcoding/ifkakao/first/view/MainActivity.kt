@@ -5,19 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.databinding.FirstActivityMainBinding
 import com.survivalcoding.ifkakao.first.App
 import com.survivalcoding.ifkakao.first.factory.ConferenceFragmentFactory
 import com.survivalcoding.ifkakao.first.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: FirstActivityMainBinding
     private val repository by lazy { (application as App).repository }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = ConferenceFragmentFactory(repository)
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = FirstActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         if (savedInstanceState == null) {
