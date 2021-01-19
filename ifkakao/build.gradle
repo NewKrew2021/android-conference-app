@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -57,4 +58,8 @@ dependencies {
 
     // fragment
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    // moshi
+    implementation "com.squareup.moshi:moshi:1.11.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.11.0"
 }
