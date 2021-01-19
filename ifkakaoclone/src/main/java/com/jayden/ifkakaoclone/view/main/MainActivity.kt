@@ -1,8 +1,9 @@
-package com.jayden.ifkakaoclone
+package com.jayden.ifkakaoclone.view.main
 
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
+import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
