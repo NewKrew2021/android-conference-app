@@ -1,9 +1,8 @@
 package com.survivalcoding.ifkakao.model
 
 data class Conference(
-    val end: String,
-    val link: String,
-    val location: String,
-    val name: String,
-    val start: String,
+    val success: Boolean,
+    val code: Int,
+    val `data`: List<Data>,
+    val errorMessage: Any,
 )
