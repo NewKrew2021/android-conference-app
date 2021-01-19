@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.ui.base.BaseActivity
@@ -21,6 +22,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override fun initStartView() {
         setSupportActionBar(findViewById(R.id.toolbar_main))
         setInstanceState()
+        eventProcess()
     }
 
     override fun getViewModelData() {
@@ -36,6 +38,15 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
             add<MainFragment>(R.id.fragment_container_view, "main")
+        }
+    }
+
+    private fun eventProcess() {
+        binding.tvTitleMain.setOnClickListener {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<MainFragment>(R.id.fragment_container_view)
+            }
         }
     }
 
