@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 apply from: '../libraries.gradle'
@@ -49,4 +50,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espfresso-core:3.3.0'
 
     implementation network_libraries.values()
+    kapt network_codegens.values()
 }
