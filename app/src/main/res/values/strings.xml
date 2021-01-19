@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">IfKakao</string>
+    <!-- Application -->
+    <string name="app_name">If(kakao)2020</string>
+
+    <!-- Menu -->
+    <string name="toolbar_item_main">toolbar_item_main</string>
 </resources>
