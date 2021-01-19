@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">IfKakaoClone</string>
+
+    <!-- Toolbar -->
+    <string name="toolbar_title">if(kakao)2020</string>
+
 </resources>
