@@ -9,8 +9,13 @@ class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
 
     fun bind(item: Conference) {
         binding.apply {
-            name.text = item.idx.toString()
-            location.text = item.title
+            title.text = trimmedString(item.title)
+            field.text = item.field
         }
     }
+
+    private fun trimmedString(origin: String) = androidx.core.text.HtmlCompat.fromHtml(
+        origin,
+        androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
+    )
 }
