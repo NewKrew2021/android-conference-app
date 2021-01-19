@@ -1,7 +1,7 @@
 package com.survivalcoding.ifkakao.repository
 
-import com.survivalcoding.ifkakao.model.ConferenceItem
+import com.survivalcoding.ifkakao.model.Conferences
 
 interface Repository {
-    fun getConferenceList() : List<ConferenceItem>
+    fun getConferenceList() : List<Conferences>
 }

@@ -1,15 +1,13 @@
 package com.survivalcoding.ifkakao.repository
 
 import android.telecom.Conference
-import android.util.Log
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.survivalcoding.ifkakao.model.ConferenceItem
+import com.survivalcoding.ifkakao.model.Conferences
 
 class ConferenceRepository : Repository{
-    override fun getConferenceList(): List<ConferenceItem> {
+    override fun getConferenceList(): List<com.survivalcoding.ifkakao.model.Conferences> {
         val dummy : String = """
             [
                 {
@@ -72,10 +70,9 @@ class ConferenceRepository : Repository{
             ]
         """.trimIndent()
         val moshi = Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
             .build()
-        val type = Types.newParameterizedType(List::class.java, ConferenceItem::class.java)
-        val jsonAdapter= moshi.adapter<List<ConferenceItem>>(type)
+        val type = Types.newParameterizedType(List::class.java, Conferences::class.java)
+        val jsonAdapter= moshi.adapter<List<Conferences>>(type)
         val list = jsonAdapter.fromJson(dummy)
         return list?: emptyList()
     }
