@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.conference.view.indetail
+package com.survivalcoding.ifkakao.conference.view.conference
 
 import androidx.fragment.app.Fragment
 import com.survivalcoding.ifkakao.R
