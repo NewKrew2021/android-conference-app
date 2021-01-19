@@ -8,6 +8,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.ui.base.BaseActivity
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,10 +44,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun eventProcess() {
         binding.tvTitleMain.setOnClickListener {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<MainFragment>(R.id.fragment_container_view)
-            }
+            replaceFragment<MainFragment>(R.id.fragment_container_view)
         }
     }
 
