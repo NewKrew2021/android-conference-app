@@ -70,13 +70,6 @@ class DataModel() : Model {
         val collectionType = object : TypeToken<List<DataModelItem>>() {}.type  // json데이터 타입 지정
         // fromJson : Json >> TypeToken의 제네릭 타입 (여기선 List<DataModelItem>)
         return gson.fromJson(data, collectionType)
-
-        // toJson : TypeToken의 제네릭 타입 (여기선 List<DataModelItem>) >> Json
-        val list: List<DataModelItem> = mutableListOf(
-            DataModelItem(false, "temp", "data", "just", "for", "understanding"),
-            DataModelItem(false, "end", "link", "location", "name", "start")
-        )
-        val jsonString = gson.toJson(list) // data to json
     }
 
 }
