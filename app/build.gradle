@@ -51,4 +51,6 @@ dependencies {
 
     implementation network_libraries.values()
     kapt network_codegens.values()
+
+    implementation fragment_libraries.values()
 }
