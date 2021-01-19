@@ -34,14 +34,19 @@ class ConferenceListFragment(private val repository: Repository) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         conferenceListAdapter = ConferenceListAdapter()
         binding.apply {
-            conferenceListView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            conferenceListView.addItemDecoration(
+                DividerItemDecoration(
+                    context,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
             conferenceListView.adapter = conferenceListAdapter
         }
         updateList()
     }
 
     private fun updateList() {
-        val list = repository.getConferenceList()
+        val list = repository.getRequests()
         conferenceListAdapter.submitList(list)
     }
 

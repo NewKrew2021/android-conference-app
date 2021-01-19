@@ -6,23 +6,24 @@ import com.survivalcoding.ifkakao.databinding.ConferenceItemBinding
 import com.survivalcoding.ifkakao.holder.ConferenceListViewHolder
 import com.survivalcoding.ifkakao.model.Conferences
 import androidx.recyclerview.widget.ListAdapter
+import com.survivalcoding.ifkakao.extension.loadUrl
+import com.survivalcoding.ifkakao.model.conferenceData.Data
 
 
 class ConferenceListAdapter :
-    ListAdapter<Conferences, ConferenceListViewHolder>(ConferenceCallback) {
+    ListAdapter<Data, ConferenceListViewHolder>(ConferenceCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceListViewHolder {
-        val binding = ConferenceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ConferenceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ConferenceListViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ConferenceListViewHolder, position: Int) {
         val currentItem = getItem(holder.adapterPosition)
         holder.binding.apply {
-            name.text = currentItem.name
-            link.text = currentItem.link
-            start.text = currentItem.start
-            end.text = currentItem.end
-            location.text = currentItem.location
+            field.text = currentItem.field
+            title.text = currentItem.title
+            thumbnail.loadUrl(currentItem.linkList.pcMainImage[0].url)
         }
     }
 }
