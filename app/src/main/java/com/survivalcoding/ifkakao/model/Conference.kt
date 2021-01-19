@@ -6,4 +6,7 @@ import com.squareup.moshi.JsonClass
 data class Conference(
     val idx: Int,
     val title: String,
+    val content: String?,
+    val contentTag: String?,
+    val field: String?,
 )
