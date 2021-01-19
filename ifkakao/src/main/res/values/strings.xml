@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">IfKakao</string>
+    <string name="highlight">Highlight</string>
+    <string name="view_all_sessions">전체세션 보기</string>
+</resources>

@@ -1,12 +1,11 @@
-package com.survivalcoding.ifkakao
+package com.survivalcoding.ifkakao.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
-import com.survivalcoding.ifkakao.view.ConferenceFragmentFactory
-import com.survivalcoding.ifkakao.view.MainFragment
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
 class MainActivity : AppCompatActivity() {

@@ -9,7 +9,7 @@ import com.survivalcoding.ifkakao.model.Repository
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
 class ConferenceAdapter(
-    private val viewModel: ConferenceViewModel,
+    private val conferenceData : List<ConferenceInfo>,
     private val itemClickListener: (ConferenceInfo) -> Unit
 ) :
     RecyclerView.Adapter<ConferenceAdapter.ConferenceViewHolder>() {
@@ -21,10 +21,10 @@ class ConferenceAdapter(
     }
 
     override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
-        holder.bind(viewModel.getConferenceData()[position])
+        holder.bind(conferenceData[position])
     }
 
-    override fun getItemCount(): Int = viewModel.getConferenceData().size
+    override fun getItemCount(): Int = conferenceData.size
 
     class ConferenceViewHolder(
         private val binding: ItemConferenceBinding,

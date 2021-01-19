@@ -34,7 +34,7 @@ class MainFragment(private val viewModel: ConferenceViewModel) : Fragment() {
     }
 
     private fun initializeView() {
-        adapter = ConferenceAdapter(viewModel, itemClickListener = {
+        adapter = ConferenceAdapter(viewModel.getConferenceData(), itemClickListener = {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 addToBackStack(null)
