@@ -11,7 +11,7 @@ data class PcSpotlight(
     val description: String,
     val fileSize: Int,
     val idx: Int,
-    val mainYn: Boolean,
+    val mainYn: String,
     val type: String,
     val url: String
 )

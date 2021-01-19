@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 @Json(name = "ContentsSpeacker")
 data class ContentsSpeaker(
-    val company: String,
+    val company: String? = null,
     val contentsIdx: Int,
     val idx: Int,
     val nameEn: String,
