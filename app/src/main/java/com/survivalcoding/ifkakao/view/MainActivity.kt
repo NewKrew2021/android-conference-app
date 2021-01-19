@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
@@ -10,8 +11,8 @@ import com.survivalcoding.ifkakao.repository.ConferenceRepository
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
+    private val repository = ConferenceRepository()
     override fun onCreate(savedInstanceState: Bundle?) {
-        val repository = ConferenceRepository()
         supportFragmentManager.fragmentFactory = ConferenceFragmentFactory(repository)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -20,8 +21,13 @@ class MainActivity : AppCompatActivity() {
         if(savedInstanceState == null){
             supportFragmentManager.commit{
                 setReorderingAllowed(true)
-                add(R.id.fragmentContainerView, ListFragment(repository))
+                add(R.id.fragmentContainerView, ConferenceListFragment(repository))
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.actionbar, menu)
+        return true
     }
 }
