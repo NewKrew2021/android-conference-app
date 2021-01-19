@@ -1,10 +1,10 @@
-package com.survivalcoding.ifkakao.conference.view
+package com.survivalcoding.ifkakao.conference.view.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.survivalcoding.ifkakao.conference.data.DataModel
 import com.survivalcoding.ifkakao.conference.data.DataModelItem
-import com.survivalcoding.ifkakao.conference.view.adapter.ConferenceAdapter
+import com.survivalcoding.ifkakao.conference.view.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.ActivityConferenceBinding
 
 class ConferenceActivity : AppCompatActivity() {
@@ -16,9 +16,7 @@ class ConferenceActivity : AppCompatActivity() {
         binding = ActivityConferenceBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val conferenceAdapter by lazy {
-            ConferenceAdapter(conferenceList)
-        }
+        val conferenceAdapter = ConferenceAdapter()
 
         binding.conferenceList.adapter = conferenceAdapter
         conferenceAdapter.submitList(conferenceList)
