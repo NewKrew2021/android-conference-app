@@ -8,6 +8,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.first.App
 import com.survivalcoding.ifkakao.first.factory.ConferenceFragmentFactory
+import com.survivalcoding.ifkakao.first.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<ListFragment>(R.id.fragment_container_view)
+                add<MainFragment>(R.id.fragment_container_view)
             }
         }
     }
