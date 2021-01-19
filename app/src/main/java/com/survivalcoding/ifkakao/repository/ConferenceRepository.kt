@@ -2,6 +2,8 @@ package com.survivalcoding.ifkakao.repository
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import com.survivalcoding.ifkakao.model.Conference
+import com.survivalcoding.ifkakao.model.Response
 import com.survivalcoding.ifkakao.model.SampleItem
 
 class ConferenceRepository {
@@ -75,10 +77,10 @@ class ConferenceRepository {
         return adapter.fromJson(dummyData) ?: listOf()
     }
 
-    fun getConferencesFromData(data: String): List<SampleItem> {
+    fun getConferencesFromData(data: String): List<Conference> {
         val moshi = Moshi.Builder().build()
-        val listType = Types.newParameterizedType(List::class.java, SampleItem::class.java)
-        val adapter = moshi.adapter<List<SampleItem>>(listType)
-        return adapter.fromJson(data) ?: listOf()
+        val listTypes = Types.getRawType(Response::class.java)
+        val adapter = moshi.adapter<Response>(listTypes)
+        return adapter.fromJson(data)?.data ?: listOf()
     }
 }

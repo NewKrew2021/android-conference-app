@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
@@ -39,7 +38,8 @@ class MainActivity : AppCompatActivity() {
 
             Thread {
                 val data =
-                    getDataFrom("https://raw.githubusercontent.com/junsuk5/mock_json/main/conferences.json")
+//                    getDataFrom("https://raw.githubusercontent.com/junsuk5/mock_json/main/conferences.json")
+                    getDataFrom("https://raw.githubusercontent.com/junsuk5/mock_json/main/conf/contents.json")
 
                 runOnUiThread {
                     updateUiByData(data)
