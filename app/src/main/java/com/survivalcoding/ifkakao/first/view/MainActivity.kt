@@ -1,7 +1,8 @@
-package com.survivalcoding.ifkakao
+package com.survivalcoding.ifkakao.first.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.survivalcoding.ifkakao.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
