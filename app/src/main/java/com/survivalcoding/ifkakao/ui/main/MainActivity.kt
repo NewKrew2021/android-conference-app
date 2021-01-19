@@ -1,21 +1,15 @@
 package com.survivalcoding.ifkakao.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
-import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
-import com.survivalcoding.ifkakao.repository.ConferenceRepository
-import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
-import okhttp3.OkHttpClient
-import okhttp3.Request
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: ConferenceViewModel
-    private var adapter = ConferenceAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,41 +17,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ConferenceViewModel(ConferenceRepository())
+        setSupportActionBar(binding.toolbar)
 
-        binding.recyclerview.apply {
-            adapter = this@MainActivity.adapter
-            addItemDecoration(
-                DividerItemDecoration(
-                    this@MainActivity,
-                    DividerItemDecoration.VERTICAL
-                )
-            )
+        supportActionBar?.apply {
+            title = "if(kakao)"
+            setDisplayHomeAsUpEnabled(false)
         }
 
-        binding.testButton.setOnClickListener {
-
-            Thread {
-                val data =
-                    getDataFrom("https://raw.githubusercontent.com/junsuk5/mock_json/main/conferences.json")
-
-                runOnUiThread {
-                    updateUiByData(data)
-                }
-            }.start()
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
+                replace<MainFragment>(CONTAINER_VIEW_ID)
+                setReorderingAllowed(true)
+            }
         }
     }
 
-    private fun updateUiByData(data: String) {
-        adapter.submitList(viewModel.getConferences(data))
-//        adapter.submitList(viewModel.getSamples())
+    companion object {
+        const val CONTAINER_VIEW_ID = R.id.fragment_container
     }
-
-    private fun getDataFrom(url: String): String {
-        val request = Request.Builder().url(url).build()
-        OkHttpClient().newCall(request).execute().use {
-            return it.body!!.string()
-        }
-    }
-
 }

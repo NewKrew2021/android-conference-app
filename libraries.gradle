@@ -1,9 +1,21 @@
 ext {
     def gson_version = '2.8.6'
     def okhttp_version = '4.9.0'
+    def moshi_version = '1.11.0'
+    def moshi_codegen_version = '1.11.0'
+    def fragment_version = "1.2.5"
 
     network_libraries = [
             gson  : "com.google.code.gson:gson:$gson_version",
+            moshi : "com.squareup.moshi:moshi-kotlin:$moshi_version",
             okhttp: "com.squareup.okhttp3:okhttp:$okhttp_version",
+    ]
+
+    network_codegens = [
+            moshi_codegen: "com.squareup.moshi:moshi-kotlin-codegen:$moshi_codegen_version",
+    ]
+
+    fragment_libraries = [
+            fragment: "androidx.fragment:fragment-ktx:$fragment_version",
     ]
 }

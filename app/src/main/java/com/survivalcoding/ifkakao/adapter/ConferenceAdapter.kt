@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.databinding.ItemConferenceBinding
-import com.survivalcoding.ifkakao.model.SampleItem
+import com.survivalcoding.ifkakao.model.Conference
 
-class ConferenceAdapter : ListAdapter<SampleItem, ConferenceViewHolder>(ConferenceDiffCallback) {
+class ConferenceAdapter : ListAdapter<Conference, ConferenceViewHolder>(ConferenceDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceViewHolder {
         val binding =
