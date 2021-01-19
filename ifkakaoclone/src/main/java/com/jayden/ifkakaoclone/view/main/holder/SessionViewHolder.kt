@@ -19,6 +19,10 @@ class SessionViewHolder(private val binding: SessionItemLayoutBinding) :
                     placeholder(R.drawable.image_placeholder)
                 }
             }
+
+            item.linkList?.video?.takeIf { it.isNotEmpty() }?.get(0)?.description?.let {
+                textVideoLength.text = it
+            }
         }
     }
 }

@@ -11,6 +11,8 @@
         android:id="@+id/thumbnail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,15 +21,25 @@
         tools:srcCompat="@drawable/image_placeholder" />
 
     <TextView
+        android:id="@+id/text_video_length"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/session_video_length_background"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/thumbnail"
+        app:layout_constraintEnd_toEndOf="@id/thumbnail"
+        tools:text="08:27" />
+
+    <TextView
         android:id="@+id/text_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:background="@drawable/border_main_tag"
         android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@id/text_title"
         app:layout_constraintStart_toEndOf="@id/thumbnail"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/thumbnail"
         tools:text="서비스" />
 
     <TextView
@@ -39,4 +51,5 @@
         app:layout_constraintStart_toStartOf="@id/text_field"
         app:layout_constraintTop_toBottomOf="@id/text_field"
         tools:text="오프닝 키노트" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
