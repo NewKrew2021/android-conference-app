@@ -1,2 +1,3 @@
+include ':ifkakaoclone'
 include ':app'
 rootProject.name = "IfKakao"
