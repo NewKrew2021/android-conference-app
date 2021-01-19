@@ -1,18 +1,47 @@
 package com.survivalcoding.ifkakao.ui.view
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.ImageView
+import android.widget.Toast
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.databinding.ActivitySessionEventMenuBinding
+import com.survivalcoding.ifkakao.ui.base.BaseActivity
+import com.survivalcoding.ifkakao.ui.viewmodel.SessionEventMenuViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SessionEventMenuActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_session_event_menu)
+class SessionEventMenuActivity :
+    BaseActivity<ActivitySessionEventMenuBinding, SessionEventMenuViewModel>() {
 
-        findViewById<ImageView>(R.id.iv_close_session_event_menu).setOnClickListener {
-            finish()
+    override val layoutResourceId: Int
+        get() = R.layout.activity_session_event_menu
+
+    override val viewModel: SessionEventMenuViewModel by viewModel()
+
+    override fun initStartView() {
+        eventProcess()
+    }
+
+    override fun getViewModelData() {
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+    }
+
+    override fun startObserveData() {
+        //
+    }
+
+    private fun eventProcess() {
+
+        binding.run {
+            ivCloseSessionEventMenu.setOnClickListener {
+                finish()
+            }
+
+            tvSessionSessionEvent.setOnClickListener {
+                Toast.makeText(applicationContext, "go session fragment", Toast.LENGTH_SHORT).show()
+            }
+
+            tvEventSessionEvent.setOnClickListener {
+                Toast.makeText(applicationContext, "go event fragment", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
