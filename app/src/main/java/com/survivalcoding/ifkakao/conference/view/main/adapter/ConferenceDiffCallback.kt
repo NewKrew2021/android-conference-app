@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.conference.view.adapter
+package com.survivalcoding.ifkakao.conference.view.main.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.survivalcoding.ifkakao.conference.data.DataModelItem

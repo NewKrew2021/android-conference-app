@@ -64,9 +64,11 @@ class DataModel() : Model {
         }
     ]""".trimIndent()
 
+    // Gson 사용 https://rain2002kr.tistory.com/44
     override fun get(): List<DataModelItem> {
-        val gson = GsonBuilder().create()
-        val collectionType = object : TypeToken<List<DataModelItem>>() {}.type
+        val gson = GsonBuilder().create()   // Gson 객체 만들기
+        val collectionType = object : TypeToken<List<DataModelItem>>() {}.type  // json데이터 타입 지정
+        // fromJson : Json >> TypeToken의 제네릭 타입 (여기선 List<DataModelItem>)
         return gson.fromJson(data, collectionType)
     }
 

@@ -1,26 +1,31 @@
 package com.survivalcoding.ifkakao.conference.view
 
 import android.os.Bundle
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.add
+import androidx.fragment.app.commit
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.conference.data.DataModel
 import com.survivalcoding.ifkakao.conference.data.DataModelItem
-import com.survivalcoding.ifkakao.conference.view.adapter.ConferenceAdapter
-import com.survivalcoding.ifkakao.databinding.ActivityConferenceBinding
+import com.survivalcoding.ifkakao.conference.view.main.ConferenceListFragment
+import com.survivalcoding.ifkakao.conference.view.main.factory.ConferenceFactory
 
-class ConferenceActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityConferenceBinding
+class ConferenceActivity : AppCompatActivity(R.layout.activity_conference) {
     private val conferenceList: List<DataModelItem> by lazy { DataModel().get() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = ConferenceFactory(conferenceList)
         super.onCreate(savedInstanceState)
-        binding = ActivityConferenceBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        val conferenceAdapter by lazy {
-            ConferenceAdapter(conferenceList)
+        if (savedInstanceState == null) {
+            val fragment = supportFragmentManager.fragmentFactory.instantiate(
+                classLoader,
+                ConferenceListFragment::class.java.name
+            )
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add(R.id.conference_fragment, fragment)
+            }
         }
-
-        binding.conferenceList.adapter = conferenceAdapter
-        conferenceAdapter.submitList(conferenceList)
     }
 }
