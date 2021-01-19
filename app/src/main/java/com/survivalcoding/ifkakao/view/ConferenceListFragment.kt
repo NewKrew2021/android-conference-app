@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.adapter.ConferenceListAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentConferenceListBinding
 import com.survivalcoding.ifkakao.repository.Repository
@@ -33,12 +34,18 @@ class ConferenceListFragment(private val repository: Repository) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         conferenceListAdapter = ConferenceListAdapter()
+        val dividerItemDecoration = DividerItemDecoration(
+            context,
+            DividerItemDecoration.VERTICAL
+        )
+        context?.resources?.getDrawable(R.drawable.custom_divider, null)?.let {
+            dividerItemDecoration.setDrawable(
+                it
+            )
+        }
         binding.apply {
             conferenceListView.addItemDecoration(
-                DividerItemDecoration(
-                    context,
-                    DividerItemDecoration.VERTICAL
-                )
+                dividerItemDecoration
             )
             conferenceListView.adapter = conferenceListAdapter
         }

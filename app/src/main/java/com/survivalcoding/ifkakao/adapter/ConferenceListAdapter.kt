@@ -23,7 +23,8 @@ class ConferenceListAdapter :
         holder.binding.apply {
             field.text = currentItem.field
             title.text = currentItem.title
-            thumbnail.loadUrl(currentItem.linkList.pcMainImage[0].url)
+            thumbnail.loadUrl(currentItem.linkList.pcImage[0].url)
+
         }
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:layout_marginBottom="30dp"
+    android:layout_marginBottom="10dp"
     android:background="@android:color/transparent">
 
     <ImageView
@@ -26,6 +26,7 @@
         android:background="#474747"
         android:textColor="@color/white"
         android:textSize="12sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toRightOf="@id/thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,6 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:textColor="@color/white"
+        android:layout_marginTop="10dp"
         app:layout_constraintLeft_toRightOf="@id/thumbnail"
         app:layout_constraintTop_toBottomOf="@id/field" />
 
