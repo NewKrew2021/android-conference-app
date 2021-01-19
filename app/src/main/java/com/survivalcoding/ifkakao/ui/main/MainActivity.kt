@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
-import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +16,13 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
+
+        supportActionBar?.apply {
+            title = "if(kakao)"
+            setDisplayHomeAsUpEnabled(false)
+        }
 
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
