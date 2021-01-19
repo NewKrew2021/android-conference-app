@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentListBinding
+import com.survivalcoding.ifkakao.first.model.repository.Repository
 
 
-class ListFragment : Fragment(R.layout.fragment_list) {
+class ListFragment(private val repository: Repository) : Fragment() {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
 
