@@ -1,7 +1,7 @@
 package com.survivalcoding.ifkakao.first.model.repository
 
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import com.survivalcoding.ifkakao.first.model.Conference
 
 
@@ -67,7 +67,8 @@ class ConferenceRepository : Repository {
 ]""".trimIndent()
 
     override fun getData(): List<Conference> {
-        val collectionType = object : TypeToken<List<Conference>>() {}.type
-        return GsonBuilder().create().fromJson(dummy, collectionType)
+        val listType = Types.newParameterizedType(List::class.java, Conference::class.java)
+        val adapter = Moshi.Builder().build().adapter<List<Conference>>(listType)
+        return adapter.fromJson(dummy) ?: listOf()
     }
 }
