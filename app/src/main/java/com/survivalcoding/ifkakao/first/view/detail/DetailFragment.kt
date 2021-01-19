@@ -18,7 +18,7 @@ class DetailFragment : Fragment() {
     ): View {
 
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        requireActivity().title = "Conference List"
+        requireActivity().title = "Conference Detail"
         return binding.root
     }
 
