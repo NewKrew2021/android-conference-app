@@ -35,6 +35,19 @@ android {
     buildFeatures {
         viewBinding true
     }
+    flavorDimensions "type"
+    productFlavors {
+        ifkakao {
+            dimension "type"
+            versionCode 1
+        }
+        conference {
+            dimension "type"
+            applicationIdSuffix ".conference"
+            versionCode 1
+            versionNameSuffix "-conference"
+        }
+    }
 }
 
 dependencies {
