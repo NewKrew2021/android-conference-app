@@ -15,7 +15,7 @@ data class ContentsSpeacker(
     @Json(name = "nameEn")
     val nameEn: String,
     @Json(name = "company")
-    val company: String,
+    val company: String?,
     @Json(name = "occupation")
     val occupation: String
 )
