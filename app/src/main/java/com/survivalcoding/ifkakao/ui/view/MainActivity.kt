@@ -34,6 +34,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
             setReorderingAllowed(true)
             add<MainFragment>(R.id.fragment_container_view, "main")
         }
+
     }
 
 
