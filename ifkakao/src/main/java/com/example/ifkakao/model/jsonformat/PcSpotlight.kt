@@ -1,11 +1,9 @@
 package com.example.ifkakao.model.jsonformat
 
 
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-@Json(name = "PC_SPOTLIGHT")
 data class PcSpotlight(
     val contentsIdx: Int,
     val description: String,

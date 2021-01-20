@@ -5,7 +5,6 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-@Json(name = "SPEACKER_PROFILE")
 data class SpeakerProfile(
     val contentsIdx: Int,
     val description: String,
