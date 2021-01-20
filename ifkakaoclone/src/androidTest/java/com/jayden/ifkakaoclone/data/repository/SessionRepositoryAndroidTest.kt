@@ -1,13 +1,14 @@
 package com.jayden.ifkakaoclone.data.repository
 
+import androidx.test.core.app.ApplicationProvider
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import org.junit.After
-import org.junit.Assert.assertEquals
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class SessionRepositoryTest {
-    private val repository = SessionRepository()
+class SessionRepositoryAndroidTest {
+    private val repository = SessionRepository(ApplicationProvider.getApplicationContext())
     private val viewModel = SessionViewModel(repository)
 
     @Before
@@ -21,11 +22,11 @@ class SessionRepositoryTest {
     @Test
     fun getSessions() {
         with(repository.getSessions()) {
-            assertEquals(6, size)
+            Assert.assertEquals(54, size)
 
             this[0].let {
-                assertEquals("오프닝 키노트", it.title)
-                assertEquals(
+                Assert.assertEquals("오프닝 키노트", it.title)
+                Assert.assertEquals(
                     """
                         if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.
                         오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다. 
@@ -35,16 +36,16 @@ class SessionRepositoryTest {
                     """.trimIndent(),
                     it.content
                 )
-                assertEquals("#ifkakao2020 #이프카카오2020 #카카오컨퍼런스", it.contentTag)
-                assertEquals(
+                Assert.assertEquals("#ifkakao2020 #이프카카오2020 #카카오컨퍼런스", it.contentTag)
+                Assert.assertEquals(
                     "https://tv.kakao.com/embed/player/cliplink/414004572",
                     it.linkList?.video?.get(0)?.url
                 )
             }
 
             this[2].let {
-                assertEquals("비즈니스. 톡처럼 쉬워지다.", it.title)
-                assertEquals(
+                Assert.assertEquals("비즈니스. 톡처럼 쉬워지다.", it.title)
+                Assert.assertEquals(
                     """
                         카카오톡에서 비즈니스는 어떻게 하는 걸까요? 
                         톡처럼 쉽게 비즈니스를 할 수 있는 방법은 없을까요?
@@ -54,16 +55,16 @@ class SessionRepositoryTest {
                     """.trimIndent(),
                     it.content
                 )
-                assertEquals("#카카오비즈니스 #카카오톡채널 #카카오광고 #카카오비즈도구 ", it.contentTag)
-                assertEquals(
+                Assert.assertEquals("#카카오비즈니스 #카카오톡채널 #카카오광고 #카카오비즈도구 ", it.contentTag)
+                Assert.assertEquals(
                     "https://tv.kakao.com/embed/player/cliplink/414132708",
                     it.linkList?.video?.get(0)?.url
                 )
             }
 
             this[4].let {
-                assertEquals("혁신의 씨앗을 뿌리다. <br>카카오임팩트 펠로우십", it.title)
-                assertEquals(
+                Assert.assertEquals("혁신의 씨앗을 뿌리다. <br>카카오임팩트 펠로우십", it.title)
+                Assert.assertEquals(
                     """
                         혁신의 씨앗을 뿌리는 카카오임팩트의 새로운 시작!
                         2021년 1월, 우리 사회의 긍정적 변화를 만드는 사회혁신가들을 지원하는 '카카오임팩트펠로우십' 사업이 시작됩니다.
@@ -72,8 +73,8 @@ class SessionRepositoryTest {
                     """.trimIndent(),
                     it.content
                 )
-                assertEquals("#사회혁신 #펠로우십 #카카오임팩트 #사회공헌", it.contentTag)
-                assertEquals(
+                Assert.assertEquals("#사회혁신 #펠로우십 #카카오임팩트 #사회공헌", it.contentTag)
+                Assert.assertEquals(
                     "https://tv.kakao.com/embed/player/cliplink/413991179",
                     it.linkList?.video?.get(0)?.url
                 )
@@ -83,6 +84,6 @@ class SessionRepositoryTest {
 
     @Test
     fun getSessionsEqualsInViewModel() {
-        assertEquals(repository.getSessions(), viewModel.getSessions())
+        Assert.assertEquals(repository.getSessions(), viewModel.getSessions())
     }
 }
