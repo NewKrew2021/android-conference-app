@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,9 +22,7 @@ class SessionListFragment : Fragment() {
         SessionListAdapter()
     }
 
-    private val activityViewModel by lazy {
-        ViewModelProvider(requireActivity())[SessionViewModel::class.java]
-    }
+    private val activityViewModel: SessionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
