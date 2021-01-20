@@ -1,14 +1,14 @@
-package com.survivalcoding.ifkakao.confpractice
+package com.survivalcoding.ifkakao.data.repository
 
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class ConferenceRepositoryTest {
 
     private val repository = ConferenceRepository()
+
     @Before
     fun setUp() {
     }
@@ -18,8 +18,7 @@ class ConferenceRepositoryTest {
     }
 
     @Test
-    fun getData() {
-        assertEquals(8, repository.getData().size)
-        assertEquals("SwiftLeeds", repository.getData()[0].name)
+    fun getConferenceResponse() {
+        assertEquals(28, repository.getConferenceResponse()[0].idx)
     }
 }

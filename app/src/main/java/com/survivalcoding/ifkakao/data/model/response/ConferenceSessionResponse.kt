@@ -37,7 +37,7 @@ data class ConferenceSessionResponse(
     @Json(name = "linkList")
     val linkList: ConferenceLinkListResponse,
     @Json(name = "contentsSpeackerList")
-    val contentsSpeakerList: List<ConferenceSpeakerResponse>,
+    val contentsSpeakerList: List<ConferenceContentsSpeakerResponse>,
     @Json(name = "favoriteYn")
     val favoriteYn: String,
     @Json(name = "newCountentsYn")
@@ -49,9 +49,17 @@ data class ConferenceSessionResponse(
     @Json(name = "reservationUTC")
     val reservationUTC: Long,
     @Json(name = "companyName")
-    val companyName: String,
+    val companyName: String? = null,
     @Json(name = "speackerName")
     val speakerName: String,
     @Json(name = "videoYn")
-    val videoYn: String
-)
+    val videoYn: String,
+) {
+    fun parseString(string: String) = string.replace("<br>", "\n")
+
+    fun parseImageUrl(session: ConferenceSessionResponse) = session.linkList.moImage[0].url
+
+    fun parseRunningTime(session: ConferenceSessionResponse) =
+        session.linkList.video[0].description
+}
+
