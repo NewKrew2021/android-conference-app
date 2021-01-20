@@ -7,6 +7,6 @@ import com.squareup.moshi.JsonClass
 data class ConferenceData(
     val success: Boolean,
     val code: Int,
-    val data: List<Data>,
+    val data: List<Session>,
     val errorMessage: String? = null,
 )
