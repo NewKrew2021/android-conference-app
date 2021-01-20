@@ -26,7 +26,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     override fun getViewModelData() {
-        //
+        viewModel.getConferenceData()
     }
 
     override fun startObserveData() {

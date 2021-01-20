@@ -13,5 +13,5 @@ data class ConferenceResponse(
     @Json(name = "data")
     val `data`: List<ConferenceSessionResponse>,
     @Json(name = "errorMessage")
-    val errorMessage: Any
+    val errorMessage: Any?
 )
