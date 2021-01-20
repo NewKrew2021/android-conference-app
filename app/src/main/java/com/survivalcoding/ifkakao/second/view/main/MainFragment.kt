@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
+import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
 
-class MainFragment : Fragment() {
+class MainFragment(private val viewModel: ContentViewModel) : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
 
