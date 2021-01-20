@@ -26,13 +26,14 @@ class SessionRepository(private val context: Context) : Repository {
         var result: String? = null
 
         try {
-            var i = inputStream.read()
-            while (i != -1) {
-                outputStream.write(i)
-                i = inputStream.read()
+            inputStream.use {
+                var i = it.read()
+                while (i != -1) {
+                    outputStream.write(i)
+                    i = it.read()
+                }
+                result = String(outputStream.toByteArray(), Charsets.UTF_8)
             }
-            result = String(outputStream.toByteArray(), Charsets.UTF_8)
-            inputStream.close()
         } catch (e: IOException) {
             e.printStackTrace()
         }
