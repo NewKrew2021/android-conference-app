@@ -5,12 +5,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.survivalcoding.ifkakao.model.Conference
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
-import com.survivalcoding.ifkakao.model.TmpConference
-import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
 import okhttp3.*
 import java.io.IOException
-import java.util.logging.Level.parse
-import kotlin.properties.Delegates
 
 
 class ConferenceRepository {
@@ -18,13 +14,11 @@ class ConferenceRepository {
     val url = "https://raw.githubusercontent.com/junsuk5/mock_json/main/conf/contents.json"
     val client = OkHttpClient()
     val request = Request.Builder().url(url).build()
-    var _listData = mutableListOf<ConferenceAppFront>()
+    private var _listData = mutableListOf<ConferenceAppFront>()
     val listData get() = _listData
-    var isFinish = "1"
-    //lateinit var tmpAdapter : RecyclerAdapter  //나중에 삭제,, 임시
 
+    fun getData(callback: (List<ConferenceAppFront>) -> (Unit)) {
 
-    fun getData() {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -43,21 +37,23 @@ class ConferenceRepository {
                         var titleTmp = topData.data[i].title
                         var imageUrl = topData.data[i].linkList.PC_IMAGE[0].url
                         var title = titleTmp.replace("<br>", "\n")
-                        _listData.add(ConferenceAppFront(length, field, title, imageUrl))
+                        _listData.add(
+                            ConferenceAppFront(
+                                length,
+                                field,
+                                title,
+                                imageUrl
+                            )
+                        )
                     }
+                    callback(listData)
+                    Log.d("log2", "onResponse: ")
                 }
-
-
-                // tmpAdapter.submitList(null)
-                // tmpAdapter.submitList(listData.toList())
-                // tmpAdapter.notifyDataSetChanged()
-                //Log.d("로그", "$listData ")
-                //isFinish="changed"
+                //
             }
 
         })
 
     }
-
 
 }
