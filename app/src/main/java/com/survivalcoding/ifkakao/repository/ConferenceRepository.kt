@@ -1,10 +1,6 @@
 package com.survivalcoding.ifkakao.repository
 
-import android.telecom.Conference
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.survivalcoding.ifkakao.model.Conferences
 import com.survivalcoding.ifkakao.model.Requests
 import com.survivalcoding.ifkakao.model.conferenceData.Data
 

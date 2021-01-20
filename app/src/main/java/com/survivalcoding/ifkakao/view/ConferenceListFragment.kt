@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ResourceCursorAdapter
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.adapter.ConferenceListAdapter
@@ -17,9 +19,9 @@ class ConferenceListFragment(private val repository: Repository) : Fragment() {
     lateinit var conferenceListAdapter: ConferenceListAdapter
     private val binding get() = _bindng!!
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _bindng = FragmentConferenceListBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -35,17 +37,16 @@ class ConferenceListFragment(private val repository: Repository) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         conferenceListAdapter = ConferenceListAdapter()
         val dividerItemDecoration = DividerItemDecoration(
-            context,
-            DividerItemDecoration.VERTICAL
+                context,
+                DividerItemDecoration.VERTICAL
         )
-        context?.resources?.getDrawable(R.drawable.custom_divider, null)?.let {
-            dividerItemDecoration.setDrawable(
-                it
-            )
+        ResourcesCompat.getDrawable(requireContext().resources, R.drawable.custom_divider, null)?.let {
+            dividerItemDecoration.setDrawable(it)
         }
+
         binding.apply {
             conferenceListView.addItemDecoration(
-                dividerItemDecoration
+                    dividerItemDecoration
             )
             conferenceListView.adapter = conferenceListAdapter
         }

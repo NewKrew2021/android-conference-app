@@ -24,7 +24,11 @@ class ConferenceListAdapter :
             field.text = currentItem.field
             title.text = currentItem.title
             thumbnail.loadUrl(currentItem.linkList.pcImage[0].url)
-
+            runningTime.text = getRunningTime(currentItem)
         }
+    }
+
+    fun getRunningTime(conferenceItem: Data) : String{
+        return conferenceItem.linkList.video[0].description
     }
 }
