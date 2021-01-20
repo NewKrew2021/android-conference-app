@@ -53,4 +53,8 @@ dependencies {
     kapt network_codegens.values()
 
     implementation fragment_libraries.values()
+
+    implementation image_libraries.values()
+
+    implementation lifecycle_libraries.values()
 }

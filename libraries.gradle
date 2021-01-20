@@ -4,6 +4,8 @@ ext {
     def moshi_version = '1.11.0'
     def moshi_codegen_version = '1.11.0'
     def fragment_version = "1.2.5"
+    def coil_version = '1.1.1'
+    def lifecycle_version = '2.2.0'
 
     network_libraries = [
             gson  : "com.google.code.gson:gson:$gson_version",
@@ -17,5 +19,14 @@ ext {
 
     fragment_libraries = [
             fragment: "androidx.fragment:fragment-ktx:$fragment_version",
+    ]
+
+    image_libraries = [
+            coil: "io.coil-kt:coil:$coil_version",
+    ]
+
+    lifecycle_libraries = [
+            view_model: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            live_data : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
     ]
 }

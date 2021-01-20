@@ -6,6 +6,6 @@ import com.squareup.moshi.JsonClass
 data class Response(
     val success: Boolean,
     val code: Int,
-    val data: List<Conference>?,
+    val `data`: List<Conference>?,
     val errorMessage: String?,
 )

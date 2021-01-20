@@ -20,8 +20,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         supportActionBar?.apply {
-            title = "if(kakao)"
-            setDisplayHomeAsUpEnabled(false)
+            title = "if(kakao)2020"
         }
 
         if (savedInstanceState == null) {

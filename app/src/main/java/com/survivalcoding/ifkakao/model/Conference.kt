@@ -8,5 +8,6 @@ data class Conference(
     val title: String,
     val content: String?,
     val contentTag: String?,
-    val field: String?,
+    val `field`: String?,
+    val linkList: LinkList,
 )
