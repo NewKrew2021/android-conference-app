@@ -32,5 +32,6 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bindView(session: ConferenceSessionResponse) {
         binding.session = session
+        binding.ivThumbnailSession.clipToOutline = true
     }
 }

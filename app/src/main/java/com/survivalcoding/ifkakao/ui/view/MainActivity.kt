@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.ui.view
 
+import android.os.Bundle
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
@@ -17,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     override val viewModel: MainViewModel by viewModel()
 
     override fun initStartView() {
-        setInstanceState()
+        //
     }
 
     override fun getViewModelData() {
@@ -29,13 +30,16 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
         //
     }
 
-    private fun setInstanceState() {
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            add<MainFragment>(R.id.fragment_container_view, "main")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if(savedInstanceState == null) {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<MainFragment>(R.id.fragment_container_view, "main")
+            }
         }
-
     }
+
 
 
 }

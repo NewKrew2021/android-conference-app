@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ScrollView
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
@@ -65,6 +66,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         binding.rvVideoMain.apply {
             layoutManager = layout(context)
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         }
     }
 

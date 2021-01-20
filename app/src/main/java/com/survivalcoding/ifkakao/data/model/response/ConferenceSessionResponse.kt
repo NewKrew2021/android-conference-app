@@ -53,5 +53,12 @@ data class ConferenceSessionResponse(
     @Json(name = "speackerName")
     val speakerName: String,
     @Json(name = "videoYn")
-    val videoYn: String
-)
+    val videoYn: String,
+) {
+    fun parseString(string: String) = string.replace("<br>", "\n")
+
+    fun parseImageUrl(session: ConferenceSessionResponse) = session.linkList.moImage[0].url
+
+    fun parseRunningTime(session: ConferenceSessionResponse) = session.linkList.video[0].description.toString()
+}
+
