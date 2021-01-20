@@ -66,9 +66,9 @@ class ConferenceRepository : Repository {
   }
 ]""".trimIndent()
 
-    override fun getData(): List<Conference> {
+    override fun getData(callback: (List<Conference>) -> Unit) {
         val listType = Types.newParameterizedType(List::class.java, Conference::class.java)
         val adapter = Moshi.Builder().build().adapter<List<Conference>>(listType)
-        return adapter.fromJson(dummy) ?: listOf()
+        callback.invoke(adapter.fromJson(dummy) ?: listOf())
     }
 }
