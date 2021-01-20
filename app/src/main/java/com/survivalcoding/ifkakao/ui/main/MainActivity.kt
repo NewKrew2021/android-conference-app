@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.apply {
             title = "if(kakao)"
-            setDisplayHomeAsUpEnabled(false)
         }
 
         if (savedInstanceState == null) {
