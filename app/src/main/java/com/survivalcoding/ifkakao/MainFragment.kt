@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
@@ -24,8 +25,6 @@ class MainFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-    //val conferenceRepository = ConferenceRepository()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -38,7 +37,8 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        val conferenceViewModel = ConferenceViewModel()
+        //val conferenceViewModel = ConferenceViewModel()
+        val conferenceViewModel: ConferenceViewModel by viewModels()
 
         adapter = RecyclerAdapter() {
             parentFragmentManager.commit {
@@ -54,7 +54,6 @@ class MainFragment : Fragment() {
             adapter.submitList(it)
         }
         conferenceViewModel.getData()
-
 
 
         return view
