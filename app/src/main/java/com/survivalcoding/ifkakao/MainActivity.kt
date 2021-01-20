@@ -6,13 +6,10 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.factory.MyFragmentFactory
-import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: RecyclerAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +27,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 
 }
