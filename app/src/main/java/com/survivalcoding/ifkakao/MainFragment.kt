@@ -24,10 +24,12 @@ class MainFragment : Fragment() {
     private lateinit var adapter: RecyclerAdapter
 
     private val binding get() = _binding!!
+    val conferenceViewModel: ConferenceViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        conferenceViewModel.getData()
     }
 
     override fun onCreateView(
@@ -36,10 +38,7 @@ class MainFragment : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val view = binding.root
-
-        //val conferenceViewModel = ConferenceViewModel()
-        val conferenceViewModel: ConferenceViewModel by viewModels()
-
+        
         adapter = RecyclerAdapter() {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
@@ -53,7 +52,6 @@ class MainFragment : Fragment() {
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
-        conferenceViewModel.getData()
 
 
         return view

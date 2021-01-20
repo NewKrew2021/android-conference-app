@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.repository
 
+import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.survivalcoding.ifkakao.model.Conference
@@ -18,13 +19,13 @@ class ConferenceRepository {
 
     fun getData(callback: (List<ConferenceAppFront>) -> (Unit)) {
 
+
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 //에러 메세지 출력
             }
 
             override fun onResponse(call: Call, response: Response) {
-
                 if (response.isSuccessful) {
                     val body = response.body()?.string()
                     val gson = GsonBuilder().create()
@@ -46,6 +47,7 @@ class ConferenceRepository {
                         )
                     }
                     callback(listData)
+                    Log.d("log2", "onResponse: ")
                 }
                 //
             }
