@@ -6,15 +6,13 @@ import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondActivityMainBinding
-import com.survivalcoding.ifkakao.second.App
 import com.survivalcoding.ifkakao.second.factory.ContentFragmentFactory
 import com.survivalcoding.ifkakao.second.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: SecondActivityMainBinding
-    private val repository by lazy { (application as App).repository }
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = ContentFragmentFactory(repository)
+        supportFragmentManager.fragmentFactory = ContentFragmentFactory()
         super.onCreate(savedInstanceState)
         binding = SecondActivityMainBinding.inflate(layoutInflater)
         val view = binding.root

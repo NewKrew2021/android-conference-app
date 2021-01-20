@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.second.model.repository
 
 import com.squareup.moshi.Moshi
-import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.model.Contents
 
 
@@ -787,8 +786,8 @@ class ContentRepository : Repository {
   "errorMessage": null
 }""".trimIndent()
 
-    override fun getData(): Contents {
+    override fun getData(callback: (Contents) -> Unit) {
         val adapter = Moshi.Builder().build().adapter(Contents::class.java)
-        return adapter.fromJson(dummy) ?: Contents(0, listOf<ContentData>(), false, "parsing fail")
+        callback.invoke(adapter.fromJson(dummy) ?: Contents(0, listOf(), false, "parsing fail"))
     }
 }

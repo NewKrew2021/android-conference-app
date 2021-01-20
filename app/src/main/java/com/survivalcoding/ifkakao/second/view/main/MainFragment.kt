@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
+import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
 
-class MainFragment(private val viewModel: ContentViewModel) : Fragment() {
+class MainFragment : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy {
@@ -31,7 +33,11 @@ class MainFragment(private val viewModel: ContentViewModel) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-        updateUI()
+        val viewModel: ContentViewModel by viewModels()
+        viewModel.data.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+        viewModel.loadData()
     }
 
     override fun onDestroyView() {
@@ -39,8 +45,8 @@ class MainFragment(private val viewModel: ContentViewModel) : Fragment() {
         _binding = null
     }
 
-    private fun updateUI() {
-        adapter.submitList(viewModel.getData().data)
+    private fun updateUI(data: List<ContentData>) {
+        adapter.submitList(data)
     }
 
 }
