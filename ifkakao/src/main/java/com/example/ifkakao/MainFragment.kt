@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
-import com.example.ifkakao.model.ConferenceRepository
-import com.example.ifkakao.model.Repository
+import com.example.ifkakao.viewmodel.SessionViewModel
 
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: SessionViewModel by viewModels()
     private lateinit var adapter: SessionAdapter
-    private val repository: Repository = ConferenceRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,15 +27,20 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
+        observeData()
     }
 
     private fun initializeView() {
-        adapter = SessionAdapter(repository.getConferenceData().data)
+        adapter = SessionAdapter()
         binding.conferenceRecyclerView.adapter = adapter
-        updateList()
+        viewModel.updateSessionData()
     }
 
-    private fun updateList() {
-        adapter.submitList(repository.getConferenceData().data.toList())
+    private fun observeData() {
+        viewModel.apply {
+            sessionList.observe(viewLifecycleOwner) {
+                adapter.updateList(it.toList())
+            }
+        }
     }
 }

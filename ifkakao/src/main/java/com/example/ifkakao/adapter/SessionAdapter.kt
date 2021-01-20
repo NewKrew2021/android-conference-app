@@ -9,9 +9,10 @@ import com.example.ifkakao.R
 import com.example.ifkakao.databinding.ItemSessionBinding
 import com.example.ifkakao.model.jsonformat.Session
 
-class SessionAdapter(private val sessionList: List<Session>) :
+class SessionAdapter :
     ListAdapter<Session, SessionAdapter.SessionViewHolder>(SessionDiffUtilCallback()) {
     private lateinit var binding: ItemSessionBinding
+    private var sessionList: List<Session> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
         binding = ItemSessionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -20,6 +21,11 @@ class SessionAdapter(private val sessionList: List<Session>) :
 
     override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         holder.bind(sessionList[position])
+    }
+
+    fun updateList(sessionList: List<Session>) {
+        this.sessionList = sessionList
+        submitList(sessionList)
     }
 
     class SessionViewHolder(private val binding: ItemSessionBinding) :
