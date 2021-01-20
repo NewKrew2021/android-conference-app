@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
     private fun observeData() {
         viewModel.apply {
             sessionList.observe(viewLifecycleOwner) {
-                adapter.updateList(it.toList())
+                adapter.submitList(it.toList())
             }
         }
     }
