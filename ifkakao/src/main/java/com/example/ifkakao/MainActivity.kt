@@ -1,7 +1,7 @@
 package com.example.ifkakao
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.ifkakao.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
