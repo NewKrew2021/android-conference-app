@@ -17,6 +17,7 @@
         tools:src="@drawable/thumbnail_placeholder" />
 
     <TextView
+        android:id="@+id/description_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
