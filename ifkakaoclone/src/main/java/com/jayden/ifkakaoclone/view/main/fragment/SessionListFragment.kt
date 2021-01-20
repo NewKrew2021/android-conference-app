@@ -52,7 +52,7 @@ class SessionListFragment : Fragment() {
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            adapter.setItems(it)
+            adapter.addHeaderAndSetItems(it)
             adapter.notifyDataSetChanged()
         }
     }
