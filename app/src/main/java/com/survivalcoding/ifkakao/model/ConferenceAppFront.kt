@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.model
 
 import android.os.Parcelable
+import com.squareup.moshi.JsonClass
 
 
 @kotlinx.android.parcel.Parcelize

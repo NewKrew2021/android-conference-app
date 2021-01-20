@@ -7,5 +7,4 @@ class ConferenceAppFrontRepository {
     var _data = mutableListOf<ConferenceAppFront>()
     val data  get()=_data
 
-
 }

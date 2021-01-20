@@ -1,21 +1,20 @@
 package com.survivalcoding.ifkakao
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
-import com.survivalcoding.ifkakao.model.ConferenceAppFront
-import com.survivalcoding.ifkakao.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
+import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
 
 
 class MainFragment : Fragment() {
@@ -25,8 +24,7 @@ class MainFragment : Fragment() {
 
     private val binding get() = _binding!!
 
-
-    val conferenceRepository = ConferenceRepository()
+    //val conferenceRepository = ConferenceRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,25 +35,30 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        //conferenceRepository.isFinish=finishDownload
+        val conferenceViewModel = ConferenceViewModel()
 
-        conferenceRepository.getData()
-
-        adapter = RecyclerAdapter()
+        adapter = RecyclerAdapter() {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<detailFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
+            }
+        }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
 
-        updateRecycler(conferenceRepository.listData)
+        conferenceViewModel.listData.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+        conferenceViewModel.getData()
+
+
+
         return view
     }
 
-    fun updateRecycler(data : MutableList<ConferenceAppFront>){
-        Thread.sleep(1000) //임시로 해놓음
-        adapter.submitList(data.toList())
-    }
 
 }
