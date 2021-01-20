@@ -1,10 +1,10 @@
-package com.survivalcoding.ifkakao.first.factory
+package com.survivalcoding.ifkakao.second.factory
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.survivalcoding.ifkakao.first.view.main.MainFragment
+import com.survivalcoding.ifkakao.second.view.main.MainFragment
 
-class ConferenceFragmentFactory() : FragmentFactory() {
+class ContentFragmentFactory : FragmentFactory() {
 
     override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
         return when (loadFragmentClass(classLoader, className)) {

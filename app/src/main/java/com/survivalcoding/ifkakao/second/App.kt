@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.first
+package com.survivalcoding.ifkakao.second
 
 import android.app.Application
 

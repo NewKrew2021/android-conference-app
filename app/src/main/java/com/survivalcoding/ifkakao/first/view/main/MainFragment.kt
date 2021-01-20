@@ -8,16 +8,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
-import com.survivalcoding.ifkakao.first.model.repository.Repository
+import com.survivalcoding.ifkakao.databinding.FirstFragmentMainBinding
+import com.survivalcoding.ifkakao.first.model.Conference
 import com.survivalcoding.ifkakao.first.view.MainActivity.Companion.MAIN_TO_DETAIL
 import com.survivalcoding.ifkakao.first.view.detail.DetailFragment
 import com.survivalcoding.ifkakao.first.view.main.adapter.ConferenceMainAdapter
+import com.survivalcoding.ifkakao.first.viewmodel.ConferenceViewModel
 
 
-class MainFragment(private val repository: Repository) : Fragment() {
-    private var _binding: FragmentMainBinding? = null
+class MainFragment : Fragment() {
+    private var _binding: FirstFragmentMainBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy {
         ConferenceMainAdapter(itemClickListener = {
@@ -35,8 +37,7 @@ class MainFragment(private val repository: Repository) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FirstFragmentMainBinding.inflate(inflater, container, false)
         requireActivity().title = "Conference List"
         return binding.root
     }
@@ -44,7 +45,11 @@ class MainFragment(private val repository: Repository) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-        updateUI()
+        val viewModel: ConferenceViewModel by viewModels()
+        viewModel.data.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
+        viewModel.loadData()
     }
 
     override fun onDestroyView() {
@@ -52,7 +57,7 @@ class MainFragment(private val repository: Repository) : Fragment() {
         _binding = null
     }
 
-    private fun updateUI() {
-        adapter.submitList(repository.getData())
+    private fun updateUI(data: List<Conference>) {
+        adapter.submitList(data)
     }
 }

@@ -1,21 +1,20 @@
-package com.survivalcoding.ifkakao.first.view
+package com.survivalcoding.ifkakao.second.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.FirstActivityMainBinding
-import com.survivalcoding.ifkakao.first.factory.ConferenceFragmentFactory
-import com.survivalcoding.ifkakao.first.view.main.MainFragment
+import com.survivalcoding.ifkakao.databinding.SecondActivityMainBinding
+import com.survivalcoding.ifkakao.second.factory.ContentFragmentFactory
+import com.survivalcoding.ifkakao.second.view.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: FirstActivityMainBinding
-
+    private lateinit var binding: SecondActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = ConferenceFragmentFactory()
+        supportFragmentManager.fragmentFactory = ContentFragmentFactory()
         super.onCreate(savedInstanceState)
-        binding = FirstActivityMainBinding.inflate(layoutInflater)
+        binding = SecondActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
         if (savedInstanceState == null) {
@@ -24,9 +23,5 @@ class MainActivity : AppCompatActivity() {
                 add<MainFragment>(R.id.fragment_container_view)
             }
         }
-    }
-
-    companion object {
-        const val MAIN_TO_DETAIL = "main_to_detail"
     }
 }
