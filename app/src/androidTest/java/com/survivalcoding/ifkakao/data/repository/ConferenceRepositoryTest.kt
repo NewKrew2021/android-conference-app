@@ -7,7 +7,7 @@ import org.junit.Test
 
 class ConferenceRepositoryTest {
 
-    private val repository =  ConferenceRepository()
+    private val repository = ConferenceRepository()
 
     @Before
     fun setUp() {

@@ -45,9 +45,9 @@
                 android:paddingTop="2dp"
                 android:paddingEnd="3dp"
                 android:paddingBottom="2dp"
-                android:textSize="@dimen/body_12"
                 android:text="@{session.parseRunningTime(session)}"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="@dimen/body_12" />
 
         </FrameLayout>
 

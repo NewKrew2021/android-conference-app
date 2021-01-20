@@ -59,6 +59,7 @@ data class ConferenceSessionResponse(
 
     fun parseImageUrl(session: ConferenceSessionResponse) = session.linkList.moImage[0].url
 
-    fun parseRunningTime(session: ConferenceSessionResponse) = session.linkList.video[0].description.toString()
+    fun parseRunningTime(session: ConferenceSessionResponse) =
+        session.linkList.video[0].description
 }
 

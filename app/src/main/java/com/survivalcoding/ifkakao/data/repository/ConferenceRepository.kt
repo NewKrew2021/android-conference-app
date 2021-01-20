@@ -7,7 +7,7 @@ import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 
 class ConferenceRepository : ConferenceRepositoryContract {
 
-    override fun getConferenceResponse() : List<ConferenceSessionResponse> {
+    override fun getConferenceResponse(): List<ConferenceSessionResponse> {
         val moshi = Moshi.Builder().build()
         val adapter: JsonAdapter<ConferenceResponse> = moshi.adapter(ConferenceResponse::class.java)
         val result = adapter.fromJson(dummyData)

@@ -18,7 +18,7 @@
 
     <!-- fragment_main -->
     <dimen name="iv_title_poster_height">550dp</dimen>
-    
+
     <!-- item session -->
     <dimen name="iv_thumbnail_session_width">130dp</dimen>
     <dimen name="iv_thumbnail_session_height">70dp</dimen>

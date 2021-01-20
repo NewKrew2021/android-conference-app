@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
 
-abstract class BaseActivity<T : ViewDataBinding, R : ViewModel> : AppCompatActivity(){
+abstract class BaseActivity<T : ViewDataBinding, R : ViewModel> : AppCompatActivity() {
 
     lateinit var binding: T
 
