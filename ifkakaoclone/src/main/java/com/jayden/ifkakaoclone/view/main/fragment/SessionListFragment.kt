@@ -45,7 +45,7 @@ class SessionListFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(
                 DividerItemDecoration(
-                    context,
+                    requireContext(),
                     LinearLayoutManager.VERTICAL
                 )
             )
