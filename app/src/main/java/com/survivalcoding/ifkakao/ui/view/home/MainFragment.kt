@@ -1,13 +1,17 @@
 package com.survivalcoding.ifkakao.ui.view.home
 
+import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ScrollView
+import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.setToolbar
+import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel
@@ -23,6 +27,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun initStartView() {
         setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
         eventProcess()
+        setRecyclerView()
     }
 
     override fun getViewModelData() {
@@ -30,7 +35,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     override fun startObserveData() {
-        //
+        observeConferenceSessionData()
     }
 
     private fun eventProcess() {
@@ -39,6 +44,31 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         }
     }
 
+    /* observe data */
+    private fun observeConferenceSessionData() {
+        val sessionAdapter = SessionAdapter()
+        viewModel.conferenceData.observe(this) {
+            binding.rvVideoMain.adapter = sessionAdapter
+            sessionAdapter.setList(it)
+        }
+    }
+
+    /* set view */
+    private fun setRecyclerView() {
+        val layout = { context: Context ->
+            LinearLayoutManager(
+                context,
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+        }
+        binding.rvVideoMain.apply {
+            layoutManager = layout(context)
+            setHasFixedSize(true)
+        }
+    }
+
+    /* set menu */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu, menu)

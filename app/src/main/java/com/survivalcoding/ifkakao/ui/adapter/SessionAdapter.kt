@@ -22,6 +22,10 @@ class SessionAdapter : RecyclerView.Adapter<SessionViewHolder>() {
         holder.bindView((sessionList[position]))
     }
 
+    fun setList(list: List<ConferenceSessionResponse>) {
+        this.sessionList = list as MutableList<ConferenceSessionResponse>
+    }
+
 }
 
 class SessionViewHolder(private val binding: ItemSessionBinding) :
