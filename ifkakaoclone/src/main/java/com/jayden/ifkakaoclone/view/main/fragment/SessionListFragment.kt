@@ -9,12 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jayden.ifkakaoclone.data.repository.Repository
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
 
-class SessionListFragment(repository: Repository) : Fragment() {
+class SessionListFragment : Fragment() {
     private var _binding: FragmentSessionListBinding? = null
     private val binding
         get() = _binding!!

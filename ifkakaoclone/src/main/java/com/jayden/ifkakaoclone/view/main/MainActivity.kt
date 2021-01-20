@@ -10,14 +10,11 @@ import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.data.repository.Repository
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.ActivityMainBinding
-import com.jayden.ifkakaoclone.factory.SessionFragmentFactory
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory =
-            SessionFragmentFactory((application as App).repository)
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
