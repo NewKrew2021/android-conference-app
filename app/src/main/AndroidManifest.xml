@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.IfKakao">
-        <activity android:name=".conference.view.ConferenceActivity">
+        <activity android:name=".ifkakao.view.IfKakaoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

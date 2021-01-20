@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/thumbnail"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="4"
@@ -18,6 +19,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/field"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
@@ -26,6 +28,7 @@
             tools:text="서비스" />
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"
