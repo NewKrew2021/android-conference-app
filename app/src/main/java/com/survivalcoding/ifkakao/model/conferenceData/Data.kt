@@ -23,7 +23,7 @@ data class Data(
     @Json(name = "content")
     val content: String,
     @Json(name = "contentTag")
-    val contentTag: String,
+    val contentTag: String?,
     @Json(name = "reservationDate")
     val reservationDate: String,
     @Json(name = "reservationTime")
@@ -49,7 +49,7 @@ data class Data(
     @Json(name = "reservationUTC")
     val reservationUTC: Long,
     @Json(name = "companyName")
-    val companyName: String,
+    val companyName: String?,
     @Json(name = "speackerName")
     val speackerName: String,
     @Json(name = "videoYn")

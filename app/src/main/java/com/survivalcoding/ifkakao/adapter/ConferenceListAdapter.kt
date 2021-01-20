@@ -2,16 +2,16 @@ package com.survivalcoding.ifkakao.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.survivalcoding.ifkakao.databinding.ConferenceItemBinding
-import com.survivalcoding.ifkakao.holder.ConferenceListViewHolder
-import com.survivalcoding.ifkakao.model.Conferences
 import androidx.recyclerview.widget.ListAdapter
+import com.survivalcoding.ifkakao.databinding.ConferenceItemBinding
 import com.survivalcoding.ifkakao.extension.loadUrl
+import com.survivalcoding.ifkakao.holder.ConferenceListViewHolder
 import com.survivalcoding.ifkakao.model.conferenceData.Data
 
 
 class ConferenceListAdapter :
     ListAdapter<Data, ConferenceListViewHolder>(ConferenceCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceListViewHolder {
         val binding =
             ConferenceItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,4 +31,6 @@ class ConferenceListAdapter :
     fun getRunningTime(conferenceItem: Data) : String{
         return conferenceItem.linkList.video[0].description
     }
+
+
 }

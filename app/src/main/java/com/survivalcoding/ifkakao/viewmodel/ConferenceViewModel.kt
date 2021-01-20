@@ -15,4 +15,6 @@ class ConferenceViewModel : ViewModel() {
             _list.postValue(it)
         }
     }
+    fun a(){
+    }
 }
