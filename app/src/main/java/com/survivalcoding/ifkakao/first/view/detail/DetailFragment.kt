@@ -18,7 +18,6 @@ import com.survivalcoding.ifkakao.first.view.MainActivity
 class DetailFragment : Fragment() {
     private var _binding: FirstFragmentDetailBinding? = null
     private val binding get() = _binding!!
-    lateinit var item: Conference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,14 +29,13 @@ class DetailFragment : Fragment() {
         requireActivity().title = "Conference Detail"
 
         arguments?.getParcelable<Conference>(MainActivity.MAIN_TO_DETAIL)?.let {
-            item = it
-            val dateText = "${item.start} - ${item.end}"
-            binding.nameText.text = item.name
-            binding.locationText.text = item.location
+            val dateText = "${it.start} - ${it.end}"
+            binding.nameText.text = it.name
+            binding.locationText.text = it.location
             binding.dateText.text = dateText
             val linkText = SpannableString(getString(R.string.hyperlink_text)).apply {
                 setSpan(
-                    URLSpan(item.link),
+                    URLSpan(it.link),
                     0,
                     getString(R.string.hyperlink_text).length,
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
