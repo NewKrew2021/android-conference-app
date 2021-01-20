@@ -1,7 +1,9 @@
 package com.survivalcoding.ifkakao.adapter
 
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.survivalcoding.ifkakao.databinding.ItemConferenceBinding
+import com.survivalcoding.ifkakao.extension.getStringExceptTags
 import com.survivalcoding.ifkakao.model.Conference
 
 class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
@@ -9,13 +11,10 @@ class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
 
     fun bind(item: Conference) {
         binding.apply {
-            title.text = trimmedString(item.title)
+            title.text = getStringExceptTags(item.title)
             field.text = item.field
+
+            binding.thumbnail.load(item.linkList.mobileImage[0].url)
         }
     }
-
-    private fun trimmedString(origin: String) = androidx.core.text.HtmlCompat.fromHtml(
-        origin,
-        androidx.core.text.HtmlCompat.FROM_HTML_MODE_LEGACY
-    )
 }
