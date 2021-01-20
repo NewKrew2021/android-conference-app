@@ -53,7 +53,7 @@ dependencies {
 
     implementation deps.coil
 
-    testImplementation deps.androidx.test.espresso
-    testImplementation deps.androidx.test.ext
     testImplementation deps.junit
+    androidTestImplementation deps.androidx.test.espresso
+    androidTestImplementation deps.androidx.test.ext
 }
