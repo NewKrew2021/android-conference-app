@@ -6,7 +6,7 @@ import com.survivalcoding.ifkakao.model.conferenceData.Data
 
 class ConferenceRepository : Repository {
 
-    override fun getRequests(): List<Data> {
+    override fun getRequests(callback: (List<Data>) -> Unit) {
         val dummy = """
             {
                 "success": true,
@@ -185,8 +185,10 @@ class ConferenceRepository : Repository {
             errorMessage = "Response is null"
         )
         if (request.success) {
-            return request.data
+            callback.invoke(request.data)
+        } else {
+            callback.invoke(emptyList())
         }
-        return emptyList()
+
     }
 }

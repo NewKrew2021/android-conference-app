@@ -1,20 +1,22 @@
 package com.survivalcoding.ifkakao.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ResourceCursorAdapter
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.adapter.ConferenceListAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentConferenceListBinding
-import com.survivalcoding.ifkakao.repository.Repository
+import com.survivalcoding.ifkakao.model.conferenceData.Data
+import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
 
-class ConferenceListFragment(private val repository: Repository) : Fragment() {
+class ConferenceListFragment() : Fragment() {
     private var _bindng: FragmentConferenceListBinding? = null
     lateinit var conferenceListAdapter: ConferenceListAdapter
     private val binding get() = _bindng!!
@@ -50,11 +52,16 @@ class ConferenceListFragment(private val repository: Repository) : Fragment() {
             )
             conferenceListView.adapter = conferenceListAdapter
         }
-        updateList()
+
+        val viewModel: ConferenceViewModel by viewModels()
+        viewModel.list.observe(viewLifecycleOwner, Observer<List<Data>>{
+            updateList(it)
+        })
+        viewModel.loadData()
+
     }
 
-    private fun updateList() {
-        val list = repository.getRequests()
+    private fun updateList(list : List<Data>) {
         conferenceListAdapter.submitList(list)
     }
 
