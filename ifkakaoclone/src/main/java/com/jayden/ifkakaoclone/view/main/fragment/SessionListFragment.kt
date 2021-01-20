@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jayden.ifkakaoclone.data.repository.Repository
@@ -17,10 +19,12 @@ class SessionListFragment(repository: Repository) : Fragment() {
     private val binding
         get() = _binding!!
 
-    private val viewModel = SessionViewModel(repository)
-
     private val adapter by lazy {
         SessionListAdapter()
+    }
+
+    private val activityViewModel by lazy {
+        ViewModelProvider(requireActivity())[SessionViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -49,11 +53,10 @@ class SessionListFragment(repository: Repository) : Fragment() {
                 )
             )
         }
-        updateUi()
-    }
 
-    private fun updateUi() {
-        adapter.setItems(viewModel.getSessions())
-        adapter.notifyDataSetChanged()
+        activityViewModel.sessions.observe(viewLifecycleOwner) {
+            adapter.setItems(it)
+            adapter.notifyDataSetChanged()
+        }
     }
 }
