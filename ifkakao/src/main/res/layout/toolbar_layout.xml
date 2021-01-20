@@ -8,5 +8,6 @@
     android:background="@drawable/session_item_border"
     android:minHeight="?attr/actionBarSize"
     android:theme="?attr/actionBarTheme"
+    app:menu="@menu/toolbar_menu"
     app:title="@string/app_name"
     app:titleTextColor="@color/white" />
