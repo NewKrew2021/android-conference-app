@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.network
 
+import com.survivalcoding.ifkakao.extension.getRetrofitService
 import com.survivalcoding.ifkakao.model.Requests
 import retrofit2.Call
 import retrofit2.http.GET
@@ -11,4 +12,8 @@ interface RetrofitService {
     companion object {
         const val BASE_URL = "https://raw.githubusercontent.com/"
     }
+}
+
+object Network{
+    val retrofitService = getRetrofitService()
 }

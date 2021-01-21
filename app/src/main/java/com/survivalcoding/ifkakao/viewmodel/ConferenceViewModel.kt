@@ -7,14 +7,11 @@ import com.survivalcoding.ifkakao.model.conferenceData.Data
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 
 class ConferenceViewModel : ViewModel() {
-    private val repository = ConferenceRepository()
+    private val repository = ConferenceRepository
     private val _list = MutableLiveData<List<Data>>()
     val list: LiveData<List<Data>> get() = _list
+
     fun loadData() {
-        repository.getRequests {
-            _list.postValue(it)
-        }
-    }
-    fun a(){
+        repository.getRequests { _list.postValue(it) }
     }
 }
