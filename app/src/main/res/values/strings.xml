@@ -4,6 +4,9 @@
 
     <!-- Menu -->
     <string name="toolbar_item_main">toolbar_item_main</string>
+    <string name="toolbar_item_filter_session">filter</string>
+    <string name="toolbar_item_like_session">like</string>
+    <string name="toolbar_item_unlike_session">unlike</string>
 
     <!-- fragment_main -->
     <string name="tv_highlight_main">Highlight</string>

@@ -4,12 +4,13 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
 import com.survivalcoding.ifkakao.extension.replaceFragment
-import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.MainActivity
+import com.survivalcoding.ifkakao.ui.view.home.MainFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,8 +23,9 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     override val viewModel: SessionViewModel by viewModel()
 
     override fun initStartView() {
-        setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
         setVideoView()
+        setCustomToolbar()
+        setToolbar()
     }
 
     override fun getViewModelData() {
@@ -34,6 +36,22 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         //
     }
 
+
+    // set toolbar
+    private fun setToolbar() {
+        val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(binding.toolbarSession)
+        setHasOptionsMenu(true)
+    }
+
+    private fun setCustomToolbar() {
+        binding.include.tvTitleMain.setOnClickListener {
+            replaceFragment<MainFragment>(R.id.fragment_container_view)
+        }
+        binding.include.ivTitleMain.setOnClickListener {
+            replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+        }
+    }
 
     // set video view
     private fun setVideoView() {
@@ -51,15 +69,11 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
+        inflater.inflate(R.menu.toolbar_menu_session,menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.toolbar_item_main -> {
-                replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }
