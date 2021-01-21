@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:text="@{conference.name}"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
+            android:text="@{conference.location}"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_text"
             tools:text="🇬🇧 Leeds, UK" />
@@ -42,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:text='@{conference.start+" - "+conference.end}'
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_text"
             tools:text="Jan 07, 2020 - Jan 08, 2020" />
@@ -52,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/hyperlink_text"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/date_text" />
+            app:layout_constraintTop_toBottomOf="@id/date_text"
+            app:link="@{conference.link}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
