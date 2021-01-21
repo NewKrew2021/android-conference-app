@@ -47,10 +47,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     /* observe data */
     private fun observeConferenceSessionData() {
-        val sessionAdapter = SessionAdapter()
         viewModel.conferenceData.observe(this) {
-            binding.rvVideoMain.adapter = sessionAdapter
-            sessionAdapter.setList(it)
+            val adapter = binding.rvVideoMain.adapter as SessionAdapter
+            adapter.setList(it)
         }
     }
 
@@ -67,18 +66,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             layoutManager = layout(context)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = SessionAdapter()
         }
     }
 
     /* set menu */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu, menu)
+        inflater.inflate(R.menu.toolbar_menu_main, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.toolbar_item_main -> {
+            R.id.action_main -> {
                 replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
                 true
             }
