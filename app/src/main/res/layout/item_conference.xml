@@ -4,8 +4,8 @@
     <data>
 
         <variable
-            name="conference"
-            type="com.survivalcoding.ifkakao.model.Conference" />
+            name="session"
+            type="com.survivalcoding.ifkakao.model.Session" />
 
     </data>
 
@@ -20,7 +20,7 @@
             android:layout_width="@dimen/match_constraint"
             android:layout_height="@dimen/match_constraint"
             android:layout_margin="4dp"
-            app:imageUrl="@{conference.linkList.mobileImage[0].url}"
+            app:imageUrl="@{session.linkList.mobileImage[0].url}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/title"
             app:layout_constraintHorizontal_weight="3"
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraint"
             android:gravity="center_vertical"
-            android:text="@{conference.field}"
+            android:text="@{session.field}"
             app:layout_constraintBottom_toTopOf="@id/title"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +45,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="2"
-            android:text="@{conference.title}"
+            android:text="@{session.trimmedTitle()}"
             android:textColor="@color/white"
             android:textSize="@dimen/title_size"
             android:textStyle="bold"
