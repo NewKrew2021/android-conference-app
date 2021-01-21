@@ -23,6 +23,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.3"
+            app:url="@{contentdata.linkList.pcImage[0].url}"
             tools:src="@drawable/thumbnail_placeholder" />
 
         <TextView
