@@ -11,6 +11,7 @@ data class Conference(
     val contentTag: String?,
     val `field`: String?,
     val linkList: LinkList,
+    val contentsSpeackerList: List<Speaker>,
 ) {
     fun trimData() {
         title = title.getStringExceptTags()
