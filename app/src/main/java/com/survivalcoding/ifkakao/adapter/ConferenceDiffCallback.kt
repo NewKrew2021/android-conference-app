@@ -1,14 +1,14 @@
 package com.survivalcoding.ifkakao.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.survivalcoding.ifkakao.model.Conference
+import com.survivalcoding.ifkakao.model.Session
 
-object ConferenceDiffCallback : DiffUtil.ItemCallback<Conference>() {
-    override fun areItemsTheSame(oldItem: Conference, newItem: Conference): Boolean {
-        return oldItem == newItem
+object ConferenceDiffCallback : DiffUtil.ItemCallback<Session>() {
+    override fun areItemsTheSame(oldItem: Session, newItem: Session): Boolean {
+        return oldItem.idx == newItem.idx
     }
 
-    override fun areContentsTheSame(oldItem: Conference, newItem: Conference): Boolean {
+    override fun areContentsTheSame(oldItem: Session, newItem: Session): Boolean {
         return oldItem == newItem
     }
 }
