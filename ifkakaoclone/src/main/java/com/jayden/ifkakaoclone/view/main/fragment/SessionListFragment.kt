@@ -49,6 +49,8 @@ class SessionListFragment : Fragment() {
                     LinearLayoutManager.VERTICAL
                 )
             )
+
+            stickyScrollView.header = filterLayout
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
