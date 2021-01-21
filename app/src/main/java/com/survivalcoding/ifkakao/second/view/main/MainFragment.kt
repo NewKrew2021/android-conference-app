@@ -16,8 +16,10 @@ class MainFragment : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy {
-        ContentMainAdapter(itemClickListener = {
-        })
+        ContentMainAdapter(
+            itemClickListener = {
+
+            })
     }
 
     override fun onCreateView(

@@ -8,7 +8,9 @@ import com.survivalcoding.ifkakao.databinding.SecondItemContentBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
-class ContentMainAdapter(private val itemClickListener: (item: ContentData) -> Unit) :
+class ContentMainAdapter(
+    private val itemClickListener: (item: ContentData) -> Unit,
+) :
     ListAdapter<ContentData, ContentMainHolder>(ContentMainDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentMainHolder {
         val view = LayoutInflater.from(parent.context)
@@ -21,8 +23,6 @@ class ContentMainAdapter(private val itemClickListener: (item: ContentData) -> U
 
     override fun onBindViewHolder(holder: ContentMainHolder, position: Int) {
         val item = getItem(position)
-        holder.binding.titleText.text = item.title
-        holder.binding.fieldText.text = item.field
-        holder.binding.descriptionText.text = item.linkList.video[0].description
+        holder.binding.contentdata = item
     }
 }
