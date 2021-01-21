@@ -17,6 +17,6 @@ class IfKakaoViewModel : ViewModel() {
 
     fun loadIfKakaoItem() {
         val parsedData = ifKakaoModel.getIfKakaoItem(ifKakaoModel.getRequest())
-        _ifKakaoItem.postValue(parsedData)
+        _ifKakaoItem.value = parsedData
     }
 }
