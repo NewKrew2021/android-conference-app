@@ -24,6 +24,7 @@ class SessionAdapter : RecyclerView.Adapter<SessionViewHolder>() {
 
     fun setList(list: List<ConferenceSessionResponse>) {
         this.sessionList = list as MutableList<ConferenceSessionResponse>
+        notifyDataSetChanged()
     }
 
 }

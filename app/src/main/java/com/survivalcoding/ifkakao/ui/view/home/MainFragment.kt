@@ -47,10 +47,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     /* observe data */
     private fun observeConferenceSessionData() {
-        val sessionAdapter = SessionAdapter()
         viewModel.conferenceData.observe(this) {
-            binding.rvVideoMain.adapter = sessionAdapter
-            sessionAdapter.setList(it)
+            val adapter = binding.rvVideoMain.adapter as SessionAdapter
+            adapter.setList(it)
         }
     }
 
@@ -67,6 +66,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             layoutManager = layout(context)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = SessionAdapter()
         }
     }
 
