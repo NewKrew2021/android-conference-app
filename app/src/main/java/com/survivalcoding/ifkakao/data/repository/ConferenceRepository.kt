@@ -14,3 +14,4 @@ class ConferenceRepository : ConferenceRepositoryContract {
         return result?.data ?: listOf()
     }
 }
+
