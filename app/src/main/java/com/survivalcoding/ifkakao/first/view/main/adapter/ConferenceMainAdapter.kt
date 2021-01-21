@@ -21,7 +21,6 @@ class ConferenceMainAdapter(private val itemClickListener: (item: Conference) ->
 
     override fun onBindViewHolder(holder: ConferenceMainHolder, position: Int) {
         val item = getItem(position)
-        holder.binding.nameText.text = item.name
-        holder.binding.locationText.text = item.location
+        holder.binding.conference = item
     }
 }
