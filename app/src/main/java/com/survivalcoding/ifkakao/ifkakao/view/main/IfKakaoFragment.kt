@@ -12,7 +12,7 @@ import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.view.main.adapter.IfKakaoAdapter
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
-class IfKakaoFragment(private val data: List<Data>) : Fragment() {
+class IfKakaoFragment() : Fragment() {
     private var _binding: FragmentIfKakaoBinding? = null
     private val binding get() = _binding!!
 
@@ -38,12 +38,13 @@ class IfKakaoFragment(private val data: List<Data>) : Fragment() {
         binding.apply {
             ifKakaoListView.adapter = adapter
         }
-        adapter.submitList(data)
 
-//        val model: IfKakaoViewModel by viewModels()
-//        model.ifkakaoItem.observe(viewLifecycleOwner, Observer {
-//            updateUi(it.data)
-//        })
+        val model: IfKakaoViewModel by viewModels()
+        model.ifkakaoItem.observe(viewLifecycleOwner, Observer {
+            updateUi(it.data)
+        })
+
+        model.loadIfKakaoItem()
     }
 
     fun updateUi(list: List<Data>) {

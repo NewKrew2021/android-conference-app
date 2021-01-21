@@ -15,7 +15,7 @@ class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = IfKakaoFactory(data.data)
+        supportFragmentManager.fragmentFactory = IfKakaoFactory()
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             supportFragmentManager.commit {

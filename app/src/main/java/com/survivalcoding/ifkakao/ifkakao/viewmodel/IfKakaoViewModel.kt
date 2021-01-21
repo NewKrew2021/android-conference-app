@@ -9,18 +9,14 @@ import com.survivalcoding.ifkakao.ifkakao.model.IfKakaoItem
 import kotlin.reflect.KProperty
 
 class IfKakaoViewModel : ViewModel() {
-    private val _ifKakaoItem: MutableLiveData<IfKakaoItem> by lazy {
-        MutableLiveData<IfKakaoItem>().also {
-            loadIfKakaoItem()
-        }
-    }
+    private val _ifKakaoItem = MutableLiveData<IfKakaoItem>()
     val ifkakaoItem: LiveData<IfKakaoItem>
         get() = _ifKakaoItem
 
     private val ifKakaoModel: DefaultDataModel = DataModel()
 
-    private fun loadIfKakaoItem() {
+    fun loadIfKakaoItem() {
         val parsedData = ifKakaoModel.getIfKakaoItem(ifKakaoModel.getRequest())
-//        _ifKakaoItem.postValue(parsedData)
+        _ifKakaoItem.postValue(parsedData)
     }
 }
