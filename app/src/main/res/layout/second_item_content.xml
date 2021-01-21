@@ -32,6 +32,7 @@
             app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
             app:layout_constraintRight_toRightOf="@id/thumbnail_image"
             tools:text="08:27"
+            android:text="@{contentdata.linkList.video[0].description}"
             tools:textColor="@color/white" />
 
         <TextView
@@ -40,11 +41,13 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/thumbnail_image"
             app:layout_constraintTop_toTopOf="parent"
+            android:text="@{contentdata.field}"
             tools:text="서비스" />
 
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
+            android:text="@{contentdata.title}"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/thumbnail_image"
             app:layout_constraintTop_toBottomOf="@id/field_text"

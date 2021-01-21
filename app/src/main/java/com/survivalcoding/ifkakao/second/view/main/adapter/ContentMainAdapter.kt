@@ -26,9 +26,7 @@ class ContentMainAdapter(
 
     override fun onBindViewHolder(holder: ContentMainHolder, position: Int) {
         val item = getItem(position)
-        holder.binding.titleText.text = item.title
-        holder.binding.fieldText.text = item.field
-        holder.binding.descriptionText.text = item.linkList.video[0].description
+        holder.binding.contentdata = item
         holder.binding.thumbnailImage.load(item.linkList.pcImage[0].url, imageLoader)
     }
 }
