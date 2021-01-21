@@ -10,11 +10,9 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.conference.data.DataModelItem
 import com.survivalcoding.ifkakao.databinding.FragmentConferenceBinding
 
-class ConferenceFragment(private val data: List<DataModelItem>) :
-    Fragment(R.layout.fragment_conference) {
+class ConferenceFragment(private val data: List<DataModelItem>) : Fragment() {
 
     private var _binding: FragmentConferenceBinding? = null
-
     private val binding get() = _binding!!
 
     override fun onCreateView(
