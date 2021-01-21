@@ -1,4 +1,4 @@
-package com.example.ifkakao
+package com.example.ifkakao.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

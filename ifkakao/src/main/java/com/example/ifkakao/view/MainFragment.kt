@@ -1,4 +1,4 @@
-package com.example.ifkakao
+package com.example.ifkakao.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
+import com.example.ifkakao.util.replaceTransaction
 import com.example.ifkakao.viewmodel.SessionViewModel
 
 /*
@@ -28,26 +30,28 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding.let {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
+            it.root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
-        observeData()
     }
 
     private fun initializeView() {
-        adapter = SessionAdapter()
+        adapter = SessionAdapter {
+            replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+        }
         binding.conferenceRecyclerView.adapter = adapter
         viewModel.updateSessionData()
     }
 
-    private fun observeData() {
-        viewModel.apply {
-            sessionList.observe(viewLifecycleOwner) {
-                adapter.updateList(it.toList())
-            }
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

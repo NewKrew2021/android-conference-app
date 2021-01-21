@@ -32,7 +32,8 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
+        dataBinding true
     }
 }
 
@@ -40,7 +41,7 @@ dependencies {
     def viewmodel_ktx_version = "2.2.0"
     def fragment_version = "1.2.5"
     def moshi_version = "1.11.0"
-    def coil_version = "1.1.1"
+    def glide_version = "4.11.0"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -53,7 +54,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     /*
-    Cannot access 'androidx.lifecycle.HasDefaultViewModelProviderFactory' which is a supertype of 'com.example.ifkakao.MainActivity'.
+    Cannot access 'androidx.lifecycle.HasDefaultViewModelProviderFactory' which is a supertype of 'com.example.ifkakao.view.MainActivity'.
     Check your module classpath for missing or conflicting dependencies
     해당 오류 해결을 위해 의존성 추가
      */
@@ -66,6 +67,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
-    // coil
-    implementation "io.coil-kt:coil:$coil_version"
+    // glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
 }
