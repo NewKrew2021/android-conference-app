@@ -1,4 +1,4 @@
-package com.example.ifkakao
+package com.example.ifkakao.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -49,5 +49,10 @@ class MainFragment : Fragment() {
                 adapter.submitList(it.toList())
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
