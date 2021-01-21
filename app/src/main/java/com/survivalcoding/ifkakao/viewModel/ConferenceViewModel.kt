@@ -9,7 +9,6 @@ class ConferenceViewModel : ViewModel() {
 
     val conferenceRepository = ConferenceRepository()
     private val _listData = MutableLiveData<List<ConferenceAppFront>>()
-
     val listData get() = _listData
     var currentPosition = 0
 

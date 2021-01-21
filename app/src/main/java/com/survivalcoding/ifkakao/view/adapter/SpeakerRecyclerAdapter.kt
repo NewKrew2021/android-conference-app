@@ -40,10 +40,10 @@ class SpeakerHolder(
         binding.imageView.load("${data.url}") {
             transformations(
                 RoundedCornersTransformation(
-                    topRight = 80f,
-                    topLeft = 80f,
-                    bottomLeft = 80f,
-                    bottomRight = 80f
+                    topRight = 72f,
+                    topLeft = 72f,
+                    bottomLeft = 72f,
+                    bottomRight = 72f
                 )
             )
         }

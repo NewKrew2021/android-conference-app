@@ -35,16 +35,12 @@ class detailFragment : Fragment() {
 
         val position = conferenceViewModel.currentPosition
 
+        binding.user = conferenceViewModel.listData.value?.get(position)
+
         adapter = SpeakerRecyclerAdapter()
         binding.speakerRecyclerView.adapter = adapter
         binding.speakerRecyclerView.layoutManager =
             LinearLayoutManager(activity?.applicationContext)
-
-        binding.fieldTextView.text = conferenceViewModel.listData.value?.get(position)?.field
-        binding.titleTextView.text = conferenceViewModel.listData.value?.get(position)?.title
-        binding.contentTextView.text = conferenceViewModel.listData.value?.get(position)?.content
-        binding.contentTagTextView.text =
-            conferenceViewModel.listData.value?.get(position)?.contentTag
 
         val contentsSpeackerList =
             conferenceViewModel.listData.value?.get(position)?.contentsSpeackerList
@@ -64,9 +60,6 @@ class detailFragment : Fragment() {
         }
 
         adapter.submitList(speackerInfoList)
-
-
-
 
         return view
     }
