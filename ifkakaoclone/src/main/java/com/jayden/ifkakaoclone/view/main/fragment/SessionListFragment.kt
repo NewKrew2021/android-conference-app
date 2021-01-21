@@ -45,14 +45,16 @@ class SessionListFragment : Fragment() {
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(
                 DividerItemDecoration(
-                    context,
+                    requireContext(),
                     LinearLayoutManager.VERTICAL
                 )
             )
+
+            stickyScrollView.header = filterLayout
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            adapter.addHeaderAndSetItems(it)
+            adapter.setItems(it)
             adapter.notifyDataSetChanged()
         }
     }
