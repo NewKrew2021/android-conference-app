@@ -1,9 +1,8 @@
 package com.survivalcoding.ifkakao.repository
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.survivalcoding.ifkakao.model.Conference
+import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import okhttp3.*
 import java.io.IOException
@@ -17,7 +16,7 @@ class ConferenceRepository {
     private var _listData = mutableListOf<ConferenceAppFront>()
     val listData get() = _listData
 
-    fun getData(callback: (List<ConferenceAppFront>) -> (Unit)) {
+    fun getData(callback: (List<ConferenceAppFront>) -> Unit) {
 
 
         client.newCall(request).enqueue(object : Callback {
@@ -36,18 +35,26 @@ class ConferenceRepository {
                         var field = topData.data[i].field
                         var titleTmp = topData.data[i].title
                         var imageUrl = topData.data[i].linkList.PC_IMAGE[0].url
+                        var content = topData.data[i].content
+                        var contentTag = topData.data[i].contentTag ?: ""
+                        var contentsSpeackerList = topData.data[i].contentsSpeackerList
+                        var speackerProfileList = topData.data[i].linkList.SPEACKER_PROFILE
                         var title = titleTmp.replace("<br>", "\n")
                         _listData.add(
                             ConferenceAppFront(
                                 length,
                                 field,
                                 title,
-                                imageUrl
-                            )
+                                imageUrl,
+                                content,
+                                contentTag,
+                                contentsSpeackerList,
+                                speackerProfileList,
+
+                                )
                         )
                     }
                     callback(listData)
-                    Log.d("log2", "onResponse: ")
                 }
                 //
             }
