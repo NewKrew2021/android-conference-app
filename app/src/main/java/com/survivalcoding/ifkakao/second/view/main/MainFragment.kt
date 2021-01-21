@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import coil.ImageLoader
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
@@ -16,8 +18,17 @@ class MainFragment : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
     private val adapter by lazy {
-        ContentMainAdapter(itemClickListener = {
-        })
+        ContentMainAdapter(
+            itemClickListener = {
+
+            },
+            imageLoader = ImageLoader(requireContext()) {
+                crossfade(true)
+                placeholder(R.drawable.thumbnail_placeholder)
+                error(R.drawable.thumbnail_placeholder)
+                availableMemoryPercentage(0.1)
+                bitmapPoolPercentage(0.1)
+            })
     }
 
     override fun onCreateView(

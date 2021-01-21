@@ -3,12 +3,17 @@ package com.survivalcoding.ifkakao.second.view.main.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import coil.ImageLoader
+import coil.api.load
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondItemContentBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
-class ContentMainAdapter(private val itemClickListener: (item: ContentData) -> Unit) :
+class ContentMainAdapter(
+    private val itemClickListener: (item: ContentData) -> Unit,
+    private val imageLoader: ImageLoader
+) :
     ListAdapter<ContentData, ContentMainHolder>(ContentMainDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentMainHolder {
         val view = LayoutInflater.from(parent.context)
@@ -24,5 +29,6 @@ class ContentMainAdapter(private val itemClickListener: (item: ContentData) -> U
         holder.binding.titleText.text = item.title
         holder.binding.fieldText.text = item.field
         holder.binding.descriptionText.text = item.linkList.video[0].description
+        holder.binding.thumbnailImage.load(item.linkList.pcImage[0].url, imageLoader)
     }
 }
