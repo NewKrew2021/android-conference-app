@@ -3,10 +3,10 @@
     <string name="app_name">If(kakao)2020</string>
 
     <!-- Menu -->
-    <string name="toolbar_item_main">toolbar_item_main</string>
-    <string name="toolbar_item_filter_session">filter</string>
-    <string name="toolbar_item_like_session">like</string>
-    <string name="toolbar_item_unlike_session">unlike</string>
+    <string name="action_main">toolbar_item_main</string>
+    <string name="action_filter">filter</string>
+    <string name="action_like">like</string>
+    <string name="action_unlike">unlike</string>
 
     <!-- fragment_main -->
     <string name="tv_highlight_main">Highlight</string>

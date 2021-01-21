@@ -78,7 +78,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.toolbar_item_main -> {
+            R.id.action_main -> {
                 replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
                 true
             }

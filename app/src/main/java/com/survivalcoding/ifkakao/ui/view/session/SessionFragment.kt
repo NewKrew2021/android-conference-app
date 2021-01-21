@@ -4,12 +4,12 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.MainActivity
 import com.survivalcoding.ifkakao.ui.view.home.MainFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
@@ -21,6 +21,15 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         get() = R.layout.fragment_session
 
     override val viewModel: SessionViewModel by viewModel()
+
+    private var likeCheck: Boolean = false
+
+    private val likeItem by lazy {
+        binding.toolbarSession.menu.findItem(R.id.action_like)
+    }
+    private val unlikeItem by lazy {
+        binding.toolbarSession.menu.findItem(R.id.action_unlike)
+    }
 
     override fun initStartView() {
         setVideoView()
@@ -55,9 +64,8 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     // set video view
     private fun setVideoView() {
-        val activity = requireActivity() as MainActivity
         binding.videoViewSession.apply {
-            setVideoURI(Uri.parse("android.resource://${activity.packageName}/raw/sample"))
+            setVideoURI(Uri.parse(SESSION_MAIN_VIDEO_URL))
             setOnPreparedListener {
                 it.start()
             }
@@ -69,13 +77,37 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.toolbar_menu_session,menu)
+        inflater.inflate(R.menu.toolbar_menu_session, menu)
+        likeItem.isVisible = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_filter -> {
+                Toast.makeText(requireContext(), "필터 클릭", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_like -> {
+                likeItem.isVisible = false
+                unlikeItem.isVisible = true
+                likeCheck = false
+                Toast.makeText(requireContext(), "좋아요 설정 해제", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.action_unlike -> {
+                unlikeItem.isVisible = false
+                likeItem.isVisible = true
+                likeCheck = true
+                Toast.makeText(requireContext(), "좋아요 설정", Toast.LENGTH_SHORT).show()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        const val SESSION_MAIN_VIDEO_URL =
+            "android.resource://com.survivalcoding.ifkakao/raw/sample"
     }
 
 }
