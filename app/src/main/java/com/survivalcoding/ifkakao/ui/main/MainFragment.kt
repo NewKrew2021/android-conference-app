@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.extension.openDetailFragment
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -28,7 +29,11 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
 
-        adapter = ConferenceAdapter()
+        adapter = ConferenceAdapter(
+            itemClickListener = {
+                openDetailFragment(it)
+            }
+        )
 
         return binding.root
     }
@@ -39,6 +44,8 @@ class MainFragment : Fragment() {
         initView()
         setUpObserver()
         setHasOptionsMenu(true)
+
+        (activity as MainActivity).setSupportActionBar(binding.toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -56,6 +63,10 @@ class MainFragment : Fragment() {
     }
 
     private fun initView() {
+
+        binding.toolbar.apply {
+            title = "if(kakao)2020"
+        }
 
         binding.recyclerview.apply {
             adapter = this@MainFragment.adapter

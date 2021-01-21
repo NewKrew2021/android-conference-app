@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.databinding.ItemConferenceBinding
-import com.survivalcoding.ifkakao.model.Conference
+import com.survivalcoding.ifkakao.model.Session
 
-class ConferenceAdapter : ListAdapter<Conference, ConferenceViewHolder>(ConferenceDiffCallback) {
+class ConferenceAdapter(
+    private val itemClickListener: (Session) -> Unit,
+) : ListAdapter<Session, ConferenceViewHolder>(ConferenceDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceViewHolder {
         val binding =
@@ -16,5 +18,8 @@ class ConferenceAdapter : ListAdapter<Conference, ConferenceViewHolder>(Conferen
 
     override fun onBindViewHolder(holder: ConferenceViewHolder, position: Int) {
         holder.bind(getItem(position))
+        holder.itemView.setOnClickListener {
+            itemClickListener.invoke(getItem(position))
+        }
     }
 }
