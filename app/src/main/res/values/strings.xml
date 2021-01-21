@@ -4,4 +4,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="navigation">Navigation</string>
     <string name="thumbnail">Thumbnail</string>
+    <string name="session">Session</string>
+    <string name="fieldFilter">fieldFilter</string>
+    <string-array name="spinner_filter">
+        <item>Day1</item>
+        <item>Day2</item>
+        <item>Day3(All)</item>
+    </string-array>
 </resources>
