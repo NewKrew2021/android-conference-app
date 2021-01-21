@@ -9,7 +9,7 @@ import com.example.ifkakao.databinding.SessionListFooterBinding
 import com.example.ifkakao.databinding.SessionListHeaderBinding
 import com.example.ifkakao.model.jsonformat.Session
 
-class SessionAdapter :
+class SessionAdapter(private val sessionClickListener: (Session) -> Unit) :
     ListAdapter<Session, RecyclerView.ViewHolder>(SessionDiffUtilCallback()) {
     private lateinit var binding: ItemSessionBinding
 
@@ -32,7 +32,7 @@ class SessionAdapter :
             else -> {
                 binding =
                     ItemSessionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                SessionViewHolder(binding)
+                SessionViewHolder(binding, sessionClickListener)
             }
         }
     }
@@ -40,6 +40,7 @@ class SessionAdapter :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is SessionViewHolder) {
             binding.session = getItem(position)
+            holder.setOnclickListener(getItem(position))
         }
     }
 
@@ -57,8 +58,17 @@ class SessionAdapter :
     class SessionFooterViewHolder(binding: SessionListFooterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class SessionViewHolder(binding: ItemSessionBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class SessionViewHolder(
+        private val binding: ItemSessionBinding,
+        private val sessionClickListener: (Session) -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setOnclickListener(item: Session) {
+            binding.root.setOnClickListener {
+                sessionClickListener(item)
+            }
+        }
+    }
 
     companion object {
         const val TYPE_HEADER = 0

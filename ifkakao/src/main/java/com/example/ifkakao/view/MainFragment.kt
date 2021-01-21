@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
+import com.example.ifkakao.util.replaceTransaction
 import com.example.ifkakao.viewmodel.SessionViewModel
 
 /*
@@ -41,7 +43,9 @@ class MainFragment : Fragment() {
     }
 
     private fun initializeView() {
-        adapter = SessionAdapter()
+        adapter = SessionAdapter {
+            replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+        }
         binding.conferenceRecyclerView.adapter = adapter
         viewModel.updateSessionData()
     }
