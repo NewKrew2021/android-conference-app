@@ -11,7 +11,7 @@ import com.survivalcoding.ifkakao.repository.ConferenceRepository
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    private val repository = ConferenceRepository()
+    private val repository = ConferenceRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         supportFragmentManager.fragmentFactory = ConferenceFragmentFactory(repository)
         super.onCreate(savedInstanceState)

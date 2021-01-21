@@ -22,7 +22,18 @@ class ConferenceListAdapter :
         val currentItem = getItem(holder.adapterPosition)
         holder.binding.apply {
             field.text = currentItem.field
-            title.text = currentItem.title
+
+            if(currentItem.title.contains("<br>")){
+                val res = currentItem.title.split("<br>")
+                val stringBuffer = StringBuffer()
+                for(token in res){
+                    stringBuffer.append(token)
+                    stringBuffer.append("\n")
+                }
+                title.text = stringBuffer.toString()
+            }else{
+                title.text = currentItem.title
+            }
             thumbnail.loadUrl(currentItem.linkList.pcImage[0].url)
             runningTime.text = getRunningTime(currentItem)
         }
