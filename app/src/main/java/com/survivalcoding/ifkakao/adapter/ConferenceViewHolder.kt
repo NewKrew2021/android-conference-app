@@ -11,7 +11,7 @@ class ConferenceViewHolder(private val binding: ItemConferenceBinding) :
 
     fun bind(item: Conference) {
         binding.apply {
-            title.text = getStringExceptTags(item.title)
+            title.text = item.title.getStringExceptTags()
             field.text = item.field
 
             binding.thumbnail.load(item.linkList.mobileImage[0].url)
