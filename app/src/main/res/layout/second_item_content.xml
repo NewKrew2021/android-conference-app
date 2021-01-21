@@ -1,45 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:padding="16dp">
+<layout>
 
-    <ImageView
-        android:id="@+id/thumbnail_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.3"
-        tools:src="@drawable/thumbnail_placeholder" />
+    <data>
 
-    <TextView
-        android:id="@+id/description_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
-        app:layout_constraintRight_toRightOf="@id/thumbnail_image"
-        tools:text="08:27"
-        tools:textColor="@color/white" />
+        <variable
+            name="contentdata"
+            type="com.survivalcoding.ifkakao.second.model.ContentData" />
+    </data>
 
-    <TextView
-        android:id="@+id/field_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/thumbnail_image"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="서비스" />
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/thumbnail_image"
-        app:layout_constraintTop_toBottomOf="@id/field_text"
-        tools:text="오프닝 키노트" />
+        <ImageView
+            android:id="@+id/thumbnail_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            tools:src="@drawable/thumbnail_placeholder" />
+
+        <TextView
+            android:id="@+id/description_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
+            app:layout_constraintRight_toRightOf="@id/thumbnail_image"
+            tools:text="08:27"
+            tools:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/field_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/thumbnail_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="서비스" />
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/thumbnail_image"
+            app:layout_constraintTop_toBottomOf="@id/field_text"
+            tools:text="오프닝 키노트" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
