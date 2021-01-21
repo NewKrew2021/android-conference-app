@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.ifkakao.viewmodel.SessionViewModel" />
+    </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -46,6 +53,7 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/conference_recycler_view"
+                    sessionList="@{viewModel.sessionList}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="160dp"
@@ -55,6 +63,7 @@
                     app:layout_constraintLeft_toLeftOf="@id/left_guideline"
                     app:layout_constraintRight_toRightOf="@id/right_guideline"
                     app:layout_constraintTop_toBottomOf="@id/highlight_text"
+                    tools:itemCount="50"
                     tools:listitem="@layout/item_session" />
 
                 <TextView

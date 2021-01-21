@@ -28,27 +28,22 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding.let {
+            it.lifecycleOwner = this
+            it.viewModel = viewModel
+            it.root
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
-        observeData()
     }
 
     private fun initializeView() {
         adapter = SessionAdapter()
         binding.conferenceRecyclerView.adapter = adapter
         viewModel.updateSessionData()
-    }
-
-    private fun observeData() {
-        viewModel.apply {
-            sessionList.observe(viewLifecycleOwner) {
-                adapter.submitList(it.toList())
-            }
-        }
     }
 
     override fun onDestroyView() {
