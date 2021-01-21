@@ -35,31 +35,30 @@ class detailFragment : Fragment() {
 
         val position = conferenceViewModel.currentPosition
 
-        binding.user = conferenceViewModel.listData.value?.get(position)
-
         adapter = SpeakerRecyclerAdapter()
         binding.speakerRecyclerView.adapter = adapter
         binding.speakerRecyclerView.layoutManager =
             LinearLayoutManager(activity?.applicationContext)
 
-        val contentsSpeackerList =
-            conferenceViewModel.listData.value?.get(position)?.contentsSpeackerList
-        val speackerProfileList =
-            conferenceViewModel.listData.value?.get(position)?.speackerProfileList
-        val speackerInfoList = mutableListOf<SpeackerInfo>()
-        if (contentsSpeackerList != null && speackerProfileList != null) {
-            for (i in 0..contentsSpeackerList.size - 1) {
-                speackerInfoList.add(
-                    SpeackerInfo(
-                        contentsSpeackerList[i],
-                        speackerProfileList[i].url
+
+        conferenceViewModel.listData.value?.let {
+            binding.user = it.get(position)
+            val contentsSpeackerList = it.get(position).contentsSpeackerList
+            val speackerProfileList = it.get(position).speackerProfileList
+            val speackerInfoList = mutableListOf<SpeackerInfo>()
+            if (contentsSpeackerList != null && speackerProfileList != null) {
+                for (i in 0..contentsSpeackerList.size - 1) {
+                    speackerInfoList.add(
+                        SpeackerInfo(
+                            contentsSpeackerList[i],
+                            speackerProfileList[i].url
+                        )
                     )
-                )
 
+                }
             }
+            adapter.submitList(speackerInfoList)
         }
-
-        adapter.submitList(speackerInfoList)
 
         return view
     }

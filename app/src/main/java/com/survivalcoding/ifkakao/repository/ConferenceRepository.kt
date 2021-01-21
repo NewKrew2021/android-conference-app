@@ -2,13 +2,13 @@ package com.survivalcoding.ifkakao.repository
 
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
+import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import okhttp3.*
 import java.io.IOException
 
 
-class ConferenceRepository {
+object ConferenceRepository {
 
     val url = "https://raw.githubusercontent.com/junsuk5/mock_json/main/conf/contents.json"
     val client = OkHttpClient()
