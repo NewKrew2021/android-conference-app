@@ -3,26 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="120sp"
+    android:layout_height="150sp"
     tools:background="@color/black">
 
     <ImageView
         android:id="@+id/thumbnail"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:padding="5dp"
+        android:layout_width="160dp"
+        android:layout_height="90dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/thumbnail_border_color"
         app:layout_constraintEnd_toEndOf="@id/divide_vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/image_top_guideline"
         tools:src="@drawable/ic_launcher_background" />
 
     <TextView
+        android:id="@+id/video_length"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#3E3E3E"
         android:paddingHorizontal="6dp"
         android:paddingVertical="3dp"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/thumbnail"
         app:layout_constraintEnd_toEndOf="@id/thumbnail"
         tools:text="21:30" />
@@ -45,10 +49,11 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:textColor="@color/white"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@id/divide_vertical"
-        app:layout_constraintTop_toTopOf="@id/center_horizontal_guideline"
+        app:layout_constraintTop_toBottomOf="@id/field"
         tools:text="오프닝 키노트" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -64,12 +69,5 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.15" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/center_horizontal_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
