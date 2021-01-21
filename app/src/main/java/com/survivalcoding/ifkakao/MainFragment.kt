@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
     private lateinit var adapter: RecyclerAdapter
 
     private val binding get() = _binding!!
-    val conferenceViewModel: ConferenceViewModel by viewModels()
+    val conferenceViewModel: ConferenceViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,9 @@ class MainFragment : Fragment() {
     ): View? {
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val view = binding.root
-        
+
         adapter = RecyclerAdapter() {
+            conferenceViewModel.currentPosition = it
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<detailFragment>(R.id.fragment_container_view)
@@ -53,9 +54,6 @@ class MainFragment : Fragment() {
             adapter.submitList(it)
         }
 
-
         return view
     }
-
-
 }

@@ -2,10 +2,7 @@ package com.survivalcoding.ifkakao.repository
 
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.survivalcoding.ifkakao.model.Conference
-import com.survivalcoding.ifkakao.model.TmpConference
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import com.survivalcoding.ifkakao.model.jsonModel.TmpConference
 
 class TmpConferenceRepository {
 

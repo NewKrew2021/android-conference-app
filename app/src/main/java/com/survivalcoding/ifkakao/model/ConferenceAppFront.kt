@@ -1,14 +1,16 @@
 package com.survivalcoding.ifkakao.model
 
-import android.os.Parcelable
-import com.squareup.moshi.JsonClass
+import com.survivalcoding.ifkakao.model.jsonModel.ContentsSpeacker
+import com.survivalcoding.ifkakao.model.jsonModel.SPEACKERPROFILE
 
 
-@kotlinx.android.parcel.Parcelize
 data class ConferenceAppFront(
     var videoLength: String,
     var field: String,
     var title: String,
-    var imageUrl: String
-) :
-    Parcelable
+    var imageUrl: String,
+    var content: String,
+    var contentTag: String,
+    var contentsSpeackerList: List<ContentsSpeacker>,
+    var speackerProfileList: List<SPEACKERPROFILE>,
+)

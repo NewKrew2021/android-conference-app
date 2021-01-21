@@ -1,9 +1,9 @@
-package com.survivalcoding.ifkakao.model
+package com.survivalcoding.ifkakao.model.jsonModel
 
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class MOSPOTLIGHT(
+data class PCIMAGE(
     val contentsIdx: Int,
     val description: String,
     val fileSize: Int,
