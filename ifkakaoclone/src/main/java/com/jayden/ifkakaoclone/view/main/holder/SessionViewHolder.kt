@@ -9,5 +9,6 @@ class SessionViewHolder(private val binding: SessionItemLayoutBinding) :
 
     fun bind(item: Session) {
         binding.session = item
+        binding.executePendingBindings()    // UI 스레드에서 강제로 바인딩 반영 (다음 화면이 보여지기 전에)
     }
 }
