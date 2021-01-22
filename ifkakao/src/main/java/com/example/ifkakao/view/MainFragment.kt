@@ -15,9 +15,6 @@ import com.example.ifkakao.viewmodel.SessionViewModel
 /*
 TODO: 1. 메뉴 버튼 클릭 구현
       2. 네트워크 통신 구현
-      3. 상세 프레그먼트 구현
-      4. 세션 누르면 상세 프래그먼트로 이동하도록 구현
-      5. 스크롤 위로가기 버튼 구현
  */
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -43,10 +40,15 @@ class MainFragment : Fragment() {
     }
 
     private fun initializeView() {
-        adapter = SessionAdapter {
-            viewModel.setSelectedSession(it)
-            replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
-        }
+        adapter = SessionAdapter(
+            sessionClickListener = {
+                viewModel.setSelectedSession(it)
+                replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+            },
+            upButtonClickListener = {
+                binding.conferenceRecyclerView.smoothScrollToPosition(0)
+            }
+        )
         binding.conferenceRecyclerView.adapter = adapter
         viewModel.updateSessionData()
     }

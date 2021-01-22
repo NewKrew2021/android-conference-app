@@ -1,6 +1,7 @@
 package com.example.ifkakao.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,10 @@ import com.example.ifkakao.databinding.SessionListFooterBinding
 import com.example.ifkakao.databinding.SessionListHeaderBinding
 import com.example.ifkakao.model.jsonformat.Session
 
-class SessionAdapter(private val sessionClickListener: (Session) -> Unit) :
+class SessionAdapter(
+    private val sessionClickListener: (Session) -> Unit,
+    private val upButtonClickListener: (View) -> Unit
+) :
     ListAdapter<Session, RecyclerView.ViewHolder>(SessionDiffUtilCallback()) {
     private lateinit var binding: ItemSessionBinding
 
@@ -38,9 +42,14 @@ class SessionAdapter(private val sessionClickListener: (Session) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is SessionViewHolder) {
-            binding.session = getItem(position)
-            holder.setOnclickListener(getItem(position))
+        when (holder) {
+            is SessionViewHolder -> {
+                binding.session = getItem(position)
+                holder.setOnclickListener(getItem(position))
+            }
+            is SessionFooterViewHolder -> {
+                holder.setOnclickListener(upButtonClickListener)
+            }
         }
     }
 
@@ -55,8 +64,12 @@ class SessionAdapter(private val sessionClickListener: (Session) -> Unit) :
     class SessionHeaderViewHolder(binding: SessionListHeaderBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class SessionFooterViewHolder(binding: SessionListFooterBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class SessionFooterViewHolder(private val binding: SessionListFooterBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun setOnclickListener(scrollUpListener: (View) -> Unit) {
+            binding.scrollUpButton.setOnClickListener(scrollUpListener)
+        }
+    }
 
     class SessionViewHolder(
         private val binding: ItemSessionBinding,
