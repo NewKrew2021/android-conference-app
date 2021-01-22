@@ -19,7 +19,7 @@
 
         <include
             android:id="@+id/include"
-            layout="@layout/item_session_custom_toolbar" />
+            layout="@layout/item_toolbar" />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"

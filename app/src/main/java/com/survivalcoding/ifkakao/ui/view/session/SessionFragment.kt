@@ -33,7 +33,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     override fun initStartView() {
         setVideoView()
-        setCustomToolbar()
         setToolbar()
     }
 
@@ -51,14 +50,17 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbarSession)
         setHasOptionsMenu(true)
-    }
 
-    private fun setCustomToolbar() {
+        binding.include.toolbarMain.run {
+            inflateMenu(R.menu.toolbar_menu_main)
+            setOnMenuItemClickListener {
+                if (it.itemId == R.id.action_main) replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+                true
+            }
+        }
+
         binding.include.tvTitleMain.setOnClickListener {
             replaceFragment<MainFragment>(R.id.fragment_container_view)
-        }
-        binding.include.ivTitleMain.setOnClickListener {
-            replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
         }
     }
 
