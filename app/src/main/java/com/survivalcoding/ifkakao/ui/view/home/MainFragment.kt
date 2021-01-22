@@ -4,7 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ScrollView
-import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,12 +12,15 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
+import com.survivalcoding.ifkakao.ui.view.session.SessionDetailFragment
 import com.survivalcoding.ifkakao.ui.view.session.SessionFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel
+import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
@@ -67,7 +70,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = SessionAdapter().apply {
                 this.setSessionClickListener {
-                    Toast.makeText(context, "go session detail", Toast.LENGTH_SHORT).show()
+                    replaceFragmentWithBundle(
+                        R.id.fragment_container_view,
+                        SessionDetailFragment::class,
+                       bundleOf(SESSION_ITEM to it)
+                    )
                 }
             }
         }

@@ -6,6 +6,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,11 +14,14 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.home.MainFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
+import com.survivalcoding.ifkakao.util.SESSION_ITEM
+import com.survivalcoding.ifkakao.util.SESSION_MAIN_VIDEO_URL
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>() {
@@ -66,7 +70,11 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = SessionAdapter().apply {
                 this.setSessionClickListener {
-                    Toast.makeText(context, "go session detail", Toast.LENGTH_SHORT).show()
+                    replaceFragmentWithBundle(
+                        R.id.fragment_container_view,
+                        SessionDetailFragment::class,
+                        bundleOf(SESSION_ITEM to it)
+                    )
                 }
             }
         }
@@ -132,11 +140,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    companion object {
-        const val SESSION_MAIN_VIDEO_URL =
-            "android.resource://com.survivalcoding.ifkakao/raw/sample"
     }
 
 }

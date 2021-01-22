@@ -1,9 +1,13 @@
 package com.survivalcoding.ifkakao.data.model.response
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class ConferenceSessionResponse(
     @Json(name = "idx")
@@ -35,9 +39,9 @@ data class ConferenceSessionResponse(
     @Json(name = "sessionType")
     val sessionType: String,
     @Json(name = "linkList")
-    val linkList: ConferenceLinkListResponse,
+    val linkList: @RawValue ConferenceLinkListResponse,
     @Json(name = "contentsSpeackerList")
-    val contentsSpeakerList: List<ConferenceContentsSpeakerResponse>,
+    val contentsSpeakerList: @RawValue List<ConferenceContentsSpeakerResponse>,
     @Json(name = "favoriteYn")
     val favoriteYn: String,
     @Json(name = "newCountentsYn")
@@ -54,7 +58,7 @@ data class ConferenceSessionResponse(
     val speakerName: String,
     @Json(name = "videoYn")
     val videoYn: String,
-) {
+) : Parcelable {
     fun parseString(string: String) = string.replace("<br>", "\n")
 
     fun parseImageUrl(session: ConferenceSessionResponse) = session.linkList.moImage[0].url
