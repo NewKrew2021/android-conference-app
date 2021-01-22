@@ -10,4 +10,7 @@
 
     <!-- Session Item -->
     <color name="session_video_length_background">#2F2F2F</color>
+
+    <!-- Session Footer Layout -->
+    <color name="session_footer_copyright_gray">#A7A7A7</color>
 </resources>

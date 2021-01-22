@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.jayden.ifkakaoclone.databinding.SessionFilterLayoutBinding
+import com.jayden.ifkakaoclone.databinding.SessionFooterLayoutBinding
 import com.jayden.ifkakaoclone.databinding.SessionHeaderLayoutBinding
 import com.jayden.ifkakaoclone.databinding.SessionItemLayoutBinding
 import com.jayden.ifkakaoclone.view.main.holder.SessionFilterViewHolder
+import com.jayden.ifkakaoclone.view.main.holder.SessionFooterViewHolder
 import com.jayden.ifkakaoclone.view.main.holder.SessionHeaderViewHolder
 import com.jayden.ifkakaoclone.view.main.holder.SessionViewHolder
 import com.jayden.ifkakaoclone.view.main.model.Session
@@ -14,6 +16,7 @@ import com.jayden.ifkakaoclone.view.main.model.Session
 private const val VIEW_TYPE_HEADER = 0
 private const val VIEW_TYPE_FILTER = 1
 private const val VIEW_TYPE_ITEM = 2
+private const val VIEW_TYPE_FOOTER = 3
 
 class SessionListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -34,16 +37,16 @@ class SessionListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val binding = SessionItemLayoutBinding.inflate(layoutInflater, parent, false)
                 SessionViewHolder(binding)
             }
+            VIEW_TYPE_FOOTER -> {
+                val binding = SessionFooterLayoutBinding.inflate(layoutInflater, parent, false)
+                SessionFooterViewHolder(binding)
+            }
             else -> throw ClassCastException("Unknown ViewType $viewType")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is SessionHeaderViewHolder -> {
-                println("SessionHeaderViewHolder bind()")
-                holder.binding.videoView.resume()
-            }
             is SessionViewHolder -> {
                 val sessionItem = items[holder.adapterPosition] as SessionView.Item
                 holder.bind(sessionItem.item)
@@ -56,29 +59,12 @@ class SessionListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int = items[position].getRecyclerType()
 
     fun addHeaderAndSetItems(newItems: List<Session>) {
-        val mappedItem = listOf(SessionView.Header, SessionView.Filter) + newItems.map { SessionView.Item(it) }
+        val mappedItem = listOf(
+            SessionView.Header,
+            SessionView.Filter
+        ) + newItems.map { SessionView.Item(it) } + listOf(SessionView.Footer)
         items.clear()
         items.addAll(mappedItem)
-    }
-
-    override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        if (holder is SessionHeaderViewHolder) {
-            println("onViewAttachedToWindow() Header")
-        }
-        else {
-            println("onViewAttachedToWindow()")
-        }
-    }
-
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        println("onViewDetachedFromWindow()")
-    }
-
-    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
-        super.onViewRecycled(holder)
-        println("onViewRecycled()")
     }
 }
 
@@ -89,6 +75,10 @@ sealed class SessionView {
 
     object Filter : SessionView() {
         override fun getRecyclerType(): Int = VIEW_TYPE_FILTER
+    }
+
+    object Footer : SessionView() {
+        override fun getRecyclerType(): Int = VIEW_TYPE_FOOTER
     }
 
     data class Item(val item: Session) : SessionView() {

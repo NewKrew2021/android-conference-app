@@ -7,6 +7,10 @@
     <!-- menu/toolbar -->
     <string name="toolbar_nav">Navigation</string>
 
-    <!-- SessionHeaderLayout  -->
+    <!-- SessionHeaderLayout -->
     <string name="session_header_title">Session</string>
+
+    <!-- SessionFooterLayout -->
+    <string name="session_footer_ifkakao_2019">if(kakao)dev2019 보기</string>
+    <string name="session_footer_copyright">©kakao corp.</string>
 </resources>
