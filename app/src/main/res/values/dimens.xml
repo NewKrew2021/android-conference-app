@@ -5,6 +5,7 @@
     <dimen name="match_constraint">0dp</dimen>
     <dimen name="toolbar_height">56dp</dimen>
     <dimen name="margin_small">16dp</dimen>
+    <dimen name="margin_x_small">8dp</dimen>
 
     <!--text-->
     <dimen name="title_size">16sp</dimen>
