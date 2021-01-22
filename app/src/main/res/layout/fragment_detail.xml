@@ -41,7 +41,7 @@
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
-            android:text="@{session.trimmedTitle()}"
+            android:text="@{session.title}"
             android:textColor="@color/white"
             android:textSize="@dimen/detail_title_size"
             app:layout_constraintEnd_toEndOf="parent"

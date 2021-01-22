@@ -45,7 +45,7 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="2"
-            android:text="@{session.trimmedTitle()}"
+            android:text="@{session.title}"
             android:textColor="@color/white"
             android:textSize="@dimen/title_size"
             android:textStyle="bold"
