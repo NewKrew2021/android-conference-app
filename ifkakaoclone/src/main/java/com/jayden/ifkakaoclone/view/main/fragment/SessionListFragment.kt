@@ -49,12 +49,10 @@ class SessionListFragment : Fragment() {
                     LinearLayoutManager.VERTICAL
                 )
             )
-
-            stickyScrollView.header = filterLayout
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            adapter.setItems(it)
+            adapter.addHeaderAndSetItems(it)
             adapter.notifyDataSetChanged()
         }
     }
