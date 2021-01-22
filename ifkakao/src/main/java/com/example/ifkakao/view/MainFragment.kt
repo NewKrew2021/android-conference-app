@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
@@ -22,7 +22,7 @@ TODO: 1. 메뉴 버튼 클릭 구현
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SessionViewModel by viewModels()
+    private val viewModel: SessionViewModel by activityViewModels()
     private lateinit var adapter: SessionAdapter
 
     override fun onCreateView(
@@ -44,6 +44,7 @@ class MainFragment : Fragment() {
 
     private fun initializeView() {
         adapter = SessionAdapter {
+            viewModel.setSelectedSession(it)
             replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
         }
         binding.conferenceRecyclerView.adapter = adapter
