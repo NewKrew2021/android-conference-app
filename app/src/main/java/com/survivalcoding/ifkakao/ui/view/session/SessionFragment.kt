@@ -6,9 +6,14 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
+import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.home.MainFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
@@ -34,16 +39,34 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     override fun initStartView() {
         setVideoView()
         setToolbar()
+        setRecyclerView()
     }
 
     override fun getViewModelData() {
-        //
+        viewModel.getConferenceData()
     }
 
     override fun startObserveData() {
-        //
+        observeConferenceSessionData()
     }
 
+    // observe data
+    private fun observeConferenceSessionData() {
+        viewModel.conferenceData.observe(this) {
+            val adapter = binding.rvVideoSession.adapter as SessionAdapter
+            adapter.setList(it)
+        }
+    }
+
+    // set recycler view
+    private fun setRecyclerView() {
+        binding.rvVideoSession.apply {
+            layoutManager = LinearVerticalLayout(context)
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+            adapter = SessionAdapter()
+        }
+    }
 
     // set toolbar
     private fun setToolbar() {

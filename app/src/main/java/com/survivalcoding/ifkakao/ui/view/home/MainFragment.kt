@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.ui.view.home
 
-import android.content.Context
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -10,11 +9,13 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
+import com.survivalcoding.ifkakao.ui.view.session.SessionFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,6 +44,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         binding.ivUpScrollMain.setOnClickListener {
             binding.svMain.fullScroll(ScrollView.FOCUS_UP)
         }
+
+        binding.btnAllSessionMain.setOnClickListener {
+            replaceFragment<SessionFragment>(R.id.fragment_container_view)
+        }
     }
 
     /* observe data */
@@ -53,17 +58,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         }
     }
 
-    /* set view */
+    /* set recycler view */
     private fun setRecyclerView() {
-        val layout = { context: Context ->
-            LinearLayoutManager(
-                context,
-                LinearLayoutManager.VERTICAL,
-                false
-            )
-        }
         binding.rvVideoMain.apply {
-            layoutManager = layout(context)
+            layoutManager = LinearVerticalLayout(context)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = SessionAdapter()
