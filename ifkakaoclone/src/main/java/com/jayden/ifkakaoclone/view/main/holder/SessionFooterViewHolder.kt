@@ -6,7 +6,10 @@ import com.jayden.ifkakaoclone.databinding.SessionFooterLayoutBinding
 class SessionFooterViewHolder(private val binding: SessionFooterLayoutBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(scrollToTop: () -> Unit) {
+    fun bind(openWebUrl: () -> Unit, scrollToTop: () -> Unit) {
+        binding.textIfkakao2019.setOnClickListener {
+            openWebUrl.invoke()
+        }
         binding.imageScrollTop.setOnClickListener {
             scrollToTop.invoke()
         }

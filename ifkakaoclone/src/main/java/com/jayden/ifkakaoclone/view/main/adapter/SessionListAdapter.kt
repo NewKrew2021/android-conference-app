@@ -19,7 +19,8 @@ private const val VIEW_TYPE_ITEM = 2
 private const val VIEW_TYPE_FOOTER = 3
 
 class SessionListAdapter(
-    private val scrollToTop: () -> Unit
+    private val openWebUrl: () -> Unit,
+    private val scrollToTop: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<SessionView>()
@@ -54,7 +55,7 @@ class SessionListAdapter(
                 holder.bind(sessionItem.item)
             }
             is SessionFooterViewHolder -> {
-                holder.bind(scrollToTop)
+                holder.bind(openWebUrl, scrollToTop)
             }
         }
     }

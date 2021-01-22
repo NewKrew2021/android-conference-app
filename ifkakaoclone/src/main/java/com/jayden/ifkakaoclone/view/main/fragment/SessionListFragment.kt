@@ -1,5 +1,7 @@
 package com.jayden.ifkakaoclone.view.main.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +22,10 @@ class SessionListFragment : Fragment() {
         get() = _binding!!
 
     private val adapter by lazy {
-        SessionListAdapter {
-            smoothScrollToTop()
-        }
+        SessionListAdapter(
+            openWebUrl = { openIfKakao2019() },
+            scrollToTop = { smoothScrollToTop() },
+        )
     }
 
     private val activityViewModel: SessionViewModel by activityViewModels()
@@ -69,5 +72,10 @@ class SessionListFragment : Fragment() {
     private fun smoothScrollToTop() {
         smoothScroller.targetPosition = 0
         binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+    }
+
+    private fun openIfKakao2019() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2019"))
+        startActivity(intent)
     }
 }
