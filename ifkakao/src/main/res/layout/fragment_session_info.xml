@@ -75,12 +75,13 @@
 
                 <TextView
                     android:id="@+id/session_hash_tag_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16sp"
                     android:textColor="@color/session_hash_tag_color"
                     android:textSize="12sp"
                     app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintRight_toRightOf="@id/right_guideline"
                     app:layout_constraintTop_toBottomOf="@id/session_describe_text"
                     tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
 
@@ -92,11 +93,6 @@
                     app:layout_constraintLeft_toLeftOf="@id/left_guideline"
                     app:layout_constraintRight_toRightOf="@id/right_guideline"
                     app:layout_constraintTop_toBottomOf="@id/session_hash_tag_text">
-
-                    <include
-                        layout="@layout/session_speaker_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
