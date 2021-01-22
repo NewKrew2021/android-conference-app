@@ -4,6 +4,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.ScrollView
+import android.widget.Toast
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,7 +65,11 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             layoutManager = LinearVerticalLayout(context)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            adapter = SessionAdapter()
+            adapter = SessionAdapter().apply {
+                this.setSessionClickListener {
+                    Toast.makeText(context, "go session detail", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

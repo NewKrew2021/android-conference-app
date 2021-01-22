@@ -64,7 +64,11 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             layoutManager = LinearVerticalLayout(context)
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
-            adapter = SessionAdapter()
+            adapter = SessionAdapter().apply {
+                this.setSessionClickListener {
+                    Toast.makeText(context, "go session detail", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
