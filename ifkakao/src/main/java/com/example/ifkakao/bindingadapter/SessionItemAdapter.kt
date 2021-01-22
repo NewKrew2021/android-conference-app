@@ -1,6 +1,8 @@
 package com.example.ifkakao.bindingadapter
 
 import android.view.LayoutInflater
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -54,4 +56,11 @@ fun LinearLayout.showAllSpeaker(session: Session) {
             }
         speakerView
     }.forEach { this.addView(it.root) }
+}
+
+@BindingAdapter("videoUrl")
+fun WebView.loadVideoFromUrl(url: String) {
+    settings.javaScriptEnabled = true
+    webViewClient = WebViewClient()
+    loadUrl(url)
 }

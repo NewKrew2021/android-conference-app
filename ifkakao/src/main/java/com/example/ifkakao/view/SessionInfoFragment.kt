@@ -9,9 +9,6 @@ import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.databinding.FragmentSessionInfoBinding
 import com.example.ifkakao.viewmodel.SessionViewModel
 
-/*
-TODO: 1. Web View에 동영상 나오도록 구현
- */
 class SessionInfoFragment : Fragment() {
     private var _binding: FragmentSessionInfoBinding? = null
     private val binding get() = _binding!!
