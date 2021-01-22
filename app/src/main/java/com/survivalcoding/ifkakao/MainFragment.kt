@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,6 @@ import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
 
 class MainFragment : Fragment() {
 
@@ -54,6 +54,14 @@ class MainFragment : Fragment() {
 
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+        }
+
+        binding.videoView.setVideoURI(Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4"))
+        binding.videoView.setOnPreparedListener {
+            it.start()
+        }
+        binding.videoView.setOnCompletionListener {
+            it.start()
         }
 
         return view

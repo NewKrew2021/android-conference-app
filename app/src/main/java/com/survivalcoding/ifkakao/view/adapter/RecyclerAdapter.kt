@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.view.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -8,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
 import com.survivalcoding.ifkakao.databinding.FrontItemBinding
-import com.survivalcoding.ifkakao.databinding.RecyclerHeaderBinding
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 
 private val TYPE_HEADER = 0
@@ -20,11 +18,13 @@ class RecyclerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
+        /*
         if (viewType == TYPE_HEADER) {
             val recyclerHeaderBinding =
                 RecyclerHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return HeaderViewHolder(recyclerHeaderBinding)
         }
+         */
 
         val frontItemBinding =
             FrontItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,8 +41,6 @@ class RecyclerAdapter(
         if (holder is Holder) {
             holder.setData(getItem(holder.adapterPosition))
             holder.clickListener(getItem(holder.adapterPosition))
-        } else if (holder is HeaderViewHolder) {
-            holder.setData()
         }
     }
 }
@@ -74,21 +72,4 @@ class Holder(
             itemClick(data)
         }
     }
-}
-
-class HeaderViewHolder(
-    val binding: RecyclerHeaderBinding
-) : RecyclerView.ViewHolder(binding.root) {
-
-    fun setData() {
-
-        binding.videoView.setVideoURI(Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4"))
-        binding.videoView.setOnPreparedListener {
-            it.start()
-        }
-        binding.videoView.setOnCompletionListener {
-            it.start()
-        }
-    }
-
 }

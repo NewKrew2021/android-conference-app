@@ -33,8 +33,6 @@ class detailFragment : Fragment() {
         _binding = FragmentDetailBinding.inflate(layoutInflater)
         val view = binding.root
 
-        val position = conferenceViewModel.currentPosition
-
         adapter = SpeakerRecyclerAdapter()
         binding.speakerRecyclerView.adapter = adapter
         binding.speakerRecyclerView.layoutManager =
