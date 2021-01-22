@@ -23,7 +23,7 @@ fun ImageView.loadImageFromUrlWithPlaceHolder(
     }
 }
 
-@BindingAdapter("videoUrl")
+@BindingAdapter("videoUrlWithLoop")
 fun VideoView.loadVideoThenLoop(videoUrl: String) {
     setVideoPath(videoUrl)
 

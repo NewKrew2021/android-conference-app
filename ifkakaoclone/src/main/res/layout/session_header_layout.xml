@@ -29,6 +29,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_title"
-            app:videoUrl="@{`https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4`}" />
+            app:videoUrlWithLoop="@{`https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4`}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
