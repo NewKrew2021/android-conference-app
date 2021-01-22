@@ -16,7 +16,8 @@ data class Session(
     val contentTag: String?,
     val `field`: String?,
     val linkList: LinkList,
-    val contentsSpeackerList: List<Speaker>,
+    @Json(name = "contentsSpeackerList")
+    val contentsSpeakerList: List<Speaker>,
 ) : Parcelable {
     val title: String
         get() = _title.transformTagsToNewline()
