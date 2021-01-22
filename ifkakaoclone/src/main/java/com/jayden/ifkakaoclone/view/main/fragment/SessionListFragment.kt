@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
@@ -19,10 +20,18 @@ class SessionListFragment : Fragment() {
         get() = _binding!!
 
     private val adapter by lazy {
-        SessionListAdapter()
+        SessionListAdapter {
+            smoothScrollToTop()
+        }
     }
 
     private val activityViewModel: SessionViewModel by activityViewModels()
+
+    private val smoothScroller by lazy {
+        object : LinearSmoothScroller(requireContext()) {
+            override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,5 +64,10 @@ class SessionListFragment : Fragment() {
             adapter.addHeaderAndSetItems(it)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun smoothScrollToTop() {
+        smoothScroller.targetPosition = 0
+        binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
     }
 }

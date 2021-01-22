@@ -18,7 +18,9 @@ private const val VIEW_TYPE_FILTER = 1
 private const val VIEW_TYPE_ITEM = 2
 private const val VIEW_TYPE_FOOTER = 3
 
-class SessionListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SessionListAdapter(
+    private val scrollToTop: () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<SessionView>()
 
@@ -50,6 +52,9 @@ class SessionListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is SessionViewHolder -> {
                 val sessionItem = items[holder.adapterPosition] as SessionView.Item
                 holder.bind(sessionItem.item)
+            }
+            is SessionFooterViewHolder -> {
+                holder.bind(scrollToTop)
             }
         }
     }
