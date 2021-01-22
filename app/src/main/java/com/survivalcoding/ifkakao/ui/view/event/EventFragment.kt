@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.ui.view.event
 
+import android.graphics.Color
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -20,6 +21,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     override val viewModel: EventViewModel by viewModel()
 
     override fun initStartView() {
+        binding.include.toolbarMain.setBackgroundColor(Color.parseColor("#FF0133F7"))
         setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
     }
 
