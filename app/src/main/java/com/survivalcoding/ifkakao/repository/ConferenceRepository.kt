@@ -4,6 +4,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.jsonModel.Conference
+import com.survivalcoding.ifkakao.model.jsonModel.ContentsSpeacker
+import com.survivalcoding.ifkakao.model.jsonModel.SPEACKERPROFILE
 import okhttp3.*
 import java.io.IOException
 
@@ -54,6 +56,12 @@ object ConferenceRepository {
                                 )
                         )
                     }
+                    listData.add(
+                        0, ConferenceAppFront(
+                            "", "", "", "", "", "", listOf<ContentsSpeacker>(),
+                            listOf<SPEACKERPROFILE>()
+                        )
+                    )
                     callback(listData)
                 }
                 //

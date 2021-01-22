@@ -40,7 +40,9 @@ class MainFragment : Fragment() {
         val view = binding.root
 
         adapter = RecyclerAdapter() {
-            conferenceViewModel.currentPosition = it
+            conferenceViewModel.singleData.value = it
+            //conferenceViewModel.getSingleData(it)
+
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<detailFragment>(R.id.fragment_container_view)
@@ -55,5 +57,10 @@ class MainFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

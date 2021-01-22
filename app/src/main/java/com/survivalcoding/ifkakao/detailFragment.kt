@@ -41,10 +41,11 @@ class detailFragment : Fragment() {
             LinearLayoutManager(activity?.applicationContext)
 
 
-        conferenceViewModel.listData.value?.let {
-            binding.user = it.get(position)
-            val contentsSpeackerList = it.get(position).contentsSpeackerList
-            val speackerProfileList = it.get(position).speackerProfileList
+        conferenceViewModel.singleData.value?.let {
+            binding.user = it
+
+            val contentsSpeackerList = it.contentsSpeackerList
+            val speackerProfileList = it.speackerProfileList
             val speackerInfoList = mutableListOf<SpeackerInfo>()
             if (contentsSpeackerList != null && speackerProfileList != null) {
                 for (i in 0..contentsSpeackerList.size - 1) {
@@ -54,7 +55,6 @@ class detailFragment : Fragment() {
                             speackerProfileList[i].url
                         )
                     )
-
                 }
             }
             adapter.submitList(speackerInfoList)
@@ -63,5 +63,9 @@ class detailFragment : Fragment() {
         return view
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }
