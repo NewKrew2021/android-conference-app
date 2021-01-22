@@ -2,6 +2,7 @@ package com.jayden.ifkakaoclone.util
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -22,3 +23,12 @@ fun ImageView.loadImageFromUrlWithPlaceHolder(
     }
 }
 
+@BindingAdapter("videoUrl")
+fun VideoView.loadVideoThenLoop(videoUrl: String) {
+    setVideoPath(videoUrl)
+
+    setOnPreparedListener {
+        it.isLooping = true
+        it.start()
+    }
+}

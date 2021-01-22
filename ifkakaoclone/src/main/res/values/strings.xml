@@ -6,4 +6,7 @@
 
     <!-- menu/toolbar -->
     <string name="toolbar_nav">Navigation</string>
+
+    <!-- SessionHeaderLayout  -->
+    <string name="session_header_title">Session</string>
 </resources>
