@@ -22,6 +22,8 @@ class SessionInfoFragment : Fragment() {
         return binding.let {
             it.lifecycleOwner = this
             it.viewModel = viewModel
+            it.listButton.setOnClickListener(::moveToPreviousFragment)
+            it.footer.scrollUpButton.setOnClickListener(::scrollingUp)
             it.root
         }
     }
@@ -29,5 +31,13 @@ class SessionInfoFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun moveToPreviousFragment(v: View) {
+        parentFragmentManager.popBackStack()
+    }
+
+    private fun scrollingUp(v: View) {
+        binding.contentScroll.fullScroll(View.FOCUS_UP);
     }
 }
