@@ -25,52 +25,63 @@
             app:layout_constraintTop_toTopOf="parent"
             app:titleTextColor="@color/white" />
 
-        <TextView
-            android:id="@+id/field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/view_white_border"
-            android:padding="2dp"
-            android:text="@{session.field}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/title_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar" />
-
-        <TextView
-            android:id="@+id/title"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="@{session.title}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/detail_title_size"
+            android:layout_height="@dimen/match_constraint"
+            android:descendantFocusability="blocksDescendants"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/field" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="@{session.content}"
-            android:textColor="@color/white"
-            android:textSize="@dimen/content_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/content_tag"
-            android:layout_width="@dimen/match_constraint"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_small"
-            android:text="@{session.contentTag}"
-            android:textColor="@color/grey"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content" />
+                <VideoView
+                    android:id="@+id/video"
+                    android:layout_width="@dimen/match_constraint"
+                    android:layout_height="@dimen/video_height" />
+
+                <TextView
+                    android:id="@+id/field"
+                    style="@style/DetailSessionTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/view_white_border"
+                    android:padding="2dp"
+                    android:text="@{session.field}"
+                    android:textSize="@dimen/title_size" />
+
+                <TextView
+                    android:id="@+id/title"
+                    style="@style/DetailSessionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{session.title}"
+                    android:textSize="@dimen/detail_title_size" />
+
+                <TextView
+                    android:id="@+id/content"
+                    style="@style/DetailSessionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{session.content}"
+                    android:textSize="@dimen/content_size" />
+
+                <TextView
+                    android:id="@+id/content_tag"
+                    style="@style/DetailSessionTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@{session.contentTag}"
+                    android:textColor="@color/grey" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
