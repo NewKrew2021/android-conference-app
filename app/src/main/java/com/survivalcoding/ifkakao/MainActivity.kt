@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add<MainFragment>(R.id.fragment_container_view)
+                add<HighlightFragment>(R.id.fragment_container_view)
             }
         }
     }
