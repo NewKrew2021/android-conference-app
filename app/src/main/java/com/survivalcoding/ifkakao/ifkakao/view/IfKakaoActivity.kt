@@ -18,4 +18,19 @@ class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
             }
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_appbar_action, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_icon -> {
+                Toast.makeText(this, "filter button clicked - IfKakaoActivity", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
