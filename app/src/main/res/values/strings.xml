@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">IfKakao</string>
+
+    <string-array name="day_select">
+        <item>Day1</item>
+        <item>Day2</item>
+        <item>Day3(All)</item>
+    </string-array>
 </resources>
