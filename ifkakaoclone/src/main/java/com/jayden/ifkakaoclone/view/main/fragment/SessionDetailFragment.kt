@@ -10,11 +10,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
+import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
 
 class SessionDetailFragment : Fragment() {
     private var _binding: FragmentSessionDetailBinding? = null
     private val binding
         get() =_binding!!
+
+    private val adapter by lazy {
+        ContentSpeakerAdapter()
+    }
 
     private val activityViewModel: SessionViewModel by activityViewModels()
 
@@ -38,6 +43,8 @@ class SessionDetailFragment : Fragment() {
         with(binding) {
             viewModel = activityViewModel
 
+            speakerRecyclerView.adapter = adapter
+
             btnBackToList.setOnClickListener {
                 parentFragmentManager.popBackStack()
             }
@@ -50,6 +57,7 @@ class SessionDetailFragment : Fragment() {
                 playVideo()
             }
         }
+        updateSpeaker()
     }
 
     private fun playVideo() {
@@ -59,6 +67,13 @@ class SessionDetailFragment : Fragment() {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun updateSpeaker() {
+        activityViewModel.selectedItem.value?.let {
+            adapter.setItems(it.contentsSpeackerList.zip(it.linkList.speackerProfile))
+            adapter.notifyDataSetChanged()
         }
     }
 }

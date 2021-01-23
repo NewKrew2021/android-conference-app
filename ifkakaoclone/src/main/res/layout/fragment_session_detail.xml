@@ -143,6 +143,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/speaker_recycler_view"
                 android:layout_width="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:layout_height="match_parent" />
 
             <Button
