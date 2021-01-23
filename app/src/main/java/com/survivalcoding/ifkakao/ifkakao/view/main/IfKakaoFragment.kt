@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.survivalcoding.ifkakao.databinding.FragmentIfKakaoBinding
@@ -39,8 +40,10 @@ class IfKakaoFragment() : Fragment() {
             ifKakaoListView.adapter = adapter
         }
 
+        // ViewModel 가져오기.
         val model: IfKakaoViewModel by viewModels()
-        model.ifkakaoItem.observe(viewLifecycleOwner, Observer {
+        // LiveData가 수정될 때 실행할 메소드
+        model.ifKakaoSessionList.observe(viewLifecycleOwner, Observer {
             updateUi(it.data)
         })
 
