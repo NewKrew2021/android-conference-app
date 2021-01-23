@@ -1,5 +1,7 @@
 package com.jayden.ifkakaoclone.view.main.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +44,20 @@ class SessionDetailFragment : Fragment() {
 
             layoutFooter.imageScrollTop.setOnClickListener {
                 nestedScrollView.smoothScrollTo(0, 0)
+            }
+
+            imageVideoPlay.setOnClickListener {
+                playVideo()
+            }
+        }
+    }
+
+    private fun playVideo() {
+        activityViewModel.selectedItem.value?.linkList?.video?.let {
+            if (it.isNotEmpty()) {
+                val video = it[0]
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
+                startActivity(intent)
             }
         }
     }
