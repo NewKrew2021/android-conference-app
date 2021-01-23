@@ -12,8 +12,10 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
+import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
+import com.jayden.ifkakaoclone.extensions.replaceTransaction
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
 
 class SessionListFragment : Fragment() {
@@ -23,6 +25,10 @@ class SessionListFragment : Fragment() {
 
     private val adapter by lazy {
         SessionListAdapter(
+            showSessionDetail = {
+                activityViewModel.setSelectedItem(it)
+                replaceTransaction<SessionDetailFragment>(R.id.fragment_container_view)
+            },
             openWebUrl = { openIfKakao2019() },
             scrollToTop = { smoothScrollToTop() },
         )

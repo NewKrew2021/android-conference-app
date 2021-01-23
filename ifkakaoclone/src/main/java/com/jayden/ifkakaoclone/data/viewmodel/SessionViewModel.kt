@@ -15,5 +15,13 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     val sessions: LiveData<List<Session>>
         get() = _sessions
 
+    private val _selectedItem = MutableLiveData<Session>()
+    val selectedItem: LiveData<Session>
+        get() = _selectedItem
+
     private fun loadSessions(): List<Session> = repository.getSessions()
+
+    fun setSelectedItem(session: Session) {
+        _selectedItem.value = session
+    }
 }
