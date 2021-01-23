@@ -13,4 +13,5 @@
 
     <!-- Session Footer Layout -->
     <color name="session_footer_copyright_gray">#A7A7A7</color>
+    <color name="session_footer_background">#1D1D1D</color>
 </resources>
