@@ -2,9 +2,10 @@ package com.survivalcoding.ifkakao
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -64,11 +65,42 @@ class MainFragment : Fragment() {
             it.start()
         }
 
+
+        var dataArr = arrayOf("Day1", "Day2", "Day3(All)")
+        var spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, dataArr)
+        //var spinnerAdapter = ArrayAdapter.createFromResource(requireContext(),R.array.spinner_data,android.R.)
+
+        binding.spinner.adapter = spinnerAdapter
+        binding.spinner.onItemSelectedListener = MySpinnerListener()
+        binding.spinner.setSelection(2)
+
         return view
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        inflater.inflate(R.menu.main, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+class MySpinnerListener : AdapterView.OnItemSelectedListener {
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        Log.d("log2", "onItemSelected: ")
+    }
+
 }
