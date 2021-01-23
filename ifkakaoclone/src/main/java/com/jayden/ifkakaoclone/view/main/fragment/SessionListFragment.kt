@@ -17,6 +17,7 @@ import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
 import com.jayden.ifkakaoclone.extensions.replaceTransaction
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
+import com.jayden.ifkakaoclone.view.main.model.Session
 
 class SessionListFragment : Fragment() {
     private var _binding: FragmentSessionListBinding? = null
@@ -25,12 +26,9 @@ class SessionListFragment : Fragment() {
 
     private val adapter by lazy {
         SessionListAdapter(
-            showSessionDetail = {
-                activityViewModel.setSelectedItem(it)
-                replaceTransaction<SessionDetailFragment>(R.id.fragment_container_view)
-            },
-            openWebUrl = { openIfKakao2019() },
-            scrollToTop = { smoothScrollToTop() },
+            selectSessionEvent = { selectSessionEvent(it) },
+            openIfKakao2019 = { openIfKakao2019() },
+            smoothScrollToTop = { smoothScrollToTop() },
         )
     }
 
@@ -73,6 +71,11 @@ class SessionListFragment : Fragment() {
             adapter.addHeaderAndSetItems(it)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun selectSessionEvent(session: Session) {
+        activityViewModel.setSelectedItem(session)
+        replaceTransaction<SessionDetailFragment>(R.id.fragment_container_view)
     }
 
     private fun smoothScrollToTop() {

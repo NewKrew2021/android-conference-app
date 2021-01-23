@@ -19,9 +19,9 @@ private const val VIEW_TYPE_ITEM = 2
 private const val VIEW_TYPE_FOOTER = 3
 
 class SessionListAdapter(
-    private val showSessionDetail: (session: Session) -> Unit,
-    private val openWebUrl: () -> Unit,
-    private val scrollToTop: () -> Unit,
+    private val selectSessionEvent: (session: Session) -> Unit,
+    private val openIfKakao2019: () -> Unit,
+    private val smoothScrollToTop: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val items = mutableListOf<SessionView>()
@@ -53,10 +53,10 @@ class SessionListAdapter(
         when (holder) {
             is SessionViewHolder -> {
                 val sessionItem = items[holder.adapterPosition] as SessionView.Item
-                holder.bind(sessionItem.item, showSessionDetail)
+                holder.bind(sessionItem.item, selectSessionEvent)
             }
             is SessionFooterViewHolder -> {
-                holder.bind(openWebUrl, scrollToTop)
+                holder.bind(openIfKakao2019, smoothScrollToTop)
             }
         }
     }
