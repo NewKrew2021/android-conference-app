@@ -26,7 +26,7 @@
             <!-- Video Layout -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="256dp">
+                android:layout_height="320dp">
 
                 <ImageView
                     android:id="@+id/image_thumbnail"
@@ -34,7 +34,7 @@
                     android:layout_height="0dp"
                     android:alpha="0.5"
                     app:imageUrl="@{session.linkList.pcImage[0].url}"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/text_field"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -43,12 +43,14 @@
 
                 <TextView
                     android:id="@+id/text_video_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
+                    app:layout_constraintEnd_toStartOf="@id/image_video_share"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="오프닝 키노트" />
@@ -67,7 +69,7 @@
                     android:id="@+id/image_video_play"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/image_thumbnail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -82,23 +84,19 @@
                     app:layout_constraintStart_toStartOf="@id/image_video_play"
                     app:layout_constraintTop_toBottomOf="@id/image_video_play"
                     tools:text="00:00" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- Field & Favorite, Content Layout  -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/session_field_border"
                     android:padding="4dp"
                     android:text="@{session.field}"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_thumbnail"
                     tools:text="서비스" />
 
                 <ImageView
@@ -109,43 +107,34 @@
                     app:layout_constraintBottom_toBottomOf="@id/text_field"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/text_field" />
-
-                <TextView
-                    android:id="@+id/text_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_field"
-                    tools:text="오프닝 키노트" />
-
-                <TextView
-                    android:id="@+id/text_content"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@{session.content}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_title"
-                    tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다. \nif(kakao)에서 카카오의 변화를 함께 확인해 보시죠!\n\n오늘도 카카오는 일상을 바꾸는 중." />
-
-                <TextView
-                    android:id="@+id/text_content_tag"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@{session.contentTag}"
-                    android:textColor="@color/session_footer_copyright_gray"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/text_content"
-                    tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="오프닝 키노트" />
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{session.content}"
+                tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다. \nif(kakao)에서 카카오의 변화를 함께 확인해 보시죠!\n\n오늘도 카카오는 일상을 바꾸는 중." />
+
+            <TextView
+                android:id="@+id/text_content_tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@{session.contentTag}"
+                android:textColor="@color/session_footer_copyright_gray"
+                tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
 
             <!-- ContentsSpeaker -->
             <androidx.recyclerview.widget.RecyclerView
