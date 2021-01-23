@@ -1,102 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".view.main.fragment.SessionDetailFragment" >
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <import type="com.jayden.ifkakaoclone.extensions.StringExtensionKt" />
+
+        <variable
+            name="session"
+            type="com.jayden.ifkakaoclone.view.main.model.Session" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".view.main.fragment.SessionDetailFragment">
 
-        <!-- Video Layout -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="256dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Video Layout -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="256dp">
 
-        <!-- Field & Favorite, Content Layout  -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+                <ImageView
+                    android:id="@+id/image_thumbnail"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:alpha="0.5"
+                    app:imageUrl="@{session.linkList.pcImage[0].url}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:placeholderDrawable="@{@drawable/image_placeholder}"
+                    tools:srcCompat="@drawable/image_placeholder" />
 
-            <TextView
-                android:id="@+id/text_field"
+                <TextView
+                    android:id="@+id/text_video_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:ellipsize="end"
+                    android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="오프닝 키노트" />
+
+                <ImageView
+                    android:id="@+id/image_video_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/text_video_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_video_title"
+                    app:srcCompat="@drawable/ic_baseline_share_24" />
+
+                <ImageView
+                    android:id="@+id/image_video_play"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
+
+                <TextView
+                    android:id="@+id/text_video_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{session.linkList.video[0].description}"
+                    app:layout_constraintEnd_toEndOf="@id/image_video_play"
+                    app:layout_constraintStart_toStartOf="@id/image_video_play"
+                    app:layout_constraintTop_toBottomOf="@id/image_video_play"
+                    tools:text="00:00" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Field & Favorite, Content Layout  -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/session_field_border"
+                    android:padding="4dp"
+                    android:text="@{session.field}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="서비스" />
+
+                <ImageView
+                    android:id="@+id/image_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_favorite_white_24"
+                    app:layout_constraintBottom_toBottomOf="@id/text_field"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_field" />
+
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_field"
+                    tools:text="오프닝 키노트" />
+
+                <TextView
+                    android:id="@+id/text_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{session.content}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_title"
+                    tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다. \nif(kakao)에서 카카오의 변화를 함께 확인해 보시죠!\n\n오늘도 카카오는 일상을 바꾸는 중." />
+
+                <TextView
+                    android:id="@+id/text_content_tag"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@{session.contentTag}"
+                    android:textColor="@color/session_footer_copyright_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_content"
+                    tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- ContentsSpeaker -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/speaker_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btn_back_to_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/session_field_border"
-                android:padding="4dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="서비스" />
+                android:layout_gravity="center"
+                android:backgroundTint="@color/fragment_session_detail_btn_go_to_list"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp"
+                android:text="@string/fragment_session_detail_btn_back_to_list"
+                android:textColor="@color/session_footer_copyright_gray" />
 
-            <ImageView
-                android:id="@+id/image_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_favorite_white_24"
-                app:layout_constraintBottom_toBottomOf="@id/text_field"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/text_field" />
-
-            <TextView
-                android:id="@+id/text_title"
+            <include
+                layout="@layout/session_footer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_field"
-                tools:text="오프닝 키노트" />
+                android:background="@color/session_footer_background" />
 
-            <TextView
-                android:id="@+id/text_content"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_title"
-                tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다. \nif(kakao)에서 카카오의 변화를 함께 확인해 보시죠!\n\n오늘도 카카오는 일상을 바꾸는 중." />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/text_content_tag"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/session_footer_copyright_gray"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_content"
-                tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- ContentsSpeaker -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/speaker_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <Button
-            android:id="@+id/btn_back_to_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingStart="32dp"
-            android:paddingEnd="32dp"
-            android:text="@string/fragment_session_detail_btn_back_to_list" />
-
-        <include
-            layout="@layout/session_footer_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/session_footer_background"/>
-
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+</layout>
