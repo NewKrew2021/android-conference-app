@@ -13,6 +13,7 @@
     </data>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
@@ -156,6 +157,7 @@
 
             <include
                 layout="@layout/session_footer_layout"
+                android:id="@+id/layout_footer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/session_footer_background" />

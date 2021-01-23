@@ -35,6 +35,14 @@ class SessionDetailFragment : Fragment() {
 
         with(binding) {
             viewModel = activityViewModel
+
+            btnBackToList.setOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
+
+            layoutFooter.imageScrollTop.setOnClickListener {
+                nestedScrollView.smoothScrollTo(0, 0)
+            }
         }
     }
 }
