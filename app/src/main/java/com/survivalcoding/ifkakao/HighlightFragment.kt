@@ -45,7 +45,7 @@ class HighlightFragment : Fragment() {
 
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace<detailFragment>(R.id.fragment_container_view)
+                replace<DetailFragment>(R.id.fragment_container_view)
                 addToBackStack(null)
             }
         }
@@ -53,7 +53,7 @@ class HighlightFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
 
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.submitList(conferenceViewModel.getHighlightData())
         }
 
         binding.totalImageView.setOnClickListener {
@@ -69,6 +69,7 @@ class HighlightFragment : Fragment() {
 
         return view
     }
+
 
     fun imageSetting() {
         binding.highlightImageView.load(R.raw.bg_bye)

@@ -5,5 +5,5 @@ import com.survivalcoding.ifkakao.model.jsonModel.ContentsSpeacker
 data class SpeackerInfo(
     val contentsSpeaker: ContentsSpeacker,
     val url: String
-)
+) : DetailRecyclerType
 

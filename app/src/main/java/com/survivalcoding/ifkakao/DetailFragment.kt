@@ -6,14 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
+import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
 import com.survivalcoding.ifkakao.view.adapter.SpeakerRecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
 
-class detailFragment : Fragment() {
+class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
 
     val binding get() = _binding!!
@@ -33,33 +36,58 @@ class detailFragment : Fragment() {
         _binding = FragmentDetailBinding.inflate(layoutInflater)
         val view = binding.root
 
-        adapter = SpeakerRecyclerAdapter()
-        binding.speakerRecyclerView.adapter = adapter
-        binding.speakerRecyclerView.layoutManager =
-            LinearLayoutManager(activity?.applicationContext)
-
-
         conferenceViewModel.singleData.value?.let {
-            binding.user = it
 
+            adapter = SpeakerRecyclerAdapter(it.contentsSpeackerList.size + 2,
+                {
+
+                    conferenceViewModel.singleData.value = it
+
+                    parentFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<DetailFragment>(R.id.fragment_container_view)
+                        // addToBackStack(null)
+                    }
+                }) {
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<MainFragment>(R.id.fragment_container_view)
+                    // addToBackStack(null)
+                }
+            }
+
+            binding.speakerRecyclerView.adapter = adapter
+            binding.speakerRecyclerView.layoutManager =
+                LinearLayoutManager(activity?.applicationContext)
             val contentsSpeackerList = it.contentsSpeackerList
             val speackerProfileList = it.speackerProfileList
-            val speackerInfoList = mutableListOf<SpeackerInfo>()
+            val detailRecyclerList = mutableListOf<DetailRecyclerType>()
+            detailRecyclerList.add(it)
+
             if (contentsSpeackerList != null && speackerProfileList != null) {
                 for (i in 0..contentsSpeackerList.size - 1) {
-                    speackerInfoList.add(
+                    detailRecyclerList.add(
                         SpeackerInfo(
                             contentsSpeackerList[i],
                             speackerProfileList[i].url
                         )
                     )
                 }
+                detailRecyclerList.add(
+                    SpeackerInfo(
+                        contentsSpeackerList[0],
+                        "11"
+                    )
+                )
             }
-            adapter.submitList(speackerInfoList)
+
+            var relativeData = conferenceViewModel.getRelativeData(it)
+            adapter.submitList(detailRecyclerList + relativeData)
         }
 
         return view
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

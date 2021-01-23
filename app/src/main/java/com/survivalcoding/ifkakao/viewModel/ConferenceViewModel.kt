@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
+import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 
 class ConferenceViewModel : ViewModel() {
@@ -17,5 +18,33 @@ class ConferenceViewModel : ViewModel() {
         ConferenceRepository.getData({
             _listData.postValue(it)
         })
+    }
+
+    fun getHighlightData(): MutableList<ConferenceAppFront> {
+        var tmpList = mutableListOf<ConferenceAppFront>()
+
+        _listData.value?.let {
+
+            for (i in 0..it.size - 1) {
+                if (it.get(i).spotlightYn == "Y") tmpList.add(it.get(i))
+            }
+        }
+        return tmpList
+    }
+
+    fun getRelativeData(data: ConferenceAppFront): MutableList<DetailRecyclerType> {
+        var tmpList = mutableListOf<DetailRecyclerType>()
+        _listData.value?.let {
+            for (i in 0..it.size - 1) {
+                if (it.get(i).field == data.field) {
+                    if (it.get(i).hashCode() == data.hashCode()) continue
+                    tmpList.add(
+                        it.get(i)
+                    )
+                }
+            }
+        }
+
+        return tmpList
     }
 }

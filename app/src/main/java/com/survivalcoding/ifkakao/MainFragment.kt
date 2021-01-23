@@ -45,7 +45,7 @@ class MainFragment : Fragment() {
 
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace<detailFragment>(R.id.fragment_container_view)
+                replace<DetailFragment>(R.id.fragment_container_view)
                 addToBackStack(null)
             }
         }
@@ -56,6 +56,7 @@ class MainFragment : Fragment() {
             adapter.submitList(it)
         }
 
+        Log.d("log2", "${requireActivity().packageName}")
         binding.videoView.setVideoURI(Uri.parse("android.resource://${requireActivity().packageName}/raw/main_video"))
         binding.videoView.setOnPreparedListener {
             it.start()

@@ -40,6 +40,8 @@ object ConferenceRepository {
                         var contentTag = topData.data[i].contentTag ?: ""
                         var contentsSpeackerList = topData.data[i].contentsSpeackerList
                         var speackerProfileList = topData.data[i].linkList.SPEACKER_PROFILE
+                        var spotlightYn = topData.data[i].spotlightYn
+                        var sessionType = topData.data[i].sessionType
                         var title = titleTmp.replace("<br>", "\n")
                         _listData.add(
                             ConferenceAppFront(
@@ -51,8 +53,9 @@ object ConferenceRepository {
                                 contentTag,
                                 contentsSpeackerList,
                                 speackerProfileList,
-
-                                )
+                                spotlightYn,
+                                sessionType
+                            )
                         )
                     }
 

@@ -13,4 +13,6 @@ data class ConferenceAppFront(
     var contentTag: String,
     var contentsSpeackerList: List<ContentsSpeacker>,
     var speackerProfileList: List<SPEACKERPROFILE>,
-)
+    var spotlightYn: String,
+    var sessionType: String,
+) : DetailRecyclerType
