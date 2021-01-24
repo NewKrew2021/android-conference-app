@@ -69,6 +69,23 @@
         app:layout_constraintTop_toBottomOf="@+id/interestsTextView" />
 
     <ToggleButton
+        android:id="@+id/resetToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="50dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:background="@drawable/reset_toggle_selector"
+        android:checked="false"
+        android:text="ToggleButton"
+        android:textColor="@color/white"
+        android:textOff="초기화"
+        android:textOn="초기화"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ToggleButton
         android:id="@+id/dataToggleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

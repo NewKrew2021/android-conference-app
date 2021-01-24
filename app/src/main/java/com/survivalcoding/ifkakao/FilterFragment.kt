@@ -33,8 +33,16 @@ class FilterFragment : Fragment() {
         _binding = FragmentFilterBinding.inflate(layoutInflater)
         val view = binding.root
 
-        setToggleButton()
+        if (conferenceViewModel.nonChoice) conferenceViewModel.selectInterests.clear()
+
+        setToggleButton(1)
         setApplyButton()
+
+        binding.resetToggleButton.setOnClickListener {
+            conferenceViewModel.selectInterests.clear()
+            setResetButton()
+            setToggleButton(2)
+        }
 
         return view
     }
@@ -45,7 +53,8 @@ class FilterFragment : Fragment() {
                 conferenceViewModel.selectInterests.addAll(
                     mutableSetOf("서비스", "비즈니스", "기술")
                 )
-            }
+                conferenceViewModel.nonChoice = true
+            } else conferenceViewModel.nonChoice = false
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<MainFragment>(R.id.fragment_container_view)
@@ -53,46 +62,59 @@ class FilterFragment : Fragment() {
         }
     }
 
-    fun setInterestsButton(button: android.widget.ToggleButton, str: String) {
-        button.apply {
-            setOnClickListener {
-                var isOn = isChecked()
-                if (isOn) {
-                    setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-                    conferenceViewModel.selectInterests.add(str)
+    fun setInterestsButton(button: android.widget.ToggleButton, str: String, count: Int) {
+        if (count == 1) {
+            button.apply {
+                setOnClickListener {
+                    var isOn = isChecked()
+                    if (isOn) {
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+                        conferenceViewModel.selectInterests.add(str)
 
-                } else {
-                    setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-                    conferenceViewModel.selectInterests.remove(str)
+                    } else {
+                        setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                        conferenceViewModel.selectInterests.remove(str)
+                    }
+                    setResetButton()
                 }
             }
         }
+
         if (conferenceViewModel.selectInterests.contains(str)) {
             button.isChecked = true
             button.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        } else if (count == 2) { //1일때는 필요없어서
+            button.isChecked = false
+            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         }
     }
 
+    fun setResetButton() {
+        if (conferenceViewModel.selectInterests.size > 0) {
+            binding.resetToggleButton.textOn = "초기화(${conferenceViewModel.selectInterests.size})"
+            binding.resetToggleButton.isChecked = true
+        } else {
+            binding.resetToggleButton.textOn = "초기화"
+            binding.resetToggleButton.isChecked = false
+        }
+    }
 
-    fun setToggleButton() {
+    fun setToggleButton(count: Int) {
 
-        setInterestsButton(binding.serviceToggleButton, "서비스")
-        setInterestsButton(binding.bzToggleButton, "비즈니스")
-        setInterestsButton(binding.tecToggleButton, "기술")
-        setInterestsButton(binding.dataToggleButton, "데이터")
-        setInterestsButton(binding.backendToggleButton, "백엔드")
-        setInterestsButton(binding.hardwareToggleButton, "하드웨어")
-        setInterestsButton(binding.mobilToggleButton, "모빌리티")
-        setInterestsButton(binding.contentsToggleButton, "콘텐츠")
-        setInterestsButton(binding.infraToggleButton, "인프라")
-
-
+        setInterestsButton(binding.serviceToggleButton, "서비스", count)
+        setInterestsButton(binding.bzToggleButton, "비즈니스", count)
+        setInterestsButton(binding.tecToggleButton, "기술", count)
+        setInterestsButton(binding.dataToggleButton, "데이터", count)
+        setInterestsButton(binding.backendToggleButton, "백엔드", count)
+        setInterestsButton(binding.hardwareToggleButton, "하드웨어", count)
+        setInterestsButton(binding.mobilToggleButton, "모빌리티", count)
+        setInterestsButton(binding.contentsToggleButton, "콘텐츠", count)
+        setInterestsButton(binding.infraToggleButton, "인프라", count)
+        setResetButton()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

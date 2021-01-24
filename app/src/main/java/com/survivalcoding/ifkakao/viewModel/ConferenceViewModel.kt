@@ -16,6 +16,7 @@ class ConferenceViewModel : ViewModel() {
     val singleData get() = _singleData
     private var _selectInterests = mutableSetOf<String>()
     val selectInterests get() = _selectInterests
+    var nonChoice = true
 
     fun getData() {
         ConferenceRepository.getData({
@@ -47,7 +48,7 @@ class ConferenceViewModel : ViewModel() {
                 }
             }
         }
-
         return tmpList
     }
+
 }
