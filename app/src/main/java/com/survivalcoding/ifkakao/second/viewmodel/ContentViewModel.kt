@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.survivalcoding.ifkakao.second.model.ContentData
+import com.survivalcoding.ifkakao.second.model.Speaker
 import com.survivalcoding.ifkakao.second.model.repository.Repository
 
 class ContentViewModel(private val repository: Repository) : ViewModel() {
     private val _data = MutableLiveData<List<ContentData>>()
     val data: LiveData<List<ContentData>> get() = _data
 
-    private val _selectedItem = MutableLiveData<ContentData>()
-    val selectedItem: LiveData<ContentData> get() = _selectedItem
+    private val _speakers = MutableLiveData<List<Speaker>>()
+    val speakers: LiveData<List<Speaker>> get() = _speakers
+
+    private lateinit var _selectedItem: ContentData
+    val selectedItem: ContentData get() = _selectedItem
 
     fun loadData() {
         repository.getData {
@@ -20,6 +24,7 @@ class ContentViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun setSelectedItem(item: ContentData) {
-        _selectedItem.value = item
+        _selectedItem = item
+        _speakers.value = item.contentsSpeackerList
     }
 }

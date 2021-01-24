@@ -41,7 +41,7 @@ class ContentMainAdapter(
     override fun onBindViewHolder(holder: ContentMainHolder, position: Int) {
         when (holder.binding) {
             is SecondItemContentBinding -> {
-                val item = getItem(position - 1)
+                val item = getItem(position)
                 holder.binding.contentdata = item
                 holder.binding.executePendingBindings()
 
@@ -50,6 +50,10 @@ class ContentMainAdapter(
 
             }
         }
+    }
+
+    override fun getItem(position: Int): ContentData {
+        return super.getItem(position - 1)
     }
 
     override fun getItemViewType(position: Int) =

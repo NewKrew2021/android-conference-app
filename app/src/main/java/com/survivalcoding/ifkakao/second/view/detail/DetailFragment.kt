@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.SecondFragmentDetailBinding
+import com.survivalcoding.ifkakao.second.model.Speaker
+import com.survivalcoding.ifkakao.second.view.detail.adapter.SpeakerDetailAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
 
@@ -14,6 +16,9 @@ class DetailFragment : Fragment() {
     private var _binding: SecondFragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ContentViewModel by activityViewModels()
+    private val adapter by lazy {
+        SpeakerDetailAdapter(contentData = viewModel.selectedItem)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,12 +32,19 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.contentdata = viewModel.selectedItem.value
+        binding.recyclerView.adapter = adapter
+        viewModel.speakers.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun updateUI(data: List<Speaker>) {
+        adapter.submitList(data)
     }
 
 }
