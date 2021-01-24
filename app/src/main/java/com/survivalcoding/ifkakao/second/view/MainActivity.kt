@@ -24,4 +24,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        const val MAIN_TO_DETAIL = "main_to_detail"
+    }
 }

@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
@@ -18,6 +21,11 @@ class MainFragment : Fragment() {
     private val adapter by lazy {
         ContentMainAdapter(
             itemClickListener = {
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<DetailFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
 
             })
     }
