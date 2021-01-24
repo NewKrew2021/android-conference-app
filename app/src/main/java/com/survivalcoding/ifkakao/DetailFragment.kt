@@ -46,13 +46,11 @@ class DetailFragment : Fragment() {
                     parentFragmentManager.commit {
                         setReorderingAllowed(true)
                         replace<DetailFragment>(R.id.fragment_container_view)
-                        // addToBackStack(null)
                     }
                 }) {
                 parentFragmentManager.commit {
                     setReorderingAllowed(true)
                     replace<MainFragment>(R.id.fragment_container_view)
-                    // addToBackStack(null)
                 }
             }
 
@@ -81,7 +79,7 @@ class DetailFragment : Fragment() {
                 )
             }
 
-            var relativeData = conferenceViewModel.getRelativeData(it)
+            var relativeData = conferenceViewModel.getRelativeData(it.field)
             adapter.submitList(detailRecyclerList + relativeData)
         }
 

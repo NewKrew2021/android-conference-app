@@ -10,9 +10,12 @@ class ConferenceViewModel : ViewModel() {
 
     private val _listData = MutableLiveData<List<ConferenceAppFront>>()
     val listData get() = _listData
-    var currentPosition = 0
+
+    //var currentPosition = 0
     private var _singleData = MutableLiveData<ConferenceAppFront>()
     val singleData get() = _singleData
+    private var _selectInterests = mutableSetOf<String>()
+    val selectInterests get() = _selectInterests
 
     fun getData() {
         ConferenceRepository.getData({
@@ -32,11 +35,11 @@ class ConferenceViewModel : ViewModel() {
         return tmpList
     }
 
-    fun getRelativeData(data: ConferenceAppFront): MutableList<DetailRecyclerType> {
+    fun getRelativeData(data: String): MutableList<DetailRecyclerType> {
         var tmpList = mutableListOf<DetailRecyclerType>()
         _listData.value?.let {
             for (i in 0..it.size - 1) {
-                if (it.get(i).field == data.field) {
+                if (it.get(i).field == data) {
                     if (it.get(i).hashCode() == data.hashCode()) continue
                     tmpList.add(
                         it.get(i)

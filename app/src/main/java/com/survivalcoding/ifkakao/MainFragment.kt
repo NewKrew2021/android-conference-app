@@ -2,17 +2,14 @@ package com.survivalcoding.ifkakao
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.fragment.app.*
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
@@ -45,7 +42,7 @@ class MainFragment : Fragment() {
 
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace<DetailFragment>(R.id.fragment_container_view)
+                add<DetailFragment>(R.id.fragment_container_view)
                 addToBackStack(null)
             }
         }
@@ -53,10 +50,20 @@ class MainFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
 
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            if (conferenceViewModel.selectInterests.size > 0) {
+                var tmpList = listOf<ConferenceAppFront>()
+                conferenceViewModel.selectInterests.forEach {
+                    if (it == "서비스" || it == "비즈니스" || it == "기술")
+                        tmpList += conferenceViewModel.getRelativeData(it)
+                            .map { it as ConferenceAppFront }
+                }
+                adapter.submitList(tmpList)
+            } else {
+                adapter.submitList(it)
+            }
         }
 
-        Log.d("log2", "${requireActivity().packageName}")
+
         binding.videoView.setVideoURI(Uri.parse("android.resource://${requireActivity().packageName}/raw/main_video"))
         binding.videoView.setOnPreparedListener {
             it.start()
@@ -72,6 +79,14 @@ class MainFragment : Fragment() {
         binding.spinner.adapter = spinnerAdapter
         binding.spinner.onItemSelectedListener = MySpinnerListener()
         binding.spinner.setSelection(2)
+
+        binding.imageView.setOnClickListener {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<FilterFragment>(R.id.fragment_container_view)
+                //addToBackStack(null)
+            }
+        }
 
         return view
     }
@@ -99,7 +114,6 @@ class MySpinnerListener : AdapterView.OnItemSelectedListener {
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        Log.d("log2", "onItemSelected: ")
     }
 
 }
