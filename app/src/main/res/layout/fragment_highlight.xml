@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context=".MainFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/mainToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/black"
-        app:menu="@menu/main"
-        app:title="if(kakao)2020"
-        app:titleTextColor="@color/white" />
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
