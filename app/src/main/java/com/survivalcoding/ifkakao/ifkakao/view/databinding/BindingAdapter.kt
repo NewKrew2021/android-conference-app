@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.ifkakao.view.databinding
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -14,4 +15,10 @@ fun loadImage(view: ImageView, url: String) {
         .load(url)
         .apply(option)
         .into(view)
+}
+
+@BindingAdapter("titleText")
+fun removeHtml(view: TextView, text: String) {
+    val str = text.replace("<br>", "\n");
+    view.text = str
 }
