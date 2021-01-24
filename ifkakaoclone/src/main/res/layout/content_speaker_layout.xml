@@ -21,14 +21,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:padding="8dp"
         tools:background="@color/black">
 
         <ImageView
             android:id="@+id/image_speaker"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="fitXY"
             app:imageUrl="@{speaker.second.url}"
             app:isCircleCrop="@{true}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,6 +41,7 @@
             android:id="@+id/text_speaker_name"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="16dp"
             android:gravity="bottom"
             android:text="@{speaker.first.nameKo + ' ' + speaker.first.nameEn}"
             app:layout_constraintBottom_toTopOf="@id/text_company_name"
