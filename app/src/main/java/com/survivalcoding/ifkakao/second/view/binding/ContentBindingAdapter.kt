@@ -18,3 +18,11 @@ fun loadImage(view: ImageView, url: String, round: Float) {
         transformations(transformationBuilder)
     }
 }
+
+@BindingAdapter("url")
+fun loadImage(view: ImageView, url: String) {
+    view.load(url) {
+        crossfade(true)
+        placeholder(R.drawable.thumbnail_placeholder)
+    }
+}

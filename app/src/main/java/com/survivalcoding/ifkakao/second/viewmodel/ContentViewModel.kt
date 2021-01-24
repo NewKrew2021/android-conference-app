@@ -8,14 +8,18 @@ import com.survivalcoding.ifkakao.second.model.repository.Repository
 
 class ContentViewModel(private val repository: Repository) : ViewModel() {
     private val _data = MutableLiveData<List<ContentData>>()
-    val data: LiveData<List<ContentData>>
-        get() {
-            return _data
-        }
+    val data: LiveData<List<ContentData>> get() = _data
+
+    private val _selectedItem = MutableLiveData<ContentData>()
+    val selectedItem: LiveData<ContentData> get() = _selectedItem
 
     fun loadData() {
         repository.getData {
             _data.value = it.data
         }
+    }
+
+    fun setSelectedItem(item: ContentData) {
+        _selectedItem.value = item
     }
 }

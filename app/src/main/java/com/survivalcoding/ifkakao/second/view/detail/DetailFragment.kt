@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.SecondFragmentDetailBinding
+import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
 
 class DetailFragment : Fragment() {
     private var _binding: SecondFragmentDetailBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ContentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,6 +27,7 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.contentdata = viewModel.selectedItem.value
     }
 
     override fun onDestroyView() {

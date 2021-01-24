@@ -21,12 +21,12 @@ class MainFragment : Fragment() {
     private val adapter by lazy {
         ContentMainAdapter(
             itemClickListener = {
+                viewModel.setSelectedItem(it)
                 parentFragmentManager.commit {
                     setReorderingAllowed(true)
                     replace<DetailFragment>(R.id.fragment_container_view)
                     addToBackStack(null)
                 }
-
             })
     }
     private val viewModel: ContentViewModel by activityViewModels()
