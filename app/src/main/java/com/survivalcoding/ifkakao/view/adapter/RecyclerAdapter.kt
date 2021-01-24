@@ -9,27 +9,45 @@ import coil.transform.RoundedCornersTransformation
 import com.survivalcoding.ifkakao.databinding.FrontItemBinding
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 
-class RecyclerAdapter(
-    val itemClick: (Int) -> Unit
-) :
-    ListAdapter<ConferenceAppFront, Holder>(ItemDiffCallback) {
+private val TYPE_HEADER = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+class RecyclerAdapter(
+    val itemClick: (ConferenceAppFront) -> Unit
+) :
+    ListAdapter<ConferenceAppFront, RecyclerView.ViewHolder>(ItemDiffCallback) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        /*
+        if (viewType == TYPE_HEADER) {
+            val recyclerHeaderBinding =
+                RecyclerHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return HeaderViewHolder(recyclerHeaderBinding)
+        }
+         */
+
         val frontItemBinding =
             FrontItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return Holder(frontItemBinding, itemClick)
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.setData(getItem(holder.adapterPosition))
-        holder.clickListener()
+    override fun getItemViewType(position: Int): Int {
+        if (position == 0) return 0
+        else return 1
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
+        if (holder is Holder) {
+            holder.setData(getItem(holder.adapterPosition))
+            holder.clickListener(getItem(holder.adapterPosition))
+        }
     }
 }
 
 class Holder(
     val binding: FrontItemBinding,
-    val itemClick: (Int) -> Unit
+    val itemClick: (ConferenceAppFront) -> Unit
 ) :
     RecyclerView.ViewHolder(binding.root) {
 
@@ -49,9 +67,9 @@ class Holder(
         }
     }
 
-    fun clickListener() {
+    fun clickListener(data: ConferenceAppFront) {
         binding.constraintLayout.setOnClickListener {
-            itemClick(adapterPosition)
+            itemClick(data)
         }
     }
 }

@@ -2,13 +2,13 @@ package com.survivalcoding.ifkakao.repository
 
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
+import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import okhttp3.*
 import java.io.IOException
 
 
-class ConferenceRepository {
+object ConferenceRepository {
 
     val url = "https://raw.githubusercontent.com/junsuk5/mock_json/main/conf/contents.json"
     val client = OkHttpClient()
@@ -18,6 +18,7 @@ class ConferenceRepository {
 
     fun getData(callback: (List<ConferenceAppFront>) -> Unit) {
 
+        listData.clear()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -39,6 +40,8 @@ class ConferenceRepository {
                         var contentTag = topData.data[i].contentTag ?: ""
                         var contentsSpeackerList = topData.data[i].contentsSpeackerList
                         var speackerProfileList = topData.data[i].linkList.SPEACKER_PROFILE
+                        var spotlightYn = topData.data[i].spotlightYn
+                        var sessionType = topData.data[i].sessionType
                         var title = titleTmp.replace("<br>", "\n")
                         _listData.add(
                             ConferenceAppFront(
@@ -50,10 +53,12 @@ class ConferenceRepository {
                                 contentTag,
                                 contentsSpeackerList,
                                 speackerProfileList,
-
-                                )
+                                spotlightYn,
+                                sessionType
+                            )
                         )
                     }
+
                     callback(listData)
                 }
                 //
