@@ -6,23 +6,31 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.core.net.toUri
-import androidx.core.view.MenuCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentCoordinatorBinding
-import com.survivalcoding.ifkakao.databinding.FragmentIfKakaoBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.view.main.adapter.IfKakaoAdapter
+import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class IfKakaoFragment() : Fragment() {
     private var _binding: FragmentCoordinatorBinding? = null
     private val binding get() = _binding!!
 
-    val adapter = IfKakaoAdapter()
+    // ViewModel 가져오기.
+    // 다음 fragment로 데이터를 넘겨야 할 때에는 생명주기를 activity와 같이하는 activityViewModels을 사용하자.
+    val model: IfKakaoViewModel by activityViewModels()
+
+    val adapter = IfKakaoAdapter {
+        model.presentationData.value = it
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
+            addToBackStack(null)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,8 +76,6 @@ class IfKakaoFragment() : Fragment() {
             teaserPlay(vodTeaser)
         }
 
-        // ViewModel 가져오기.
-        val model: IfKakaoViewModel by viewModels()
         // LiveData가 수정될 때 실행할 메소드
         model.ifKakaoSessionList.observe(viewLifecycleOwner, Observer {
             updateUi(it.data)
