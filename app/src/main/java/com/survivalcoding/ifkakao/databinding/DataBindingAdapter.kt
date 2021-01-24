@@ -7,17 +7,7 @@ import com.survivalcoding.ifkakao.extension.loadUrlWithRoundCorner
 
 @BindingAdapter("title")
 fun setTitle(view: TextView, title: String) {
-    if (title.contains("<br>")) {
-        val res = title.split("<br>")
-        val stringBuffer = StringBuffer()
-        for (token in res) {
-            stringBuffer.append(token)
-            stringBuffer.append("\n")
-        }
-        view.text = stringBuffer.toString()
-    } else {
-        view.text = title
-    }
+    view.text = title.replace("<br>", "\n")
 }
 
 @BindingAdapter("field")

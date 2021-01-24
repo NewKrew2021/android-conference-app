@@ -9,7 +9,8 @@ import android.widget.ArrayAdapter
 import android.widget.VideoView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
@@ -24,6 +25,8 @@ class ConferenceListFragment() : Fragment() {
     private var _bindng: FragmentConferenceListBinding? = null
     lateinit var conferenceListAdapter: ConferenceListAdapter
     private val binding get() = _bindng!!
+    val viewModel: ConferenceViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,7 +44,16 @@ class ConferenceListFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        conferenceListAdapter = ConferenceListAdapter()
+        conferenceListAdapter = ConferenceListAdapter(
+            showDetail = {
+                viewModel.setSelectItem(it)
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.fragmentContainerView, DetailFragment())
+                    addToBackStack(null)
+                }
+            }
+        )
         val dividerItemDecoration = DividerItemDecoration(
             context,
             DividerItemDecoration.VERTICAL
@@ -68,8 +80,6 @@ class ConferenceListFragment() : Fragment() {
             spinner.setSelection(2)
             spinner.onItemSelectedListener = SpinnerAdapter()
         }
-
-        val viewModel: ConferenceViewModel by viewModels()
         viewModel.list.observe(viewLifecycleOwner, Observer<List<Data>> {
             updateList(it)
         })
