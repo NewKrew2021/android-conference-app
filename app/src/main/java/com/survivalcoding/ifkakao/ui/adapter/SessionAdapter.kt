@@ -10,6 +10,8 @@ class SessionAdapter : RecyclerView.Adapter<SessionViewHolder>() {
 
     private var sessionList: MutableList<ConferenceSessionResponse> = ArrayList()
 
+    private lateinit var sessionClickListener: ((session: ConferenceSessionResponse) -> Unit)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemSessionBinding.inflate(inflater, parent, false)
@@ -20,11 +22,16 @@ class SessionAdapter : RecyclerView.Adapter<SessionViewHolder>() {
 
     override fun onBindViewHolder(holder: SessionViewHolder, position: Int) {
         holder.bindView((sessionList[position]))
+        holder.clickEventProcess(sessionList[position], sessionClickListener)
     }
 
     fun setList(list: List<ConferenceSessionResponse>) {
         this.sessionList = list as MutableList<ConferenceSessionResponse>
         notifyDataSetChanged()
+    }
+
+    fun setSessionClickListener(listener: (session: ConferenceSessionResponse) -> Unit) {
+        this.sessionClickListener = listener
     }
 
 }
@@ -34,5 +41,14 @@ class SessionViewHolder(private val binding: ItemSessionBinding) :
     fun bindView(session: ConferenceSessionResponse) {
         binding.session = session
         binding.ivThumbnailSession.clipToOutline = true
+    }
+
+    fun clickEventProcess(
+        session: ConferenceSessionResponse,
+        listener: (session: ConferenceSessionResponse) -> Unit
+    ) {
+        binding.layoutItemSession.setOnClickListener {
+            listener.invoke(session)
+        }
     }
 }

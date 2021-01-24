@@ -7,7 +7,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { MainViewModel(get()) }
     viewModel { SessionEventMenuViewModel() }
-    viewModel { SessionViewModel() }
+    viewModel { SessionViewModel(get()) }
     viewModel { EventViewModel() }
     viewModel { SessionDetailViewModel() }
 }
