@@ -24,5 +24,6 @@ class ContentMainAdapter(
     override fun onBindViewHolder(holder: ContentMainHolder, position: Int) {
         val item = getItem(position)
         holder.binding.contentdata = item
+        holder.binding.executePendingBindings()
     }
 }
