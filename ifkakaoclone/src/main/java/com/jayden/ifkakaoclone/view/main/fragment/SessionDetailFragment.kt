@@ -32,6 +32,7 @@ class SessionDetailFragment : Fragment() {
         _binding = FragmentSessionDetailBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@SessionDetailFragment
             viewModel = activityViewModel
+            fragment = this@SessionDetailFragment
         }
         return binding.root
     }
@@ -46,10 +47,6 @@ class SessionDetailFragment : Fragment() {
 
         with(binding) {
             speakerRecyclerView.adapter = adapter
-
-            btnBackToList.setOnClickListener {
-                parentFragmentManager.popBackStack()
-            }
 
             layoutFooter.imageScrollTop.setOnClickListener {
                 nestedScrollView.smoothScrollTo(0, 0)

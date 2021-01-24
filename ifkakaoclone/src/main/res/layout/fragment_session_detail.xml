@@ -6,10 +6,14 @@
     <data>
 
         <import type="com.jayden.ifkakaoclone.extensions.StringExtensionKt" />
+        <import type="com.jayden.ifkakaoclone.extensions.FragmentExtensionKt" />
 
         <variable
             name="viewModel"
             type="com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel" />
+        <variable
+            name="fragment"
+            type="com.jayden.ifkakaoclone.view.main.fragment.SessionDetailFragment" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -155,6 +159,7 @@
                 android:backgroundTint="@color/fragment_session_detail_btn_go_to_list"
                 android:paddingStart="32dp"
                 android:paddingEnd="32dp"
+                android:onClick="@{() -> FragmentExtensionKt.finish(fragment)}"
                 android:text="@string/fragment_session_detail_btn_back_to_list"
                 android:textColor="@color/session_footer_copyright_gray" />
 

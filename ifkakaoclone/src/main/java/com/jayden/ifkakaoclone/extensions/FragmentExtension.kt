@@ -11,3 +11,7 @@ inline fun <reified F : Fragment> Fragment.replaceTransaction(fragmentContainerV
         addToBackStack(null)
     }
 }
+
+fun Fragment.finish() {
+    parentFragmentManager.popBackStack()
+}
