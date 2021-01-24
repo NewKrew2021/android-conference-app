@@ -12,4 +12,6 @@ data class LinkList(
     val mobileImage: List<MobileImage>,
     @Json(name = "SPEACKER_PROFILE")
     val speakerProfile: List<SpeakerProfile>,
+    @Json(name = "VIDEO")
+    val video: List<Video>,
 ) : Parcelable
