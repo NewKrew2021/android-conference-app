@@ -1,6 +1,9 @@
 package com.example.ifkakao.view
 
+import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +16,8 @@ import com.example.ifkakao.util.replaceTransaction
 import com.example.ifkakao.viewmodel.SessionViewModel
 
 /*
-TODO: 1. 메뉴 버튼 클릭 구현
-      2. 네트워크 통신 구현
+TODO: 1. 네트워크 통신 구현
+      2. 필터링 기능 추가
  */
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -49,12 +52,47 @@ class MainFragment : Fragment() {
                 binding.conferenceRecyclerView.smoothScrollToPosition(0)
             }
         )
-        binding.conferenceRecyclerView.adapter = adapter
+        binding.apply {
+            conferenceRecyclerView.adapter = adapter
+            setVideoView()
+        }
         viewModel.updateSessionData()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setVideoView() {
+        binding.mainVideo.apply {
+            // 화면이 세로 상태
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                setVideoURI(Uri.parse(VIDEO_PORTRAIT_URL))
+                layoutParams.height = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    VIDEO_PORTRAIT_HEIGHT,
+                    resources.displayMetrics
+                ).toInt()
+            } else { // 화면 가로 상태
+                setVideoURI(Uri.parse(VIDEO_LANDSCAPE_URL))
+                layoutParams.height = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    VIDEO_LANDSCAPE_HEIGHT,
+                    resources.displayMetrics
+                ).toInt()
+            }
+            setOnPreparedListener { it.start() }
+            setOnCompletionListener { it.start() }
+        }
+    }
+
+    companion object {
+        const val VIDEO_PORTRAIT_HEIGHT = 411F
+        const val VIDEO_PORTRAIT_URL =
+            "https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4"
+        const val VIDEO_LANDSCAPE_HEIGHT = 292F
+        const val VIDEO_LANDSCAPE_URL =
+            "https://t1.kakaocdn.net/service_if_kakao_prod/videos/pc/vod_teaser.mp4"
     }
 }
