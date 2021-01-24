@@ -59,4 +59,6 @@ dependencies {
     implementation image_libraries.values()
 
     implementation lifecycle_libraries.values()
+
+    implementation video_libraries.values()
 }
