@@ -1,7 +1,7 @@
 package com.survivalcoding.ifkakao.second.view.main.holder
 
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.survivalcoding.ifkakao.databinding.SecondItemContentBinding
 
-class ContentMainHolder(val binding: SecondItemContentBinding) :
+class ContentMainHolder(val binding: ViewDataBinding) :
     RecyclerView.ViewHolder(binding.root)
