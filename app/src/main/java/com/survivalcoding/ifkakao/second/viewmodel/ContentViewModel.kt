@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.survivalcoding.ifkakao.second.model.ContentData
-import com.survivalcoding.ifkakao.second.model.repository.ContentRepository
+import com.survivalcoding.ifkakao.second.model.repository.Repository
 
-class ContentViewModel : ViewModel() {
+class ContentViewModel(private val repository: Repository) : ViewModel() {
     private val _data = MutableLiveData<List<ContentData>>()
-    private val repository = ContentRepository()
     val data: LiveData<List<ContentData>>
         get() {
             return _data

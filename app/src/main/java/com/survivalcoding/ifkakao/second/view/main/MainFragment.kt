@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
@@ -29,6 +29,7 @@ class MainFragment : Fragment() {
 
             })
     }
+    private val viewModel: ContentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +44,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-        val viewModel: ContentViewModel by viewModels()
         viewModel.data.observe(viewLifecycleOwner) {
             updateUI(it)
         }
