@@ -38,6 +38,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.button.setOnClickListener {
+            supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<MenuFragment>(R.id.fragment_container_view)
+            }
+        }
     }
 
 }

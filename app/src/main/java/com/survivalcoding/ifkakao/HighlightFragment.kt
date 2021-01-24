@@ -1,7 +1,9 @@
 package com.survivalcoding.ifkakao
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -70,7 +72,6 @@ class HighlightFragment : Fragment() {
         return view
     }
 
-
     fun imageSetting() {
         binding.highlightImageView.load(R.raw.bg_bye)
         binding.highlightImageView.setImageAlpha(130)
@@ -90,18 +91,6 @@ class HighlightFragment : Fragment() {
 
 
     }
-
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        inflater.inflate(R.menu.main, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
