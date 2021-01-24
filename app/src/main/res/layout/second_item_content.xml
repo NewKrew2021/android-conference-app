@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+        <import type="com.survivalcoding.ifkakao.second.extension.StringExtensionKt" />
 
         <variable
             name="contentdata"
@@ -50,7 +51,7 @@
         <TextView
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
-            android:text="@{contentdata.title}"
+            android:text="@{StringExtensionKt.removeTag(contentdata.title)}"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/thumbnail_image"
             app:layout_constraintTop_toBottomOf="@id/field_text"
