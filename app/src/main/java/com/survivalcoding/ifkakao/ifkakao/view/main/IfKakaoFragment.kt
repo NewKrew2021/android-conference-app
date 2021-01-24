@@ -1,29 +1,43 @@
 package com.survivalcoding.ifkakao.ifkakao.view.main
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import android.view.*
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import android.widget.VideoView
+import androidx.core.net.toUri
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
-import com.survivalcoding.ifkakao.databinding.FragmentIfKakaoBinding
+import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.databinding.FragmentCoordinatorBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.view.main.adapter.IfKakaoAdapter
+import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class IfKakaoFragment() : Fragment() {
-    private var _binding: FragmentIfKakaoBinding? = null
+    private var _binding: FragmentCoordinatorBinding? = null
     private val binding get() = _binding!!
 
-    val adapter = IfKakaoAdapter()
+    // ViewModel 가져오기.
+    // 다음 fragment로 데이터를 넘겨야 할 때에는 생명주기를 activity와 같이하는 activityViewModels을 사용하자.
+    val model: IfKakaoViewModel by activityViewModels()
+
+    val adapter = IfKakaoAdapter {
+        model.presentationData.value = it
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
+            addToBackStack(null)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentIfKakaoBinding.inflate(inflater, container, false)
+        _binding = FragmentCoordinatorBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,17 +48,48 @@ class IfKakaoFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().title = "If Kakao 2020"
         binding.apply {
             ifKakaoListView.adapter = adapter
+
+            // spinner
+            ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.day_select,
+                R.layout.item_spinner
+            ).also { adapter ->
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                // Apply the adapter to the spinner
+                daySelectSpinner.adapter = adapter
+            }
+
+            // filter button
+            filterButton.setOnClickListener {
+                Toast.makeText(
+                    requireContext(),
+                    "filter button clicked - IfKakaoFragment",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            // video view
+            teaserPlay(vodTeaser)
         }
 
-        val model: IfKakaoViewModel by viewModels()
-        model.ifkakaoItem.observe(viewLifecycleOwner, Observer {
+        // LiveData가 수정될 때 실행할 메소드
+        model.ifKakaoSessionList.observe(viewLifecycleOwner, Observer {
             updateUi(it.data)
         })
 
         model.loadIfKakaoItem()
+    }
+
+    private fun teaserPlay(videoView: VideoView) {
+        videoView.setVideoURI("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4".toUri())
+        videoView.setOnPreparedListener {
+            videoView.start()
+            it.isLooping = true;
+        }
     }
 
     fun updateUi(list: List<Data>) {

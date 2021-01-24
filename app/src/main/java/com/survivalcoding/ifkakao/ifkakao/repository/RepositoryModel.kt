@@ -1,15 +1,16 @@
-package com.survivalcoding.ifkakao.ifkakao.data
+package com.survivalcoding.ifkakao.ifkakao.repository
 
 import com.squareup.moshi.Moshi
-import com.survivalcoding.ifkakao.ifkakao.model.IfKakaoItem
+import com.survivalcoding.ifkakao.ifkakao.model.IfKakaoResponse
 
-class DataModel : DefaultDataModel {
-    override fun getIfKakaoItem(json: String): IfKakaoItem {
+class RepositoryModel : DefaultRepositoryModel {
+
+    override fun getParsedIfKakaoResponse(json: String): IfKakaoResponse {
         val moshi = Moshi.Builder().build()
-        val adapter = moshi.adapter(IfKakaoItem::class.java)
+        val adapter = moshi.adapter(IfKakaoResponse::class.java)
         val data = adapter.fromJson(json)
         data?.let { return data }
-        return IfKakaoItem(0, listOf(), "cannot parsing", false)
+        return IfKakaoResponse(0, listOf(), "cannot parsing", false)
     }
 
     override fun getRequest(): String {
