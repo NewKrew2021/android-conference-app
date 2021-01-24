@@ -22,3 +22,16 @@ fun removeHtml(view: TextView, text: String) {
     val str = text.replace("<br>", "\n");
     view.text = str
 }
+
+@BindingAdapter("presenterImageUrl")
+fun loadPresenterImage(view: ImageView, url: String) {
+    Glide.with(view.rootView.context)
+        .load(url)
+        .circleCrop()
+        .into(view)
+}
+
+@BindingAdapter("nameKo", "nameEn")
+fun concatName(view:TextView, nameKo : String, nameEn: String) {
+    view.text = "${nameKo} ${nameEn}"
+}

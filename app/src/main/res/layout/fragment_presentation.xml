@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,19 +10,140 @@
             type="com.survivalcoding.ifkakao.ifkakao.model.Data" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ifkakao.view.presentation.PresentationFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{presentation_data.toString()}"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/presentation_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/title_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
+                        app:layout_constraintStart_toStartOf="@id/presentation_header"
+                        app:layout_constraintTop_toTopOf="@id/presentation_header">
+
+                        <TextView
+                            android:id="@+id/presentation_title_bar"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:textColor="@color/white"
+                            android:textSize="16dp"
+                            app:titleText="@{presentation_data.title}"
+                            tools:text="디지털화된 일상에서 카카오톡이 만드는 새로운 세상" />
+
+                        <ImageButton
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@color/black"
+                            android:src="@drawable/ic_baseline_share_24" />
+                    </LinearLayout>
+
+                    <VideoView
+                        android:id="@+id/presentation_video"
+                        android:layout_width="match_parent"
+                        android:layout_height="211dp"
+                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
+                        app:layout_constraintStart_toStartOf="@id/presentation_header"
+                        app:layout_constraintTop_toBottomOf="@id/title_bar"
+                        tools:layout_height="211dp" />
+
+                    <LinearLayout
+                        android:id="@+id/presentation_field_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
+                        app:layout_constraintStart_toStartOf="@id/presentation_header"
+                        app:layout_constraintTop_toBottomOf="@id/presentation_video">
+
+                        <TextView
+                            android:id="@+id/text_field"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:layout_marginLeft="20dp"
+                            android:background="@drawable/text_border_color"
+                            android:paddingHorizontal="5dp"
+                            android:text="@{presentation_data.field}"
+                            android:textColor="@color/white"
+                            android:textSize="14dp"
+                            tools:text="서비스" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/presentation_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:textColor="@color/white"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
+                        app:layout_constraintStart_toStartOf="@id/presentation_header"
+                        app:layout_constraintTop_toBottomOf="@id/presentation_field_layout"
+                        app:titleText="@{presentation_data.title}"
+                        tools:text="디지털화된 일상에서\n 카카오톡이 만드는 새로운 세상" />
+
+                    <TextView
+                        android:id="@+id/presentation_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
+                        app:layout_constraintStart_toStartOf="@id/presentation_header"
+                        app:layout_constraintTop_toBottomOf="@id/presentation_title"
+                        app:titleText="@{presentation_data.content}"
+                        tools:text="카카오의 대표 서비스 카카오톡에 새롭게 추가되는 신규 기능들을 소개합니다.\n\n카톡에서 주고받은 대화와" />
+
+                    <TextView
+                        android:id="@+id/presentation_hash_tag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginVertical="10dp"
+                        android:text="@{presentation_data.contentTag}"
+                        android:textColor="#9F9F9F"
+                        android:textSize="14dp"
+                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
+                        app:layout_constraintStart_toStartOf="@id/presentation_header"
+                        app:layout_constraintTop_toBottomOf="@id/presentation_description"
+                        tools:text="#카카오톡 #신규서비스 #톡서랍 #팀채팅 #멀티프로필 #인물검색 #디지털신분증 #카카오인증서 #디지털자산" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/presenter_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_presenter"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

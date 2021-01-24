@@ -84,7 +84,7 @@ class IfKakaoFragment() : Fragment() {
         model.loadIfKakaoItem()
     }
 
-    fun teaserPlay(videoView: VideoView) {
+    private fun teaserPlay(videoView: VideoView) {
         videoView.setVideoURI("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4".toUri())
         videoView.setOnPreparedListener {
             videoView.start()

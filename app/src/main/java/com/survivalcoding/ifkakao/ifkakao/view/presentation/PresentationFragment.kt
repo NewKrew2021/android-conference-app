@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
@@ -36,5 +37,7 @@ class PresentationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.presentationData = presentationData
+
+        binding.presentationVideo.setVideoURI(presentationData.linkList.VIDEO[0].url.toUri())
     }
 }
