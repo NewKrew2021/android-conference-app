@@ -4,213 +4,235 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/black">
+    android:background="@color/black"
+    tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/interestsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
-        android:text="관심분야"
-        android:textColor="@color/white"
-        android:textStyle="bold"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/serviceTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="서비스.비즈니스"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/keywordTextView"
-        app:layout_constraintTop_toBottomOf="@+id/keywordTextView" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/keywordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="관심키워드"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/interestsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/serviceToggleButton" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/techTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:text="기술"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/mobilToggleButton"
-        app:layout_constraintTop_toBottomOf="@+id/mobilToggleButton" />
 
-    <ToggleButton
-        android:id="@+id/serviceToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="서비스"
-        android:textOn="서비스"
-        app:layout_constraintStart_toStartOf="@+id/interestsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/interestsTextView" />
+                <TextView
+                    android:id="@+id/interestsTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="60dp"
+                    android:text="관심분야"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <ToggleButton
-        android:id="@+id/resetToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="50dp"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-        android:background="@drawable/reset_toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="초기화"
-        android:textOn="초기화"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/serviceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="서비스.비즈니스"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/keywordTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/keywordTextView" />
 
-    <ToggleButton
-        android:id="@+id/dataToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="데이터"
-        android:textOn="데이터"
-        app:layout_constraintStart_toStartOf="@+id/techTextView"
-        app:layout_constraintTop_toBottomOf="@+id/techTextView" />
+                <TextView
+                    android:id="@+id/keywordTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:text="관심키워드"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/interestsTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/serviceToggleButton" />
 
-    <ToggleButton
-        android:id="@+id/mobilToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="모빌리티"
-        android:textOn="모빌리티"
-        app:layout_constraintStart_toStartOf="@+id/serviceTextView"
-        app:layout_constraintTop_toBottomOf="@+id/serviceTextView" />
+                <TextView
+                    android:id="@+id/techTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:text="기술"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/mobilToggleButton"
+                    app:layout_constraintTop_toBottomOf="@+id/mobilToggleButton" />
 
-    <ToggleButton
-        android:id="@+id/contentsToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="콘텐츠"
-        android:textOn="콘텐츠"
-        app:layout_constraintStart_toEndOf="@+id/mobilToggleButton"
-        app:layout_constraintTop_toBottomOf="@+id/serviceTextView" />
+                <ToggleButton
+                    android:id="@+id/serviceToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="서비스"
+                    android:textOn="서비스"
+                    app:layout_constraintStart_toStartOf="@+id/interestsTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/interestsTextView" />
 
-    <ToggleButton
-        android:id="@+id/infraToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="인프라"
-        android:textOn="인프라"
-        app:layout_constraintStart_toEndOf="@+id/contentsToggleButton"
-        app:layout_constraintTop_toBottomOf="@+id/serviceTextView" />
+                <ToggleButton
+                    android:id="@+id/resetToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="110dp"
+                    android:background="@drawable/reset_toggle_selector"
+                    android:checked="false"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="초기화"
+                    android:textOn="초기화"
+                    app:layout_constraintStart_toStartOf="@+id/dataToggleButton"
+                    app:layout_constraintTop_toBottomOf="@+id/dataToggleButton" />
 
-    <ToggleButton
-        android:id="@+id/backendToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="백엔드"
-        android:textOn="백엔드"
-        app:layout_constraintStart_toEndOf="@+id/dataToggleButton"
-        app:layout_constraintTop_toTopOf="@+id/dataToggleButton" />
+                <ToggleButton
+                    android:id="@+id/dataToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="데이터"
+                    android:textOn="데이터"
+                    app:layout_constraintStart_toStartOf="@+id/techTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/techTextView" />
 
-    <ToggleButton
-        android:id="@+id/hardwareToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="하드웨어"
-        android:textOn="하드웨어"
-        app:layout_constraintStart_toEndOf="@+id/backendToggleButton"
-        app:layout_constraintTop_toTopOf="@+id/dataToggleButton" />
+                <ToggleButton
+                    android:id="@+id/mobilToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="모빌리티"
+                    android:textOn="모빌리티"
+                    app:layout_constraintStart_toStartOf="@+id/serviceTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/serviceTextView" />
 
-    <ToggleButton
-        android:id="@+id/bzToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="비즈니스"
-        android:textOn="비즈니스"
-        app:layout_constraintStart_toEndOf="@+id/serviceToggleButton"
-        app:layout_constraintTop_toTopOf="@+id/serviceToggleButton" />
+                <ToggleButton
+                    android:id="@+id/contentsToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="콘텐츠"
+                    android:textOn="콘텐츠"
+                    app:layout_constraintStart_toEndOf="@+id/mobilToggleButton"
+                    app:layout_constraintTop_toBottomOf="@+id/serviceTextView" />
 
-    <ToggleButton
-        android:id="@+id/tecToggleButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:background="@drawable/toggle_selector"
-        android:checked="false"
-        android:text="ToggleButton"
-        android:textColor="@color/white"
-        android:textOff="기술"
-        android:textOn="기술"
-        app:layout_constraintStart_toEndOf="@+id/bzToggleButton"
-        app:layout_constraintTop_toTopOf="@+id/bzToggleButton" />
+                <ToggleButton
+                    android:id="@+id/infraToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="인프라"
+                    android:textOn="인프라"
+                    app:layout_constraintStart_toEndOf="@+id/contentsToggleButton"
+                    app:layout_constraintTop_toBottomOf="@+id/serviceTextView" />
 
-    <Button
-        android:id="@+id/applyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/apply_button"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
-        android:text="적용"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+                <ToggleButton
+                    android:id="@+id/backendToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="백엔드"
+                    android:textOn="백엔드"
+                    app:layout_constraintStart_toEndOf="@+id/dataToggleButton"
+                    app:layout_constraintTop_toTopOf="@+id/dataToggleButton" />
 
+                <ToggleButton
+                    android:id="@+id/hardwareToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="하드웨어"
+                    android:textOn="하드웨어"
+                    app:layout_constraintStart_toEndOf="@+id/backendToggleButton"
+                    app:layout_constraintTop_toTopOf="@+id/dataToggleButton" />
+
+                <ToggleButton
+                    android:id="@+id/bzToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="비즈니스"
+                    android:textOn="비즈니스"
+                    app:layout_constraintStart_toEndOf="@+id/serviceToggleButton"
+                    app:layout_constraintTop_toTopOf="@+id/serviceToggleButton" />
+
+                <ToggleButton
+                    android:id="@+id/tecToggleButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/toggle_selector"
+                    android:checked="false"
+                    android:text="ToggleButton"
+                    android:textColor="@color/white"
+                    android:textOff="기술"
+                    android:textOn="기술"
+                    app:layout_constraintStart_toEndOf="@+id/bzToggleButton"
+                    app:layout_constraintTop_toTopOf="@+id/bzToggleButton" />
+
+                <Button
+                    android:id="@+id/applyButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="56dp"
+                    android:background="@drawable/apply_button"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:text="적용"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/resetToggleButton" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
