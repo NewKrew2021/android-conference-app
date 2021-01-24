@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
@@ -18,9 +21,15 @@ class MainFragment : Fragment() {
     private val adapter by lazy {
         ContentMainAdapter(
             itemClickListener = {
-
+                viewModel.setSelectedItem(it)
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<DetailFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
             })
     }
+    private val viewModel: ContentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,7 +44,6 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-        val viewModel: ContentViewModel by viewModels()
         viewModel.data.observe(viewLifecycleOwner) {
             updateUI(it)
         }
