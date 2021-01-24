@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="presenter_image"
-            type="com.survivalcoding.ifkakao.ifkakao.model.SPEACKERPROFILE" />
-
-        <variable
-            name="presenter_info"
-            type="com.survivalcoding.ifkakao.ifkakao.model.ContentsSpeacker" />
+            name="presenter"
+            type="com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo" />
     </data>
 
     <LinearLayout
@@ -23,13 +19,15 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:gravity="center">
 
             <ImageView
                 android:id="@+id/presenter_thumbnail"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:presenterImageUrl="@{presenter_image.url}"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_gravity="center"
+                app:presenterImageUrl="@{presenter.url}"
                 tools:src="@drawable/ic_launcher_foreground" />
 
         </LinearLayout>
@@ -47,15 +45,15 @@
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:nameEn="@{presenter_info.nameEn}"
-                app:nameKo="@{presenter_info.nameKo}"
+                app:nameEn="@{presenter.contentsSpeacker.nameEn}"
+                app:nameKo="@{presenter.contentsSpeacker.nameKo}"
                 tools:text="여민수" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{presenter_info.company}"
+                android:text="@{presenter.contentsSpeacker.company}"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 tools:text="카카오" />
@@ -64,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{presenter_info.occupation}"
+                android:text="@{presenter.contentsSpeacker.occupation}"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 tools:text="CEO" />

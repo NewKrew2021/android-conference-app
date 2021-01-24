@@ -18,8 +18,8 @@ fun loadImage(view: ImageView, url: String) {
 }
 
 @BindingAdapter("titleText")
-fun removeHtml(view: TextView, text: String) {
-    val str = text.replace("<br>", "\n");
+fun removeHtml(view: TextView, text: String?) {
+    val str = text?.replace("<br>", "\n")
     view.text = str
 }
 
@@ -32,6 +32,6 @@ fun loadPresenterImage(view: ImageView, url: String) {
 }
 
 @BindingAdapter("nameKo", "nameEn")
-fun concatName(view:TextView, nameKo : String, nameEn: String) {
+fun concatName(view: TextView, nameKo: String, nameEn: String) {
     view.text = "${nameKo} ${nameEn}"
 }

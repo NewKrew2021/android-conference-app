@@ -7,6 +7,7 @@ import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.repository.RepositoryModel
 import com.survivalcoding.ifkakao.ifkakao.repository.DefaultRepositoryModel
 import com.survivalcoding.ifkakao.ifkakao.model.IfKakaoResponse
+import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 
 class IfKakaoViewModel : ViewModel() {
     private val _ifKakaoSessionList = MutableLiveData<IfKakaoResponse>()
