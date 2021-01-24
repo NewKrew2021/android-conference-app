@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.observe
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
 import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
@@ -15,7 +16,7 @@ import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
 class SessionDetailFragment : Fragment() {
     private var _binding: FragmentSessionDetailBinding? = null
     private val binding
-        get() =_binding!!
+        get() = _binding!!
 
     private val adapter by lazy {
         ContentSpeakerAdapter()
@@ -28,7 +29,10 @@ class SessionDetailFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSessionDetailBinding.inflate(inflater, container, false)
+        _binding = FragmentSessionDetailBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@SessionDetailFragment
+            viewModel = activityViewModel
+        }
         return binding.root
     }
 
@@ -41,8 +45,6 @@ class SessionDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         with(binding) {
-            viewModel = activityViewModel
-
             speakerRecyclerView.adapter = adapter
 
             btnBackToList.setOnClickListener {
@@ -52,22 +54,19 @@ class SessionDetailFragment : Fragment() {
             layoutFooter.imageScrollTop.setOnClickListener {
                 nestedScrollView.smoothScrollTo(0, 0)
             }
-
-            imageVideoPlay.setOnClickListener {
-                playVideo()
-            }
         }
+
+        // n Configuration Change is notified again
+        // so Sending Events with OneTime Only LiveData
+        activityViewModel.action.observe(viewLifecycleOwner) {
+            playVideoByBrowser(it.url)
+        }
+
         updateSpeaker()
     }
 
-    private fun playVideo() {
-        activityViewModel.selectedItem.value?.linkList?.video?.let {
-            if (it.isNotEmpty()) {
-                val video = it[0]
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
-                startActivity(intent)
-            }
-        }
+    private fun playVideoByBrowser(url: String) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
     private fun updateSpeaker() {

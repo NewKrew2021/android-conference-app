@@ -71,6 +71,7 @@
                     android:id="@+id/image_video_play"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
+                    android:onClick="@{() -> viewModel.playVideo(viewModel.selectedItem.linkList.video[0].url)}"
                     app:layout_constraintBottom_toBottomOf="@id/image_thumbnail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -143,8 +144,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/speaker_recycler_view"
                 android:layout_width="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <Button
                 android:id="@+id/btn_back_to_list"
@@ -158,8 +159,8 @@
                 android:textColor="@color/session_footer_copyright_gray" />
 
             <include
-                layout="@layout/session_footer_layout"
                 android:id="@+id/layout_footer"
+                layout="@layout/session_footer_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/session_footer_background" />
