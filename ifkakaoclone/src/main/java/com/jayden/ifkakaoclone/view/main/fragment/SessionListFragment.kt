@@ -1,5 +1,7 @@
 package com.jayden.ifkakaoclone.view.main.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +11,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
+import com.jayden.ifkakaoclone.extensions.replaceTransaction
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
+import com.jayden.ifkakaoclone.view.main.model.Session
 
 class SessionListFragment : Fragment() {
     private var _binding: FragmentSessionListBinding? = null
@@ -19,10 +25,20 @@ class SessionListFragment : Fragment() {
         get() = _binding!!
 
     private val adapter by lazy {
-        SessionListAdapter()
+        SessionListAdapter(
+            selectSessionEvent = { selectSessionEvent(it) },
+            openIfKakao2019 = { openIfKakao2019() },
+            smoothScrollToTop = { smoothScrollToTop() },
+        )
     }
 
     private val activityViewModel: SessionViewModel by activityViewModels()
+
+    private val smoothScroller by lazy {
+        object : LinearSmoothScroller(requireContext()) {
+            override fun getVerticalSnapPreference(): Int = SNAP_TO_START
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,13 +65,26 @@ class SessionListFragment : Fragment() {
                     LinearLayoutManager.VERTICAL
                 )
             )
-
-            stickyScrollView.header = filterLayout
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            adapter.setItems(it)
+            adapter.addHeaderAndSetItems(it)
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun selectSessionEvent(session: Session) {
+        activityViewModel.setSelectedItem(session)
+        replaceTransaction<SessionDetailFragment>(R.id.fragment_container_view)
+    }
+
+    private fun smoothScrollToTop() {
+        smoothScroller.targetPosition = 0
+        binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+    }
+
+    private fun openIfKakao2019() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2019"))
+        startActivity(intent)
     }
 }

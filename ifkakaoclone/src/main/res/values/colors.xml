@@ -10,4 +10,11 @@
 
     <!-- Session Item -->
     <color name="session_video_length_background">#2F2F2F</color>
+
+    <!-- Session Footer Layout -->
+    <color name="session_footer_copyright_gray">#A7A7A7</color>
+    <color name="session_footer_background">#1D1D1D</color>
+
+    <!-- SessionDetailFragment -->
+    <color name="fragment_session_detail_btn_go_to_list">#272727</color>
 </resources>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="kotlin.Pair" />
+
+        <import type="com.jayden.ifkakaoclone.view.main.model.ContentsSpeacker" />
+
+        <import type="com.jayden.ifkakaoclone.view.main.model.Link" />
+
+        <variable
+            name="speaker"
+            type="Pair&lt;ContentsSpeacker, Link>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        tools:background="@color/black">
+
+        <ImageView
+            android:id="@+id/image_speaker"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:scaleType="fitXY"
+            app:imageUrl="@{speaker.second.url}"
+            app:isCircleCrop="@{true}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_speaker_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholderDrawable="@{@drawable/image_placeholder}" />
+
+        <TextView
+            android:id="@+id/text_speaker_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:gravity="bottom"
+            android:text="@{speaker.first.nameKo + ' ' + speaker.first.nameEn}"
+            app:layout_constraintBottom_toTopOf="@id/text_company_name"
+            app:layout_constraintStart_toEndOf="@id/image_speaker"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="홍길동 Mike" />
+
+        <TextView
+            android:id="@+id/text_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@{speaker.first.company}"
+            android:textColor="@color/session_footer_copyright_gray"
+            android:visibility="@{speaker.first.company != null ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/text_occupation"
+            app:layout_constraintStart_toStartOf="@id/text_speaker_name"
+            app:layout_constraintTop_toBottomOf="@id/text_speaker_name"
+            tools:layout_constraintBottom_toTopOf="@id/text_occupation"
+            tools:text="카카오" />
+
+        <TextView
+            android:id="@+id/text_occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="@{speaker.first.occupation}"
+            android:textColor="@color/session_footer_copyright_gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_speaker_name"
+            app:layout_constraintTop_toBottomOf="@id/text_company_name"
+            tools:layout_constraintBottom_toBottomOf="parent"
+            tools:text="카카오 CEO" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
