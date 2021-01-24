@@ -19,7 +19,9 @@
 
         <ImageView
             android:id="@+id/thumbnail_image"
-            thumbnailImageUrl="@{session.linkList.mobileImage[0].url}"
+            cornerRadius="@{10}"
+            imageUrl="@{session.linkList.mobileImage[0].url}"
+            placeHolder="@drawable/temp_thumbnail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

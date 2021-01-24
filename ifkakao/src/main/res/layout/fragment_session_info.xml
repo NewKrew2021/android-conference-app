@@ -1,165 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".view.SessionInfoFragment">
+<layout>
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar_layout" />
+    <data>
 
-    <androidx.core.widget.NestedScrollView
+        <variable
+            name="viewModel"
+            type="com.example.ifkakao.viewmodel.SessionViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".view.SessionInfoFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/content_scroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <WebView
-                android:id="@+id/video_web_view"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintHeight_percent="0.32"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <TextView
-                android:id="@+id/field_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/field_text_border"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-                app:layout_constraintTop_toBottomOf="@id/video_web_view"
-                tools:text="서비스" />
+                <WebView
+                    android:id="@+id/video_web_view"
+                    videoUrl="@{viewModel.selectedSession.linkList.video[0].url}"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.3"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/session_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-                app:layout_constraintTop_toBottomOf="@id/field_text"
-                tools:text="오프닝 키노트" />
+                <TextView
+                    android:id="@+id/field_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/field_text_border"
+                    android:text="@{viewModel.selectedSession.field}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintTop_toBottomOf="@id/video_web_view"
+                    tools:text="서비스" />
 
-            <TextView
-                android:id="@+id/session_describe_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:lineSpacingExtra="4sp"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-                app:layout_constraintRight_toRightOf="@id/right_guideline"
-                app:layout_constraintTop_toBottomOf="@id/session_title_text"
-                tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다.\nif(kakao)2020에서 카카오의 변화를 함께 확인해 보시죠! \n\n오늘도 카카오는 일상을 바꾸는 중." />
+                <TextView
+                    android:id="@+id/session_title_text"
+                    sessionTitle="@{viewModel.selectedSession.title}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintRight_toRightOf="@id/right_guideline"
+                    app:layout_constraintTop_toBottomOf="@id/field_text"
+                    tools:text="오프닝 키노트" />
 
-            <TextView
-                android:id="@+id/session_hash_tag_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16sp"
-                android:textColor="@color/session_hash_tag_color"
-                android:textSize="12sp"
-                app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-                app:layout_constraintTop_toBottomOf="@id/session_describe_text"
-                tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
+                <TextView
+                    android:id="@+id/session_describe_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lineSpacingExtra="4sp"
+                    android:text="@{viewModel.selectedSession.content}"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintRight_toRightOf="@id/right_guideline"
+                    app:layout_constraintTop_toBottomOf="@id/session_title_text"
+                    tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다.\nif(kakao)2020에서 카카오의 변화를 함께 확인해 보시죠! \n\n오늘도 카카오는 일상을 바꾸는 중." />
 
-            <ImageView
-                android:id="@+id/speaker_image"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:adjustViewBounds="true"
-                app:layout_constraintLeft_toLeftOf="@id/left_guideline"
-                app:layout_constraintTop_toBottomOf="@id/session_hash_tag_text"
-                app:layout_constraintWidth_percent="0.14"
-                tools:src="@drawable/temp_speaker" />
+                <TextView
+                    android:id="@+id/session_hash_tag_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16sp"
+                    android:text="@{viewModel.selectedSession.contentTag}"
+                    android:textColor="@color/session_hash_tag_color"
+                    android:textSize="12sp"
+                    app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintRight_toRightOf="@id/right_guideline"
+                    app:layout_constraintTop_toBottomOf="@id/session_describe_text"
+                    tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
 
-            <TextView
-                android:id="@+id/speaker_name_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@id/speaker_image"
-                app:layout_constraintTop_toTopOf="@id/speaker_image"
-                tools:text="조수용 Sean" />
+                <LinearLayout
+                    android:id="@+id/speaker_list_layout"
+                    speakerList="@{viewModel.selectedSession}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintRight_toRightOf="@id/right_guideline"
+                    app:layout_constraintTop_toBottomOf="@id/session_hash_tag_text" />
 
-            <TextView
-                android:id="@+id/speaker_company_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/session_hash_tag_color"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/speaker_occupation_text"
-                app:layout_constraintLeft_toRightOf="@id/speaker_image"
-                app:layout_constraintTop_toBottomOf="@id/speaker_name_text"
-                tools:text="카카오" />
+                <Button
+                    android:id="@+id/list_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:backgroundTint="@color/button_color"
+                    android:paddingLeft="40dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="40dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/go_to_session_menu"
+                    android:textColor="@color/button_text_color"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/speaker_list_layout"
+                    app:layout_constraintWidth_percent="0.35" />
 
-            <TextView
-                android:id="@+id/speaker_occupation_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/session_hash_tag_color"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/speaker_image"
-                app:layout_constraintLeft_toRightOf="@id/speaker_image"
-                tools:text="CEO" />
+                <include
+                    android:id="@+id/footer"
+                    layout="@layout/session_list_footer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="@id/left_guideline"
+                    app:layout_constraintRight_toRightOf="@id/right_guideline"
+                    app:layout_constraintTop_toBottomOf="@id/list_button" />
 
-            <Button
-                android:id="@+id/list_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="32dp"
-                android:backgroundTint="@color/button_color"
-                android:paddingLeft="40dp"
-                android:paddingTop="8dp"
-                android:paddingRight="40dp"
-                android:paddingBottom="8dp"
-                android:text="@string/go_to_session_menu"
-                android:textColor="@color/button_text_color"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/speaker_image"
-                app:layout_constraintWidth_percent="0.35" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/left_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.05" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/left_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.05" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/right_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.95" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/right_guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.95" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

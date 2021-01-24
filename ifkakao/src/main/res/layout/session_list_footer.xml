@@ -18,10 +18,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/scroll_up_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
+            android:background="@color/black"
             android:src="@drawable/ic_baseline_arrow_circle_up_36"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

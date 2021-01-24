@@ -1,11 +1,14 @@
 package com.example.ifkakao.view
 
+import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
@@ -13,16 +16,13 @@ import com.example.ifkakao.util.replaceTransaction
 import com.example.ifkakao.viewmodel.SessionViewModel
 
 /*
-TODO: 1. 메뉴 버튼 클릭 구현
-      2. 네트워크 통신 구현
-      3. 상세 프레그먼트 구현
-      4. 세션 누르면 상세 프래그먼트로 이동하도록 구현
-      5. 스크롤 위로가기 버튼 구현
+TODO: 1. 네트워크 통신 구현
+      2. 필터링 기능 추가
  */
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SessionViewModel by viewModels()
+    private val viewModel: SessionViewModel by activityViewModels()
     private lateinit var adapter: SessionAdapter
 
     override fun onCreateView(
@@ -43,15 +43,56 @@ class MainFragment : Fragment() {
     }
 
     private fun initializeView() {
-        adapter = SessionAdapter {
-            replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+        adapter = SessionAdapter(
+            sessionClickListener = {
+                viewModel.setSelectedSession(it)
+                replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+            },
+            upButtonClickListener = {
+                binding.conferenceRecyclerView.smoothScrollToPosition(0)
+            }
+        )
+        binding.apply {
+            conferenceRecyclerView.adapter = adapter
+            setVideoView()
         }
-        binding.conferenceRecyclerView.adapter = adapter
         viewModel.updateSessionData()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setVideoView() {
+        binding.mainVideo.apply {
+            // 화면이 세로 상태
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                setVideoURI(Uri.parse(VIDEO_PORTRAIT_URL))
+                layoutParams.height = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    VIDEO_PORTRAIT_HEIGHT,
+                    resources.displayMetrics
+                ).toInt()
+            } else { // 화면 가로 상태
+                setVideoURI(Uri.parse(VIDEO_LANDSCAPE_URL))
+                layoutParams.height = TypedValue.applyDimension(
+                    TypedValue.COMPLEX_UNIT_DIP,
+                    VIDEO_LANDSCAPE_HEIGHT,
+                    resources.displayMetrics
+                ).toInt()
+            }
+            setOnPreparedListener { it.start() }
+            setOnCompletionListener { it.start() }
+        }
+    }
+
+    companion object {
+        const val VIDEO_PORTRAIT_HEIGHT = 411F
+        const val VIDEO_PORTRAIT_URL =
+            "https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4"
+        const val VIDEO_LANDSCAPE_HEIGHT = 292F
+        const val VIDEO_LANDSCAPE_URL =
+            "https://t1.kakaocdn.net/service_if_kakao_prod/videos/pc/vod_teaser.mp4"
     }
 }

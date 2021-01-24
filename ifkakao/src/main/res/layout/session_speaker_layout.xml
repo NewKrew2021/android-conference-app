@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="imageUrl"
+            type="String" />
+
+        <variable
+            name="name"
+            type="String" />
+
+        <variable
+            name="company"
+            type="String" />
+
+        <variable
+            name="occupation"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/speaker_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            imageUrl="@{imageUrl}"
+            cornerRadius="@{60}"
+            placeHolder="@drawable/temp_speaker"
+            android:layout_marginTop="24dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.14"
+            tools:src="@drawable/temp_speaker" />
+
+        <TextView
+            android:id="@+id/speaker_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{name}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/speaker_image"
+            app:layout_constraintTop_toTopOf="@id/speaker_image"
+            tools:text="조수용 Sean" />
+
+        <TextView
+            android:id="@+id/speaker_company_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{company}"
+            android:textColor="@color/session_hash_tag_color"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/speaker_occupation_text"
+            app:layout_constraintStart_toEndOf="@id/speaker_image"
+            app:layout_constraintTop_toBottomOf="@id/speaker_name_text"
+            tools:text="카카오" />
+
+        <TextView
+            android:id="@+id/speaker_occupation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="@{occupation}"
+            android:textColor="@color/session_hash_tag_color"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/speaker_image"
+            app:layout_constraintStart_toEndOf="@id/speaker_image"
+            tools:text="CEO" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
