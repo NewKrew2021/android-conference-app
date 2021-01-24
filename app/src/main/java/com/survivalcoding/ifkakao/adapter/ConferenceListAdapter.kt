@@ -8,7 +8,7 @@ import com.survivalcoding.ifkakao.holder.ConferenceListViewHolder
 import com.survivalcoding.ifkakao.model.conferenceData.Data
 
 
-class ConferenceListAdapter :
+class ConferenceListAdapter(private val showDetail: (data: Data) -> Unit) :
     ListAdapter<Data, ConferenceListViewHolder>(ConferenceCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConferenceListViewHolder {
@@ -20,6 +20,9 @@ class ConferenceListAdapter :
     override fun onBindViewHolder(holder: ConferenceListViewHolder, position: Int) {
         val currentItem = getItem(holder.adapterPosition)
         holder.binding.item = currentItem
+        holder.binding.conferenceItem.setOnClickListener {
+            showDetail.invoke(currentItem)
+        }
     }
 
 }
