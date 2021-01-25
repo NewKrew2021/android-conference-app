@@ -1,11 +1,10 @@
-package com.survivalcoding.ifkakao.data.remote.api
+package com.survivalcoding.ifkakao.data.remote.datasource
 
 import com.survivalcoding.ifkakao.data.model.response.ConferenceResponse
 import retrofit2.Response
-import retrofit2.http.GET
 
-interface IfKakaoApi {
+// API가 여러개면 여기서 모아서 전달
+interface RemoteDataSourceContract {
 
-    @GET("conf/contents.json")
     suspend fun getAllSession(): Response<ConferenceResponse>
 }

@@ -1,7 +1,9 @@
 package com.survivalcoding.ifkakao.data.repository
 
-import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
+import com.survivalcoding.ifkakao.data.model.response.ConferenceResponse
+import retrofit2.Response
 
 interface ConferenceRepositoryContract {
-    fun getAllSession(): List<ConferenceSessionResponse>
+
+    suspend fun getAllSession(): Response<ConferenceResponse>
 }
