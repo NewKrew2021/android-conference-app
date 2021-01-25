@@ -16,12 +16,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="40dp"
-        tools:context=".DetailFragment">
-
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        tools:context=".DetailFragment"
+        android:background="@color/black">
 
 
         <TextView
@@ -29,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/edge"
             android:paddingStart="3dp"
             android:paddingEnd="3dp"
