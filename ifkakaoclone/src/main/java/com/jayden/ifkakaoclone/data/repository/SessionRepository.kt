@@ -1,42 +1,36 @@
 package com.jayden.ifkakaoclone.data.repository
 
-import android.content.Context
-import com.jayden.ifkakaoclone.R
+import android.util.Log
+import com.jayden.ifkakaoclone.network.ApiServiceFactory
 import com.jayden.ifkakaoclone.view.main.model.Session
 import com.jayden.ifkakaoclone.view.main.model.SessionResult
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import java.io.ByteArrayOutputStream
-import java.io.IOException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class SessionRepository(private val context: Context) : Repository {
-    private val dummyData = generateDataFromFile()
-    private val moshi = Moshi.Builder().build()
+class SessionRepository : Repository {
 
-    override fun getSessions(): List<Session> {
-        val adapter: JsonAdapter<SessionResult> = moshi.adapter(SessionResult::class.java)
-        val sessionResult = adapter.fromJson(dummyData)
+    private val ifKakaoService = ApiServiceFactory.ifKakaoService
 
-        return sessionResult?.data ?: listOf()
-    }
+    override fun fetchContents(callback: (List<Session>) -> Unit) {
+        ifKakaoService.fetchContents().enqueue(object : Callback<SessionResult> {
+            override fun onResponse(call: Call<SessionResult>, response: Response<SessionResult>) {
+                val body = response.body()
 
-    private fun generateDataFromFile(): String {
-        val inputStream = context.resources.openRawResource(R.raw.dummy_data)
-        val outputStream = ByteArrayOutputStream()
-        var result: String? = null
+                if (response.isSuccessful && body != null) {
+                    callback.invoke(body.data)
+                } else {
+                    callback.invoke(listOf())
 
-        try {
-            inputStream.use {
-                var i = it.read()
-                while (i != -1) {
-                    outputStream.write(i)
-                    i = it.read()
+                    Log.d(javaClass.simpleName, body?.errorMessage ?: "Request Not Success")
                 }
-                result = String(outputStream.toByteArray(), Charsets.UTF_8)
             }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return result ?: ""
+
+            override fun onFailure(call: Call<SessionResult>, t: Throwable) {
+                callback.invoke(listOf())
+
+                Log.d(javaClass.simpleName, t.message ?: "Request Failure")
+            }
+        })
     }
 }
