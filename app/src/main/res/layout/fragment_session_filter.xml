@@ -7,21 +7,24 @@
 
         <variable
             name="viewModel"
-            type="com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel" />
+            type="com.survivalcoding.ifkakao.ui.viewmodel.SessionFilterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.view.session.SessionFragment">
+        tools:context=".ui.view.session.SessionFilterFragment">
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/item_toolbar"
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SessionFilterFragment"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

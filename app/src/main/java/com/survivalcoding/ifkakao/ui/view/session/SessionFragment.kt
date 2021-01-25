@@ -17,6 +17,7 @@ import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
+import com.survivalcoding.ifkakao.ui.view.filter.SessionFilterFragment
 import com.survivalcoding.ifkakao.ui.view.home.MainFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
@@ -30,8 +31,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         get() = R.layout.fragment_session
 
     override val viewModel: SessionViewModel by viewModel()
-
-    private var likeCheck: Boolean = false
 
     private val likeItem by lazy {
         binding.toolbarSession.menu.findItem(R.id.action_like)
@@ -115,26 +114,28 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu_session, menu)
+        viewModel.likeCheck = false
         likeItem.isVisible = false
+        unlikeItem.isVisible = true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_filter -> {
-                Toast.makeText(requireContext(), "필터 클릭", Toast.LENGTH_SHORT).show()
+                replaceFragment<SessionFilterFragment>(R.id.fragment_container_view)
                 true
             }
             R.id.action_like -> {
                 likeItem.isVisible = false
                 unlikeItem.isVisible = true
-                likeCheck = false
+                viewModel.likeCheck = false
                 Toast.makeText(requireContext(), "좋아요 설정 해제", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.action_unlike -> {
                 unlikeItem.isVisible = false
                 likeItem.isVisible = true
-                likeCheck = true
+                viewModel.likeCheck = true
                 Toast.makeText(requireContext(), "좋아요 설정", Toast.LENGTH_SHORT).show()
                 true
             }

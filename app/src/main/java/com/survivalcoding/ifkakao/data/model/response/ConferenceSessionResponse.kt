@@ -27,7 +27,7 @@ data class ConferenceSessionResponse(
     @Json(name = "content")
     val content: String,
     @Json(name = "contentTag")
-    val contentTag: String,
+    val contentTag: String? = null,
     @Json(name = "reservationDate")
     val reservationDate: String,
     @Json(name = "reservationTime")

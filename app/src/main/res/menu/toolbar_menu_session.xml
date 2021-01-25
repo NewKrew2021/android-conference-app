@@ -4,17 +4,17 @@
 
     <item
         android:id="@+id/action_like"
-        android:icon="@drawable/ic_baseline_star_rate_24"
+        android:icon="@drawable/ic_baseline_favorite_24"
         android:title="@string/action_like"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_unlike"
-        android:icon="@drawable/ic_baseline_star_border_24"
+        android:icon="@drawable/ic_baseline_favorite_border_24"
         android:title="@string/action_unlike"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_filter"
-        android:icon="@drawable/ic_baseline_filter_alt_24"
+        android:icon="@drawable/ic_baseline_tune_24"
         android:title="@string/action_filter"
         app:showAsAction="always|never" />
 </menu>
