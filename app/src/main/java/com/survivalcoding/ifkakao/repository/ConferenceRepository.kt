@@ -9,11 +9,13 @@ import com.survivalcoding.ifkakao.network.ApiServiceFactory.ifKakaoService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.concurrent.atomic.AtomicInteger
 
 
 object ConferenceRepository {
 
     val url = "https://raw.githubusercontent.com/"
+    val id = AtomicInteger(0)
 
     //val client = OkHttpClient()
     // val request = Request.Builder().url(url).build()
@@ -58,6 +60,7 @@ object ConferenceRepository {
                                 spotlightYn,
                                 sessionType,
                                 videoUrl,
+                                id.getAndIncrement()
                             )
                         )
 

@@ -3,6 +3,7 @@ package com.survivalcoding.ifkakao
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -55,6 +56,8 @@ class HighlightFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
 
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
+
+            binding.progressBar.visibility = GONE
             adapter.submitList(conferenceViewModel.getHighlightData())
         }
 

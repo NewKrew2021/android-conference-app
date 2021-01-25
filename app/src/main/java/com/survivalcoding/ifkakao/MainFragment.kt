@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
                 var tmpList = listOf<ConferenceAppFront>()
                 conferenceViewModel.selectInterests.forEach {
                     if (it == "서비스" || it == "비즈니스" || it == "기술")
-                        tmpList += conferenceViewModel.getRelativeData(it)
+                        tmpList += conferenceViewModel.getRelativeData(it, -1)
                             .map { it as ConferenceAppFront }
                 }
                 adapter.submitList(tmpList)

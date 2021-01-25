@@ -36,12 +36,12 @@ class ConferenceViewModel : ViewModel() {
         return tmpList
     }
 
-    fun getRelativeData(data: String): MutableList<DetailRecyclerType> {
+    fun getRelativeData(data: String, id: Int): MutableList<DetailRecyclerType> {
         var tmpList = mutableListOf<DetailRecyclerType>()
         _listData.value?.let {
             for (i in 0..it.size - 1) {
                 if (it.get(i).field == data) {
-                    if (it.get(i).hashCode() == data.hashCode()) continue
+                    if (it.get(i).id == id) continue
                     tmpList.add(
                         it.get(i)
                     )
