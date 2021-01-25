@@ -18,8 +18,8 @@ fun loadImage(view: ImageView, url: String) {
 }
 
 @BindingAdapter("titleText")
-fun removeHtml(view: TextView, text: String?) {
-    val str = text?.replace("<br>", "\n")
+fun removeHtml(view: TextView, text: String) {
+    val str = text.replace("<br>", "\n")
     view.text = str
 }
 

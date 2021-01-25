@@ -32,6 +32,7 @@ class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
             R.id.menu_icon -> {
                 Toast.makeText(this, "filter button clicked - IfKakaoActivity", Toast.LENGTH_SHORT)
                     .show()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

@@ -24,7 +24,7 @@ class IfKakaoFragment() : Fragment() {
     val model: IfKakaoViewModel by activityViewModels()
 
     val adapter = IfKakaoAdapter {
-        model.presentationData.value = it
+        model.setPresentationData(it)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
