@@ -14,6 +14,6 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
 
 
     fun getConferenceData() {
-        _conferenceData.postValue(repository.getConferenceResponse())
+        _conferenceData.postValue(repository.getAllSession())
     }
 }
