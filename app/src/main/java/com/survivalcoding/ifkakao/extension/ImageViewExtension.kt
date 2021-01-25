@@ -8,3 +8,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 fun ImageView.loadUrlWithRoundCorner(imageUrl: String) {
     Glide.with(this).load(imageUrl).transform(CenterCrop(), RoundedCorners(20)).into(this)
 }
+
+fun ImageView.loadUrl(imageUrl: String) {
+    Glide.with(this).load(imageUrl).transform().into(this)
+}

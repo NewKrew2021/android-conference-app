@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.view
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.TypedValue
@@ -39,7 +38,6 @@ class DetailFragment : Fragment() {
         _bindng = null
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.detail = viewModel.selectItem.value
