@@ -78,7 +78,7 @@ class IfKakaoFragment() : Fragment() {
 
         // LiveData가 수정될 때 실행할 메소드
         model.ifKakaoSessionList.observe(viewLifecycleOwner, Observer {
-            updateUi(it.data)
+            it?.let { updateUi(it.data) }
         })
 
         model.loadIfKakaoItem()

@@ -21,13 +21,12 @@ class IfKakaoViewModel : ViewModel() {
     private val ifKakaoRepositoryModel: DefaultRepositoryModel = RepositoryModel()
 
     fun loadIfKakaoItem() {
-        val jsonString = ifKakaoRepositoryModel.getRequest()
-        val parsedData = ifKakaoRepositoryModel.getParsedIfKakaoResponse(jsonString)
-
-        _ifKakaoSessionList.value = parsedData
+        ifKakaoRepositoryModel.getParsedIfKakaoResponse {
+            _ifKakaoSessionList.value = it
+        }
     }
 
-    fun setPresentationData(item : Data) {
+    fun setPresentationData(item: Data) {
         _presentationData.value = item
     }
 }
