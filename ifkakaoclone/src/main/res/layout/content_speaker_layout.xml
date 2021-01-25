@@ -5,10 +5,6 @@
 
     <data>
 
-        <import type="android.view.View" />
-
-        <import type="kotlin.Pair" />
-
         <variable
             name="item"
             type="com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink" />
@@ -52,7 +48,7 @@
             android:gravity="center"
             android:text="@{item.speaker.company}"
             android:textColor="@color/session_footer_copyright_gray"
-            android:visibility="@{item.speaker.company != null ? View.VISIBLE : View.GONE}"
+            app:gone="@{item.speaker.company == null}"
             app:layout_constraintBottom_toTopOf="@id/text_occupation"
             app:layout_constraintStart_toStartOf="@id/text_speaker_name"
             app:layout_constraintTop_toBottomOf="@id/text_speaker_name"
