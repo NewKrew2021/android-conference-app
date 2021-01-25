@@ -1,7 +1,8 @@
 package com.survivalcoding.ifkakao.view
 
-import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
@@ -25,9 +26,9 @@ class DetailFragment : Fragment() {
     private val binding get() = _bindng!!
     val viewModel: ConferenceViewModel by activityViewModels()
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _bindng = FragmentDetailBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -39,13 +40,21 @@ class DetailFragment : Fragment() {
         _bindng = null
     }
 
-    @SuppressLint("ResourceAsColor")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.detail = viewModel.selectItem.value
         viewModel.selectItem.value?.let {
             it.linkList.speackerProfile.zip(it.contentsSpeackerList).forEach { pair ->
                 makeContentSpeakerLayout(pair)
+            }
+        }
+        binding.imageThumbnail.setOnClickListener {
+            viewModel.selectItem.value?.linkList?.video?.let {
+                if (it.isNotEmpty()) {
+                    val video = it[0]
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
+                    startActivity(intent)
+                }
             }
         }
 
@@ -55,8 +64,8 @@ class DetailFragment : Fragment() {
     fun makeContentSpeakerLayout(pair: Pair<SpeackerProfile, ContentsSpeacker>) {
         val linearLayout = LinearLayout(requireContext())
         val layoutHorizontalParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
         )
         layoutHorizontalParams.bottomMargin = 16
         layoutHorizontalParams.topMargin = 32
@@ -75,15 +84,15 @@ class DetailFragment : Fragment() {
 
         val linearLayoutContentTag = LinearLayout(requireContext())
         linearLayoutContentTag.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
         )
         linearLayoutContentTag.orientation = (LinearLayout.VERTICAL)
         //name
         val nameTextView = TextView(requireContext())
         nameTextView.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
         )
         nameTextView.setTextColor(Color.WHITE)
         nameTextView.setText("${pair.second.nameKo} ${pair.second.nameEn}")
@@ -92,8 +101,8 @@ class DetailFragment : Fragment() {
         //company
         val companyTextView = TextView(requireContext())
         companyTextView.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
         )
         companyTextView.setTextColor(Color.parseColor("#717171"))
         companyTextView.setText(pair.second.company)
@@ -104,8 +113,8 @@ class DetailFragment : Fragment() {
         //occupation
         val occupationTextView = TextView(requireContext())
         occupationTextView.layoutParams = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
         )
         occupationTextView.setTextColor(Color.parseColor("#717171"))
         occupationTextView.setText(pair.second.occupation)

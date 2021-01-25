@@ -28,9 +28,9 @@ class ConferenceListFragment() : Fragment() {
     val viewModel: ConferenceViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View {
         _bindng = FragmentConferenceListBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -45,34 +45,41 @@ class ConferenceListFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         conferenceListAdapter = ConferenceListAdapter(
-            showDetail = {
-                viewModel.setSelectItem(it)
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace(R.id.fragmentContainerView, DetailFragment())
-                    addToBackStack(null)
+                showDetail = {
+                    viewModel.setSelectItem(it)
+                    parentFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace(R.id.fragmentContainerView, DetailFragment())
+                        addToBackStack(null)
+                    }
                 }
-            }
         )
         val dividerItemDecoration = DividerItemDecoration(
-            context,
-            DividerItemDecoration.VERTICAL
+                context,
+                DividerItemDecoration.VERTICAL
         )
         ResourcesCompat.getDrawable(requireContext().resources, R.drawable.custom_divider, null)
-            ?.let {
-                dividerItemDecoration.setDrawable(it)
-            }
-
+                ?.let {
+                    dividerItemDecoration.setDrawable(it)
+                }
         binding.apply {
+            //Setting viewModel
+            viewModels = viewModel
+            lifecycleOwner = this@ConferenceListFragment
+            //video Teaser
             playVideoTeaser(teaser)
+
+            //Recycler View
             conferenceListView.addItemDecoration(
-                dividerItemDecoration
+                    dividerItemDecoration
             )
             conferenceListView.adapter = conferenceListAdapter
+
+            //spinner
             ArrayAdapter.createFromResource(
-                requireContext(),
-                R.array.spinner_filter,
-                R.layout.spinner_item
+                    requireContext(),
+                    R.array.spinner_filter,
+                    R.layout.spinner_item
             ).also {
                 it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = it
@@ -80,6 +87,7 @@ class ConferenceListFragment() : Fragment() {
             spinner.setSelection(2)
             spinner.onItemSelectedListener = SpinnerAdapter()
         }
+
         viewModel.list.observe(viewLifecycleOwner, Observer<List<Data>> {
             updateList(it)
         })
@@ -93,7 +101,7 @@ class ConferenceListFragment() : Fragment() {
 
     private fun playVideoTeaser(videoView: VideoView) {
         val videoUri =
-            Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4")
+                Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4")
         videoView.setVideoURI(videoUri)
         videoView.requestFocus()
         videoView.setOnPreparedListener {
