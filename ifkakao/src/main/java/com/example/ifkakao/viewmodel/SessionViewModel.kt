@@ -13,10 +13,14 @@ class SessionViewModel : ViewModel() {
     val sessionList: LiveData<List<Session>> get() = _sessionList
     private val _selectedSession = MutableLiveData<Session>()
     val selectedSession: LiveData<Session> get() = _selectedSession
+    var isLoading = MutableLiveData(false)
 
     fun updateSessionData() {
-        val conferenceData = repository.getConferenceData()
-        _sessionList.value = conferenceData.data
+        isLoading.value = true
+        repository.getConferenceData {
+            _sessionList.value = it.data
+            isLoading.value = false
+        }
     }
 
     fun setSelectedSession(item: Session) {

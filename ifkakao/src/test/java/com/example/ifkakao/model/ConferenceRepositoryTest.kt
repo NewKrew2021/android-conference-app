@@ -1,5 +1,6 @@
 package com.example.ifkakao.model
 
+import com.example.ifkakao.model.jsonformat.ConferenceData
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Test
@@ -10,15 +11,25 @@ class ConferenceRepositoryTest {
     @Test
     fun loadDataTest() {
         assertNotNull(repository)
-        val conferenceData = repository.getConferenceData()
-        assertNotNull(conferenceData)
+        var _conferenceData: ConferenceData? = null
+        repository.getConferenceData {
+            _conferenceData = it
+        }
+        Thread.sleep(1000)
+        assertNotNull(_conferenceData)
+        val conferenceData = _conferenceData!!
         assertEquals(true, conferenceData.success)
     }
 
     @Test
     fun conferenceDataTest() {
-        val conferenceData = repository.getConferenceData()
-        assertEquals(9, conferenceData.data.size)
+        var _conferenceData: ConferenceData? = null
+        repository.getConferenceData {
+            _conferenceData = it
+        }
+        Thread.sleep(1000)
+        val conferenceData = _conferenceData!!
+        assertEquals(54, conferenceData.data.size)
 
         with(conferenceData.data) {
             get(0).let {
@@ -50,7 +61,10 @@ class ConferenceRepositoryTest {
             get(7).let {
                 assertEquals(4, it.lastModifiedUserIdx)
                 assertEquals("서비스", it.field)
-                assertEquals("https://tv.kakao.com/embed/player/cliplink/414072195", it.linkList.video[0].url)
+                assertEquals(
+                    "https://tv.kakao.com/embed/player/cliplink/414072195",
+                    it.linkList.video[0].url
+                )
             }
         }
     }

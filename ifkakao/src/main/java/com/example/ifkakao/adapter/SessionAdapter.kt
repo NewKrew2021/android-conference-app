@@ -9,6 +9,7 @@ import com.example.ifkakao.databinding.ItemSessionBinding
 import com.example.ifkakao.databinding.SessionListFooterBinding
 import com.example.ifkakao.model.jsonformat.Session
 
+// TODO: Footer 제
 class SessionAdapter(
     private val sessionClickListener: (Session) -> Unit,
     private val upButtonClickListener: (View) -> Unit
@@ -36,7 +37,7 @@ class SessionAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is SessionViewHolder -> {
-                binding.session = getItem(position)
+                holder.bind(getItem(position))
                 holder.setOnclickListener(getItem(position))
             }
             is SessionFooterViewHolder -> {
@@ -47,7 +48,7 @@ class SessionAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            itemCount - 1 -> TYPE_FOOTER
+            itemCount -> TYPE_FOOTER
             else -> TYPE_ITEM
         }
     }
@@ -64,6 +65,10 @@ class SessionAdapter(
         private val sessionClickListener: (Session) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
+        fun bind(session: Session) {
+            binding.session = session
+        }
+
         fun setOnclickListener(item: Session) {
             binding.root.setOnClickListener {
                 sessionClickListener(item)
