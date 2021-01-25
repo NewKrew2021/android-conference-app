@@ -27,44 +27,16 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/presentation_header"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
-                    <LinearLayout
-                        android:id="@+id/title_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="@id/presentation_header"
-                        app:layout_constraintStart_toStartOf="@id/presentation_header"
-                        app:layout_constraintTop_toTopOf="@id/presentation_header">
-
-                        <TextView
-                            android:id="@+id/presentation_title_bar"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="2"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:textColor="@color/white"
-                            android:textSize="16dp"
-                            app:titleText="@{presentation_data.title}"
-                            tools:text="디지털화된 일상에서 카카오톡이 만드는 새로운 세상" />
-
-                        <ImageButton
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="@color/black"
-                            android:src="@drawable/ic_baseline_share_24" />
-                    </LinearLayout>
-
-                    <VideoView
+                    <WebView
                         android:id="@+id/presentation_video"
                         android:layout_width="match_parent"
                         android:layout_height="211dp"
                         app:layout_constraintEnd_toEndOf="@id/presentation_header"
                         app:layout_constraintStart_toStartOf="@id/presentation_header"
-                        app:layout_constraintTop_toBottomOf="@id/title_bar"
+                        app:layout_constraintTop_toTopOf="@id/presentation_header"
+                        app:webViewPlay="@{presentation_data.linkList.VIDEO[0].url}"
                         tools:layout_height="211dp" />
 
                     <LinearLayout

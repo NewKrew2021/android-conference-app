@@ -15,15 +15,18 @@ class IfKakaoViewModel : ViewModel() {
         get() = _ifKakaoSessionList
 
     private val _presentationData = MutableLiveData<Data>()
-    val presentationData: MutableLiveData<Data>
+    val presentationData: LiveData<Data>
         get() = _presentationData
 
     private val ifKakaoRepositoryModel: DefaultRepositoryModel = RepositoryModel()
 
     fun loadIfKakaoItem() {
-        val jsonString = ifKakaoRepositoryModel.getRequest()
-        val parsedData = ifKakaoRepositoryModel.getParsedIfKakaoResponse(jsonString)
+        ifKakaoRepositoryModel.getParsedIfKakaoResponse {
+            _ifKakaoSessionList.value = it
+        }
+    }
 
-        _ifKakaoSessionList.value = parsedData
+    fun setPresentationData(item: Data) {
+        _presentationData.value = item
     }
 }

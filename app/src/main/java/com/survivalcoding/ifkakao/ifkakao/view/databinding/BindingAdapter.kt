@@ -1,5 +1,8 @@
 package com.survivalcoding.ifkakao.ifkakao.view.databinding
 
+import android.webkit.WebChromeClient
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -18,8 +21,8 @@ fun loadImage(view: ImageView, url: String) {
 }
 
 @BindingAdapter("titleText")
-fun removeHtml(view: TextView, text: String?) {
-    val str = text?.replace("<br>", "\n")
+fun removeHtml(view: TextView, text: String) {
+    val str = text.replace("<br>", "\n")
     view.text = str
 }
 
@@ -34,4 +37,12 @@ fun loadPresenterImage(view: ImageView, url: String) {
 @BindingAdapter("nameKo", "nameEn")
 fun concatName(view: TextView, nameKo: String, nameEn: String) {
     view.text = "${nameKo} ${nameEn}"
+}
+
+@BindingAdapter("webViewPlay")
+fun webViewPlay(view : WebView, uri: String) {
+    view.settings.javaScriptEnabled = true
+//    view.webViewClient = WebViewClient()
+    view.webChromeClient = WebChromeClient()
+    view.loadUrl(uri)
 }

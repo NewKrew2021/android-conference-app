@@ -24,7 +24,7 @@ class IfKakaoFragment() : Fragment() {
     val model: IfKakaoViewModel by activityViewModels()
 
     val adapter = IfKakaoAdapter {
-        model.presentationData.value = it
+        model.setPresentationData(it)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
@@ -78,7 +78,7 @@ class IfKakaoFragment() : Fragment() {
 
         // LiveData가 수정될 때 실행할 메소드
         model.ifKakaoSessionList.observe(viewLifecycleOwner, Observer {
-            updateUi(it.data)
+            it?.let { updateUi(it.data) }
         })
 
         model.loadIfKakaoItem()
