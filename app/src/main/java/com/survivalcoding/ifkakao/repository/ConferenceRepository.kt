@@ -1,24 +1,81 @@
 package com.survivalcoding.ifkakao.repository
 
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
+
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.jsonModel.Conference
-import okhttp3.*
-import java.io.IOException
+import com.survivalcoding.ifkakao.network.ApiServiceFactory.ifKakaoService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.concurrent.atomic.AtomicInteger
 
 
 object ConferenceRepository {
 
-    val url = "https://raw.githubusercontent.com/junsuk5/mock_json/main/conf/contents.json"
-    val client = OkHttpClient()
-    val request = Request.Builder().url(url).build()
+    val url = "https://raw.githubusercontent.com/"
+    val id = AtomicInteger(0)
+
+    //val client = OkHttpClient()
+    // val request = Request.Builder().url(url).build()
     private var _listData = mutableListOf<ConferenceAppFront>()
     val listData get() = _listData
 
     fun getData(callback: (List<ConferenceAppFront>) -> Unit) {
 
         listData.clear()
+        ifKakaoService.getData().enqueue(object : Callback<Conference> {
+            override fun onResponse(
+                call: Call<Conference>,
+                response: Response<Conference>
+            ) {
+                response.body()?.let {
+
+                    for (i in 0..it.data.size - 1) {
+                        var length = it.data[i].linkList.VIDEO[0].description
+                        var field = it.data[i].field
+                        var titleTmp = it.data[i].title
+                        var imageUrl = it.data[i].linkList.PC_IMAGE[0].url
+                        var content = it.data[i].content
+                        var contentTag = it.data[i].contentTag ?: ""
+                        var contentsSpeackerList = it.data[i].contentsSpeackerList
+                        var speackerProfileList = it.data[i].linkList.SPEACKER_PROFILE
+                        var spotlightYn = it.data[i].spotlightYn
+                        var sessionType = it.data[i].sessionType
+                        var videoUrl = it.data[i].linkList.VIDEO[0].url
+                        var title = titleTmp.replace("<br>", "\n")
+                        _listData.add(
+                            ConferenceAppFront(
+                                length,
+                                field,
+                                title,
+                                imageUrl,
+                                content,
+                                contentTag,
+                                contentsSpeackerList,
+                                speackerProfileList,
+                                spotlightYn,
+                                sessionType,
+                                videoUrl,
+                                id.getAndIncrement()
+                            )
+                        )
+
+                    }
+                    callback(listData)
+                }
+            }
+
+            override fun onFailure(call: Call<Conference>, t: Throwable) {
+            }
+        })
+
+    }
+
+    /*
+
+    fun getData(callback: (List<ConferenceAppFront>) -> Unit) {
+
+        //listData.clear()
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
@@ -67,5 +124,7 @@ object ConferenceRepository {
         })
 
     }
+
+     */
 
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -52,6 +53,8 @@ class DetailFragment : Fragment() {
                     setReorderingAllowed(true)
                     replace<MainFragment>(R.id.fragment_container_view)
                 }
+
+
             }
 
             binding.speakerRecyclerView.adapter = adapter
@@ -79,13 +82,21 @@ class DetailFragment : Fragment() {
                 )
             }
 
-            var relativeData = conferenceViewModel.getRelativeData(it.field)
+            var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
             adapter.submitList(detailRecyclerList + relativeData)
+
+            setWebView(it.videoUrl)
         }
+        //https://tv.kakao.com/embed/player/cliplink/414004572
 
         return view
     }
 
+    fun setWebView(url: String) {
+        binding.webView.settings.javaScriptEnabled = true
+        binding.webView.webViewClient = WebViewClient()
+        binding.webView.loadUrl(url)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
