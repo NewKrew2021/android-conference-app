@@ -6,11 +6,20 @@ ext {
     def fragment_version = "1.2.5"
     def coil_version = '1.1.1'
     def lifecycle_version = '2.2.0'
+    def retrofit_version = '2.9.0'
+    def interceptor_version = '4.9.0'
+    def moshi_converter_version = '2.9.0'
 
     network_libraries = [
-            gson  : "com.google.code.gson:gson:$gson_version",
-            moshi : "com.squareup.moshi:moshi-kotlin:$moshi_version",
-            okhttp: "com.squareup.okhttp3:okhttp:$okhttp_version",
+            gson           : "com.google.code.gson:gson:$gson_version",
+            moshi          : "com.squareup.moshi:moshi-kotlin:$moshi_version",
+            okhttp         : "com.squareup.okhttp3:okhttp:$okhttp_version",
+            retrofit2      : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            moshi_converter: "com.squareup.retrofit2:converter-moshi:$moshi_converter_version",
+    ]
+
+    network_logging = [
+            logging_interceptor: "com.squareup.okhttp3:logging-interceptor:$interceptor_version",
     ]
 
     network_codegens = [
