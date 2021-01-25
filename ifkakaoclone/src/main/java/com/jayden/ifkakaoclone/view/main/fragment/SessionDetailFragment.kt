@@ -48,6 +48,10 @@ class SessionDetailFragment : Fragment() {
         with(binding) {
             speakerRecyclerView.adapter = adapter
 
+            layoutFooter.textIfkakao2019.setOnClickListener {
+                openIfKakao2019()
+            }
+
             layoutFooter.imageScrollTop.setOnClickListener {
                 nestedScrollView.smoothScrollTo(0, 0)
             }
@@ -71,5 +75,10 @@ class SessionDetailFragment : Fragment() {
             adapter.setItems(it.contentsSpeackerList.zip(it.linkList.speackerProfile))
             adapter.notifyDataSetChanged()
         }
+    }
+
+    private fun openIfKakao2019() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2019"))
+        startActivity(intent)
     }
 }

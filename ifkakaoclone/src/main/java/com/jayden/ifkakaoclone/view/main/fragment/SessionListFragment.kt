@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
@@ -26,19 +25,11 @@ class SessionListFragment : Fragment() {
 
     private val adapter by lazy {
         SessionListAdapter(
-            selectSessionEvent = { selectSessionEvent(it) },
-            openIfKakao2019 = { openIfKakao2019() },
-            smoothScrollToTop = { smoothScrollToTop() },
+            selectSessionEvent = { selectSessionEvent(it) }
         )
     }
 
     private val activityViewModel: SessionViewModel by activityViewModels()
-
-    private val smoothScroller by lazy {
-        object : LinearSmoothScroller(requireContext()) {
-            override fun getVerticalSnapPreference(): Int = SNAP_TO_START
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,10 +56,18 @@ class SessionListFragment : Fragment() {
                     LinearLayoutManager.VERTICAL
                 )
             )
+
+            layoutFooter.imageScrollTop.setOnClickListener {
+                smoothScrollToAppbar()
+            }
+
+            layoutFooter.textIfkakao2019.setOnClickListener {
+                openIfKakao2019()
+            }
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            adapter.addHeaderAndSetItems(it)
+            adapter.setItems(it)
             adapter.notifyDataSetChanged()
         }
     }
@@ -78,9 +77,11 @@ class SessionListFragment : Fragment() {
         replaceTransaction<SessionDetailFragment>(R.id.fragment_container_view)
     }
 
-    private fun smoothScrollToTop() {
-        smoothScroller.targetPosition = 0
-        binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+    private fun smoothScrollToAppbar() {
+        with(binding) {
+            nestedScrollView.smoothScrollTo(0, 0)
+            appbar.setExpanded(true)
+        }
     }
 
     private fun openIfKakao2019() {
