@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.ifkakao.view.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +40,11 @@ class PresentationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.presentationData = presentationData
-//        binding.presentationVideo.setVideoURI(presentationData.linkList.VIDEO[0].url.toUri())
+
+//        // https://www.xspdf.com/resolution/50608019.html Error (1, -214748..) : doesn't support MPEGA format
+//        binding.presentationVideo.setMediaController(MediaController(view.context))
+//        binding.presentationVideo.setVideoURI(presentationData.linkList.VIDEO[0].url.toUri)
+
         binding.presenterList.adapter = adapter
 
         val presentItem = mutableListOf<PresenterInfo>()
