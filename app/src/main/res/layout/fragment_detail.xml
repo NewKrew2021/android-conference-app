@@ -38,17 +38,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
-                <VideoView
-                    android:id="@+id/video"
-                    android:layout_width="@dimen/match_constraint"
+                
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/video_height" />
 
                 <TextView
                     android:id="@+id/field"
                     style="@style/DetailSessionTextView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:background="@drawable/view_white_border"
                     android:padding="2dp"
                     android:text="@{session.field}"
@@ -58,7 +57,6 @@
                     android:id="@+id/title"
                     style="@style/DetailSessionTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="@{session.title}"
                     android:textSize="@dimen/detail_title_size" />
 
@@ -66,7 +64,6 @@
                     android:id="@+id/content"
                     style="@style/DetailSessionTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="@{session.content}"
                     android:textSize="@dimen/content_size" />
 
@@ -74,7 +71,6 @@
                     android:id="@+id/content_tag"
                     style="@style/DetailSessionTextView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
                     android:text="@{session.contentTag}"
                     android:textColor="@color/grey" />
