@@ -25,6 +25,7 @@ inline fun <reified F : Fragment> Fragment.replaceFragment(containerViewId: Int)
 fun Fragment.replaceFragmentWithBundle(containerViewId: Int, kClass: KClass<out Fragment>, bundle: Bundle) {
     parentFragmentManager.commit {
         setReorderingAllowed(true)
+        addToBackStack(null)
         replace(
             containerViewId,
             kClass.java,

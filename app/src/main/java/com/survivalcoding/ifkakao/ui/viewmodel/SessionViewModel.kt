@@ -14,6 +14,7 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
     val conferenceData: LiveData<List<ConferenceSessionResponse>>
         get() = _conferenceData
 
+    var likeCheck: Boolean = false
 
     fun getConferenceData() {
         viewModelScope.launch {
