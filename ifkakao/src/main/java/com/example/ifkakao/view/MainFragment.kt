@@ -40,6 +40,13 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
+        setOnClickListener()
+    }
+
+    private fun setOnClickListener() {
+        binding.filterButton.setOnClickListener {
+            replaceTransaction<FilterFragment>(R.id.fragment_container_view)
+        }
     }
 
     private fun initializeView() {
