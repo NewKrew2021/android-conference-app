@@ -36,17 +36,12 @@ class ConferenceViewModel : ViewModel() {
         return tmpList
     }
 
-    fun getRelativeData(data: String, id: Int): MutableList<DetailRecyclerType> {
-        var tmpList = mutableListOf<DetailRecyclerType>()
+    fun getRelativeData(data: String, id: Int): List<DetailRecyclerType> {
+        var tmpList = listOf<DetailRecyclerType>()
+
         _listData.value?.let {
-            for (i in 0..it.size - 1) {
-                if (it.get(i).field == data) {
-                    if (it.get(i).id == id) continue
-                    tmpList.add(
-                        it.get(i)
-                    )
-                }
-            }
+            tmpList = it.filter { it.field == data && it.id != id }.map { it as DetailRecyclerType }
+                .toList()
         }
         return tmpList
     }
