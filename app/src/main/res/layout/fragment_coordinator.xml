@@ -55,15 +55,14 @@
                     android:id="@+id/filter_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_baseline_filter_24"
+                    android:layout_marginRight="20dp"
                     android:background="@drawable/filter_background"
                     android:paddingHorizontal="10dp"
                     android:paddingVertical="5dp"
+                    android:src="@drawable/ic_baseline_filter_24"
                     app:layout_constraintBottom_toBottomOf="@id/header_layout"
                     app:layout_constraintEnd_toEndOf="@id/header_layout"
-                    android:layout_marginRight="20dp"
-                    app:layout_constraintTop_toBottomOf="@id/vod_teaser"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/vod_teaser" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,8 +78,8 @@
         android:id="@+id/if_kakao_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/item_if_kakao" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

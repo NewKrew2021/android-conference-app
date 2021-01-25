@@ -20,14 +20,14 @@
             android:id="@+id/thumbnail"
             android:layout_width="160dp"
             android:layout_height="90dp"
+            android:contentDescription="TODO"
             android:scaleType="centerCrop"
             app:imageUrl="@{item_data.linkList.MO_IMAGE[0].url}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/divide_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_background"
-            android:contentDescription="TODO" />
+            tools:src="@drawable/ic_launcher_background" />
 
         <TextView
             android:id="@+id/video_length"
@@ -63,11 +63,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:titleText="@{item_data.title}"
             android:textColor="@color/white"
             android:textSize="16dp"
             app:layout_constraintStart_toStartOf="@id/divide_vertical"
             app:layout_constraintTop_toBottomOf="@id/field"
+            app:titleText="@{item_data.title}"
             tools:text="오프닝 키노트" />
 
         <androidx.constraintlayout.widget.Guideline

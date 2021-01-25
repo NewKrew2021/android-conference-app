@@ -45,15 +45,15 @@
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:nameEn="@{presenter.contentsSpeacker.nameEn}"
-                app:nameKo="@{presenter.contentsSpeacker.nameKo}"
+                app:nameEn="@{presenter.contentsSpeaker.nameEn}"
+                app:nameKo="@{presenter.contentsSpeaker.nameKo}"
                 tools:text="여민수" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{presenter.contentsSpeacker.company}"
+                android:text="@{presenter.contentsSpeaker.company}"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 tools:text="카카오" />
@@ -62,7 +62,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@{presenter.contentsSpeacker.occupation}"
+                android:text="@{presenter.contentsSpeaker.occupation}"
                 android:textColor="@color/white"
                 android:textSize="16dp"
                 tools:text="CEO" />
