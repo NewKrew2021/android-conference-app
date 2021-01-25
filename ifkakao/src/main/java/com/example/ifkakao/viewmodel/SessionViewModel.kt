@@ -15,8 +15,9 @@ class SessionViewModel : ViewModel() {
     val selectedSession: LiveData<Session> get() = _selectedSession
 
     fun updateSessionData() {
-        val conferenceData = repository.getConferenceData()
-        _sessionList.value = conferenceData.data
+        repository.getConferenceData {
+            _sessionList.value = it.data
+        }
     }
 
     fun setSelectedSession(item: Session) {
