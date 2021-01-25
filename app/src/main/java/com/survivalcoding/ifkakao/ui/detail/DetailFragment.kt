@@ -48,6 +48,9 @@ class DetailFragment : Fragment() {
     }
 
     private fun initView() {
+        binding.toolbar.apply {
+            title = "if(kakao)2020"
+        }
         binding.session = item
     }
 
