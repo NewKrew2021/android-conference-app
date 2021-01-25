@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel" />
+        <variable
+            name="ScrollView"
+            type="android.widget.ScrollView" />
     </data>
 
     <ScrollView
