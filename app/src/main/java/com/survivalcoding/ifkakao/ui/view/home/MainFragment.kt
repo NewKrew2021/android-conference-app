@@ -3,7 +3,6 @@ package com.survivalcoding.ifkakao.ui.view.home
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.ScrollView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -45,10 +44,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
 
     private fun eventProcess() {
-        binding.ivUpScrollMain.setOnClickListener {
-            binding.svMain.fullScroll(ScrollView.FOCUS_UP)
-        }
-
         binding.btnAllSessionMain.setOnClickListener {
             replaceFragment<SessionFragment>(R.id.fragment_container_view)
         }
@@ -73,7 +68,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
                     replaceFragmentWithBundle(
                         R.id.fragment_container_view,
                         SessionDetailFragment::class,
-                       bundleOf(SESSION_ITEM to it)
+                        bundleOf(SESSION_ITEM to it)
                     )
                 }
             }
