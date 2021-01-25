@@ -9,13 +9,9 @@
 
         <import type="kotlin.Pair" />
 
-        <import type="com.jayden.ifkakaoclone.view.main.model.ContentsSpeacker" />
-
-        <import type="com.jayden.ifkakaoclone.view.main.model.Link" />
-
         <variable
-            name="speaker"
-            type="Pair&lt;ContentsSpeacker, Link>" />
+            name="item"
+            type="com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +25,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:scaleType="fitXY"
-            app:imageUrl="@{speaker.second.url}"
+            app:imageUrl="@{item.link.url}"
             app:isCircleCrop="@{true}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/text_speaker_name"
@@ -43,7 +39,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:gravity="bottom"
-            android:text="@{speaker.first.nameKo + ' ' + speaker.first.nameEn}"
+            android:text="@{item.speaker.nameKo + ' ' + item.speaker.nameEn}"
             app:layout_constraintBottom_toTopOf="@id/text_company_name"
             app:layout_constraintStart_toEndOf="@id/image_speaker"
             app:layout_constraintTop_toTopOf="parent"
@@ -54,9 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:gravity="center"
-            android:text="@{speaker.first.company}"
+            android:text="@{item.speaker.company}"
             android:textColor="@color/session_footer_copyright_gray"
-            android:visibility="@{speaker.first.company != null ? View.VISIBLE : View.GONE}"
+            android:visibility="@{item.speaker.company != null ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/text_occupation"
             app:layout_constraintStart_toStartOf="@id/text_speaker_name"
             app:layout_constraintTop_toBottomOf="@id/text_speaker_name"
@@ -67,7 +63,7 @@
             android:id="@+id/text_occupation"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="@{speaker.first.occupation}"
+            android:text="@{item.speaker.occupation}"
             android:textColor="@color/session_footer_copyright_gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/text_speaker_name"

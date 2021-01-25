@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
 import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
+import com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink
 
 class SessionDetailFragment : Fragment() {
     private var _binding: FragmentSessionDetailBinding? = null
@@ -71,9 +72,10 @@ class SessionDetailFragment : Fragment() {
     }
 
     private fun updateSpeaker() {
-        activityViewModel.selectedItem.value?.let {
-            adapter.setItems(it.contentsSpeackerList.zip(it.linkList.speackerProfile))
-            adapter.notifyDataSetChanged()
+        activityViewModel.selectedItem.value?.let { session ->
+            adapter.submitList(
+                session.contentsSpeackerList.zip(session.linkList.speackerProfile)
+                    .map { ContentsSpeakerWithLink(it.first, it.second) })
         }
     }
 
