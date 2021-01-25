@@ -44,6 +44,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
         viewModel.data.observe(viewLifecycleOwner) {
             updateUI(it)
         }
