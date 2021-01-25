@@ -15,4 +15,5 @@ data class ConferenceAppFront(
     var speackerProfileList: List<SPEACKERPROFILE>,
     var spotlightYn: String,
     var sessionType: String,
+    var videoUrl: String
 ) : DetailRecyclerType

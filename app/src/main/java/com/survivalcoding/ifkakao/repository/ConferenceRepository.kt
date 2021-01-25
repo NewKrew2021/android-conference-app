@@ -43,6 +43,7 @@ object ConferenceRepository {
                         var speackerProfileList = it.data[i].linkList.SPEACKER_PROFILE
                         var spotlightYn = it.data[i].spotlightYn
                         var sessionType = it.data[i].sessionType
+                        var videoUrl = it.data[i].linkList.VIDEO[0].url
                         var title = titleTmp.replace("<br>", "\n")
                         _listData.add(
                             ConferenceAppFront(
@@ -55,7 +56,8 @@ object ConferenceRepository {
                                 contentsSpeackerList,
                                 speackerProfileList,
                                 spotlightYn,
-                                sessionType
+                                sessionType,
+                                videoUrl,
                             )
                         )
 
