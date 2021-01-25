@@ -13,10 +13,17 @@ class ConferenceViewModel : ViewModel() {
     val list: LiveData<List<Data>> get() = _list
 
     private val _selectItem = MutableLiveData<Data>()
-    val selectItem: MutableLiveData<Data> get() = _selectItem
+    val selectItem: LiveData<Data> get() = _selectItem
+
+    private val _isLoading = MutableLiveData(true)
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     fun loadData() {
-        repository.getRequests { _list.postValue(it) }
+        _isLoading.value = true
+        repository.getRequests {
+            _list.postValue(it)
+            _isLoading.value = false
+        }
     }
 
     fun setSelectItem(data: Data) {
