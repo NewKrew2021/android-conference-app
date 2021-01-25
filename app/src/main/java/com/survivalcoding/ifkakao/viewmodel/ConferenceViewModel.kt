@@ -10,11 +10,15 @@ class ConferenceViewModel : ViewModel() {
 
     private val repository = ConferenceRepository()
 
-    private val _conferences = MutableLiveData<List<Session>>()
-    val conferences: LiveData<List<Session>>
-        get() = _conferences
+    private val _sessions = MutableLiveData<List<Session>>()
+    val sessions: LiveData<List<Session>>
+        get() = _sessions
 
-    fun loadConferencesFrom(data: String) {
-        _conferences.postValue(repository.getSessionsFrom(data))
+    fun requestConfData() {
+        repository.requestConfData(::updateSessions)
+    }
+
+    private fun updateSessions(sessionList: List<Session>) {
+        _sessions.postValue(sessionList)
     }
 }

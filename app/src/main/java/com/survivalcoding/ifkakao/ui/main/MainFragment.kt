@@ -11,8 +11,6 @@ import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.openDetailFragment
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
-import okhttp3.OkHttpClient
-import okhttp3.Request
 
 class MainFragment : Fragment() {
 
@@ -82,32 +80,17 @@ class MainFragment : Fragment() {
     }
 
     private fun loadConferencesFromServer() {
-        Thread {
-            val data = getDataFromServer()
-            viewModel.loadConferencesFrom(data)
-        }.start()
+        viewModel.requestConfData()
     }
 
     private fun setUpObserver() {
-        viewModel.conferences.observe(viewLifecycleOwner, Observer {
+        viewModel.sessions.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-    }
-
-    private fun getDataFromServer(): String {
-        val request = Request.Builder().url(IF_KAKAO_URL).build()
-        OkHttpClient().newCall(request).execute().use {
-            return it.body!!.string()
-        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-    }
-
-    companion object {
-        const val IF_KAKAO_URL =
-            "https://raw.githubusercontent.com/junsuk5/mock_json/main/conf/contents.json"
     }
 }
