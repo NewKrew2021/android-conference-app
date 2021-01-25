@@ -1,8 +1,6 @@
 package com.survivalcoding.ifkakao.repository
 
 
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.network.ApiServiceFactory.ifKakaoService
@@ -32,8 +30,6 @@ object ConferenceRepository {
             ) {
                 response.body()?.let {
 
-                    val gson = GsonBuilder().create()
-                    var collectionType = object : TypeToken<Conference>() {}.type
                     for (i in 0..it.data.size - 1) {
                         var length = it.data[i].linkList.VIDEO[0].description
                         var field = it.data[i].field
