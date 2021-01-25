@@ -27,9 +27,15 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _action = SingleLiveData<Action>()
     val action: LiveData<Action> get() = _action
 
+    private val _isLoading = MutableLiveData<Boolean>(true)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     private fun fetchContents() {
+        _isLoading.value = true
         repository.fetchContents {
-            _sessions.postValue(it)
+            _isLoading.value = false
+
+            _sessions.value = it
         }
     }
 

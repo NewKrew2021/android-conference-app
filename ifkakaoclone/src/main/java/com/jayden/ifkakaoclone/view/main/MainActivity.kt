@@ -28,10 +28,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
-        viewModel // Lazy 방식이므로 호출해줘야 객체 생성
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
