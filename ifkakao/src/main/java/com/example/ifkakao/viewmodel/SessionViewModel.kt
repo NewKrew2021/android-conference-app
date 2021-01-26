@@ -18,10 +18,12 @@ class SessionViewModel : ViewModel() {
     private val repository: Repository = ConferenceRepository()
     private val _sessionList = MutableLiveData<List<Session>>(mutableListOf())
     val sessionList: LiveData<List<Session>> get() = _sessionList
+    private val _highlightSession = MutableLiveData<List<Session>>(mutableListOf())
+    val highlightSession: LiveData<List<Session>> get() = _sessionList
     private val _selectedSession = MutableLiveData<Session>()
     val selectedSession: LiveData<Session> get() = _selectedSession
     var isLoading = MutableLiveData(false)
-    var errorStatus = MutableLiveData<ErrorStatus>(ErrorStatus.NO_ERROR)
+    var errorStatus = MutableLiveData(ErrorStatus.NO_ERROR)
 
     fun updateSessionData() {
         viewModelScope.launch {
@@ -47,6 +49,12 @@ class SessionViewModel : ViewModel() {
             }
             isLoading.value = false
         }
+    }
+
+    fun updateHighlightSessionList() {
+        updateSessionData()
+        _highlightSession.value =
+            sessionList.value?.filter { it.linkList.video[0].mainYn == "Y" }?.toList() ?: listOf()
     }
 
     fun setSelectedSession(item: Session) {
