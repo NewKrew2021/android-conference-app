@@ -1,6 +1,8 @@
 package com.survivalcoding.ifkakao.viewmodel
 
 import android.util.Log
+import android.view.View
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,13 +20,20 @@ class ConferenceViewModel : ViewModel() {
     val sessions: LiveData<List<Session>>
         get() = _sessions
 
-    val handler = CoroutineExceptionHandler { _, throwable ->
-        Log.d("Retrofit Network Error", throwable.toString())
+    var progressBarVisibility = ObservableField(View.GONE)
+
+    private val handler = CoroutineExceptionHandler { _, throwable ->
+        Log.e("Retrofit Network Error", throwable.toString())
     }
 
     fun requestConfData() {
-        viewModelScope.launch(handler) {
-            _sessions.postValue(repository.requestConfData().data)
+
+        if (sessions.value.isNullOrEmpty()) {
+            viewModelScope.launch(handler) {
+                progressBarVisibility.set(View.VISIBLE)
+                _sessions.postValue(repository.requestConfData().data)
+                progressBarVisibility.set(View.GONE)
+            }
         }
     }
 }

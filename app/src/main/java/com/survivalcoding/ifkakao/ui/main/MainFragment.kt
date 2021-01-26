@@ -2,6 +2,7 @@ package com.survivalcoding.ifkakao.ui.main
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -25,7 +26,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         adapter = ConferenceAdapter(
             itemClickListener = {
@@ -61,6 +62,8 @@ class MainFragment : Fragment() {
     }
 
     private fun initView() {
+
+        binding.videwModel = viewModel
 
         binding.toolbar.apply {
             title = "if(kakao)2020"
