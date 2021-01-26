@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.databinding.ItemIfKakaoBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 
-class IfKakaoAdapter(val listener: (Data) -> Unit) :
+class IfKakaoAdapter(private val listener: (Data) -> Unit) :
     ListAdapter<Data, IfKakaoViewHolder>(IfKakaoDiffCallback) {
 
     private lateinit var binding: ItemIfKakaoBinding
@@ -22,5 +22,4 @@ class IfKakaoAdapter(val listener: (Data) -> Unit) :
             listener.invoke(data)
         }
     }
-
 }

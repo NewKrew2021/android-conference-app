@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface RetrofitService {
     @GET("contents.json")
-    fun getContentsData(): Call<IfKakaoResponse>
+    suspend fun getContentsData(): IfKakaoResponse
 }

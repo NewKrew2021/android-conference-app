@@ -7,8 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.ifkakao.view.main.IfKakaoFragment
+import com.survivalcoding.ifkakao.ifkakao.view.menu.MenuListFragment
 
 class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,8 +32,11 @@ class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_icon -> {
-                Toast.makeText(this, "filter button clicked - IfKakaoActivity", Toast.LENGTH_SHORT)
-                    .show()
+                supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<MenuListFragment>(R.id.if_kakao_fragment_container_view)
+                    addToBackStack(null)
+                }
                 return true
             }
         }

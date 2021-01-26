@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
+import com.survivalcoding.ifkakao.ifkakao.model.ContentsSpeacker
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter
@@ -39,13 +40,17 @@ class PresentationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var isFavorite = false
+
         binding.presentationData = presentationData
-
-//        // https://www.xspdf.com/resolution/50608019.html Error (1, -214748..) : doesn't support MPEGA format
-//        binding.presentationVideo.setMediaController(MediaController(view.context))
-//        binding.presentationVideo.setVideoURI(presentationData.linkList.VIDEO[0].url.toUri)
-
         binding.presenterList.adapter = adapter
+        binding.isFavorite = isFavorite
+
+        binding.favoriteButton.setOnClickListener {
+            // LiveData를 사용해서 obesrve에서 데이터를 넘겨주나, 아래와 같이 넘겨주나 같은것 같아서 아래와 같이 작성하였습니다.
+            isFavorite = !isFavorite
+            binding.isFavorite = isFavorite
+        }
 
         val presentItem = mutableListOf<PresenterInfo>()
         presentationData.let {
@@ -56,6 +61,7 @@ class PresentationFragment : Fragment() {
                 presentItem.add(PresenterInfo(contentsSpeaker, imageUrl))
             }
         }
+        presentItem.add(presentItem[0])
         updatePresenter(presentItem)
     }
 
