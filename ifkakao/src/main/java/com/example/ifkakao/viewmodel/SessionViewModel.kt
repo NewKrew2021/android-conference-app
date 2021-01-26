@@ -19,7 +19,7 @@ class SessionViewModel : ViewModel() {
     private val _sessionList = MutableLiveData<List<Session>>(mutableListOf())
     val sessionList: LiveData<List<Session>> get() = _sessionList
     private val _highlightSession = MutableLiveData<List<Session>>(mutableListOf())
-    val highlightSession: LiveData<List<Session>> get() = _sessionList
+    val highlightSession: LiveData<List<Session>> get() = _highlightSession
     private val _selectedSession = MutableLiveData<Session>()
     val selectedSession: LiveData<Session> get() = _selectedSession
     var isLoading = MutableLiveData(false)
@@ -52,9 +52,29 @@ class SessionViewModel : ViewModel() {
     }
 
     fun updateHighlightSessionList() {
-        updateSessionData()
-        _highlightSession.value =
-            sessionList.value?.filter { it.linkList.video[0].mainYn == "Y" }?.toList() ?: listOf()
+        viewModelScope.launch {
+            isLoading.value = true
+            errorStatus.value = ErrorStatus.NO_ERROR
+            when (val response = repository.getConferenceData()) {
+                is KakaoApiResponse.Success -> {
+                    _highlightSession.value = response.result.data.filter { it.spotlightYn == "Y" }
+                }
+                is KakaoApiResponse.Failure -> {
+                    when {
+                        response.errorCode in 400..499 -> {
+                            errorStatus.value = ErrorStatus.CLIENT_ERROR
+                        }
+                        response.errorCode >= 500 -> {
+                            errorStatus.value = ErrorStatus.SERVER_ERROR
+                        }
+                        else -> {
+                            errorStatus.value = ErrorStatus.UNKNOWN_ERROR
+                        }
+                    }
+                }
+            }
+            isLoading.value = false
+        }
     }
 
     fun setSelectedSession(item: Session) {
