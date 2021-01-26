@@ -8,6 +8,10 @@
         <variable
             name="presentation_data"
             type="com.survivalcoding.ifkakao.ifkakao.model.Data" />
+
+        <variable
+            name="is_favorite"
+            type="Boolean" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -43,7 +47,7 @@
                         android:id="@+id/presentation_field_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="@id/presentation_header"
                         app:layout_constraintStart_toStartOf="@id/presentation_header"
                         app:layout_constraintTop_toBottomOf="@id/presentation_video">
@@ -60,6 +64,22 @@
                             android:textColor="@color/white"
                             android:textSize="14dp"
                             tools:text="서비스" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <ImageButton
+                            android:id="@+id/favorite_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="20dp"
+                            android:background="#FF000000"
+                            app:favoriteImage="@{is_favorite}"
+                            tools:src="@drawable/ic_baseline_favorite_border_24" />
 
                     </LinearLayout>
 

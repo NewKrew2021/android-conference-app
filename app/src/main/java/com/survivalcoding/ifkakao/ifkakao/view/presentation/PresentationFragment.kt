@@ -1,11 +1,13 @@
 package com.survivalcoding.ifkakao.ifkakao.view.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LiveData
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
@@ -39,13 +41,16 @@ class PresentationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var isFavorite = false
+
         binding.presentationData = presentationData
-
-//        // https://www.xspdf.com/resolution/50608019.html Error (1, -214748..) : doesn't support MPEGA format
-//        binding.presentationVideo.setMediaController(MediaController(view.context))
-//        binding.presentationVideo.setVideoURI(presentationData.linkList.VIDEO[0].url.toUri)
-
         binding.presenterList.adapter = adapter
+        binding.isFavorite = isFavorite
+
+        binding.favoriteButton.setOnClickListener {
+            isFavorite = !isFavorite
+            binding.isFavorite = isFavorite
+        }
 
         val presentItem = mutableListOf<PresenterInfo>()
         presentationData.let {

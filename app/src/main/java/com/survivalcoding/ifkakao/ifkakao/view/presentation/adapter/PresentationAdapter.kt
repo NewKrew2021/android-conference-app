@@ -26,7 +26,6 @@ class PresentationAdapter() :
 
     override fun onBindViewHolder(holder: PresentationViewHolder, position: Int) {
         val data = getItem(holder.adapterPosition)
-        Log.d("TAG", "onBindViewHolder: data : ${data}")
         holder.binding(data)
     }
 }
