@@ -11,6 +11,7 @@ import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.ContentData
+import com.survivalcoding.ifkakao.second.view.filter.FilterFragment
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
@@ -27,7 +28,15 @@ class MainFragment : Fragment() {
                     replace<DetailFragment>(R.id.fragment_container_view)
                     addToBackStack(null)
                 }
-            })
+            },
+            filterClickListener = {
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<FilterFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
+            },
+        )
     }
     private val viewModel: ContentViewModel by activityViewModels()
 

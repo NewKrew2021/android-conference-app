@@ -11,6 +11,7 @@ import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
 class ContentMainAdapter(
     private val itemClickListener: (item: ContentData) -> Unit,
+    private val filterClickListener: () -> Unit,
 ) :
     ListAdapter<ContentData, ContentMainHolder>(ContentMainDiffCallback) {
     private val VIEW_TYPE_HEADER = 0
@@ -30,6 +31,7 @@ class ContentMainAdapter(
                     .inflate(R.layout.second_item_main_header, parent, false)
                 val binding = SecondItemMainHeaderBinding.bind(view)
                 val holder = ContentMainHolder(binding)
+                binding.filterButton.setOnClickListener { filterClickListener.invoke() }
                 holder
             }
             else -> {
