@@ -34,7 +34,7 @@ class SessionEventMenuFragment :
 
         binding.run {
             ivCloseSessionEventMenu.setOnClickListener {
-                parentFragmentManager.popBackStack()
+                replaceFragment<SessionFragment>(R.id.fragment_container_view)
             }
 
             tvSessionSessionEvent.setOnClickListener {

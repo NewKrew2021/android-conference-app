@@ -46,6 +46,9 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     }
 
     override fun getViewModelData() {
+        arguments?.let {
+            Toast.makeText(context, it.getString("filter"), Toast.LENGTH_SHORT).show()
+        }
         viewModel.getConferenceData()
     }
 
