@@ -10,6 +10,7 @@ import com.survivalcoding.ifkakao.databinding.FrontItemBinding
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 
 private val TYPE_HEADER = 0
+private val TYPE_ITEM = 1
 
 class RecyclerAdapter(
     val itemClick: (ConferenceAppFront) -> Unit
@@ -32,8 +33,8 @@ class RecyclerAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        if (position == 0) return 0
-        else return 1
+        if (position == 0) return TYPE_HEADER
+        else return TYPE_ITEM
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

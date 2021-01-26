@@ -1,25 +1,17 @@
 package com.survivalcoding.ifkakao.repository
 
 
-import com.survivalcoding.ifkakao.model.ConferenceAppFront
-import com.survivalcoding.ifkakao.model.jsonModel.Conference
-import com.survivalcoding.ifkakao.network.ApiServiceFactory.ifKakaoService
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.concurrent.atomic.AtomicInteger
+import com.survivalcoding.ifkakao.network.ApiServiceFactory
+import com.survivalcoding.ifkakao.network.IfKakaoService
 
 
 object ConferenceRepository {
 
-    val url = "https://raw.githubusercontent.com/"
-    val id = AtomicInteger(0)
+    private val ifKakaoService: IfKakaoService = ApiServiceFactory.ifKakaoService
 
-    //val client = OkHttpClient()
-    // val request = Request.Builder().url(url).build()
-    private var _listData = mutableListOf<ConferenceAppFront>()
-    val listData get() = _listData
+    suspend fun getData() = ifKakaoService.getData()
 
+    /*
     fun getData(callback: (List<ConferenceAppFront>) -> Unit) {
 
         listData.clear()
@@ -42,6 +34,7 @@ object ConferenceRepository {
                         var spotlightYn = it.data[i].spotlightYn
                         var sessionType = it.data[i].sessionType
                         var videoUrl = it.data[i].linkList.VIDEO[0].url
+                        var id = it.data[i].idx
                         var title = titleTmp.replace("<br>", "\n")
                         _listData.add(
                             ConferenceAppFront(
@@ -56,7 +49,7 @@ object ConferenceRepository {
                                 spotlightYn,
                                 sessionType,
                                 videoUrl,
-                                id.getAndIncrement()
+                                id
                             )
                         )
 
@@ -70,6 +63,9 @@ object ConferenceRepository {
         })
 
     }
+
+     */
+
 
     /*
 

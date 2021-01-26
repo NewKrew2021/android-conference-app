@@ -53,8 +53,6 @@ class DetailFragment : Fragment() {
                     setReorderingAllowed(true)
                     replace<MainFragment>(R.id.fragment_container_view)
                 }
-
-
             }
 
             binding.speakerRecyclerView.adapter = adapter
@@ -85,7 +83,7 @@ class DetailFragment : Fragment() {
             var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
             adapter.submitList(detailRecyclerList + relativeData)
 
-            setWebView(it.videoUrl)
+            setWebView("https://tv.kakao.com/embed/player/cliplink/414004572")
         }
         //https://tv.kakao.com/embed/player/cliplink/414004572
 

@@ -34,7 +34,13 @@ class MenuFragment : Fragment() {
                 replace<MainFragment>(R.id.fragment_container_view)
             }
         }
+
+        binding.favoritesTextView.setOnClickListener {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<FavoritesFragment>(R.id.fragment_container_view)
+            }
+        }
         return view
     }
-
 }

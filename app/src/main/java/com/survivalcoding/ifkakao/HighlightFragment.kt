@@ -71,7 +71,6 @@ class HighlightFragment : Fragment() {
         }
 
         imageSetting()
-
         return view
     }
 
