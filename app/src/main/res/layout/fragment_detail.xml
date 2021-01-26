@@ -44,9 +44,9 @@
 
                 <ImageView
                     android:id="@+id/thumbnail"
+                    videoImageUrl="@{session.linkList.mobileImage[0].url}"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/video_height"
-                    app:imageUrl="@{session.linkList.mobileImage[0].url}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -82,7 +82,7 @@
                     android:layout_marginEnd="@dimen/margin_x_small"
                     android:src="@drawable/ic_baseline_favorite_border_24"
                     app:layout_constraintBottom_toBottomOf="@id/field"
-                    app:layout_constraintDimensionRatio="1:!"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/field" />
 
@@ -115,16 +115,28 @@
                     android:id="@+id/speakers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_x_small"
                     android:layout_marginTop="@dimen/margin_small"
-                    android:layout_marginEnd="@dimen/margin_x_small"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/content_tag" />
 
+                <Button
+                    android:id="@+id/back_button"
+                    android:layout_width="128dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:backgroundTint="@color/dark_grey"
+                    android:onClick="@{() -> viewModel.popThisFragment()}"
+                    android:text="목록보기"
+                    android:textColor="@color/light_grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/speakers" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.core.widget.NestedScrollView>
 

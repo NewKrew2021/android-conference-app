@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="speaker"
+            type="com.survivalcoding.ifkakao.model.Speaker" />
 
     </data>
 
@@ -12,36 +15,40 @@
 
         <ImageView
             android:id="@+id/speaker_image"
+            speakerImageUrl="@{speaker.profileImageUrl}"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="@dimen/match_constraint"
             android:layout_margin="@dimen/margin_x_small"
-            android:background="@drawable/round_view"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/name_ko"
-            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintEnd_toStartOf="@id/occupation"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/name_ko"
-            android:layout_width="@dimen/match_constraint"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraint"
+            android:text="@{speaker.nameKo}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/company"
-            app:layout_constraintEnd_toStartOf="@id/name_en"
-            app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintStart_toEndOf="@id/speaker_image"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@id/occupation"
+            app:layout_constraintTop_toTopOf="@id/speaker_image"
             app:layout_constraintVertical_weight="1" />
 
         <TextView
             android:id="@+id/name_en"
-            android:layout_width="@dimen/match_constraint"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/match_constraint"
             android:layout_marginStart="@dimen/margin_x_small"
+            android:gravity="left"
+            android:text="@{speaker.nameEn}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/name_ko"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="4"
             app:layout_constraintStart_toEndOf="@id/name_ko"
             app:layout_constraintTop_toTopOf="@id/name_ko" />
 
@@ -49,10 +56,14 @@
             android:id="@+id/company"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="@dimen/match_constraint"
+            android:text="@{speaker.company}"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/occupation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="6"
-            app:layout_constraintStart_toEndOf="@id/speaker_image"
+            app:layout_constraintStart_toStartOf="@id/occupation"
             app:layout_constraintTop_toBottomOf="@id/name_ko"
             app:layout_constraintVertical_weight="1" />
 
@@ -60,7 +71,11 @@
             android:id="@+id/occupation"
             android:layout_width="@dimen/match_constraint"
             android:layout_height="@dimen/match_constraint"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@{speaker.occupation}"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/speaker_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="6"
             app:layout_constraintStart_toEndOf="@id/speaker_image"

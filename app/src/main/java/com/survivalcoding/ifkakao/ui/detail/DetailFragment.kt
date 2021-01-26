@@ -10,7 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
+import com.survivalcoding.ifkakao.extension.popThis
 import com.survivalcoding.ifkakao.model.Session
+import com.survivalcoding.ifkakao.ui.detail.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.main.MainActivity
 
 class DetailFragment : Fragment() {
@@ -19,13 +21,19 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
     private var item: Session? = null
 
+    private lateinit var adapter: SpeakerAdapter
+
     private val viewModel: DetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.getParcelable<Session>("picked")?.let {
-            item = it
+            item = it.apply {
+                for (i in contentsSpeakerList.indices) {
+                    contentsSpeakerList[i].profileImageUrl = linkList.speakerProfile[i].url
+                }
+            }
         }
     }
 
@@ -45,6 +53,8 @@ class DetailFragment : Fragment() {
         setHasOptionsMenu(true)
         (activity as MainActivity).setSupportActionBar(binding.toolbar)
 
+        adapter = SpeakerAdapter()
+
         return binding.root
     }
 
@@ -60,8 +70,13 @@ class DetailFragment : Fragment() {
             viewModel = this@DetailFragment.viewModel
             toolbar.title = "if(kakao)2020"
             session = item
+            speakers.adapter = adapter
         }
         setUpObservers()
+
+        item?.let {
+            adapter.submitList(it.contentsSpeakerList)
+        }
     }
 
     private fun setUpObservers() {
@@ -69,6 +84,10 @@ class DetailFragment : Fragment() {
             requireContext().startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(it)
             })
+        })
+
+        viewModel.onBackButtonClicked.observe(viewLifecycleOwner, Observer {
+            popThis()
         })
     }
 
