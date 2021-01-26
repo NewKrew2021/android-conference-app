@@ -7,4 +7,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <drawable name="back_uncheck">@drawable/back_filter_uncheck_button</drawable>
+    <drawable name="back_check">@drawable/back_filter_check_button</drawable>
 </resources>
