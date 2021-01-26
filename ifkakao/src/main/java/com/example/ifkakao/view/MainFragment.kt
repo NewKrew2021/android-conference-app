@@ -7,17 +7,19 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
 import com.example.ifkakao.util.replaceTransaction
+import com.example.ifkakao.viewmodel.ErrorStatus
 import com.example.ifkakao.viewmodel.SessionViewModel
 
+
 /*
-TODO: 1. 네트워크 통신 구현
-      2. 필터링 기능 추가
+TODO: 1. 필터링 기능 추가
  */
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -41,6 +43,18 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
         setOnClickListener()
+        observeData()
+    }
+
+    private fun observeData() {
+        viewModel.errorStatus.observe(viewLifecycleOwner) {
+            when (it) {
+                ErrorStatus.CLIENT_ERROR -> showToast(getString(R.string.client_error))
+                ErrorStatus.SERVER_ERROR -> showToast(getString(R.string.server_error))
+                ErrorStatus.UNKNOWN_ERROR -> showToast(getString(R.string.unknown_error))
+                else -> Unit // else 가 없으면 warning 이 발생해서 추가
+            }
+        }
     }
 
     private fun setOnClickListener() {
@@ -75,14 +89,28 @@ class MainFragment : Fragment() {
         binding.mainVideo.apply {
             // 화면이 세로 상태
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                setVideoURI(Uri.parse(VIDEO_PORTRAIT_URL))
+                val video = Uri.parse(
+                    String.format(
+                        VIDEO_URL,
+                        requireActivity().packageName,
+                        R.raw.main_video_portrait
+                    )
+                )
+                setVideoURI(video)
                 layoutParams.height = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     VIDEO_PORTRAIT_HEIGHT,
                     resources.displayMetrics
                 ).toInt()
             } else { // 화면 가로 상태
-                setVideoURI(Uri.parse(VIDEO_LANDSCAPE_URL))
+                val video = Uri.parse(
+                    String.format(
+                        VIDEO_URL,
+                        requireActivity().packageName,
+                        R.raw.main_video_landscape
+                    )
+                )
+                setVideoURI(video)
                 layoutParams.height = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     VIDEO_LANDSCAPE_HEIGHT,
@@ -94,12 +122,13 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    }
+
     companion object {
         const val VIDEO_PORTRAIT_HEIGHT = 411F
-        const val VIDEO_PORTRAIT_URL =
-            "https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4"
+        const val VIDEO_URL = "android.resource://%s/%d"
         const val VIDEO_LANDSCAPE_HEIGHT = 292F
-        const val VIDEO_LANDSCAPE_URL =
-            "https://t1.kakaocdn.net/service_if_kakao_prod/videos/pc/vod_teaser.mp4"
     }
 }
