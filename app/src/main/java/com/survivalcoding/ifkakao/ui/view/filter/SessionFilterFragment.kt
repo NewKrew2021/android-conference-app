@@ -59,7 +59,7 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
             btnApplySessionFilter.setOnClickListener {
                 val str = StringBuilder()
                 if (btnServiceSessionFilter.isChecked) str.append("서비스,")
-                if (btnBusinessSessionFilter.isChecked) str.append("비지니스,")
+                if (btnBusinessSessionFilter.isChecked) str.append("비즈니스,")
                 if (btnTechSessionFilter.isChecked) str.append("기술,")
                 replaceFragmentWithBundle(
                     R.id.fragment_container_view,

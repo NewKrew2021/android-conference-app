@@ -47,9 +47,13 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     override fun getViewModelData() {
         arguments?.let {
-            Toast.makeText(context, it.getString("filter"), Toast.LENGTH_SHORT).show()
-        }
-        viewModel.getConferenceData()
+            val filter = it.getString("filter")
+            if (filter != null) {
+                viewModel.getConferenceData(filter)
+            } else {
+                viewModel.getConferenceData("")
+            }
+        } ?: viewModel.getConferenceData("")
     }
 
     override fun startObserveData() {
