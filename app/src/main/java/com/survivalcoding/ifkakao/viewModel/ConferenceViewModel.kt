@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +9,7 @@ import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.repository.FavoritesRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,6 +26,10 @@ class ConferenceViewModel : ViewModel() {
     val selectInterests get() = _selectInterests
     var nonChoice = true
 
+    val handler = CoroutineExceptionHandler { _, exception ->
+        Log.d("log2", "데이터를 받아오는데 실패하였습니다.")
+    }
+
 
     fun getFavoritesData(): List<ConferenceAppFront> {
 
@@ -37,7 +43,7 @@ class ConferenceViewModel : ViewModel() {
     }
 
     fun getData() {
-        viewModelScope.launch {
+        viewModelScope.launch(handler) {
             withContext(Dispatchers.IO) {
                 parsingToConferenceAppFront(ConferenceRepository.getData())
             }
