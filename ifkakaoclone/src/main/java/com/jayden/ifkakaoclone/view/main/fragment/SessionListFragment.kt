@@ -8,15 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jayden.ifkakaoclone.R
-import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
 import com.jayden.ifkakaoclone.extensions.replaceTransaction
+import com.jayden.ifkakaoclone.view.main.MainActivity
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
 import com.jayden.ifkakaoclone.view.main.model.Session
+import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 
 class SessionListFragment : Fragment() {
     private var _binding: FragmentSessionListBinding? = null
@@ -35,7 +35,7 @@ class SessionListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSessionListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,6 +48,8 @@ class SessionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as MainActivity).supportActionBar?.show()
+
         with(binding) {
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(
@@ -56,6 +58,10 @@ class SessionListFragment : Fragment() {
                     LinearLayoutManager.VERTICAL
                 )
             )
+
+            btnFilter.setOnClickListener {
+                replaceTransaction<FilterDetailFragment>(R.id.fragment_container_view)
+            }
 
             layoutFooter.imageScrollTop.setOnClickListener {
                 smoothScrollToAppbar()
@@ -69,6 +75,8 @@ class SessionListFragment : Fragment() {
         activityViewModel.sessions.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
+        activityViewModel.fetchContents()
     }
 
     private fun selectSessionEvent(session: Session) {

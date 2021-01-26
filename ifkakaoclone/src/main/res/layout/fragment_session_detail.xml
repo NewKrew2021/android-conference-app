@@ -10,7 +10,7 @@
 
         <variable
             name="viewModel"
-            type="com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel" />
+            type="com.jayden.ifkakaoclone.viewmodel.SessionViewModel" />
         <variable
             name="fragment"
             type="com.jayden.ifkakaoclone.view.main.fragment.SessionDetailFragment" />

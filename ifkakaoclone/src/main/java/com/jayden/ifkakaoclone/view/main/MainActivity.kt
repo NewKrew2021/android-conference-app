@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.jayden.ifkakaoclone.App
 import com.jayden.ifkakaoclone.R
-import com.jayden.ifkakaoclone.data.repository.Repository
-import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
+import com.jayden.ifkakaoclone.data.Repository
+import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

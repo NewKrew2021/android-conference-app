@@ -1,11 +1,13 @@
-package com.jayden.ifkakaoclone.data.viewmodel
+package com.jayden.ifkakaoclone.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jayden.ifkakaoclone.data.repository.Repository
+import androidx.lifecycle.viewModelScope
+import com.jayden.ifkakaoclone.data.Repository
 import com.jayden.ifkakaoclone.util.SingleLiveData
 import com.jayden.ifkakaoclone.view.main.model.Session
+import kotlinx.coroutines.launch
 
 class SessionViewModel(private val repository: Repository) : ViewModel() {
     data class Action(val type: Type, val url: String) {
@@ -14,11 +16,7 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    private val _sessions: MutableLiveData<List<Session>> by lazy {
-        MutableLiveData<List<Session>>().also {
-            fetchContents()
-        }
-    }
+    private val _sessions: MutableLiveData<List<Session>> by lazy { MutableLiveData<List<Session>>() }
     val sessions: LiveData<List<Session>> get() = _sessions
 
     private val _selectedItem = MutableLiveData<Session>()
@@ -30,12 +28,11 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>(true)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    private fun fetchContents() {
-        _isLoading.value = true
-        repository.fetchContents {
+    fun fetchContents() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _sessions.value = repository.fetchContents()
             _isLoading.value = false
-
-            _sessions.value = it
         }
     }
 
