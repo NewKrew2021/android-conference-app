@@ -1,9 +1,9 @@
-package com.jayden.ifkakaoclone.data.viewmodel
+package com.jayden.ifkakaoclone.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jayden.ifkakaoclone.data.repository.Repository
+import com.jayden.ifkakaoclone.data.Repository
 import com.jayden.ifkakaoclone.util.SingleLiveData
 import com.jayden.ifkakaoclone.view.main.model.Session
 

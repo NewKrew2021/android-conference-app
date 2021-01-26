@@ -1,4 +1,4 @@
-package com.jayden.ifkakaoclone.data.repository
+package com.jayden.ifkakaoclone.data
 
 import com.jayden.ifkakaoclone.view.main.model.Session
 

@@ -1,4 +1,4 @@
-package com.jayden.ifkakaoclone.data.repository
+package com.jayden.ifkakaoclone.data.network
 
 import android.util.Log
 import com.jayden.ifkakaoclone.network.ApiServiceFactory
@@ -8,11 +8,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SessionRepository : Repository {
-
+class RemoteDataSource {
     private val ifKakaoService = ApiServiceFactory.ifKakaoService
 
-    override fun fetchContents(callback: (List<Session>) -> Unit) {
+    fun fetchContents(callback: (List<Session>) -> Unit) {
         ifKakaoService.fetchContents().enqueue(object : Callback<SessionResult> {
             override fun onResponse(call: Call<SessionResult>, response: Response<SessionResult>) {
                 val body = response.body()
