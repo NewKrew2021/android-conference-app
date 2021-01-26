@@ -14,5 +14,6 @@
 
     <!--view-->
     <dimen name="video_height">240dp</dimen>
+    <dimen name="speaker_height">96dp</dimen>
 
 </resources>

@@ -5,8 +5,8 @@
 
         <item name="android:textColor">@color/white</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginStart">@dimen/margin_small</item>
-        <item name="android:layout_marginEnd">@dimen/margin_small</item>
+        <item name="android:layout_marginStart">@dimen/margin_x_small</item>
+        <item name="android:layout_marginEnd">@dimen/margin_x_small</item>
         <item name="android:layout_marginTop">@dimen/margin_small</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintEnd_toEndOf">parent</item>
