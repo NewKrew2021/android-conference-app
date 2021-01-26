@@ -3,9 +3,7 @@ package com.survivalcoding.ifkakao.ui.view.session
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.setToolbar
@@ -26,8 +24,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
 
         arguments?.let {
-            val url = it.getParcelable<ConferenceSessionResponse>(SESSION_ITEM)?.linkList?.video?.get(0)?.url
-            Toast.makeText(context, url, Toast.LENGTH_SHORT).show()
+            viewModel.setConferenceSessionData(it.getParcelable(SESSION_ITEM))
         }
     }
 
