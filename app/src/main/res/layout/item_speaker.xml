@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="speaker"
+            type="com.survivalcoding.ifkakao.model.Speaker" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/speaker_height">
+
+        <ImageView
+            android:id="@+id/speaker_image"
+            speakerImageUrl="@{speaker.profileImageUrl}"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_margin="@dimen/margin_x_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@id/occupation"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name_ko"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraint"
+            android:text="@{speaker.nameKo}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/company"
+            app:layout_constraintStart_toStartOf="@id/occupation"
+            app:layout_constraintTop_toTopOf="@id/speaker_image"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/name_en"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/match_constraint"
+            android:layout_marginStart="@dimen/margin_x_small"
+            android:gravity="left"
+            android:text="@{speaker.nameEn}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/name_ko"
+            app:layout_constraintStart_toEndOf="@id/name_ko"
+            app:layout_constraintTop_toTopOf="@id/name_ko" />
+
+        <TextView
+            android:id="@+id/company"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:text="@{speaker.company}"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/occupation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="6"
+            app:layout_constraintStart_toStartOf="@id/occupation"
+            app:layout_constraintTop_toBottomOf="@id/name_ko"
+            app:layout_constraintVertical_weight="1" />
+
+        <TextView
+            android:id="@+id/occupation"
+            android:layout_width="@dimen/match_constraint"
+            android:layout_height="@dimen/match_constraint"
+            android:text="@{speaker.occupation}"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/speaker_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="6"
+            app:layout_constraintStart_toEndOf="@id/speaker_image"
+            app:layout_constraintTop_toBottomOf="@id/company"
+            app:layout_constraintVertical_weight="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

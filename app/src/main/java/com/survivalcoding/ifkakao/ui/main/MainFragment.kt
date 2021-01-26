@@ -2,12 +2,13 @@ package com.survivalcoding.ifkakao.ui.main
 
 import android.os.Bundle
 import android.view.*
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.adapter.ConferenceAdapter
+import com.survivalcoding.ifkakao.ui.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.openDetailFragment
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
@@ -25,7 +26,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         adapter = ConferenceAdapter(
             itemClickListener = {
@@ -61,6 +62,8 @@ class MainFragment : Fragment() {
     }
 
     private fun initView() {
+
+        binding.videwModel = viewModel
 
         binding.toolbar.apply {
             title = "if(kakao)2020"

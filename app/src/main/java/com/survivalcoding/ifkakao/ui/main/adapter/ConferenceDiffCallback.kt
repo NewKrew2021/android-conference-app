@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.adapter
+package com.survivalcoding.ifkakao.ui.main.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.survivalcoding.ifkakao.model.Session

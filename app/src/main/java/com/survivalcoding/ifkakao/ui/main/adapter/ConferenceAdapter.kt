@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.adapter
+package com.survivalcoding.ifkakao.ui.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

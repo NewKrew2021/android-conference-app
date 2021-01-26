@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.adapter
+package com.survivalcoding.ifkakao.ui.main.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.survivalcoding.ifkakao.databinding.ItemConferenceBinding

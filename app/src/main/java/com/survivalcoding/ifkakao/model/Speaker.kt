@@ -11,4 +11,6 @@ data class Speaker(
     val nameEn: String,
     val company: String?,
     val occupation: String,
-) : Parcelable
+) : Parcelable {
+    var profileImageUrl: String = ""
+}
