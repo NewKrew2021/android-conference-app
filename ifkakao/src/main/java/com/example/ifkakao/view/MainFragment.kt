@@ -19,8 +19,7 @@ import com.example.ifkakao.viewmodel.SessionViewModel
 
 
 /*
-TODO: 1. 네트워크 통신 구현
-      2. 필터링 기능 추가
+TODO: 1. 필터링 기능 추가
  */
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
@@ -90,14 +89,13 @@ class MainFragment : Fragment() {
         binding.mainVideo.apply {
             // 화면이 세로 상태
             if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                val video =
-                    Uri.parse(
-                        String.format(
-                            VIDEO_URL,
-                            requireActivity().packageName,
-                            R.raw.main_video_portrait
-                        )
+                val video = Uri.parse(
+                    String.format(
+                        VIDEO_URL,
+                        requireActivity().packageName,
+                        R.raw.main_video_portrait
                     )
+                )
                 setVideoURI(video)
                 layoutParams.height = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
@@ -105,14 +103,13 @@ class MainFragment : Fragment() {
                     resources.displayMetrics
                 ).toInt()
             } else { // 화면 가로 상태
-                val video =
-                    Uri.parse(
-                        String.format(
-                            VIDEO_URL,
-                            requireActivity().packageName,
-                            R.raw.main_video_landscape
-                        )
+                val video = Uri.parse(
+                    String.format(
+                        VIDEO_URL,
+                        requireActivity().packageName,
+                        R.raw.main_video_landscape
                     )
+                )
                 setVideoURI(video)
                 layoutParams.height = TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,

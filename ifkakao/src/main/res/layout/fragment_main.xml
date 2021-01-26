@@ -42,13 +42,24 @@
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/black"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:toolbarId="@id/session_toolbar">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:paddingTop="16dp"
+                        android:text="@string/session"
+                        android:textColor="@color/white"
+                        android:textSize="28sp" />
 
                     <VideoView
                         android:id="@+id/main_video"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="411dp"
+                        android:layout_marginTop="64dp"
                         android:layout_marginBottom="?attr/actionBarSize" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,7 +116,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/black"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}">
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone">
 
             <ProgressBar
                 android:layout_width="wrap_content"
