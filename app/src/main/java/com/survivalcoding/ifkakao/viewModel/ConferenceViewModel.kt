@@ -10,9 +10,7 @@ import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.repository.FavoritesRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ConferenceViewModel : ViewModel() {
 
@@ -44,9 +42,7 @@ class ConferenceViewModel : ViewModel() {
 
     fun getData() {
         viewModelScope.launch(handler) {
-            withContext(Dispatchers.IO) {
-                parsingToConferenceAppFront(ConferenceRepository.getData())
-            }
+            parsingToConferenceAppFront(ConferenceRepository.getData())
         }
     }
 
