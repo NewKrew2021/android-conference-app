@@ -2,4 +2,5 @@
     <string name="app_name">IfKakao</string>
     <string name="hyperlink_text">Go to official website</string>
     <string name="main_text">if(kakao)2020이\n여러본의 관심 속에 마무리되었습니다.\n우리, 내년에 또 만나요!\n오늘도 카카오는 세상을 바꾸는 중</string>
+    <string name="toolbar_text">if(kakao)2020</string>
 </resources>
