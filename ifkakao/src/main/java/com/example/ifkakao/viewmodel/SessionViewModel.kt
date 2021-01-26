@@ -10,6 +10,10 @@ import com.example.ifkakao.model.Repository
 import com.example.ifkakao.model.jsonformat.Session
 import kotlinx.coroutines.launch
 
+enum class ErrorStatus() {
+    SERVER_ERROR, CLIENT_ERROR, UNKNOWN_ERROR, NO_ERROR
+}
+
 class SessionViewModel : ViewModel() {
     private val repository: Repository = ConferenceRepository()
     private val _sessionList = MutableLiveData<List<Session>>(mutableListOf())
@@ -17,16 +21,28 @@ class SessionViewModel : ViewModel() {
     private val _selectedSession = MutableLiveData<Session>()
     val selectedSession: LiveData<Session> get() = _selectedSession
     var isLoading = MutableLiveData(false)
+    var errorStatus = MutableLiveData<ErrorStatus>(ErrorStatus.NO_ERROR)
 
     fun updateSessionData() {
         viewModelScope.launch {
             isLoading.value = true
+            errorStatus.value = ErrorStatus.NO_ERROR
             when (val response = repository.getConferenceData()) {
                 is KakaoApiResponse.Success -> {
                     _sessionList.value = response.result.data
                 }
                 is KakaoApiResponse.Failure -> {
-
+                    when {
+                        response.errorCode in 400..499 -> {
+                            errorStatus.value = ErrorStatus.CLIENT_ERROR
+                        }
+                        response.errorCode >= 500 -> {
+                            errorStatus.value = ErrorStatus.SERVER_ERROR
+                        }
+                        else -> {
+                            errorStatus.value = ErrorStatus.UNKNOWN_ERROR
+                        }
+                    }
                 }
             }
             isLoading.value = false
