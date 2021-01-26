@@ -1,10 +1,14 @@
 package com.survivalcoding.ifkakao.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.launch
 
 class ConferenceViewModel : ViewModel() {
 
@@ -14,11 +18,13 @@ class ConferenceViewModel : ViewModel() {
     val sessions: LiveData<List<Session>>
         get() = _sessions
 
-    fun requestConfData() {
-        repository.requestConfData(::updateSessions)
+    val handler = CoroutineExceptionHandler { _, throwable ->
+        Log.d("Retrofit Network Error", throwable.toString())
     }
 
-    private fun updateSessions(sessionList: List<Session>) {
-        _sessions.postValue(sessionList)
+    fun requestConfData() {
+        viewModelScope.launch(handler) {
+            _sessions.postValue(repository.requestConfData().data)
+        }
     }
 }
