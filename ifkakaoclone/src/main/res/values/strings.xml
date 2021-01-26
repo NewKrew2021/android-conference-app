@@ -17,4 +17,47 @@
     <string name="btn_my_list">My List</string>
     <!-- SessionDetailFragment -->
     <string name="fragment_session_detail_btn_back_to_list">목록보기</string>
+    <!-- FilterDetailFragment -->
+    <string name="filter_field_title">관심분야</string>
+    <string name="filter_field_service">서비스</string>
+    <string name="filter_field_business">비즈니스</string>
+    <string name="filter_field_tech">기술</string>
+
+    <string name="filter_keyword_title">관심키워드</string>
+    <string name="filter_keyword_service_and_business_title">서비스·비즈니스</string>
+    <string name="filter_keyword_service_and_business_personal">개인화</string>
+    <string name="filter_keyword_service_and_business_ad">광고</string>
+    <string name="filter_keyword_service_and_business_finance">금융</string>
+    <string name="filter_keyword_service_and_business_data">데이터</string>
+    <string name="filter_keyword_service_and_business_digital_assets">디지털자산</string>
+    <string name="filter_keyword_service_and_business_mobility">모빌리티</string>
+    <string name="filter_keyword_service_and_business_social">사회공헌</string>
+    <string name="filter_keyword_service_and_business_engineering">엔지니어링</string>
+    <string name="filter_keyword_service_and_business_infra">인프라</string>
+    <string name="filter_keyword_service_and_business_contents">콘텐츠</string>
+    <string name="filter_keyword_service_and_business_creator">크리에이터</string>
+    <string name="filter_keyword_service_and_business_platform">플랫폼</string>
+    <string name="filter_keyword_service_and_business_b2b">B2B</string>
+
+    <string name="filter_keyword_tech_title">기술</string>
+    <string name="filter_keyword_tech_backend">백엔드</string>
+    <string name="filter_keyword_tech_ai">머신러닝/AI</string>
+    <string name="filter_keyword_tech_data">데이터</string>
+    <string name="filter_keyword_tech_cloud">클라우드</string>
+    <string name="filter_keyword_tech_infra">인프라/DevOps</string>
+    <string name="filter_keyword_tech_block_chain">블록체인</string>
+    <string name="filter_keyword_tech_mobile">모바일</string>
+    <string name="filter_keyword_tech_android">Android</string>
+    <string name="filter_keyword_tech_ios">iOS</string>
+    <string name="filter_keyword_tech_web">웹/프론트엔드</string>
+    <string name="filter_keyword_tech_windows">Windows</string>
+    <string name="filter_keyword_tech_game">게임개발</string>
+    <string name="filter_keyword_tech_environment">개발생태계</string>
+    <string name="filter_keyword_tech_culture">개발문화</string>
+    <string name="filter_keyword_tech_hardware">하드웨어</string>
+    <string name="filter_keyword_tech_embedded">EmbeddedSystem</string>
+    <string name="filter_keyword_tech_etc">기타</string>
+
+    <string name="btn_reset">초기화</string>
+    <string name="btn_accept">적용</string>
 </resources>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
 import com.jayden.ifkakaoclone.extensions.replaceTransaction
+import com.jayden.ifkakaoclone.view.main.MainActivity
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
 import com.jayden.ifkakaoclone.view.main.model.Session
 import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
@@ -47,6 +48,8 @@ class SessionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as MainActivity).supportActionBar?.show()
+
         with(binding) {
             recyclerView.adapter = adapter
             recyclerView.addItemDecoration(
@@ -55,6 +58,10 @@ class SessionListFragment : Fragment() {
                     LinearLayoutManager.VERTICAL
                 )
             )
+
+            btnFilter.setOnClickListener {
+                replaceTransaction<FilterDetailFragment>(R.id.fragment_container_view)
+            }
 
             layoutFooter.imageScrollTop.setOnClickListener {
                 smoothScrollToAppbar()

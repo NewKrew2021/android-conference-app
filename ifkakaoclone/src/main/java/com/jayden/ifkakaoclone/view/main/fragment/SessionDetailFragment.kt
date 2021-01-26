@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
+import com.jayden.ifkakaoclone.view.main.MainActivity
 import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
 import com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink
 import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
@@ -44,6 +45,8 @@ class SessionDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as MainActivity).supportActionBar?.show()
 
         with(binding) {
             speakerRecyclerView.adapter = adapter

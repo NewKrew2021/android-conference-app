@@ -17,4 +17,7 @@
 
     <!-- SessionDetailFragment -->
     <color name="fragment_session_detail_btn_go_to_list">#272727</color>
+    <!-- FilterDetailFragment -->
+    <color name="blue">#0050FF</color>
+    <color name="dark_gray">#262626</color>
 </resources>
