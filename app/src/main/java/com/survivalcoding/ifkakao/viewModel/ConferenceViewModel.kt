@@ -1,14 +1,22 @@
 package com.survivalcoding.ifkakao.viewModel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
+import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
+import com.survivalcoding.ifkakao.repository.FavoritesRepository
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ConferenceViewModel : ViewModel() {
 
-    private val _listData = MutableLiveData<List<ConferenceAppFront>>()
+    private var _listData = MutableLiveData<MutableList<ConferenceAppFront>>()
     val listData get() = _listData
 
     //var currentPosition = 0
@@ -18,10 +26,66 @@ class ConferenceViewModel : ViewModel() {
     val selectInterests get() = _selectInterests
     var nonChoice = true
 
+    val handler = CoroutineExceptionHandler { _, exception ->
+        Log.d("log2", "데이터를 받아오는데 실패하였습니다.")
+    }
+
+
+    fun getFavoritesData(): List<ConferenceAppFront> {
+
+        val tmpList = mutableListOf<ConferenceAppFront>()
+        _listData.value?.let {
+            for (i in 0..it.size - 1) {
+                if (FavoritesRepository.datalist.contains(it.get(i).id)) tmpList.add(it.get(i))
+            }
+        }
+        return tmpList.toList()
+    }
+
     fun getData() {
-        ConferenceRepository.getData({
-            _listData.postValue(it)
-        })
+        viewModelScope.launch(handler) {
+            withContext(Dispatchers.IO) {
+                parsingToConferenceAppFront(ConferenceRepository.getData())
+            }
+        }
+    }
+
+    fun parsingToConferenceAppFront(topData: Conference) {
+
+        val tmpData = mutableListOf<ConferenceAppFront>()
+
+        for (i in 0..topData.data.size - 1) {
+            var length = topData.data[i].linkList.VIDEO[0].description
+            var field = topData.data[i].field
+            var titleTmp = topData.data[i].title
+            var imageUrl = topData.data[i].linkList.PC_IMAGE[0].url
+            var content = topData.data[i].content
+            var contentTag = topData.data[i].contentTag ?: ""
+            var contentsSpeackerList = topData.data[i].contentsSpeackerList
+            var speackerProfileList = topData.data[i].linkList.SPEACKER_PROFILE
+            var spotlightYn = topData.data[i].spotlightYn
+            var sessionType = topData.data[i].sessionType
+            var videoUrl = topData.data[i].linkList.VIDEO[0].url
+            var id = topData.data[i].idx
+            var title = titleTmp.replace("<br>", "\n")
+            tmpData.add(
+                ConferenceAppFront(
+                    length,
+                    field,
+                    title,
+                    imageUrl,
+                    content,
+                    contentTag,
+                    contentsSpeackerList,
+                    speackerProfileList,
+                    spotlightYn,
+                    sessionType,
+                    videoUrl,
+                    id
+                )
+            )
+        }
+        _listData.postValue(tmpData)
     }
 
     fun getHighlightData(): MutableList<ConferenceAppFront> {

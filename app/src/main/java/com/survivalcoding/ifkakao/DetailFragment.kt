@@ -53,8 +53,6 @@ class DetailFragment : Fragment() {
                     setReorderingAllowed(true)
                     replace<MainFragment>(R.id.fragment_container_view)
                 }
-
-
             }
 
             binding.speakerRecyclerView.adapter = adapter

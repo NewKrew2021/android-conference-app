@@ -20,17 +20,35 @@
         android:background="@color/black">
 
 
-        <TextView
-            android:id="@+id/fieldTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/edge"
-            android:paddingStart="3dp"
-            android:paddingEnd="3dp"
-            android:text="@{user.field}"
-            android:textColor="@color/white" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="63dp">
+
+            <TextView
+                android:id="@+id/fieldTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edge"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                android:text="@{user.field}"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/likeToggleButton"
+                android:layout_width="40dp"
+                android:layout_height="41dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/like_toggle_selector"
+                android:text="ToggleButton"
+                android:textOff=" "
+                android:textOn=" "
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/titleTextView"

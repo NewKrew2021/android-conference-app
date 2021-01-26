@@ -13,6 +13,7 @@ import com.survivalcoding.ifkakao.databinding.SpeakerInfoBinding
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
+import com.survivalcoding.ifkakao.repository.FavoritesRepository
 
 private val TYPE_HEADER = 0
 private val TYPE_FOOTER = 1
@@ -23,7 +24,8 @@ class SpeakerRecyclerAdapter(
     val relativeStartIndex: Int,
     val itemClick: (ConferenceAppFront) -> Unit,
     val backItemClick: (Int) -> Unit,
-) :
+
+    ) :
     ListAdapter<DetailRecyclerType, RecyclerView.ViewHolder>(SpeakerDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -60,6 +62,7 @@ class SpeakerRecyclerAdapter(
             holder.setData(getItem(holder.adapterPosition) as SpeackerInfo)
         } else if (holder is HeaderHolder) {
             holder.setData(getItem(holder.adapterPosition) as ConferenceAppFront)
+            holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
         } else if (holder is RelativeHolder) {
             holder.setData(getItem(holder.adapterPosition) as ConferenceAppFront)
             holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
@@ -113,19 +116,20 @@ class HeaderHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     fun setData(data: ConferenceAppFront) {
         binding.user = data
+        if (FavoritesRepository.isExist(data.id)) {
+            binding.likeToggleButton.isChecked = true
+        } else {
+            binding.likeToggleButton.isChecked = false
+        }
+    }
 
-        /*
-         binding.videoView.setVideoURI(Uri.parse("https://tv.kakao.com/embed/player/cliplink/414004572.mp4"))
-         binding.videoView.setOnPreparedListener {
-             binding.videoView.requestFocus();
-             it.start()
-         }
-         binding.videoView.setOnCompletionListener {
-             it.start()
-         }
-
-
-         */
+    fun clickListener(data: ConferenceAppFront) {
+        binding.likeToggleButton.setOnClickListener {
+            if (binding.likeToggleButton.isChecked == true) FavoritesRepository.addFavoritesItem(
+                data.id
+            )
+            else FavoritesRepository.removeFavoritesItem(data.id)
+        }
     }
 }
 
