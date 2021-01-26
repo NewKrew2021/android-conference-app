@@ -3,8 +3,10 @@ package com.survivalcoding.ifkakao.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.model.conferenceData.Data
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
+import kotlinx.coroutines.launch
 
 class ConferenceViewModel : ViewModel() {
     private val repository = ConferenceRepository
@@ -19,11 +21,14 @@ class ConferenceViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     fun loadData() {
-        _isLoading.value = true
-        repository.getRequests {
-            _list.postValue(it)
+        viewModelScope.launch {
+            _isLoading.value = true
+
+            _list.postValue(repository.getRequests().data)
+
             _isLoading.value = false
         }
+
     }
 
     fun setSelectItem(data: Data) {
