@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_16"
             android:layout_marginTop="@dimen/spacing_16"
-            android:background="@drawable/stroke_white_1dp"
+            android:background="@drawable/textview_stroke_white_1dp"
             android:paddingStart="3dp"
             android:paddingTop="2dp"
             android:paddingEnd="3dp"

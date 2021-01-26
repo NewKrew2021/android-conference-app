@@ -30,4 +30,10 @@
     <!-- fragment detail session -->
     <string name="fragment_session_detail">fragment session detail</string>
 
+    <!-- fragment session filter -->
+    <string name="tv_favorite_session_filter">관심분야</string>
+    <string name="btn_service_session_filter">서비스</string>
+    <string name="btn_business_session_filter">비즈니스</string>
+    <string name="btn_tech_session_filter">기술</string>
+
 </resources>
