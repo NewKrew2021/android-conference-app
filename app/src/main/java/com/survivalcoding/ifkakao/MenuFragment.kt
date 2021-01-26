@@ -39,6 +39,7 @@ class MenuFragment : Fragment() {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<FavoritesFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
             }
         }
         return view

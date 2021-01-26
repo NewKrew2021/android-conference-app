@@ -129,8 +129,6 @@ class HeaderHolder(
                 data.id
             )
             else FavoritesRepository.removeFavoritesItem(data.id)
-
-
         }
     }
 }

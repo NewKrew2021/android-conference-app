@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<MenuFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
             }
         }
     }

@@ -7,6 +7,7 @@ import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.jsonModel.Conference
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
+import com.survivalcoding.ifkakao.repository.FavoritesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,6 +23,18 @@ class ConferenceViewModel : ViewModel() {
     private var _selectInterests = mutableSetOf<String>()
     val selectInterests get() = _selectInterests
     var nonChoice = true
+
+
+    fun getFavoritesData(): List<ConferenceAppFront> {
+
+        val tmpList = mutableListOf<ConferenceAppFront>()
+        _listData.value?.let {
+            for (i in 0..it.size - 1) {
+                if (FavoritesRepository.datalist.contains(it.get(i).id)) tmpList.add(it.get(i))
+            }
+        }
+        return tmpList.toList()
+    }
 
     fun getData() {
         viewModelScope.launch {

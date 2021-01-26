@@ -3,7 +3,7 @@ package com.survivalcoding.ifkakao.repository
 object FavoritesRepository {   //나중에 Db로 교체
 
     private var _dataList = mutableSetOf<Int>()
-    val datalis get() = _dataList
+    val datalist get() = _dataList
 
     fun isExist(id: Int) = _dataList.contains(id)
 
