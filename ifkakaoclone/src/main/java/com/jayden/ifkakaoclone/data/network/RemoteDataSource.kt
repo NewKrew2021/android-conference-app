@@ -3,33 +3,18 @@ package com.jayden.ifkakaoclone.data.network
 import android.util.Log
 import com.jayden.ifkakaoclone.network.ApiServiceFactory
 import com.jayden.ifkakaoclone.view.main.model.Session
-import com.jayden.ifkakaoclone.view.main.model.SessionResult
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RemoteDataSource {
     private val ifKakaoService = ApiServiceFactory.ifKakaoService
 
-    fun fetchContents(callback: (List<Session>) -> Unit) {
-        ifKakaoService.fetchContents().enqueue(object : Callback<SessionResult> {
-            override fun onResponse(call: Call<SessionResult>, response: Response<SessionResult>) {
-                val body = response.body()
+    suspend fun fetchContents(): List<Session> {
+        val result = ifKakaoService.fetchContents()
 
-                if (response.isSuccessful && body != null) {
-                    callback.invoke(body.data)
-                } else {
-                    callback.invoke(listOf())
-
-                    Log.d(javaClass.simpleName, body?.errorMessage ?: "Request Not Success")
-                }
-            }
-
-            override fun onFailure(call: Call<SessionResult>, t: Throwable) {
-                callback.invoke(listOf())
-
-                Log.d(javaClass.simpleName, t.message ?: "Request Failure")
-            }
-        })
+        return if (result.success) {
+            result.data
+        } else {
+            Log.d(javaClass.simpleName, result.errorMessage ?: "Request Not Success")
+            listOf()
+        }
     }
 }

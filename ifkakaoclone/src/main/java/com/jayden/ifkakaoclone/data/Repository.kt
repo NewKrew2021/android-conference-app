@@ -3,5 +3,5 @@ package com.jayden.ifkakaoclone.data
 import com.jayden.ifkakaoclone.view.main.model.Session
 
 interface Repository {
-    fun fetchContents(callback: (List<Session>) -> Unit)
+    suspend fun fetchContents(): List<Session>
 }

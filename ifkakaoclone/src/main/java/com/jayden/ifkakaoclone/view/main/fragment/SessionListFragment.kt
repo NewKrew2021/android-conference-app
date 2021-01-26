@@ -69,6 +69,8 @@ class SessionListFragment : Fragment() {
         activityViewModel.sessions.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
+
+        activityViewModel.fetchContents()
     }
 
     private fun selectSessionEvent(session: Session) {

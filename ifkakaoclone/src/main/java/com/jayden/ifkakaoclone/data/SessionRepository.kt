@@ -6,7 +6,5 @@ import com.jayden.ifkakaoclone.view.main.model.Session
 class SessionRepository : Repository {
     private val remoteDataSource = RemoteDataSource()
 
-    override fun fetchContents(callback: (List<Session>) -> Unit) {
-        return remoteDataSource.fetchContents(callback)
-    }
+    override suspend fun fetchContents(): List<Session> = remoteDataSource.fetchContents()
 }
