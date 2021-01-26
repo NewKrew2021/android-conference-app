@@ -11,4 +11,42 @@
         <item>Day2</item>
         <item>Day3(All)</item>
     </string-array>
+    <string name="likeField">관심분야</string>
+    <string name="service">서비스</string>
+    <string name="business">비즈니스</string>
+    <string name="tech">기술</string>
+    <string name="likeKeyword">관심키워드</string>
+    <string name="service_and_business">서비스・비즈니스</string>
+    <string name="personalization">개인화</string>
+    <string name="ad">광고</string>
+    <string name="money">금융</string>
+    <string name="data">데이터</string>
+    <string name="digitalAccount">디지털자산</string>
+    <string name="mobility">모빌리티</string>
+    <string name="socialContribution">사회공헌</string>
+    <string name="engineering">엔지니어링</string>
+    <string name="infra">인프라</string>
+    <string name="contents">콘텐츠</string>
+    <string name="creator">크리에이터</string>
+    <string name="platform">플랫폼</string>
+    <string name="b2b">B2B</string>
+    <string name="backend">백엔드</string>
+    <string name="ml_al">머신러닝/AI</string>
+    <string name="cloud">클라우드</string>
+    <string name="infra_dev_ops">인프라/DevOps</string>
+    <string name="block_chain">블록체인</string>
+    <string name="mobile">모바일</string>
+    <string name="android">Android</string>
+    <string name="ios">iOS</string>
+    <string name="web_frontend">웹/프론트엔드</string>
+    <string name="windows">Windows</string>
+    <string name="game_development">게임개발</string>
+    <string name="development_ecosystem">개발생태계</string>
+    <string name="development_culture">개발문회</string>
+    <string name="hardware">하드웨어</string>
+    <string name="embeddedSystem">EmbeddedSystem</string>
+    <string name="etc">기타</string>
+    <string name="clear">초기화</string>
+    <string name="adapt">적용</string>
+
 </resources>

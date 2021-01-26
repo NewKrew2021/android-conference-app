@@ -25,4 +25,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MyButton">
+        <item name="android:minWidth">20dp</item>
+        <item name="android:minHeight">20dp</item>
+    </style>
+
 </resources>
