@@ -10,7 +10,7 @@ import com.example.ifkakao.model.Repository
 import com.example.ifkakao.model.jsonformat.Session
 import kotlinx.coroutines.launch
 
-enum class ErrorStatus() {
+enum class ErrorStatus {
     SERVER_ERROR, CLIENT_ERROR, UNKNOWN_ERROR, NO_ERROR
 }
 
@@ -30,20 +30,13 @@ class SessionViewModel : ViewModel() {
             isLoading.value = true
             errorStatus.value = ErrorStatus.NO_ERROR
             when (val response = repository.getConferenceData()) {
-                is KakaoApiResponse.Success -> {
-                    _sessionList.value = response.result.data
-                }
+                is KakaoApiResponse.Success -> _sessionList.value = response.result.data
                 is KakaoApiResponse.Failure -> {
                     when {
-                        response.errorCode in 400..499 -> {
-                            errorStatus.value = ErrorStatus.CLIENT_ERROR
-                        }
-                        response.errorCode >= 500 -> {
-                            errorStatus.value = ErrorStatus.SERVER_ERROR
-                        }
-                        else -> {
-                            errorStatus.value = ErrorStatus.UNKNOWN_ERROR
-                        }
+                        response.errorCode in 400..499 -> errorStatus.value =
+                            ErrorStatus.CLIENT_ERROR
+                        response.errorCode >= 500 -> errorStatus.value = ErrorStatus.SERVER_ERROR
+                        else -> errorStatus.value = ErrorStatus.UNKNOWN_ERROR
                     }
                 }
             }
@@ -56,20 +49,14 @@ class SessionViewModel : ViewModel() {
             isLoading.value = true
             errorStatus.value = ErrorStatus.NO_ERROR
             when (val response = repository.getConferenceData()) {
-                is KakaoApiResponse.Success -> {
-                    _highlightSession.value = response.result.data.filter { it.spotlightYn == "Y" }
-                }
+                is KakaoApiResponse.Success -> _highlightSession.value =
+                    response.result.data.filter { it.spotlightYn == "Y" }
                 is KakaoApiResponse.Failure -> {
                     when {
-                        response.errorCode in 400..499 -> {
-                            errorStatus.value = ErrorStatus.CLIENT_ERROR
-                        }
-                        response.errorCode >= 500 -> {
-                            errorStatus.value = ErrorStatus.SERVER_ERROR
-                        }
-                        else -> {
-                            errorStatus.value = ErrorStatus.UNKNOWN_ERROR
-                        }
+                        response.errorCode in 400..499 -> errorStatus.value =
+                            ErrorStatus.CLIENT_ERROR
+                        response.errorCode >= 500 -> errorStatus.value = ErrorStatus.SERVER_ERROR
+                        else -> errorStatus.value = ErrorStatus.UNKNOWN_ERROR
                     }
                 }
             }

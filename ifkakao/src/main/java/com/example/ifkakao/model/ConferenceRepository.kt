@@ -12,12 +12,12 @@ class ConferenceRepository : Repository {
 
     override suspend fun getConferenceData(): KakaoApiResponse {
         val result = remoteDataSource.getConferenceData()
-        if (result.isSuccessful) {
-            return result.body()?.let { KakaoApiResponse.Success(it) }
+        return if (result.isSuccessful) {
+            result.body()?.let { KakaoApiResponse.Success(it) }
                 ?: KakaoApiResponse.Failure(result.code()
                 )
         } else {
-            return KakaoApiResponse.Failure(result.code())
+            KakaoApiResponse.Failure(result.code())
         }
     }
 }
