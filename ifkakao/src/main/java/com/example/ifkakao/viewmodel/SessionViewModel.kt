@@ -3,9 +3,12 @@ package com.example.ifkakao.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.ifkakao.model.ConferenceRepository
+import com.example.ifkakao.model.KakaoApiResponse
 import com.example.ifkakao.model.Repository
 import com.example.ifkakao.model.jsonformat.Session
+import kotlinx.coroutines.launch
 
 class SessionViewModel : ViewModel() {
     private val repository: Repository = ConferenceRepository()
@@ -16,9 +19,16 @@ class SessionViewModel : ViewModel() {
     var isLoading = MutableLiveData(false)
 
     fun updateSessionData() {
-        isLoading.value = true
-        repository.getConferenceData {
-            _sessionList.value = it.data
+        viewModelScope.launch {
+            isLoading.value = true
+            when (val response = repository.getConferenceData()) {
+                is KakaoApiResponse.Success -> {
+                    _sessionList.value = response.result.data
+                }
+                is KakaoApiResponse.Failure -> {
+
+                }
+            }
             isLoading.value = false
         }
     }
