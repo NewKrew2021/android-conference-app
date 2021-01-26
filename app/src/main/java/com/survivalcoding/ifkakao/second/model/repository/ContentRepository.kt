@@ -1,7 +1,11 @@
 package com.survivalcoding.ifkakao.second.model.repository
 
-import com.squareup.moshi.Moshi
+import android.util.Log
 import com.survivalcoding.ifkakao.second.model.Contents
+import com.survivalcoding.ifkakao.second.network.JsonServiceFactory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class ContentRepository : Repository {
@@ -785,9 +789,25 @@ class ContentRepository : Repository {
     ],
   "errorMessage": null
 }""".trimIndent()
-
+    private val contentService = JsonServiceFactory.contentService
     override fun getData(callback: (Contents) -> Unit) {
-        val adapter = Moshi.Builder().build().adapter(Contents::class.java)
-        callback.invoke(adapter.fromJson(dummy) ?: Contents(0, listOf(), false, "parsing fail"))
+
+        contentService.getData().enqueue(object : Callback<Contents> {
+            override fun onResponse(
+                call: Call<Contents>,
+                response: Response<Contents>
+            ) {
+                Log.d("aaa", response.code().toString())
+                response.body()?.let {
+                    callback.invoke(it)
+                }
+            }
+
+            override fun onFailure(call: Call<Contents>, t: Throwable) {
+                Log.d("aaa", t.cause.toString())
+                callback.invoke(Contents(0, listOf(), false, "parsing fail"))
+            }
+        })
+
     }
 }

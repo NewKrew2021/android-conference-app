@@ -28,6 +28,28 @@
             app:url="@{contentdata.linkList.pcImage[0].url}"
             tools:src="@drawable/thumbnail_placeholder" />
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#77000000"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
+            app:layout_constraintEnd_toEndOf="@id/thumbnail_image"
+            app:layout_constraintStart_toStartOf="@id/thumbnail_image"
+            app:layout_constraintTop_toTopOf="@id/thumbnail_image" />
+
+        <ImageView
+            android:id="@+id/play_button"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            android:background="#00000000"
+            android:src="@drawable/ic_baseline_play_arrow_24"
+            app:layout_constraintBottom_toBottomOf="@id/thumbnail_image"
+            app:layout_constraintEnd_toEndOf="@id/thumbnail_image"
+            app:layout_constraintStart_toStartOf="@id/thumbnail_image"
+            app:layout_constraintTop_toTopOf="@id/thumbnail_image" />
+
         <TextView
             android:id="@+id/field_text"
             android:layout_width="wrap_content"

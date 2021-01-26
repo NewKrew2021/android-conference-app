@@ -11,7 +11,8 @@ import com.survivalcoding.ifkakao.second.model.Speaker
 import com.survivalcoding.ifkakao.second.view.detail.holder.SpeakerDetailHolder
 
 class SpeakerDetailAdapter(
-    private val contentData: ContentData
+    private val contentData: ContentData,
+    private val videoPlayListener: (String) -> Unit
 ) :
     ListAdapter<Speaker, SpeakerDetailHolder>(SpeakerDetailDiffCallback) {
     private val VIEW_TYPE_HEADER = 0
@@ -50,6 +51,7 @@ class SpeakerDetailAdapter(
             }
             is SecondItemDetailHeaderBinding -> {
                 holder.binding.contentdata = contentData
+                holder.binding.playButton.setOnClickListener { videoPlayListener.invoke(contentData.linkList.video[0].url) }
             }
         }
     }

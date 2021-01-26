@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.second.view.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +19,13 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: ContentViewModel by activityViewModels()
     private val adapter by lazy {
-        SpeakerDetailAdapter(contentData = viewModel.selectedItem)
+        SpeakerDetailAdapter(
+            contentData = viewModel.selectedItem,
+            videoPlayListener = {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                startActivity(intent)
+            }
+        )
     }
 
     override fun onCreateView(
