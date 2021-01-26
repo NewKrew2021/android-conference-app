@@ -15,3 +15,4 @@ fun loadImageWithRound(view: ImageView, url: String) {
 fun loadImage(view: ImageView, url: String) {
     view.loadUrl(url)
 }
+

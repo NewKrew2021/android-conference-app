@@ -25,4 +25,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+
+    <attr name="is_click" format="boolean"/>
+    <style name="MyButton">
+        <item name="is_click">false</item>
+        <item name="android:minWidth">20dp</item>
+        <item name="android:minHeight">20dp</item>
+    </style>
+
 </resources>

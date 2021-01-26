@@ -86,6 +86,14 @@ class ConferenceListFragment() : Fragment() {
             }
             spinner.setSelection(2)
             spinner.onItemSelectedListener = SpinnerAdapter()
+
+            fieldFilterButton.setOnClickListener {
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.fragmentContainerView, FilterFragment())
+                    addToBackStack(null)
+                }
+            }
         }
 
         viewModel.list.observe(viewLifecycleOwner, Observer<List<Data>> {
