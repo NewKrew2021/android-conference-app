@@ -16,7 +16,7 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
 
     private val _sessions: MutableLiveData<List<Session>> by lazy {
         MutableLiveData<List<Session>>().also {
-            it.value = loadSessions()
+            fetchContents()
         }
     }
     val sessions: LiveData<List<Session>> get() = _sessions
@@ -27,7 +27,17 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _action = SingleLiveData<Action>()
     val action: LiveData<Action> get() = _action
 
-    private fun loadSessions(): List<Session> = repository.getSessions()
+    private val _isLoading = MutableLiveData<Boolean>(true)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private fun fetchContents() {
+        _isLoading.value = true
+        repository.fetchContents {
+            _isLoading.value = false
+
+            _sessions.value = it
+        }
+    }
 
     fun setSelectedItem(session: Session) {
         _selectedItem.value = session

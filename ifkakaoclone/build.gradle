@@ -55,6 +55,9 @@ dependencies {
 
     implementation deps.coil
 
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter.moshi
+
     testImplementation deps.junit
     androidTestImplementation deps.androidx.test.espresso
     androidTestImplementation deps.androidx.test.ext

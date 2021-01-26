@@ -1,6 +1,7 @@
 package com.jayden.ifkakaoclone.util
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import android.widget.VideoView
 import androidx.databinding.BindingAdapter
@@ -39,4 +40,9 @@ fun VideoView.loadVideoThenLoop(videoUrl: String) {
         it.isLooping = true
         it.start()
     }
+}
+
+@BindingAdapter("gone")
+fun View.whenShouldItGone(shouldBeGone: Boolean) {
+    visibility = if (shouldBeGone) View.GONE else View.VISIBLE
 }

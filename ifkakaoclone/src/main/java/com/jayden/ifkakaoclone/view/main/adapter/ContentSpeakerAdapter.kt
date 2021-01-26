@@ -2,29 +2,39 @@ package com.jayden.ifkakaoclone.view.main.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.jayden.ifkakaoclone.databinding.ContentSpeakerLayoutBinding
 import com.jayden.ifkakaoclone.view.main.holder.ContentSpeakerViewHolder
-import com.jayden.ifkakaoclone.view.main.model.ContentsSpeacker
-import com.jayden.ifkakaoclone.view.main.model.Link
+import com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink
 
-class ContentSpeakerAdapter : RecyclerView.Adapter<ContentSpeakerViewHolder>() {
-
-    private val items = mutableListOf<Pair<ContentsSpeacker, Link>>()
+class ContentSpeakerAdapter :
+    ListAdapter<ContentsSpeakerWithLink, ContentSpeakerViewHolder>(SPEAKER_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentSpeakerViewHolder {
-        val binding = ContentSpeakerLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ContentSpeakerLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ContentSpeakerViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ContentSpeakerViewHolder, position: Int) {
-        holder.bind(items[holder.adapterPosition])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = items.size
+    companion object {
+        private val SPEAKER_COMPARATOR = object : DiffUtil.ItemCallback<ContentsSpeakerWithLink>() {
+            override fun areItemsTheSame(
+                oldItem: ContentsSpeakerWithLink,
+                newItem: ContentsSpeakerWithLink
+            ): Boolean =
+                oldItem == newItem
 
-    fun setItems(newItems: List<Pair<ContentsSpeacker, Link>>) {
-        items.clear()
-        items.addAll(newItems)
+            override fun areContentsTheSame(
+                oldItem: ContentsSpeakerWithLink,
+                newItem: ContentsSpeakerWithLink
+            ): Boolean =
+                oldItem == newItem
+
+        }
     }
 }

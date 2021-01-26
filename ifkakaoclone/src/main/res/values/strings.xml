@@ -1,20 +1,20 @@
 <resources>
     <string name="app_name">IfKakaoClone</string>
 
-    <!-- Toolbar -->
+    <!-- Menu -->
+    <!-- toolbar -->
     <string name="toolbar_title">if(kakao)2020</string>
-
-    <!-- menu/toolbar -->
     <string name="toolbar_nav">Navigation</string>
 
-    <!-- SessionHeaderLayout -->
-    <string name="session_header_title">Session</string>
-
+    <!-- Layout -->
     <!-- SessionFooterLayout -->
     <string name="session_footer_ifkakao_2019">if(kakao)dev2019 보기</string>
     <string name="session_footer_copyright">©kakao corp.</string>
 
     <!-- Fragment -->
+    <!-- SessionListFragment -->
+    <string name="session_header_title">Session</string>
+    <string name="btn_my_list">My List</string>
     <!-- SessionDetailFragment -->
     <string name="fragment_session_detail_btn_back_to_list">목록보기</string>
 </resources>

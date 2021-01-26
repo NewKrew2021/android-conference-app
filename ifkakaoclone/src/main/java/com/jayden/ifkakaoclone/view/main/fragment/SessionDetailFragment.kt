@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import com.jayden.ifkakaoclone.data.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
 import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
+import com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink
 
 class SessionDetailFragment : Fragment() {
     private var _binding: FragmentSessionDetailBinding? = null
@@ -48,6 +49,10 @@ class SessionDetailFragment : Fragment() {
         with(binding) {
             speakerRecyclerView.adapter = adapter
 
+            layoutFooter.textIfkakao2019.setOnClickListener {
+                openIfKakao2019()
+            }
+
             layoutFooter.imageScrollTop.setOnClickListener {
                 nestedScrollView.smoothScrollTo(0, 0)
             }
@@ -67,9 +72,15 @@ class SessionDetailFragment : Fragment() {
     }
 
     private fun updateSpeaker() {
-        activityViewModel.selectedItem.value?.let {
-            adapter.setItems(it.contentsSpeackerList.zip(it.linkList.speackerProfile))
-            adapter.notifyDataSetChanged()
+        activityViewModel.selectedItem.value?.let { session ->
+            adapter.submitList(
+                session.contentsSpeackerList.zip(session.linkList.speackerProfile)
+                    .map { ContentsSpeakerWithLink(it.first, it.second) })
         }
+    }
+
+    private fun openIfKakao2019() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2019"))
+        startActivity(intent)
     }
 }
