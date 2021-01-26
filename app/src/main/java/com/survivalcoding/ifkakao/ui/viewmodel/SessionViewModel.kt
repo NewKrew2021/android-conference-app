@@ -16,9 +16,16 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
 
     var likeCheck: Boolean = false
 
-    fun getConferenceData() {
+    fun getConferenceData(filter: String) {
         viewModelScope.launch {
-            _conferenceData.postValue(repository.getAllSession().body()?.data)
+            val filteredData = if (filter == "") {
+                repository.getAllSession().data
+            } else {
+                repository.getAllSession().data.filter {
+                    filter.contains(it.field)
+                }
+            }
+            _conferenceData.postValue(filteredData)
         }
     }
 }

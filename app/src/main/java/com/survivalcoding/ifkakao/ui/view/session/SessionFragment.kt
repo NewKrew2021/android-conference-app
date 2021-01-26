@@ -46,7 +46,14 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     }
 
     override fun getViewModelData() {
-        viewModel.getConferenceData()
+        arguments?.let {
+            val filter = it.getString("filter")
+            if (filter != null) {
+                viewModel.getConferenceData(filter)
+            } else {
+                viewModel.getConferenceData("")
+            }
+        } ?: viewModel.getConferenceData("")
     }
 
     override fun startObserveData() {

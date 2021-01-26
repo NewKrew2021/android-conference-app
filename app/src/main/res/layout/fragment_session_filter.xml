@@ -8,23 +8,106 @@
         <variable
             name="viewModel"
             type="com.survivalcoding.ifkakao.ui.viewmodel.SessionFilterViewModel" />
+
+        <variable
+            name="view"
+            type="com.survivalcoding.ifkakao.ui.view.filter.SessionFilterFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
+        android:background="#000000"
         tools:context=".ui.view.session.SessionFilterFragment">
 
-
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_favorite_session_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SessionFilterFragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_56"
+            android:text="@string/tv_favorite_session_filter"
+            android:textColor="@color/white"
+            android:textSize="@dimen/body_16"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/btn_service_session_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_16"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:background="@drawable/button_stroke_white_2dp"
+            android:textOff="@string/btn_service_session_filter"
+            android:textOn="@string/btn_service_session_filter"
+            android:textSize="@dimen/body_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorite_session_filter" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/btn_business_session_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_8"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:background="@drawable/button_stroke_white_2dp"
+            android:textOff="@string/btn_business_session_filter"
+            android:textOn="@string/btn_business_session_filter"
+            android:textSize="@dimen/body_16"
+            app:layout_constraintStart_toEndOf="@+id/btn_service_session_filter"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorite_session_filter" />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/btn_tech_session_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_8"
+            android:layout_marginTop="@dimen/spacing_16"
+            android:background="@drawable/button_stroke_white_2dp"
+            android:text="@string/btn_tech_session_filter"
+            android:textOff="@string/btn_tech_session_filter"
+            android:textOn="@string/btn_tech_session_filter"
+            android:textSize="@dimen/body_16"
+            app:layout_constraintStart_toEndOf="@+id/btn_business_session_filter"
+            app:layout_constraintTop_toBottomOf="@+id/tv_favorite_session_filter" />
+
+        <Button
+            android:id="@+id/btn_reset_session_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_56"
+            android:layout_marginBottom="@dimen/spacing_16"
+            android:backgroundTint="#707070"
+            android:text="@string/btn_reset_session_filter"
+            android:textSize="@dimen/body_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_apply_session_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/spacing_56"
+            android:layout_marginBottom="@dimen/spacing_16"
+            android:backgroundTint="#707070"
+            android:text="@string/btn_apply_session_filter"
+            android:textSize="@dimen/body_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_close_session_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_8"
+            android:layout_marginEnd="@dimen/spacing_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_close_32" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
