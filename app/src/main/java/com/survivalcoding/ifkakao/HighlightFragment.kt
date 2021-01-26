@@ -75,12 +75,12 @@ class HighlightFragment : Fragment() {
     }
 
     fun imageSetting() {
-        binding.highlightImageView.load(R.raw.bg_bye)
+        binding.highlightImageView.load(R.drawable.bg_bye)
         binding.highlightImageView.setImageAlpha(130)
-        Glide.with(requireActivity()).load(R.raw.ico_bye).into(binding.handImageView)
+        Glide.with(requireActivity()).load(R.drawable.ico_bye).into(binding.handImageView)
         //움직이는 gif
 
-        binding.totalImageView.load(R.raw.total_icon) {
+        binding.totalImageView.load(R.drawable.total_icon) {
             transformations(
                 RoundedCornersTransformation(
                     topRight = 20f,
