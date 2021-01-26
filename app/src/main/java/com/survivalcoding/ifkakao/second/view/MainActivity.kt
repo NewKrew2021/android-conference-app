@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.second.view
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.add
@@ -34,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         binding = SecondActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        setSupportActionBar(binding.toolbar)
         if (savedInstanceState == null) {
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
@@ -43,10 +41,4 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel
     }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
-
 }
