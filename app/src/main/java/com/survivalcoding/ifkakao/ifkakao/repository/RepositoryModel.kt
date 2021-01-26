@@ -8,20 +8,23 @@ import retrofit2.Response
 class RepositoryModel : DefaultRepositoryModel {
     private val retrofitService = RetrofitFactory.service
 
-    override fun getParsedIfKakaoResponse(callback: (IfKakaoResponse?) -> Unit) {
-        retrofitService.getContentsData().enqueue(object : Callback<IfKakaoResponse> {
-            override fun onResponse(
-                call: Call<IfKakaoResponse>,
-                response: Response<IfKakaoResponse>
-            ) {
-                response.body()?.let {
-                    callback.invoke(it)
-                }
-            }
+    override suspend fun getParsedIfKakaoResponse(): IfKakaoResponse = retrofitService.getContentsData()
 
-            override fun onFailure(call: Call<IfKakaoResponse>, t: Throwable) {
-                callback.invoke(null)
-            }
-        })
-    }
+    // 기존의 retrofit 코드
+//    override suspend fun getParsedIfKakaoResponse(callback: (IfKakaoResponse?) -> Unit) {
+//        retrofitService.getContentsData().enqueue(object : Callback<IfKakaoResponse> {
+//            override fun onResponse(
+//                call: Call<IfKakaoResponse>,
+//                response: Response<IfKakaoResponse>
+//            ) {
+//                response.body()?.let {
+//                    callback.invoke(it)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<IfKakaoResponse>, t: Throwable) {
+//                callback.invoke(null)
+//            }
+//        })
+//    }
 }
