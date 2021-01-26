@@ -83,7 +83,7 @@ class DetailFragment : Fragment() {
             var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
             adapter.submitList(detailRecyclerList + relativeData)
 
-            setWebView("https://tv.kakao.com/embed/player/cliplink/414004572")
+            setWebView(it.videoUrl)
         }
         //https://tv.kakao.com/embed/player/cliplink/414004572
 
