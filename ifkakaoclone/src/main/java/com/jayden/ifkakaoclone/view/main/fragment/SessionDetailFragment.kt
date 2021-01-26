@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.observe
-import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
 import com.jayden.ifkakaoclone.view.main.adapter.ContentSpeakerAdapter
 import com.jayden.ifkakaoclone.view.main.model.ContentsSpeakerWithLink
+import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 
 class SessionDetailFragment : Fragment() {
     private var _binding: FragmentSessionDetailBinding? = null
@@ -29,7 +28,7 @@ class SessionDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSessionDetailBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@SessionDetailFragment
             viewModel = activityViewModel
