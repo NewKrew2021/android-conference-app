@@ -2,7 +2,6 @@ package com.survivalcoding.ifkakao.ifkakao.view
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.view.main.IfKakaoFragment
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
 

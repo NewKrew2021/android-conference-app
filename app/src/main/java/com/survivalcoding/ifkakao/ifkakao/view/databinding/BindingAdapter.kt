@@ -1,9 +1,7 @@
 package com.survivalcoding.ifkakao.ifkakao.view.databinding
 
-import android.graphics.drawable.Drawable
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
 import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
-import com.survivalcoding.ifkakao.ifkakao.model.ContentsSpeacker
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter

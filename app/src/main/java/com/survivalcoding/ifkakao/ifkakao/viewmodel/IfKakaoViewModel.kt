@@ -1,14 +1,11 @@
 package com.survivalcoding.ifkakao.ifkakao.viewmodel
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.*
-import com.survivalcoding.ifkakao.ifkakao.IfKakaoDatabaseApp
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.repository.RepositoryModel
 import com.survivalcoding.ifkakao.ifkakao.repository.DefaultRepositoryModel
 import com.survivalcoding.ifkakao.ifkakao.model.IfKakaoResponse
-import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.repository.FavoriteRepository
 import kotlinx.coroutines.launch
 
