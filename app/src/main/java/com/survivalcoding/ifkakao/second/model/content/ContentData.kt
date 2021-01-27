@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.second.model
+package com.survivalcoding.ifkakao.second.model.content
 
 
 import com.squareup.moshi.JsonClass
@@ -29,4 +29,12 @@ data class ContentData(
     val title: String,
     val updateCountentsYn: String,
     val videoYn: String
-)
+) : MainViewType()
+
+data class Header(val idx: Int) : MainViewType()
+data class Footer(val idx: Int) : MainViewType()
+
+sealed class MainViewType
+
+
+// sealed class를 외부에 선언하면 Cannot access '<init>': it is private in 'MainViewType' 오류가 나와서 내부에 함께 선언

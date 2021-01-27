@@ -1,7 +1,10 @@
-package com.survivalcoding.ifkakao.second.model.repository
+package com.survivalcoding.ifkakao.second.model.content.repository
 
+import com.squareup.moshi.Moshi
+import com.survivalcoding.ifkakao.second.model.content.ContentData
+import com.survivalcoding.ifkakao.second.model.content.Contents
+import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.network.JsonServiceFactory
-
 
 class ContentRepository : Repository {
     private val dummy = """{
@@ -786,4 +789,9 @@ class ContentRepository : Repository {
 }""".trimIndent()
     private val contentService = JsonServiceFactory.contentService
     override suspend fun getData() = contentService.getData()
+
+    fun getDataWithDummy(): Contents {
+        val adapter = Moshi.Builder().build().adapter(Contents::class.java)
+        return adapter.fromJson(dummy) ?: Contents(0, listOf<ContentData>(), false, "parsing fail")
+    }
 }

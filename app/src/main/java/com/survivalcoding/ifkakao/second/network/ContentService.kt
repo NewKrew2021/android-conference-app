@@ -1,6 +1,6 @@
 package com.survivalcoding.ifkakao.second.network
 
-import com.survivalcoding.ifkakao.second.model.Contents
+import com.survivalcoding.ifkakao.second.model.content.Contents
 import retrofit2.http.GET
 
 interface ContentService {

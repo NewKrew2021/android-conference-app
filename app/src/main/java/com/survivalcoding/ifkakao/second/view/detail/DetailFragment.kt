@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.SecondFragmentDetailBinding
-import com.survivalcoding.ifkakao.second.model.Speaker
+import com.survivalcoding.ifkakao.second.model.content.Speaker
 import com.survivalcoding.ifkakao.second.view.detail.adapter.SpeakerDetailAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
@@ -21,9 +21,13 @@ class DetailFragment : Fragment() {
     private val adapter by lazy {
         SpeakerDetailAdapter(
             contentData = viewModel.selectedItem,
+            favorite = viewModel.selectedFavorite,
             videoPlayListener = {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
                 startActivity(intent)
+            },
+            favoriteClickListener = {
+                viewModel.updateFavorite(it)
             }
         )
     }

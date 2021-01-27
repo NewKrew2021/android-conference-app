@@ -7,11 +7,11 @@
 
         <variable
             name="speaker"
-            type="com.survivalcoding.ifkakao.second.model.Speaker" />
+            type="com.survivalcoding.ifkakao.second.model.content.Speaker" />
 
         <variable
             name="linkfile"
-            type="com.survivalcoding.ifkakao.second.model.LinkFile" />
+            type="com.survivalcoding.ifkakao.second.model.content.LinkFile" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
