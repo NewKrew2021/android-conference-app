@@ -67,7 +67,7 @@ class MainFragment : Fragment() {
     }
 
     private fun updateUI(data: List<ContentData>) {
-        adapter.submitList(data)
+        adapter.submitListWithHeader(data)
     }
 
 }

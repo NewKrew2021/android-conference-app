@@ -7,15 +7,19 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondItemContentBinding
 import com.survivalcoding.ifkakao.databinding.SecondItemMainHeaderBinding
 import com.survivalcoding.ifkakao.second.model.content.ContentData
+import com.survivalcoding.ifkakao.second.model.content.Footer
+import com.survivalcoding.ifkakao.second.model.content.Header
+import com.survivalcoding.ifkakao.second.model.content.MainViewType
 import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
 class ContentMainAdapter(
     private val itemClickListener: (item: ContentData) -> Unit,
     private val filterClickListener: () -> Unit,
 ) :
-    ListAdapter<ContentData, ContentMainHolder>(ContentMainDiffCallback) {
+    ListAdapter<MainViewType, ContentMainHolder>(ContentMainDiffCallback) {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
+    private val VIEW_TYPE_FOOTER = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentMainHolder {
         return when (viewType) {
             VIEW_TYPE_ITEM -> {
@@ -23,7 +27,7 @@ class ContentMainAdapter(
                     .inflate(R.layout.second_item_content, parent, false)
                 val binding = SecondItemContentBinding.bind(view)
                 val holder = ContentMainHolder(binding)
-                binding.root.setOnClickListener { itemClickListener.invoke(getItem(holder.adapterPosition)) }
+                binding.root.setOnClickListener { itemClickListener.invoke(getItem(holder.adapterPosition) as ContentData) }
                 holder
             }
             VIEW_TYPE_HEADER -> {
@@ -44,7 +48,7 @@ class ContentMainAdapter(
         when (holder.binding) {
             is SecondItemContentBinding -> {
                 val item = getItem(position)
-                holder.binding.contentdata = item
+                holder.binding.contentdata = item as ContentData
                 holder.binding.executePendingBindings()
 
             }
@@ -54,14 +58,15 @@ class ContentMainAdapter(
         }
     }
 
-    override fun getItem(position: Int): ContentData {
-        return super.getItem(position - 1)
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is Header -> VIEW_TYPE_HEADER
+            is Footer -> VIEW_TYPE_FOOTER
+            is ContentData -> VIEW_TYPE_ITEM
+        }
     }
 
-    override fun getItemViewType(position: Int) =
-        if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
-
-    override fun getItemCount(): Int {
-        return super.getItemCount() + 1
+    fun submitListWithHeader(data: List<ContentData>) {
+        submitList(listOf(Header(0)) + data)
     }
 }

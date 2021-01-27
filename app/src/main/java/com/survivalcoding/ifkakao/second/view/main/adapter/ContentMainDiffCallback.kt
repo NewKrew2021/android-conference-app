@@ -1,14 +1,14 @@
 package com.survivalcoding.ifkakao.second.view.main.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.survivalcoding.ifkakao.second.model.content.ContentData
+import com.survivalcoding.ifkakao.second.model.content.MainViewType
 
-object ContentMainDiffCallback : DiffUtil.ItemCallback<ContentData>() {
-    override fun areItemsTheSame(oldItem: ContentData, newItem: ContentData): Boolean {
-        return oldItem.idx == newItem.idx
+object ContentMainDiffCallback : DiffUtil.ItemCallback<MainViewType>() {
+    override fun areItemsTheSame(oldItem: MainViewType, newItem: MainViewType): Boolean {
+        return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: ContentData, newItem: ContentData): Boolean {
+    override fun areContentsTheSame(oldItem: MainViewType, newItem: MainViewType): Boolean {
         return oldItem == newItem
     }
 }
