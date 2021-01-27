@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.ui.databinding
 
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -31,4 +32,18 @@ fun loadVideoImageFromUrl(
     url: String,
 ) {
     view.load(url)
+}
+
+@BindingAdapter("videoUrl")
+fun loadVideoFromUrl(
+    view: VideoView,
+    url: String,
+) {
+    view.apply {
+        setVideoPath(url)
+        setOnPreparedListener {
+            it.isLooping = true
+            it.start()
+        }
+    }
 }
