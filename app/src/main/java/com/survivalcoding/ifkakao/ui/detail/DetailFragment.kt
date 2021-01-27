@@ -7,14 +7,12 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.extension.popThis
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.ui.detail.adapter.SpeakerAdapter
-import com.survivalcoding.ifkakao.ui.main.MainActivity
 
 class DetailFragment : Fragment() {
 
@@ -24,7 +22,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var adapter: SpeakerAdapter
 
-    private val viewModel: DetailViewModel by viewModels()
+    private lateinit var viewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +32,7 @@ class DetailFragment : Fragment() {
                 for (i in contentsSpeakerList.indices) {
                     contentsSpeakerList[i].profileImageUrl = linkList.speakerProfile[i].url
                 }
+                viewModel = DetailViewModel(it.idx)
             }
         }
     }
