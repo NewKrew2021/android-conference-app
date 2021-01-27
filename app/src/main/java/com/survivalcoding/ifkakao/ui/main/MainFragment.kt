@@ -2,15 +2,16 @@ package com.survivalcoding.ifkakao.ui.main
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.ui.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.openDetailFragment
+import com.survivalcoding.ifkakao.ui.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
 class MainFragment : Fragment() {
@@ -44,7 +45,7 @@ class MainFragment : Fragment() {
         setUpObserver()
         setHasOptionsMenu(true)
 
-        (activity as MainActivity).setSupportActionBar(binding.toolbar)
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
