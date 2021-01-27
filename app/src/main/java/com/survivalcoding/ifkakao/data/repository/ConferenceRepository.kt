@@ -9,4 +9,3 @@ class ConferenceRepository(private val remoteDataSource: RemoteDataSource) :
     override suspend fun getAllSession(): ConferenceResponse = remoteDataSource.getAllSession()
 
 }
-
