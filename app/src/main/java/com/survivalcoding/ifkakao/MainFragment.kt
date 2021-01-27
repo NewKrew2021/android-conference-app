@@ -33,8 +33,10 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val view = binding.root
+
 
         adapter = RecyclerAdapter() {
             conferenceViewModel.singleData.value = it
