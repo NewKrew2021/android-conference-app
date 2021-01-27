@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 
 class FilterViewModel : ViewModel() {
 
-    val list = ObservableArrayList<Boolean>()
-    val filterList = MutableLiveData<ObservableArrayList<Boolean>>().apply {
+
+    val filterList = MutableLiveData<List<Boolean>>().apply {
+        val list = ObservableArrayList<Boolean>()
         for (i in 0..33) {
             list.add(false)
         }

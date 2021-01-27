@@ -4,9 +4,15 @@
 
     <data>
 
+        <import type="android.graphics.Color" />
+
         <variable
             name="detail"
             type="com.survivalcoding.ifkakao.model.conferenceData.Data" />
+
+        <variable
+            name="favoriteViewModel"
+            type="com.survivalcoding.ifkakao.viewmodel.FavoriteViewModel" />
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -61,8 +67,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ic_share"
                     android:scaleX="-1"
+                    android:src="@drawable/ic_share"
                     app:layout_constraintBottom_toBottomOf="@id/video_title"
                     app:layout_constraintEnd_toEndOf="@id/image_thumbnail"
                     app:layout_constraintTop_toTopOf="@id/image_thumbnail" />
@@ -117,12 +123,13 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="서비스" />
 
-                <ImageView
+                <ImageButton
                     android:id="@+id/favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
-                    android:src="@drawable/ic_favorite"
+                    android:tintMode="add"
+                    android:background="@{favoriteViewModel.getFavorite ? @drawable/ic_favorite_check : @drawable/ic_favorite}"
                     app:layout_constraintBottom_toBottomOf="@id/field"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/field" />

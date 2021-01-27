@@ -18,13 +18,16 @@ import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.extension.loadUrlWithRoundCorner
 import com.survivalcoding.ifkakao.model.conferenceData.ContentsSpeacker
 import com.survivalcoding.ifkakao.model.conferenceData.SpeackerProfile
+import com.survivalcoding.ifkakao.room.table.Favorite
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
+import com.survivalcoding.ifkakao.viewmodel.FavoriteViewModel
 
 
 class DetailFragment : Fragment() {
     private var _bindng: FragmentDetailBinding? = null
     private val binding get() = _bindng!!
     val viewModel: ConferenceViewModel by activityViewModels()
+    val favoriteViewModel : FavoriteViewModel by activityViewModels()
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -43,10 +46,14 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.detail = viewModel.selectItem.value
+        binding.favoriteViewModel = favoriteViewModel
+        binding.lifecycleOwner = requireActivity()
         viewModel.selectItem.value?.let {
             it.linkList.speackerProfile.zip(it.contentsSpeackerList).forEach { pair ->
                 makeContentSpeakerLayout(pair)
             }
+            //좋아요 정보 받아오기
+            favoriteViewModel.getFavoriteInfo(it.idx)
         }
         binding.imageThumbnail.setOnClickListener {
             viewModel.selectItem.value?.linkList?.video?.let {
@@ -55,6 +62,17 @@ class DetailFragment : Fragment() {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(video.url))
                     startActivity(intent)
                 }
+            }
+        }
+
+        binding.favorite.setOnClickListener {
+            viewModel.selectItem.value?.idx?.let {
+                if(favoriteViewModel.getFavorite.value == true){
+                    favoriteViewModel.setFavorite(Favorite(id = it, isFavorite = 0))
+                }else{
+                    favoriteViewModel.setFavorite(Favorite(id = it, isFavorite = 1))
+                }
+
             }
         }
 
