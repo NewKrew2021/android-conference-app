@@ -48,12 +48,23 @@ class DetailFragment : Fragment() {
                         setReorderingAllowed(true)
                         replace<DetailFragment>(R.id.fragment_container_view)
                     }
-                }) {
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace<MainFragment>(R.id.fragment_container_view)
-                }
-            }
+                }, {
+                    parentFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<MainFragment>(R.id.fragment_container_view)
+                    }
+                }, { binding, data ->
+                    if (binding.likeToggleButton.isChecked == true) conferenceViewModel.addFavoritesItem(
+                        data.id
+                    )
+                    else conferenceViewModel.removeFavoritesItem(data.id)
+                }, { binding, data ->
+                    if (conferenceViewModel.isExistFavorites(data.id)) {
+                        binding.likeToggleButton.isChecked = true
+                    } else {
+                        binding.likeToggleButton.isChecked = false
+                    }
+                })
 
             binding.speakerRecyclerView.adapter = adapter
             binding.speakerRecyclerView.layoutManager =

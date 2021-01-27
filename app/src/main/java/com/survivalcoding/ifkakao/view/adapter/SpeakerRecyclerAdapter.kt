@@ -13,7 +13,6 @@ import com.survivalcoding.ifkakao.databinding.SpeakerInfoBinding
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
-import com.survivalcoding.ifkakao.repository.FavoritesRepository
 
 private val TYPE_HEADER = 0
 private val TYPE_FOOTER = 1
@@ -24,8 +23,9 @@ class SpeakerRecyclerAdapter(
     val relativeStartIndex: Int,
     val itemClick: (ConferenceAppFront) -> Unit,
     val backItemClick: (Int) -> Unit,
-
-    ) :
+    val favoritesClick: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
+    val setFavoritesButton: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
+) :
     ListAdapter<DetailRecyclerType, RecyclerView.ViewHolder>(SpeakerDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -37,7 +37,7 @@ class SpeakerRecyclerAdapter(
         } else if (viewType == TYPE_HEADER) {
             val recyclerHeaderBinding =
                 RecyclerHeaderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-            return HeaderHolder(recyclerHeaderBinding)
+            return HeaderHolder(recyclerHeaderBinding, favoritesClick, setFavoritesButton)
         } else if (viewType == TYPE_RELATIVE) {
             val relativeItemBinding =
                 RelativeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -100,7 +100,7 @@ class SpeakerHolder(
 
 class ButtonHolder(
     val binding: ButtonItemBinding,
-    var backItemClick: (Int) -> Unit
+    val backItemClick: (Int) -> Unit,
 ) :
     RecyclerView.ViewHolder(binding.root) {
     fun clickListener() {
@@ -108,27 +108,23 @@ class ButtonHolder(
             backItemClick(3)
         }
     }
-
 }
 
 class HeaderHolder(
     val binding: RecyclerHeaderBinding,
+    val favoritesClick: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
+    val setFavoritesButton: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun setData(data: ConferenceAppFront) {
         binding.user = data
-        if (FavoritesRepository.isExist(data.id)) {
-            binding.likeToggleButton.isChecked = true
-        } else {
-            binding.likeToggleButton.isChecked = false
-        }
+
+        setFavoritesButton(binding, data)
+
     }
 
     fun clickListener(data: ConferenceAppFront) {
         binding.likeToggleButton.setOnClickListener {
-            if (binding.likeToggleButton.isChecked == true) FavoritesRepository.addFavoritesItem(
-                data.id
-            )
-            else FavoritesRepository.removeFavoritesItem(data.id)
+            favoritesClick(binding, data)
         }
     }
 }

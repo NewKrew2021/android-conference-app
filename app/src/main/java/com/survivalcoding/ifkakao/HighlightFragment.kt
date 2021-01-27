@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +43,11 @@ class HighlightFragment : Fragment() {
     ): View? {
         _binding = FragmentHighlightBinding.inflate(layoutInflater)
         val view = binding.root
+
+        lifecycleScope.launch {
+            conferenceViewModel.getFavoritesData()
+        }
+
 
         adapter = RecyclerAdapter() {
             conferenceViewModel.singleData.value = it

@@ -8,10 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentFavoritesBinding
 import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
+import kotlinx.coroutines.launch
 
 
 class FavoritesFragment : Fragment() {
@@ -47,7 +49,10 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
 
-        adapter.submitList(conferenceViewModel.getFavoritesData())
+        lifecycleScope.launch {
+            adapter.submitList(conferenceViewModel.getFavoritesData())
+        }
+
         return view
     }
 
