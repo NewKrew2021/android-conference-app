@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.jayden.ifkakaoclone.databinding.FragmentFilterDetailBinding
-import com.jayden.ifkakaoclone.view.main.MainActivity
 
 class FilterDetailFragment : Fragment() {
     private var _binding: FragmentFilterDetailBinding? = null
@@ -29,7 +29,6 @@ class FilterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as MainActivity).supportActionBar?.hide()
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
     }
 }
