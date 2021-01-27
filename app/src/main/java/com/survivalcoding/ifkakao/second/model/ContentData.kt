@@ -6,9 +6,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class ContentData(
     val categoryIdx: Int,
-    val companyName: String,
+    val companyName: String?,
     val content: String,
-    val contentTag: String,
+    val contentTag: String?,
     val contentsSpeackerList: List<Speaker>,
     val createdDateTime: String,
     val createdUserIdx: Int,

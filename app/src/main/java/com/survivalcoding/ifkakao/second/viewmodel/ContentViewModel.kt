@@ -3,9 +3,11 @@ package com.survivalcoding.ifkakao.second.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.second.model.ContentData
 import com.survivalcoding.ifkakao.second.model.Speaker
 import com.survivalcoding.ifkakao.second.model.repository.Repository
+import kotlinx.coroutines.launch
 
 class ContentViewModel(private val repository: Repository) : ViewModel() {
     private val _data = MutableLiveData<List<ContentData>>()
@@ -21,9 +23,9 @@ class ContentViewModel(private val repository: Repository) : ViewModel() {
     val selectedItem: ContentData get() = _selectedItem
 
     fun loadData() {
-        _isLoading.value = true
-        repository.getData {
-            _data.value = it.data
+        viewModelScope.launch {
+            _isLoading.value = true
+            _data.value = repository.getData().data
             _isLoading.value = false
         }
     }
