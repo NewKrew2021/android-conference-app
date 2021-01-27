@@ -57,9 +57,11 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun updateFavorite() {
-        _selectedFavorite.value?.let {
-            it.isFavorite = !it.isFavorite
-            repository.insertFavorite(it)
+        _selectedFavorite.value?.let { favorite ->
+            viewModelScope.launch {
+                favorite.isFavorite = !favorite.isFavorite
+                repository.insertFavorite(favorite)
+            }
         }
     }
 }

@@ -13,5 +13,5 @@ interface FavoriteDao {
     fun getFavorites(): LiveData<List<Favorite>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(favorite: Favorite)
+    suspend fun insert(favorite: Favorite)
 }

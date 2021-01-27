@@ -6,6 +6,8 @@ import com.jayden.ifkakaoclone.data.db.Favorite
 import com.jayden.ifkakaoclone.data.db.FavoriteRoomDatabase
 import com.jayden.ifkakaoclone.data.network.RemoteDataSource
 import com.jayden.ifkakaoclone.view.main.model.Session
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SessionRepository(context: Context) : Repository {
     private val remoteDataSource = RemoteDataSource()
@@ -15,7 +17,9 @@ class SessionRepository(context: Context) : Repository {
 
     override fun getFavorites(): LiveData<List<Favorite>> = localDataSource.favoriteDao().getFavorites()
 
-    override fun insertFavorite(favorite: Favorite) {
-        localDataSource.favoriteDao().insert(favorite)
+    override suspend fun insertFavorite(favorite: Favorite) {
+        withContext(Dispatchers.IO) {
+            localDataSource.favoriteDao().insert(favorite)
+        }
     }
 }

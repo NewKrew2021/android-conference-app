@@ -21,7 +21,8 @@ buildscript {
                 'legacy': 'androidx.legacy:legacy-support-v4:1.0.0',
                 'room': [
                         'runtime': "androidx.room:room-runtime:$versions.room",
-                        'compiler': "androidx.room:room-compiler:$versions.room"
+                        'ktx': "androidx.room:room-ktx:$versions.room", // kotlin extensions ans coroutines support
+                        'compiler': "androidx.room:room-compiler:$versions.room" // kapt
                 ],
                 'test': [
                         'espresso': 'androidx.test.espresso:espresso-core:3.3.0',

@@ -9,5 +9,5 @@ interface Repository {
 
     fun getFavorites(): LiveData<List<Favorite>>
 
-    fun insertFavorite(favorite: Favorite)
+    suspend fun insertFavorite(favorite: Favorite)
 }
