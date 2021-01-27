@@ -60,4 +60,7 @@ dependencies {
     implementation image_libraries.values()
 
     implementation lifecycle_libraries.values()
+
+    implementation database_libraries.values()
+    kapt database_annotation.values()
 }
