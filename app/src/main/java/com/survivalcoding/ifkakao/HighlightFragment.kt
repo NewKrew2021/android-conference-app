@@ -33,6 +33,9 @@ class HighlightFragment : Fragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
         conferenceViewModel.getData()
+
+        conferenceViewModel.storeFavoritesData()
+
     }
 
     override fun onCreateView(
@@ -41,6 +44,7 @@ class HighlightFragment : Fragment() {
     ): View? {
         _binding = FragmentHighlightBinding.inflate(layoutInflater)
         val view = binding.root
+
 
         adapter = RecyclerAdapter() {
             conferenceViewModel.singleData.value = it
@@ -93,6 +97,7 @@ class HighlightFragment : Fragment() {
 
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

@@ -33,22 +33,12 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentMainBinding.inflate(layoutInflater)
         val view = binding.root
 
-        adapter = RecyclerAdapter() {
-            conferenceViewModel.singleData.value = it
-            //conferenceViewModel.getSingleData(it)
 
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<DetailFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
-        }
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
-
+        setRecyclerView()
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
             if (conferenceViewModel.selectInterests.size > 0) {
                 var tmpList = listOf<ConferenceAppFront>()
@@ -64,21 +54,9 @@ class MainFragment : Fragment() {
         }
 
 
-        binding.videoView.setVideoURI(Uri.parse("android.resource://${requireActivity().packageName}/raw/main_video"))
-        binding.videoView.setOnPreparedListener {
-            it.start()
-        }
-        binding.videoView.setOnCompletionListener {
-            it.start()
-        }
+        setVideoView()
 
-        var dataArr = arrayOf("Day1", "Day2", "Day3(All)")
-        var spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, dataArr)
-        //var spinnerAdapter = ArrayAdapter.createFromResource(requireContext(),R.array.spinner_data,android.R.)
-
-        binding.spinner.adapter = spinnerAdapter
-        binding.spinner.onItemSelectedListener = MySpinnerListener()
-        binding.spinner.setSelection(2)
+        setSpinner()
 
         binding.imageView.setOnClickListener {
             parentFragmentManager.commit {
@@ -87,9 +65,46 @@ class MainFragment : Fragment() {
                 //addToBackStack(null)
             }
         }
-
-
         return view
+    }
+
+    fun setRecyclerView() {
+        adapter = RecyclerAdapter() {
+            conferenceViewModel.singleData.value = it
+
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                add<DetailFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
+            }
+        }
+
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
+    }
+
+    fun setSpinner() {
+        var dataArr = arrayOf("Day1", "Day2", "Day3(All)")
+        var spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, dataArr)
+
+        binding.spinner.apply {
+            adapter = spinnerAdapter
+            onItemSelectedListener = MySpinnerListener()
+            setSelection(2)
+        }
+
+    }
+
+    fun setVideoView() {
+        binding.videoView.apply {
+            setVideoURI(Uri.parse("android.resource://${requireActivity().packageName}/raw/main_video"))
+            setOnPreparedListener {
+                it.start()
+            }
+            setOnCompletionListener {
+                it.start()
+            }
+        }
     }
 
 

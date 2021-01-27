@@ -39,7 +39,8 @@ class DetailFragment : Fragment() {
 
         conferenceViewModel.singleData.value?.let {
 
-            adapter = SpeakerRecyclerAdapter(it.contentsSpeackerList.size + 2,
+            adapter = SpeakerRecyclerAdapter(
+                it.contentsSpeackerList.size + 2,
                 {
 
                     conferenceViewModel.singleData.value = it
@@ -48,12 +49,23 @@ class DetailFragment : Fragment() {
                         setReorderingAllowed(true)
                         replace<DetailFragment>(R.id.fragment_container_view)
                     }
-                }) {
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace<MainFragment>(R.id.fragment_container_view)
-                }
-            }
+                }, {
+                    parentFragmentManager.commit {
+                        setReorderingAllowed(true)
+                        replace<MainFragment>(R.id.fragment_container_view)
+                    }
+                }, { binding, data ->
+                    if (binding.likeToggleButton.isChecked == true) conferenceViewModel.addFavoritesItem(
+                        data.id
+                    )
+                    else conferenceViewModel.removeFavoritesItem(data.id)
+                }, { binding, data ->
+                    if (conferenceViewModel.isExistFavorites(data.id)) {
+                        binding.likeToggleButton.isChecked = true
+                    } else {
+                        binding.likeToggleButton.isChecked = false
+                    }
+                })
 
             binding.speakerRecyclerView.adapter = adapter
             binding.speakerRecyclerView.layoutManager =
@@ -85,7 +97,6 @@ class DetailFragment : Fragment() {
 
             setWebView(it.videoUrl)
         }
-        //https://tv.kakao.com/embed/player/cliplink/414004572
 
         return view
     }
