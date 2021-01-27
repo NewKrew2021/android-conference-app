@@ -14,9 +14,8 @@ import com.example.ifkakao.util.replaceTransaction
 import com.example.ifkakao.viewmodel.SessionViewModel
 
 /*
-TODO: 1. 데이터 제대로 필터링 안되는 것 처리
-      2. 가로, 세로에 따라 레이아웃 구성
-      3. 데이터 바인딩 적용
+TODO: 1. 가로, 세로에 따라 레이아웃 구성
+      2. 데이터 바인딩 적용
 */
 class HighlightFragment : Fragment() {
     private var _binding: FragmentHighlighBinding? = null

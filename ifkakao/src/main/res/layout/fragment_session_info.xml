@@ -71,6 +71,17 @@
                     app:layout_constraintTop_toBottomOf="@id/field_text"
                     tools:text="오프닝 키노트" />
 
+                <ImageView
+                    android:id="@+id/favorite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    app:layout_constraintBottom_toTopOf="@id/session_title_text"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/field_text"
+                    tools:src="@drawable/ic_baseline_favorite_24" />
+
+
                 <TextView
                     android:id="@+id/session_describe_text"
                     android:layout_width="0dp"
