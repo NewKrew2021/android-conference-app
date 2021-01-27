@@ -8,11 +8,14 @@ import com.survivalcoding.ifkakao.databinding.SecondItemDetailHeaderBinding
 import com.survivalcoding.ifkakao.databinding.SecondItemSpeakerBinding
 import com.survivalcoding.ifkakao.second.model.content.ContentData
 import com.survivalcoding.ifkakao.second.model.content.Speaker
+import com.survivalcoding.ifkakao.second.model.favorite.database.Favorite
 import com.survivalcoding.ifkakao.second.view.detail.holder.SpeakerDetailHolder
 
 class SpeakerDetailAdapter(
     private val contentData: ContentData,
-    private val videoPlayListener: (String) -> Unit
+    private val favorite: Favorite,
+    private val videoPlayListener: (String) -> Unit,
+    private val favoriteClickListener: (Favorite) -> Unit,
 ) :
     ListAdapter<Speaker, SpeakerDetailHolder>(SpeakerDetailDiffCallback) {
     private val VIEW_TYPE_HEADER = 0
@@ -52,6 +55,11 @@ class SpeakerDetailAdapter(
             is SecondItemDetailHeaderBinding -> {
                 holder.binding.contentdata = contentData
                 holder.binding.playButton.setOnClickListener { videoPlayListener.invoke(contentData.linkList.video[0].url) }
+                holder.binding.favoriteImage.setImageResource(if (favorite.isFavorite) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24)
+                holder.binding.favoriteImage.setOnClickListener {
+                    favoriteClickListener.invoke(favorite.apply { isFavorite = !isFavorite })
+                    holder.binding.favoriteImage.setImageResource(if (favorite.isFavorite) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24)
+                }
             }
         }
     }

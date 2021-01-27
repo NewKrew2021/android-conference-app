@@ -21,9 +21,13 @@ class DetailFragment : Fragment() {
     private val adapter by lazy {
         SpeakerDetailAdapter(
             contentData = viewModel.selectedItem,
+            favorite = viewModel.selectedFavorite,
             videoPlayListener = {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
                 startActivity(intent)
+            },
+            favoriteClickListener = {
+                viewModel.updateFavorite(it)
             }
         )
     }

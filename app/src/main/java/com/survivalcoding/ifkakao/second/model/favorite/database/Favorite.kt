@@ -5,6 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Favorite(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
+    @PrimaryKey val idx: Int,
     var isFavorite: Boolean
 )
