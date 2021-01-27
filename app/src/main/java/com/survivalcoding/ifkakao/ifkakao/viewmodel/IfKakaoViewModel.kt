@@ -1,17 +1,19 @@
 package com.survivalcoding.ifkakao.ifkakao.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.*
+import com.survivalcoding.ifkakao.ifkakao.IfKakaoDatabaseApp
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.repository.RepositoryModel
 import com.survivalcoding.ifkakao.ifkakao.repository.DefaultRepositoryModel
 import com.survivalcoding.ifkakao.ifkakao.model.IfKakaoResponse
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
+import com.survivalcoding.ifkakao.ifkakao.repository.FavoriteRepository
 import kotlinx.coroutines.launch
 
-class IfKakaoViewModel : ViewModel() {
+// 이렇게 넣으면 `val model: IfKakaoViewModel by activityViewModels()` 여기서 application을 넘겨줘야하지 않나?
+class IfKakaoViewModel(application: Application) : AndroidViewModel(application) {
     private val _ifKakaoSessionList = MutableLiveData<IfKakaoResponse>()
     val ifKakaoSessionList: LiveData<IfKakaoResponse>  // liveData getter
         get() = _ifKakaoSessionList
@@ -19,6 +21,10 @@ class IfKakaoViewModel : ViewModel() {
     private val _presentationData = MutableLiveData<Data>()
     val presentationData: LiveData<Data>
         get() = _presentationData
+
+    private val _favoriteDb = FavoriteRepository(application.applicationContext)
+    val favoriteDb: FavoriteRepository
+        get() = _favoriteDb
 
     private val ifKakaoRepositoryModel: DefaultRepositoryModel = RepositoryModel()
 
