@@ -67,9 +67,11 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             if(it) {
                 likeItem.isVisible = true
                 unlikeItem.isVisible = false
+                // get filter data
             } else {
                 likeItem.isVisible = false
                 unlikeItem.isVisible = true
+                // get filter data
             }
         }
     }
