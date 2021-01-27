@@ -1,21 +1,23 @@
 package com.example.ifkakao.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ifkakao.model.ConferenceRepository
 import com.example.ifkakao.model.KakaoApiResponse
 import com.example.ifkakao.model.Repository
 import com.example.ifkakao.model.jsonformat.Session
+import com.example.ifkakao.model.local.FavoriteSession
 import kotlinx.coroutines.launch
 
 enum class ErrorStatus {
     SERVER_ERROR, CLIENT_ERROR, UNKNOWN_ERROR, NO_ERROR
 }
 
-class SessionViewModel : ViewModel() {
-    private val repository: Repository = ConferenceRepository()
+class SessionViewModel(application: Application) : AndroidViewModel(application) {
+    private val repository: Repository = ConferenceRepository(application)
     private val _sessionList = MutableLiveData<List<Session>>(mutableListOf())
     val sessionList: LiveData<List<Session>> get() = _sessionList
     private val _highlightSession = MutableLiveData<List<Session>>(mutableListOf())
@@ -24,6 +26,10 @@ class SessionViewModel : ViewModel() {
     val selectedSession: LiveData<Session> get() = _selectedSession
     var isLoading = MutableLiveData(false)
     var errorStatus = MutableLiveData(ErrorStatus.NO_ERROR)
+
+    private var favoriteSession: FavoriteSession? = null
+    private val _isFavorite = MutableLiveData(false)
+    val isFavorite: LiveData<Boolean> get() = _isFavorite
 
     fun updateSessionData() {
         viewModelScope.launch {
@@ -66,5 +72,39 @@ class SessionViewModel : ViewModel() {
 
     fun setSelectedSession(item: Session) {
         _selectedSession.value = item
+        findFavoriteSessionByIndex()
+    }
+
+    fun addFavoriteSession() {
+        _isFavorite.value = true
+        viewModelScope.launch {
+            _selectedSession.value?.let {
+                repository.addFavoriteSession(it.idx)
+                favoriteSession =
+                    FavoriteSession(sessionIndex = it.idx, isFavorite = true)
+            }
+        }
+    }
+
+    fun deleteFavoriteSession() {
+        _isFavorite.value = false
+        viewModelScope.launch {
+            favoriteSession?.let {
+                repository.deleteFavoriteSession(it)
+            }
+        }
+    }
+
+    private fun findFavoriteSessionByIndex() {
+        viewModelScope.launch {
+            favoriteSession = repository.findFavoriteSessionByIndex(
+                selectedSession.value?.idx ?: NOT_SESSION_INDEX
+            )
+            _isFavorite.value = favoriteSession?.isFavorite ?: false
+        }
+    }
+
+    companion object {
+        const val NOT_SESSION_INDEX = -1
     }
 }

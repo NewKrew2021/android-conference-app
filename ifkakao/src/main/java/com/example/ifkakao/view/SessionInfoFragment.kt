@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.ifkakao.R
 import com.example.ifkakao.databinding.FragmentSessionInfoBinding
 import com.example.ifkakao.viewmodel.SessionViewModel
 
@@ -25,6 +26,20 @@ class SessionInfoFragment : Fragment() {
             it.listButton.setOnClickListener(::moveToPreviousFragment)
             it.footer.scrollUpButton.setOnClickListener(::scrollingUp)
             it.root
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.isFavorite.observe(viewLifecycleOwner) {
+            val imageResource =
+                if (it) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
+            if (it) {
+                binding.favoriteButton.setOnClickListener { viewModel.deleteFavoriteSession() }
+            } else {
+                binding.favoriteButton.setOnClickListener { viewModel.addFavoriteSession() }
+            }
+            binding.favoriteButton.setImageResource(imageResource)
         }
     }
 
