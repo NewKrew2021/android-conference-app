@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.core.net.toUri
+import androidx.core.os.bundleOf
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import com.survivalcoding.ifkakao.R
@@ -13,6 +14,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentCoordinatorBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.view.main.adapter.IfKakaoAdapter
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
+import com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class IfKakaoFragment() : Fragment() {
@@ -23,14 +25,21 @@ class IfKakaoFragment() : Fragment() {
     // 다음 fragment로 데이터를 넘겨야 할 때에는 생명주기를 activity와 같이하는 activityViewModels을 사용하자.
     val model: IfKakaoViewModel by activityViewModels()
 
-    val adapter = IfKakaoAdapter {
+    val adapter = IfKakaoAdapter({
         model.setPresentationData(it)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
             addToBackStack(null)
         }
-    }
+    }, {
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            val bundle = bundleOf("field" to it)
+            replace<SortedListFragment>(R.id.if_kakao_fragment_container_view, args = bundle)
+            addToBackStack(null)
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,

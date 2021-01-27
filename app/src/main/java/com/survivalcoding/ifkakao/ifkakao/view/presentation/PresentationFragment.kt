@@ -40,7 +40,6 @@ class PresentationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var isFavorite = false
 
         binding.presentationData = presentationData
         binding.presenterList.adapter = adapter
