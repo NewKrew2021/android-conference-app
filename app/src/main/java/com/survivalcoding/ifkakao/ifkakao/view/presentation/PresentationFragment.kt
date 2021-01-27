@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
-import com.survivalcoding.ifkakao.ifkakao.model.ContentsSpeacker
+import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter
@@ -40,16 +40,20 @@ class PresentationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var isFavorite = false
 
         binding.presentationData = presentationData
         binding.presenterList.adapter = adapter
-        binding.isFavorite = isFavorite
+        binding.isFavorite = viewModel.favoriteDb.isFavoriteSesstion(presentationData.idx)
 
         binding.favoriteButton.setOnClickListener {
-            // LiveData를 사용해서 obesrve에서 데이터를 넘겨주나, 아래와 같이 넘겨주나 같은것 같아서 아래와 같이 작성하였습니다.
-            isFavorite = !isFavorite
-            binding.isFavorite = isFavorite
+            if (binding.isFavorite == true) {
+                viewModel.favoriteDb.delete(FavoriteTable(presentationData.idx, 0))
+                binding.isFavorite = false
+            } else {
+                viewModel.favoriteDb.insert(FavoriteTable(presentationData.idx, 0))
+                binding.isFavorite = true
+            }
+//            binding.isFavorite = !binding.isFavorite // impossible, 'binding.isFavorite' is a complex expression
         }
 
         val presentItem = mutableListOf<PresenterInfo>()
