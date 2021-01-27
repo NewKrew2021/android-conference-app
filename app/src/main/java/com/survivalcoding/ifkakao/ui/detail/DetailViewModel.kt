@@ -3,17 +3,31 @@ package com.survivalcoding.ifkakao.ui.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.survivalcoding.ifkakao.app.AppResources
+import com.survivalcoding.ifkakao.database.AppDatabase
 import com.survivalcoding.ifkakao.model.Session
+import com.survivalcoding.ifkakao.model.like.Like
+import com.survivalcoding.ifkakao.repository.LikeRepository
 import com.survivalcoding.ifkakao.util.Event
 import com.survivalcoding.ifkakao.util.SingleLiveEvent
+import kotlinx.coroutines.launch
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(private val idx: Int) : ViewModel() {
+
+    private val repository =
+        LikeRepository(AppDatabase.getDatabase(AppResources.getContext()).likeDao())
+
+    private val _likeState: LiveData<Boolean> = repository.likeByIdx(idx)
+    val likeState: LiveData<Boolean>
+        get() = _likeState
 
     private val _targetUrl = SingleLiveEvent<String>()
     val targetUrl: LiveData<String>
         get() = _targetUrl
 
     private val _onBackButtonClicked = MutableLiveData<Event<Unit>>()
+
     val onBackButtonClicked: LiveData<Event<Unit>>
         get() = _onBackButtonClicked
 
@@ -24,4 +38,16 @@ class DetailViewModel : ViewModel() {
     fun popThisFragment() {
         _onBackButtonClicked.postValue(Event(Unit))
     }
+
+    fun toggleLikeState() = viewModelScope.launch {
+
+        if (_likeState.value == null) {
+            repository.updateState(Like(idx, true))
+        } else {
+            _likeState.value?.let {
+                repository.updateState(Like(idx, it xor true))
+            }
+        }
+    }
+
 }
