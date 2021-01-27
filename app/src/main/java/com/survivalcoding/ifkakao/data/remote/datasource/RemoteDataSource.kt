@@ -5,8 +5,6 @@ import com.survivalcoding.ifkakao.data.remote.api.IfKakaoApi
 
 class RemoteDataSource(private val ifKakaoApi: IfKakaoApi) : RemoteDataSourceContract {
 
-    override suspend fun getAllSession(): ConferenceResponse{
-        return ifKakaoApi.getAllSession()
-    }
+    override suspend fun getAllSession() : ConferenceResponse = ifKakaoApi.getAllSession()
 }
 
