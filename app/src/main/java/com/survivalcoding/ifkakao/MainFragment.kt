@@ -38,8 +38,7 @@ class MainFragment : Fragment() {
         val view = binding.root
 
 
-       setRecyclerView()
-
+        setRecyclerView()
         conferenceViewModel.listData.observe(viewLifecycleOwner) {
             if (conferenceViewModel.selectInterests.size > 0) {
                 var tmpList = listOf<ConferenceAppFront>()
@@ -54,22 +53,19 @@ class MainFragment : Fragment() {
             }
         }
 
+
         setVideoView()
+
         setSpinner()
-        setImageView()
-        setImageView()
-        // 나중에 다 databidning하기
 
-        return view
-    }
-
-    fun setImageView() {
         binding.imageView.setOnClickListener {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<FilterFragment>(R.id.fragment_container_view)
+                //addToBackStack(null)
             }
         }
+        return view
     }
 
     fun setRecyclerView() {
@@ -82,10 +78,9 @@ class MainFragment : Fragment() {
                 addToBackStack(null)
             }
         }
-        binding.recyclerView.apply {
-            adapter = adapter
-            layoutManager = LinearLayoutManager(activity?.applicationContext)
-        }
+
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
     }
 
     fun setSpinner() {

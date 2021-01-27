@@ -97,7 +97,6 @@ class DetailFragment : Fragment() {
 
             setWebView(it.videoUrl)
         }
-        //https://tv.kakao.com/embed/player/cliplink/414004572
 
         return view
     }
