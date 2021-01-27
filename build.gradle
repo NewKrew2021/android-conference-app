@@ -5,6 +5,7 @@ buildscript {
             'moshi': '1.11.0',
             'coil': '1.1.1',
             'retrofit': '2.9.0',
+            'room': '2.2.6',
     ]
 
     ext.deps = [
@@ -18,6 +19,11 @@ buildscript {
                 'activity': 'androidx.activity:activity-ktx:1.1.0',
                 'fragment': 'androidx.fragment:fragment-ktx:1.2.5',
                 'legacy': 'androidx.legacy:legacy-support-v4:1.0.0',
+                'room': [
+                        'runtime': "androidx.room:room-runtime:$versions.room",
+                        'ktx': "androidx.room:room-ktx:$versions.room", // kotlin extensions ans coroutines support
+                        'compiler': "androidx.room:room-compiler:$versions.room" // kapt
+                ],
                 'test': [
                         'espresso': 'androidx.test.espresso:espresso-core:3.3.0',
                         'ext': 'androidx.test.ext:junit:1.1.2'

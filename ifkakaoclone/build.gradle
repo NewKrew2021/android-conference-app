@@ -47,6 +47,9 @@ dependencies {
     implementation deps.androidx.activity
     implementation deps.androidx.fragment
     implementation deps.androidx.legacy
+    implementation deps.androidx.room.runtime
+    implementation deps.androidx.room.ktx
+    kapt deps.androidx.room.compiler
 
     implementation deps.material
 

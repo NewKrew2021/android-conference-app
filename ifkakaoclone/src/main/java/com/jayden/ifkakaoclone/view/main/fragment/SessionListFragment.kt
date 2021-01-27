@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
 import com.jayden.ifkakaoclone.extensions.replaceTransaction
-import com.jayden.ifkakaoclone.view.main.MainActivity
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
 import com.jayden.ifkakaoclone.view.main.model.Session
 import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
@@ -47,8 +47,7 @@ class SessionListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        (requireActivity() as MainActivity).supportActionBar?.show()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
 
         with(binding) {
             recyclerView.adapter = adapter
