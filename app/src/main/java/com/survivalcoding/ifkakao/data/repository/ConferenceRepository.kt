@@ -6,9 +6,6 @@ import com.survivalcoding.ifkakao.data.remote.datasource.RemoteDataSource
 class ConferenceRepository(private val remoteDataSource: RemoteDataSource) :
     ConferenceRepositoryContract {
 
-    override suspend fun getAllSession(): ConferenceResponse{
-        return remoteDataSource.getAllSession()
-    }
+    override suspend fun getAllSession(): ConferenceResponse = remoteDataSource.getAllSession()
 
 }
-

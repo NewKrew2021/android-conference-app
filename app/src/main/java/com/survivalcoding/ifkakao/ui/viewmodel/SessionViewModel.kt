@@ -14,7 +14,9 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
     val conferenceData: LiveData<List<ConferenceSessionResponse>>
         get() = _conferenceData
 
-    var likeCheck: Boolean = false
+    private val _likeCheck = MutableLiveData<Boolean>()
+    val likeCheck: LiveData<Boolean>
+        get() = _likeCheck
 
     fun getConferenceData(filter: String) {
         viewModelScope.launch {
@@ -27,5 +29,9 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
             }
             _conferenceData.postValue(filteredData)
         }
+    }
+
+    fun setLikeCheck(state: Boolean) {
+        _likeCheck.value = state
     }
 }

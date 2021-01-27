@@ -27,5 +27,5 @@
     <dimen name="appbar_height_session">450dp</dimen>
 
     <!-- fragment detail session -->
-    <dimen name="iv_thumbnail_session_detail_height">350dp</dimen>
+    <dimen name="iv_thumbnail_session_detail_height">250dp</dimen>
 </resources>

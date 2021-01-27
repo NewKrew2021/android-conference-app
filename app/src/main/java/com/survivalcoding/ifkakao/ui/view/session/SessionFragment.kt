@@ -4,7 +4,6 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
@@ -32,13 +31,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     override val viewModel: SessionViewModel by viewModel()
 
-    private val likeItem by lazy {
-        binding.toolbarSession.menu.findItem(R.id.action_like)
-    }
-    private val unlikeItem by lazy {
-        binding.toolbarSession.menu.findItem(R.id.action_unlike)
-    }
-
     override fun initStartView() {
         setVideoView()
         setToolbar()
@@ -54,6 +46,8 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
                 viewModel.getConferenceData("")
             }
         } ?: viewModel.getConferenceData("")
+
+        viewModel.setLikeCheck(false)
     }
 
     override fun startObserveData() {
@@ -65,6 +59,20 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         viewModel.conferenceData.observe(this) {
             val adapter = binding.rvVideoSession.adapter as SessionAdapter
             adapter.setList(it)
+        }
+    }
+
+    private fun observeLikeCheck(likeItem: MenuItem, unlikeItem: MenuItem) {
+        viewModel.likeCheck.observe(this) {
+            if(it) {
+                likeItem.isVisible = true
+                unlikeItem.isVisible = false
+                // get filter data
+            } else {
+                likeItem.isVisible = false
+                unlikeItem.isVisible = true
+                // get filter data
+            }
         }
     }
 
@@ -121,9 +129,12 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu_session, menu)
-        viewModel.likeCheck = false
-        likeItem.isVisible = false
-        unlikeItem.isVisible = true
+
+        val likeItem = binding.toolbarSession.menu.findItem(R.id.action_like)
+        val unlikeItem = binding.toolbarSession.menu.findItem(R.id.action_unlike)
+
+        observeLikeCheck(likeItem, unlikeItem)
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -133,17 +144,11 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
                 true
             }
             R.id.action_like -> {
-                likeItem.isVisible = false
-                unlikeItem.isVisible = true
-                viewModel.likeCheck = false
-                Toast.makeText(requireContext(), "좋아요 설정 해제", Toast.LENGTH_SHORT).show()
+                viewModel.setLikeCheck(false)
                 true
             }
             R.id.action_unlike -> {
-                unlikeItem.isVisible = false
-                likeItem.isVisible = true
-                viewModel.likeCheck = true
-                Toast.makeText(requireContext(), "좋아요 설정", Toast.LENGTH_SHORT).show()
+                viewModel.setLikeCheck(true)
                 true
             }
             else -> super.onOptionsItemSelected(item)
