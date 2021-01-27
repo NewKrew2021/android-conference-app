@@ -9,10 +9,11 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 class RemoteDataSource {
+    private val retrofit = Retrofit.Builder().baseUrl(IF_KAKAO_2020_BASE_URL)
+        .addConverterFactory(MoshiConverterFactory.create()).build()
+    private val ifKakaoService = retrofit.create(IfKakaoService::class.java)
+
     suspend fun getConferenceData(): Response<ConferenceData> = withContext(Dispatchers.IO) {
-        val retrofit = Retrofit.Builder().baseUrl(IF_KAKAO_2020_BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create()).build()
-        val ifKakaoService = retrofit.create(IfKakaoService::class.java)
         ifKakaoService.getConferenceData().execute()
     }
 
