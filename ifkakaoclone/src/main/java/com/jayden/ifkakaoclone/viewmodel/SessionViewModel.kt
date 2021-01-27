@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jayden.ifkakaoclone.data.Repository
+import com.jayden.ifkakaoclone.data.db.Favorite
 import com.jayden.ifkakaoclone.util.SingleLiveData
 import com.jayden.ifkakaoclone.view.main.model.Session
 import kotlinx.coroutines.launch
@@ -28,6 +29,11 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>(true)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    val favorite: LiveData<List<Favorite>> = repository.getFavorites()
+
+    private val _selectedFavorite = MutableLiveData<Favorite>()
+    val selectedFavorite: LiveData<Favorite> get() = _selectedFavorite
+
     fun fetchContents() {
         viewModelScope.launch {
             _isLoading.value = true
@@ -40,7 +46,20 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
         _selectedItem.value = session
     }
 
+    fun setSelectedFavorite(items: List<Favorite>) {
+        val sessionIdx: Int? = selectedItem.value?.idx
+        _selectedFavorite.value =
+            items.find { sessionIdx == it.uid } ?: Favorite(uid = sessionIdx ?: 0)
+    }
+
     fun playVideo(url: String) {
         _action.value = Action(Action.Type.VIDEO_PLAY, url)
+    }
+
+    fun updateFavorite() {
+        _selectedFavorite.value?.let {
+            it.isFavorite = !it.isFavorite
+            repository.insertFavorite(it)
+        }
     }
 }

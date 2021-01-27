@@ -65,6 +65,10 @@ class SessionDetailFragment : Fragment() {
             playVideoByBrowser(it.url)
         }
 
+        activityViewModel.favorite.observe(viewLifecycleOwner) {
+            activityViewModel.setSelectedFavorite(it)
+        }
+
         updateSpeaker()
     }
 
