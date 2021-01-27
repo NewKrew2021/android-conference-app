@@ -29,10 +29,12 @@
 
             <ImageView
                 android:id="@+id/iv_thumbnail_session_detail"
-                android:layout_width="411dp"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/iv_thumbnail_session_detail_height"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:layout_marginStart="@dimen/spacing_8"
                 app:layout_constraintTop_toBottomOf="@+id/include"
                 tools:srcCompat="@drawable/ic_launcher_foreground" />
 
@@ -88,24 +90,27 @@
 
             <TextView
                 android:id="@+id/tv_contents_session_detail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8"
                 android:layout_marginTop="@dimen/spacing_16"
+                android:padding="@dimen/spacing_8"
                 android:text="내용"
                 android:textColor="@color/white"
                 android:textSize="@dimen/body_14"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_session_detail" />
 
             <TextView
                 android:id="@+id/tv_hashtag_session_detail"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/spacing_8"
                 android:layout_marginTop="@dimen/spacing_24"
+                android:paddingStart="@dimen/spacing_8"
+                android:paddingEnd="@dimen/spacing_8"
                 android:text="TextView"
                 android:textSize="@dimen/body_14"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_contents_session_detail" />
 
@@ -115,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/spacing_8"
                 android:layout_marginTop="@dimen/spacing_24"
+                android:layout_marginEnd="@dimen/spacing_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,11 +151,11 @@
                     android:id="@+id/iv_like_session_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_favorite_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
                 <ImageView
                     android:id="@+id/iv_unlike_session_detail"

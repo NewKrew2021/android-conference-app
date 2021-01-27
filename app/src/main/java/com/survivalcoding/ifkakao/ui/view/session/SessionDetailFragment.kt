@@ -1,8 +1,12 @@
 package com.survivalcoding.ifkakao.ui.view.session
 
+import android.content.Intent
+import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.lifecycle.observe
+import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.replaceFragment
@@ -22,10 +26,11 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
 
     override fun initStartView() {
         setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
-
         arguments?.let {
             viewModel.setConferenceSessionData(it.getParcelable(SESSION_ITEM))
         }
+        setImageView()
+        eventProcess()
     }
 
     override fun getViewModelData() {
@@ -33,7 +38,38 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
     }
 
     override fun startObserveData() {
-        //
+        observeSessionDetailData()
+    }
+
+    private fun observeSessionDetailData() {
+        viewModel.sessionData.observe(this) {
+            binding.run {
+                tvFiledSessionDetail.text = it.field
+                tvTitleSessionDetail.text = it.parseString(it.title)
+                tvContentsSessionDetail.text = it.parseString(it.content)
+                tvHashtagSessionDetail.text = it.contentTag
+
+            }
+        }
+    }
+
+    private fun eventProcess() {
+        val uri = Uri.parse(viewModel.sessionData.value?.linkList?.video?.get(0)?.url)
+        binding.run {
+            ivPlaySessionDetail.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+            }
+            ivThumbnailSessionDetail.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW, uri))
+            }
+        }
+    }
+
+    private fun setImageView(){
+        Glide.with(binding.ivThumbnailSessionDetail)
+            .load(viewModel.sessionData.value?.parseImageUrl(viewModel.sessionData.value!!))
+            .fitCenter()
+            .into(binding.ivThumbnailSessionDetail)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
