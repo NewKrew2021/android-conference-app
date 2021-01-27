@@ -13,12 +13,11 @@ import com.survivalcoding.ifkakao.repository.FavoritesRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ConferenceViewModel(application: Application) : AndroidViewModel(application) {
 
     private val favoritesRepository = FavoritesRepository(application.applicationContext)
-    private var favoritesList = listOf<Int>()
+    private var favoritesSet = mutableSetOf<Int>()
 
     private var _listData = MutableLiveData<MutableList<ConferenceAppFront>>()
     val listData get() = _listData
@@ -36,29 +35,36 @@ class ConferenceViewModel(application: Application) : AndroidViewModel(applicati
     fun removeFavoritesItem(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             favoritesRepository.remove(id)
+            favoritesSet.remove(id)
         }
     }
 
     fun addFavoritesItem(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             favoritesRepository.insert(id)
+            favoritesSet.add(id)
         }
     }
 
-    suspend fun getFavoritesData() = withContext(Dispatchers.IO) {
+    fun storeFavoritesData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            favoritesSet = favoritesRepository.getData().toMutableSet()
+        }
+    }
+
+    fun getFavoritesData(): List<ConferenceAppFront> {
         val tmpList = mutableListOf<ConferenceAppFront>()
-        favoritesList = favoritesRepository.getData()
 
         _listData.value?.let {
             for (i in 0..it.size - 1) {
-                if (favoritesList.contains(it.get(i).id)) tmpList.add(it.get(i))
+                if (favoritesSet.contains(it.get(i).id)) tmpList.add(it.get(i))
             }
         }
-        tmpList.toList()
+        return tmpList.toList()
     }
 
     fun isExistFavorites(id: Int): Boolean {
-        return favoritesList.contains(id)
+        return favoritesSet.contains(id)
     }
 
     fun getData() {

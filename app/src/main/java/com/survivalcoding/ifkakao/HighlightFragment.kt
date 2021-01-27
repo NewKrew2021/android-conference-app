@@ -33,6 +33,9 @@ class HighlightFragment : Fragment() {
         super.onCreate(savedInstanceState)
         retainInstance = true
         conferenceViewModel.getData()
+
+        conferenceViewModel.storeFavoritesData()
+
     }
 
     override fun onCreateView(
@@ -94,6 +97,7 @@ class HighlightFragment : Fragment() {
 
 
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

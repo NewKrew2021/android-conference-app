@@ -9,14 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
 import com.survivalcoding.ifkakao.view.adapter.SpeakerRecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
-import kotlinx.coroutines.launch
 
 
 class DetailFragment : Fragment() {
@@ -38,10 +36,6 @@ class DetailFragment : Fragment() {
 
         _binding = FragmentDetailBinding.inflate(layoutInflater)
         val view = binding.root
-
-        lifecycleScope.launch {
-            conferenceViewModel.getFavoritesData()
-        }
 
         conferenceViewModel.singleData.value?.let {
 
