@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondItemDetailHeaderBinding
 import com.survivalcoding.ifkakao.databinding.SecondItemSpeakerBinding
-import com.survivalcoding.ifkakao.second.model.ContentData
-import com.survivalcoding.ifkakao.second.model.Speaker
+import com.survivalcoding.ifkakao.second.model.content.ContentData
+import com.survivalcoding.ifkakao.second.model.content.Speaker
 import com.survivalcoding.ifkakao.second.view.detail.holder.SpeakerDetailHolder
 
 class SpeakerDetailAdapter(

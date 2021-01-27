@@ -11,7 +11,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondActivityMainBinding
 import com.survivalcoding.ifkakao.second.App
 import com.survivalcoding.ifkakao.second.factory.ContentFragmentFactory
-import com.survivalcoding.ifkakao.second.model.repository.Repository
+import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.view.main.MainFragment
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 

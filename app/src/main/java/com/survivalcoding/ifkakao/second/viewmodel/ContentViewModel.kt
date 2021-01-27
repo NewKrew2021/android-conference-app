@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.second.model.ContentData
-import com.survivalcoding.ifkakao.second.model.Speaker
-import com.survivalcoding.ifkakao.second.model.repository.Repository
+import com.survivalcoding.ifkakao.second.model.content.ContentData
+import com.survivalcoding.ifkakao.second.model.content.Repository
+import com.survivalcoding.ifkakao.second.model.content.Speaker
 import kotlinx.coroutines.launch
 
 class ContentViewModel(private val repository: Repository) : ViewModel() {

@@ -6,7 +6,7 @@
 
         <variable
             name="contentdata"
-            type="com.survivalcoding.ifkakao.second.model.ContentData" />
+            type="com.survivalcoding.ifkakao.second.model.content.ContentData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

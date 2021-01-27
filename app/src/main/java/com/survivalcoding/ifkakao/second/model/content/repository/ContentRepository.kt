@@ -1,7 +1,7 @@
-package com.survivalcoding.ifkakao.second.model.repository
+package com.survivalcoding.ifkakao.second.model.content.repository
 
+import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.network.JsonServiceFactory
-
 
 class ContentRepository : Repository {
     private val dummy = """{

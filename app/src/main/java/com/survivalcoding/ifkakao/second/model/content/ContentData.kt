@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.second.model
+package com.survivalcoding.ifkakao.second.model.content
 
 
 import com.squareup.moshi.JsonClass

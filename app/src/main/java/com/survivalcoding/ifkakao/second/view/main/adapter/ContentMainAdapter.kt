@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondItemContentBinding
 import com.survivalcoding.ifkakao.databinding.SecondItemMainHeaderBinding
-import com.survivalcoding.ifkakao.second.model.ContentData
+import com.survivalcoding.ifkakao.second.model.content.ContentData
 import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
 class ContentMainAdapter(
