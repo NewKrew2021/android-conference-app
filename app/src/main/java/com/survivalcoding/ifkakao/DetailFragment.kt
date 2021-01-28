@@ -1,18 +1,28 @@
 package com.survivalcoding.ifkakao
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
+import com.survivalcoding.ifkakao.model.SpecificData
 import com.survivalcoding.ifkakao.view.adapter.SpeakerRecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
@@ -40,7 +50,6 @@ class DetailFragment : Fragment() {
         conferenceViewModel.singleData.value?.let {
 
             adapter = SpeakerRecyclerAdapter(
-                it.contentsSpeackerList.size + 2,
                 {
 
                     conferenceViewModel.singleData.value = it
@@ -65,11 +74,43 @@ class DetailFragment : Fragment() {
                     } else {
                         binding.likeToggleButton.isChecked = false
                     }
+                }, { binding, data ->
+                    ShareDialog.show(
+                        requireActivity(), ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("https://if.kakao.com/session/" + data))
+                            .build()
+                    )
+                }, { binding, data ->
+
+                    try {
+                        var pi =
+                            requireActivity().packageManager.getPackageInfo("com.kakao.talk", 0)
+
+                        var intent = Intent(Intent.ACTION_SEND)
+                        intent.setType("text/plain")
+                        var dataLink = "https://if.kakao.com/session/" + data
+                        intent.putExtra(Intent.EXTRA_TEXT, dataLink)
+                        intent.setPackage("com.kakao.talk")
+                        startActivity(intent)
+
+                    } catch (e: PackageManager.NameNotFoundException) {
+                        Toast.makeText(requireContext(), "카카오톡 앱을 설치해야합니다", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+
+                }, { binding, data ->
+                    val clipboardManager: ClipboardManager =
+                        requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData =
+                        ClipData.newPlainText("link", "https://if.kakao.com/session/" + data)
+                    clipboardManager.setPrimaryClip(clipData)
+
                 })
 
             binding.speakerRecyclerView.adapter = adapter
             binding.speakerRecyclerView.layoutManager =
-                LinearLayoutManager(activity?.applicationContext)
+                LinearLayoutManager(requireContext().applicationContext)
             val contentsSpeackerList = it.contentsSpeackerList
             val speackerProfileList = it.speackerProfileList
             val detailRecyclerList = mutableListOf<DetailRecyclerType>()
@@ -84,19 +125,19 @@ class DetailFragment : Fragment() {
                         )
                     )
                 }
-                detailRecyclerList.add(
-                    SpeackerInfo(
-                        contentsSpeackerList[0],
-                        "11"
-                    )
-                )
             }
+
+            detailRecyclerList.add(SpecificData("${it.id}"))
+            detailRecyclerList.add(SpecificData("listButton"))
+
 
             var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
             adapter.submitList(detailRecyclerList + relativeData)
 
             setWebView(it.videoUrl)
+
         }
+
 
         return view
     }

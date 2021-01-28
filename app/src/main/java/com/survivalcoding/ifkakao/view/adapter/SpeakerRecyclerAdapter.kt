@@ -6,27 +6,29 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
-import com.survivalcoding.ifkakao.databinding.ButtonItemBinding
-import com.survivalcoding.ifkakao.databinding.RecyclerHeaderBinding
-import com.survivalcoding.ifkakao.databinding.RelativeItemBinding
-import com.survivalcoding.ifkakao.databinding.SpeakerInfoBinding
+import com.survivalcoding.ifkakao.databinding.*
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
+import com.survivalcoding.ifkakao.model.SpecificData
 
 private val TYPE_HEADER = 0
 private val TYPE_FOOTER = 1
 private val TYPE_ITEM = 2
 private val TYPE_RELATIVE = 3
+private val TYPE_LINKER = 4
 
 class SpeakerRecyclerAdapter(
-    val relativeStartIndex: Int,
     val itemClick: (ConferenceAppFront) -> Unit,
     val backItemClick: (Int) -> Unit,
     val favoritesClick: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
     val setFavoritesButton: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
+    val facebookClickListner: (LinkItemBinding, String) -> Unit,
+    val kakaoClickListener: (LinkItemBinding, String) -> Unit,
+    val copyClickListener: (LinkItemBinding, String) -> Unit,
 ) :
     ListAdapter<DetailRecyclerType, RecyclerView.ViewHolder>(SpeakerDiffCallback) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -42,6 +44,15 @@ class SpeakerRecyclerAdapter(
             val relativeItemBinding =
                 RelativeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return RelativeHolder(relativeItemBinding, itemClick)
+        } else if (viewType == TYPE_LINKER) {
+            val linkItemrBinding =
+                LinkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return LinkerHolder(
+                linkItemrBinding,
+                facebookClickListner,
+                kakaoClickListener,
+                copyClickListener
+            )
         }
         val speakerInfoBinding =
             SpeakerInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -51,11 +62,12 @@ class SpeakerRecyclerAdapter(
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0) return TYPE_HEADER
-        else if (position == relativeStartIndex - 1) return TYPE_FOOTER
-        else if (position >= relativeStartIndex) return TYPE_RELATIVE
-
+        else if (getItem(position) is SpecificData && (getItem(position) as SpecificData).type == "listButton") return TYPE_FOOTER
+        else if (getItem(position) is SpecificData) return TYPE_LINKER
+        else if (getItem(position) is ConferenceAppFront) return TYPE_RELATIVE
         return TYPE_ITEM
     }
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is SpeakerHolder) {
@@ -68,6 +80,8 @@ class SpeakerRecyclerAdapter(
             holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
         } else if (holder is ButtonHolder) {
             holder.clickListener()
+        } else if (holder is LinkerHolder) {
+            holder.clickListener(getItem(holder.adapterPosition) as SpecificData)
         }
 
     }
@@ -96,6 +110,27 @@ class SpeakerHolder(
         }
 
     }
+}
+
+class LinkerHolder(
+    val binding: LinkItemBinding,
+    val facebookClickListner: (LinkItemBinding, String) -> Unit,
+    val kakaoClickListener: (LinkItemBinding, String) -> Unit,
+    val copyClickListener: (LinkItemBinding, String) -> Unit,
+) : RecyclerView.ViewHolder(binding.root) {
+    fun clickListener(data: SpecificData) {
+
+        binding.facebookButton.setOnClickListener {
+            facebookClickListner(binding, data.type)
+        }
+        binding.kakaoButton.setOnClickListener {
+            kakaoClickListener(binding, data.type)
+        }
+        binding.copyToClipboardButton.setOnClickListener {
+            copyClickListener(binding, data.type)
+        }
+    }
+
 }
 
 class ButtonHolder(

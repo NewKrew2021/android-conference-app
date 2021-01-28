@@ -80,7 +80,8 @@ class MainFragment : Fragment() {
         }
 
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireActivity().applicationContext)
     }
 
     fun setSpinner() {

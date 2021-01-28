@@ -45,7 +45,8 @@ class FavoritesFragment : Fragment() {
         }
 
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity?.applicationContext)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(requireContext().applicationContext)
 
 
         adapter.submitList(conferenceViewModel.getFavoritesData())

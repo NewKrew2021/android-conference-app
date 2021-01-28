@@ -72,4 +72,7 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+    //facebook
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
