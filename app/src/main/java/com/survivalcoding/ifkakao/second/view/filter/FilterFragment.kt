@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.SecondFragmentFilterBinding
+import com.survivalcoding.ifkakao.second.model.filter.FilterType
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
 class FilterFragment : Fragment() {
@@ -19,7 +20,11 @@ class FilterFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = SecondFragmentFilterBinding.inflate(inflater, container, false)
+        _binding = SecondFragmentFilterBinding.inflate(inflater, container, false).apply {
+            fragment = this@FilterFragment
+            lifecycleOwner = this@FilterFragment
+            viewmodel = viewModel
+        }
         requireActivity().title = "if(kakao)2020"
         return binding.root
     }
@@ -27,6 +32,12 @@ class FilterFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun filterClickListener(type: FilterType, name: String) {
+        val isChecked = viewModel.isSelectedFilter(type, name)
+        if (isChecked) viewModel.removeFilter(type)
+        else viewModel.addFilter(type, name)
     }
 
 }
