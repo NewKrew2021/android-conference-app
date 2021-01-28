@@ -51,4 +51,7 @@
     <string name="unknown_error">알 수 없는 오류가 발생했습니다.</string>
     <string name="session">Session</string>
     <string name="main_text">if(kakao)2020이\n여러본의 관심 속에 마무리되었습니다.\n우리, 내년에 또 만나요!\n오늘도 카카오는 세상을 바꾸는 중</string>
+
+    <string name="share_fail_message">오류가 발생했습니다\n다시 시도해주세요.</string>
+    <string name="share_session">세션 공유하기</string>
 </resources>
