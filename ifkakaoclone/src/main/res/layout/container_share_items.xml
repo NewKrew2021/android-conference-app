@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:alpha="0.8"
+    android:background="@color/black"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/image_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_close_24" />
+
+    <ImageView
+        android:id="@+id/image_share_kakaotalk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/share_item_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_share_facebook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ico_talk"
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/text_share_kakaotalk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/share_kakaotalk"
+        app:layout_constraintEnd_toEndOf="@id/image_share_kakaotalk"
+        app:layout_constraintStart_toStartOf="@id/image_share_kakaotalk"
+        app:layout_constraintTop_toBottomOf="@id/image_share_kakaotalk" />
+
+    <ImageView
+        android:id="@+id/image_share_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/share_item_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_share_copy_url"
+        app:layout_constraintStart_toEndOf="@id/image_share_kakaotalk"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ico_facebook"
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/text_share_facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/share_facebook"
+        app:layout_constraintEnd_toEndOf="@id/image_share_facebook"
+        app:layout_constraintStart_toStartOf="@id/image_share_facebook"
+        app:layout_constraintTop_toBottomOf="@id/image_share_facebook" />
+
+    <ImageView
+        android:id="@+id/image_share_copy_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/share_item_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_share_facebook"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ico_copy"
+        app:tint="@color/black" />
+
+    <TextView
+        android:id="@+id/text_share_copy_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/share_copy_url"
+        app:layout_constraintEnd_toEndOf="@id/image_share_copy_url"
+        app:layout_constraintStart_toStartOf="@id/image_share_copy_url"
+        app:layout_constraintTop_toBottomOf="@id/image_share_copy_url" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
