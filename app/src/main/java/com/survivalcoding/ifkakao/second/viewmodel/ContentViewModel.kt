@@ -10,6 +10,8 @@ import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.model.content.Speaker
 import com.survivalcoding.ifkakao.second.model.favorite.database.Favorite
 import com.survivalcoding.ifkakao.second.model.favorite.repository.FavoriteRepository
+import com.survivalcoding.ifkakao.second.model.filter.FilterType
+import com.survivalcoding.ifkakao.second.util.find
 import kotlinx.coroutines.launch
 
 class ContentViewModel(
@@ -32,6 +34,9 @@ class ContentViewModel(
 
     private lateinit var _selectedFavorite: Favorite
     val selectedFavorite: Favorite get() = _selectedFavorite
+
+    private val _filters = MutableLiveData<Map<FilterType, String>>(mapOf())
+    val filters: LiveData<Map<FilterType, String>> get() = _filters
 
 
     fun loadData() {
@@ -57,4 +62,23 @@ class ContentViewModel(
             if (size == 0) add(Favorite(item.idx, false))
         }[0]
     }
+
+    fun addFilter(filterType: FilterType, name: String) {
+        _filters.value?.let {
+            _filters.value = it.toMutableMap().apply {
+                put(filterType, name)
+            }
+        }
+    }
+
+    fun removeFilter(filterType: FilterType) {
+        _filters.value?.let {
+            _filters.value = it.toMutableMap().apply {
+                remove(filterType)
+            }
+        }
+    }
+
+    fun isSelectedFilter(filterType: FilterType, name: String): Boolean =
+        _filters.value?.find(filterType, name) ?: false
 }
