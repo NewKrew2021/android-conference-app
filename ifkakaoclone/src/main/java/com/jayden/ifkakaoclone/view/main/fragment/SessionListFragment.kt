@@ -36,7 +36,10 @@ class SessionListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSessionListBinding.inflate(inflater, container, false)
+        _binding = FragmentSessionListBinding.inflate(inflater, container, false).apply {
+            lifecycleOwner = this@SessionListFragment
+            viewModel = activityViewModel
+        }
         return binding.root
     }
 
@@ -72,7 +75,7 @@ class SessionListFragment : Fragment() {
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            updateSessionsWithFiltersIfNotEmpty(it)
         }
 
         activityViewModel.fetchContents()
@@ -93,5 +96,15 @@ class SessionListFragment : Fragment() {
     private fun openIfKakao2019() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2019"))
         startActivity(intent)
+    }
+
+    private fun updateSessionsWithFiltersIfNotEmpty(sessions: List<Session>) {
+        activityViewModel.appliedFilters.value?.let { filters ->
+            if (filters.isNotEmpty()) {
+                adapter.submitList(sessions.filter { filters.contains(it.field) })
+            } else {
+                adapter.submitList(sessions)
+            }
+        } ?: adapter.submitList(sessions)
     }
 }

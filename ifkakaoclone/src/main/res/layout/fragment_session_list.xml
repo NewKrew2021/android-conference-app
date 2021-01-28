@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.jayden.ifkakaoclone.viewmodel.SessionViewModel" />
+    </data>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -60,31 +67,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <Button
+                        <TextView
                             android:id="@+id/btn_my_list"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="end"
                             android:layout_marginEnd="8dp"
-                            android:backgroundTint="@color/fragment_session_detail_btn_go_to_list"
+                            android:background="@color/fragment_session_detail_btn_go_to_list"
+                            android:drawablePadding="8dp"
+                            android:padding="8dp"
+                            android:gravity="center_vertical"
                             android:text="@string/btn_my_list"
                             android:textAllCaps="false"
                             android:textColor="@color/session_footer_copyright_gray"
-                            app:icon="@drawable/ic_favorite_white_24"
+                            app:drawableStartCompat="@drawable/ic_favorite_white_24"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/btn_filter"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageButton
+                        <TextView
                             android:id="@+id/btn_filter"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_gravity="end"
-                            android:backgroundTint="@color/fragment_session_detail_btn_go_to_list"
-                            android:src="@drawable/ic_baseline_filter_list_24"
+                            android:background="@color/dark_gray"
+                            android:gravity="center_vertical"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="@{viewModel.appliedFilters.size() > 0 ? String.valueOf(viewModel.appliedFilters.size()) : null}"
+                            android:textColor="@color/session_footer_copyright_gray"
+                            app:drawableStartCompat="@drawable/ic_baseline_filter_list_24"
                             app:layout_constraintBottom_toBottomOf="@id/btn_my_list"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/btn_my_list" />
+                            app:layout_constraintTop_toTopOf="@id/btn_my_list"
+                            tools:text="3" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

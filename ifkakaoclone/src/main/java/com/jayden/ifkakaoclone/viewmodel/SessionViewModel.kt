@@ -7,8 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.jayden.ifkakaoclone.data.Repository
 import com.jayden.ifkakaoclone.data.db.Favorite
 import com.jayden.ifkakaoclone.util.SingleLiveData
-import com.jayden.ifkakaoclone.view.main.model.Filter
-import com.jayden.ifkakaoclone.view.main.model.FilterType
 import com.jayden.ifkakaoclone.view.main.model.Session
 import kotlinx.coroutines.launch
 
@@ -36,10 +34,15 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _selectedFavorite = MutableLiveData<Favorite>()
     val selectedFavorite: LiveData<Favorite> get() = _selectedFavorite
 
-    private val _selectedFilters = MutableLiveData<Set<Filter>>().also {
+    private val _selectedFilters = MutableLiveData<Set<String>>().also {
         it.value = setOf()
     }
-    val selectedFilters: LiveData<Set<Filter>> get() = _selectedFilters
+    val selectedFilters: LiveData<Set<String>> get() = _selectedFilters
+
+    private val _appliedFilters = MutableLiveData<Set<String>>().also {
+        it.value = setOf()
+    }
+    val appliedFilters: LiveData<Set<String>> get() = _appliedFilters
 
     fun fetchContents() {
         viewModelScope.launch {
@@ -72,19 +75,27 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun addFilter(filter: Filter) {
+    fun addFilter(field: String) {
         _selectedFilters.value?.let {
-            _selectedFilters.value = it + filter
+            _selectedFilters.value = it + field
         }
     }
 
-    fun removeFilter(filter: Filter) {
+    fun removeFilter(field: String) {
         _selectedFilters.value?.let {
-            _selectedFilters.value = it - filter
+            _selectedFilters.value = it - field
         }
     }
 
-    fun isSelectedFilter(type: FilterType, name: String): Boolean {
-        return _selectedFilters.value?.find { it.type == type && it.name == name }?.let { true } ?: false
+    fun clearFilters() {
+        _selectedFilters.value?.let {
+            _selectedFilters.value = setOf()
+        }
+    }
+
+    fun applyFilters() {
+        _appliedFilters.value?.let {
+            _appliedFilters.value = _selectedFilters.value
+        }
     }
 }
