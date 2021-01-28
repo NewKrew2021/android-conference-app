@@ -17,4 +17,7 @@
     <dimen name="speaker_height">96dp</dimen>
     <dimen name="appbar_height">376dp</dimen>
 
+    <dimen name="button_width">128dp</dimen>
+    <dimen name="button_height">56dp</dimen>
+
 </resources>
