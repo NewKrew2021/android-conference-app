@@ -20,6 +20,7 @@ import com.facebook.share.widget.ShareDialog
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
+import com.survivalcoding.ifkakao.model.SpecificData
 import com.survivalcoding.ifkakao.view.adapter.SpeakerRecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
@@ -47,7 +48,6 @@ class DetailFragment : Fragment() {
         conferenceViewModel.singleData.value?.let {
 
             adapter = SpeakerRecyclerAdapter(
-                it.contentsSpeackerList.size + 3,
                 {
 
                     conferenceViewModel.singleData.value = it
@@ -75,13 +75,13 @@ class DetailFragment : Fragment() {
                 }, { binding, data ->
                     ShareDialog.show(
                         requireActivity(), ShareLinkContent.Builder()
-                            .setContentUrl(Uri.parse("https://if.kakao.com/session/${data.id}"))
+                            .setContentUrl(Uri.parse("https://if.kakao.com/session/" + data))
                             .build()
                     )
                 }, { binding, data ->
                     var intent = Intent(Intent.ACTION_SEND)
                     intent.setType("text/plain")
-                    var dataLink = "https://if.kakao.com/session/${data.id}"
+                    var dataLink = "https://if.kakao.com/session/" + data
                     intent.putExtra(Intent.EXTRA_TEXT, dataLink)
                     intent.setPackage("com.kakao.talk")
                     startActivity(intent)
@@ -89,15 +89,14 @@ class DetailFragment : Fragment() {
                     val clipboardManager: ClipboardManager =
                         requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
                     val clipData =
-                        ClipData.newPlainText("link", "https://if.kakao.com/session/${data.id}")
+                        ClipData.newPlainText("link", "https://if.kakao.com/session/" + data)
                     clipboardManager.setPrimaryClip(clipData)
-                    //Toast.makeText(requireContext(), "복사되었습니", Toast.LENGTH_SHORT).show()
 
                 })
 
             binding.speakerRecyclerView.adapter = adapter
             binding.speakerRecyclerView.layoutManager =
-                LinearLayoutManager(activity?.applicationContext)
+                LinearLayoutManager(requireContext().applicationContext)
             val contentsSpeackerList = it.contentsSpeackerList
             val speackerProfileList = it.speackerProfileList
             val detailRecyclerList = mutableListOf<DetailRecyclerType>()
@@ -113,9 +112,9 @@ class DetailFragment : Fragment() {
                     )
                 }
             }
-            for (i in 0..1) {
-                detailRecyclerList.add(it)
-            }
+
+            detailRecyclerList.add(SpecificData("${it.id}"))
+            detailRecyclerList.add(SpecificData("listButton"))
 
 
             var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
