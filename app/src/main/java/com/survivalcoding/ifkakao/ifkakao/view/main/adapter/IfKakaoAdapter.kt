@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.ifkakao.view.main.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -25,7 +26,7 @@ class IfKakaoAdapter(
             listener.invoke(data)
         }
         binding.field.setOnClickListener {
-            textListener.invoke(binding.field.text.toString())
+            textListener.invoke(data.field)
         }
     }
 }

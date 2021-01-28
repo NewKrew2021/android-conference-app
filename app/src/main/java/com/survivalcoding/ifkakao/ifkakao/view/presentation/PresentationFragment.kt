@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
 import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter
+import com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.FavoriteViewModel
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
@@ -45,6 +50,7 @@ class PresentationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.presentationData = presentationData
+        binding.onClickFragment = this@PresentationFragment
         binding.presenterList.adapter = adapter
 
         var isFavorite: Boolean = false
@@ -76,5 +82,14 @@ class PresentationFragment : Fragment() {
 
     private fun updatePresenter(item: List<PresenterInfo>) {
         adapter.submitList(item)
+    }
+
+    fun textListener(title: String) {
+        parentFragmentManager.commit {
+            setReorderingAllowed(true)
+            val bundle = bundleOf("field" to title)
+            replace<SortedListFragment>(R.id.if_kakao_fragment_container_view, args = bundle)
+            addToBackStack(null)
+        }
     }
 }
