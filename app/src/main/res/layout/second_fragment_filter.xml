@@ -3,6 +3,12 @@
 
     <data>
 
+        <import type="com.survivalcoding.ifkakao.second.model.filter.FilterType" />
+
+        <import type="java.util.Map" />
+
+        <import type="com.survivalcoding.ifkakao.second.util.MapUtilKt" />
+
         <variable
             name="fragment"
             type="com.survivalcoding.ifkakao.second.view.filter.FilterFragment" />
@@ -51,7 +57,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.FIELD, "서비스") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.FIELD, "서비스")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.FIELD, "서비스") ? @color/black : @color/white}'
                         android:text="서비스"
                         android:textSize="16sp" />
 
@@ -59,7 +67,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.FIELD, "비즈니스") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.FIELD, "비즈니스")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.FIELD, "비즈니스") ? @color/black : @color/white}'
                         android:text="비즈니스"
                         android:textSize="16sp" />
 
@@ -67,7 +77,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.FIELD, "기술") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.FIELD, "기술")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.FIELD, "기술") ? @color/black : @color/white}'
                         android:text="기술"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -97,7 +109,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "개인화") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "개인화")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "개인화") ? @color/black : @color/white}'
                         android:text="개인화"
                         android:textSize="16sp" />
 
@@ -105,7 +119,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "광고") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "광고")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "광고") ? @color/black : @color/white}'
                         android:text="광고"
                         android:textSize="16sp" />
 
@@ -113,7 +129,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "금융") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "금융")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "금융") ? @color/black : @color/white}'
                         android:text="금융"
                         android:textSize="16sp" />
 
@@ -121,7 +139,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "데이터") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "데이터")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "데이터") ? @color/black : @color/white}'
                         android:text="데이터"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -136,7 +156,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "디지털자산") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "디지털자산")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "디지털자산") ? @color/black : @color/white}'
                         android:text="디지털자산"
                         android:textSize="16sp" />
 
@@ -144,7 +166,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "모빌리티") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "모빌리티")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "모빌리티") ? @color/black : @color/white}'
                         android:text="모빌리티"
                         android:textSize="16sp" />
 
@@ -152,8 +176,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
-                        android:text="사회공원"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "사회공헌") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "사회공헌")}'
+                        android:text="사회공헌"
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "사회공헌") ? @color/black : @color/white}'
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -167,7 +193,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "엔지니어링") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "엔지니어링")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "엔지니어링") ? @color/black : @color/white}'
                         android:text="엔지니어링"
                         android:textSize="16sp" />
 
@@ -175,7 +203,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "인프라") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "인프라")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "인프라") ? @color/black : @color/white}'
                         android:text="인프라"
                         android:textSize="16sp" />
 
@@ -183,7 +213,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "콘텐츠") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "콘텐츠")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "콘텐츠") ? @color/black : @color/white}'
                         android:text="콘텐츠"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -199,7 +231,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "크리에이터") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "크리에이터")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "크리에이터") ? @color/black : @color/white}'
                         android:text="크리에이터"
                         android:textSize="16sp" />
 
@@ -207,7 +241,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "플랫폼") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "플랫폼")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "플랫폼") ? @color/black : @color/white}'
                         android:text="플랫폼"
                         android:textSize="16sp" />
 
@@ -215,7 +251,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "B2B") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.SERVICE_BUSINNES, "B2B")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.SERVICE_BUSINNES, "B2B") ? @color/black : @color/white}'
                         android:text="B2B"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -239,7 +277,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "백엔드") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "백엔드")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "백엔드") ? @color/black : @color/white}'
                         android:text="백엔드"
                         android:textSize="16sp" />
 
@@ -247,7 +287,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "머신러닝/AI") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "머신러닝/AI")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "머신러닝/AI") ? @color/black : @color/white}'
                         android:text="머신러닝/AI"
                         android:textSize="16sp" />
 
@@ -255,7 +297,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "데이터") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "데이터")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "데이터") ? @color/black : @color/white}'
                         android:text="데이터"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -271,7 +315,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "클라우드") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "클라우드")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "클라우드") ? @color/black : @color/white}'
                         android:text="클라우드"
                         android:textSize="16sp" />
 
@@ -279,7 +325,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "인프라/DevOps") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "인프라/DevOps")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "인프라/DevOps") ? @color/black : @color/white}'
                         android:text="인프라/DevOps"
                         android:textSize="16sp" />
 
@@ -287,7 +335,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "블록체인") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "블록체인")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "블록체인") ? @color/black : @color/white}'
                         android:text="블록체인"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -303,7 +353,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "모바일") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "모바일")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "모바일") ? @color/black : @color/white}'
                         android:text="모바일"
                         android:textSize="16sp" />
 
@@ -311,7 +363,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "안드로이드") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "안드로이드")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "안드로이드") ? @color/black : @color/white}'
                         android:text="안드로이드"
                         android:textSize="16sp" />
 
@@ -319,7 +373,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "iOS") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "iOS")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "iOS") ? @color/black : @color/white}'
                         android:text="iOS"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -335,7 +391,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "웹/프론트엔드") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "웹/프론트엔드")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "웹/프론트엔드") ? @color/black : @color/white}'
                         android:text="웹/프론트엔드"
                         android:textSize="16sp" />
 
@@ -343,7 +401,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "Windows") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "Windows")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "Windows") ? @color/black : @color/white}'
                         android:text="Windows"
                         android:textSize="16sp" />
 
@@ -351,7 +411,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
-                        android:background="@drawable/content_filter_item_border"
+                        android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "게임개발") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                        android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "게임개발")}'
+                        android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "게임개발") ? @color/black : @color/white}'
                         android:text="게임개발"
                         android:textSize="16sp" />
 
@@ -366,7 +428,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="16dp"
-                            android:background="@drawable/content_filter_item_border"
+                            android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "개발생태계") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                            android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "개발생태계")}'
+                            android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "개발생태계") ? @color/black : @color/white}'
                             android:text="개발생태계"
                             android:textSize="16sp" />
 
@@ -374,7 +438,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="16dp"
-                            android:background="@drawable/content_filter_item_border"
+                            android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "개발문화") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                            android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "개발문화")}'
+                            android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "개발문화") ? @color/black : @color/white}'
                             android:text="개발문화"
                             android:textSize="16sp" />
 
@@ -382,7 +448,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="16dp"
-                            android:background="@drawable/content_filter_item_border"
+                            android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "하드웨어") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                            android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "하드웨어")}'
+                            android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "하드웨어") ? @color/black : @color/white}'
                             android:text="하드웨어"
                             android:textSize="16sp" />
                     </LinearLayout>
@@ -398,15 +466,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="16dp"
-                            android:background="@drawable/content_filter_item_border"
-                            android:text="Embedded Ststem"
+                            android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "EmbeddedSystem") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                            android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "EmbeddedSystem")}'
+                            android:text="EmbeddedSystem"
+                            android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "EmbeddedSystem") ? @color/black : @color/white}'
                             android:textSize="16sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="16dp"
-                            android:background="@drawable/content_filter_item_border"
+                            android:background='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "기타") ? @drawable/content_filter_item_clicked_border : @drawable/content_filter_item_border}'
+                            android:onClick='@{()->fragment.filterClickListener(FilterType.TECH, "기타")}'
+                            android:textColor='@{MapUtilKt.find(viewmodel.filters, FilterType.TECH, "기타") ? @color/black : @color/white}'
                             android:text="기타"
                             android:textSize="16sp" />
                     </LinearLayout>
