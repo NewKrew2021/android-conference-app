@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.second.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,7 +43,6 @@ class ContentViewModel(
             _isLoading.value = true
             _data.value = repository.getData().data
             _favorites = favoriteRepository.getAll().toMutableList()
-            Log.d("aaa", _favorites.toString())
             _isLoading.value = false
         }
     }
