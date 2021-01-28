@@ -9,6 +9,7 @@ import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
+import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
@@ -30,6 +31,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
             viewModel.setConferenceSessionData(it.getParcelable(SESSION_ITEM))
         }
         setImageView()
+        setRecyclerView()
         eventProcess()
     }
 
@@ -48,10 +50,11 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
                 tvTitleSessionDetail.text = it.parseString(it.title)
                 tvContentsSessionDetail.text = it.parseString(it.content)
                 tvHashtagSessionDetail.text = it.contentTag
-
             }
         }
     }
+
+
 
     private fun eventProcess() {
         val uri = Uri.parse(viewModel.sessionData.value?.linkList?.video?.get(0)?.url)
@@ -65,11 +68,18 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         }
     }
 
-    private fun setImageView(){
+    private fun setImageView() {
         Glide.with(binding.ivThumbnailSessionDetail)
             .load(viewModel.sessionData.value?.parseImageUrl(viewModel.sessionData.value!!))
             .fitCenter()
             .into(binding.ivThumbnailSessionDetail)
+    }
+
+    private fun setRecyclerView() {
+        binding.rvSpeakerSessionDetail.apply {
+            layoutManager = LinearVerticalLayout(context)
+            setHasFixedSize(true)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

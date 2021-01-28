@@ -18,4 +18,8 @@ data class ConferenceContentsSpeakerResponse(
     val company: String? = null,
     @Json(name = "occupation")
     val occupation: String
-)
+) {
+    fun getNonNullCompany() : String{
+        return this.company!!
+    }
+}

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 
-class SessionDetailViewModel : ViewModel() {
+class SessionDetailViewModel() : ViewModel() {
 
     private val _sessionData = MutableLiveData<ConferenceSessionResponse>()
     val sessionData : LiveData<ConferenceSessionResponse>
@@ -16,6 +16,7 @@ class SessionDetailViewModel : ViewModel() {
             _sessionData.value = data
         }
     }
+
 
 
 }

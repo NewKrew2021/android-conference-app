@@ -1,10 +1,7 @@
 package com.survivalcoding.ifkakao
 
 import android.app.Application
-import com.survivalcoding.ifkakao.di.networkModule
-import com.survivalcoding.ifkakao.di.remoteDataSourceModule
-import com.survivalcoding.ifkakao.di.repositoryModule
-import com.survivalcoding.ifkakao.di.viewModelModule
+import com.survivalcoding.ifkakao.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -17,6 +14,7 @@ class ConferenceApplication : Application() {
             modules(repositoryModule)
             modules(networkModule)
             modules(remoteDataSourceModule)
+            modules(localDataSourceModule)
         }
     }
 }
