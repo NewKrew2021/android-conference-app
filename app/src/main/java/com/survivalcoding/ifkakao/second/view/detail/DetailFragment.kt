@@ -1,14 +1,19 @@
 package com.survivalcoding.ifkakao.second.view.main
 
+import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.survivalcoding.ifkakao.databinding.SecondFragmentDetailBinding
+import com.survivalcoding.ifkakao.second.extension.removeTag
 import com.survivalcoding.ifkakao.second.model.content.Speaker
 import com.survivalcoding.ifkakao.second.view.detail.adapter.SpeakerDetailAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
@@ -28,7 +33,25 @@ class DetailFragment : Fragment() {
             },
             favoriteClickListener = {
                 viewModel.updateFavorite(it)
-            }
+            },
+            kakaoClickListenr = { title: String, idx: Int ->
+            },
+            facebookClickListener = { title: String, idx: Int ->
+            },
+            linkClickListener = { title: String, idx: Int ->
+            },
+            copyClickListener = { title: String, idx: Int ->
+                // 해당 세션 주소 클립보드에 저장
+                val clipboardManager: ClipboardManager =
+                    requireContext().getSystemService(Activity.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipData: ClipData =
+                    ClipData.newPlainText(
+                        "If(kakao) ${title.removeTag()}",
+                        "https://if.kakao.com/session/${idx}"
+                    )
+                clipboardManager.setPrimaryClip(clipData)
+                Toast.makeText(requireContext(), "클립보드에 복사되었습니다.", Toast.LENGTH_SHORT).show()
+            },
         )
     }
 
