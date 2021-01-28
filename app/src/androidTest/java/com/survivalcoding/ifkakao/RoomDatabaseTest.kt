@@ -36,7 +36,7 @@ class RoomDatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun wrightAndReadList() {
+    fun writeAndReadList() {
         val data = listOf(
             Favorite(0, false),
             Favorite(1, true),
