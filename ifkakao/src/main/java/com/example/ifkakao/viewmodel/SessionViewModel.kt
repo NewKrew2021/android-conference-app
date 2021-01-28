@@ -31,12 +31,23 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private val _isFavorite = MutableLiveData(false)
     val isFavorite: LiveData<Boolean> get() = _isFavorite
 
+    private var sharedSessionIndex = NOT_SESSION_INDEX
+    private val _findSharedSession = MutableLiveData(false)
+    val findSharedSession: LiveData<Boolean> get() = _findSharedSession
+
+
     fun updateSessionData() {
         viewModelScope.launch {
             isLoading.value = true
             errorStatus.value = ErrorStatus.NO_ERROR
             when (val response = repository.getConferenceData()) {
-                is KakaoApiResponse.Success -> _sessionList.value = response.result.data
+                is KakaoApiResponse.Success -> {
+                    response.result.data.let {
+                        _sessionList.value = it
+                        _highlightSession.value =
+                            response.result.data.filter { it.spotlightYn == "Y" }
+                    }
+                }
                 is KakaoApiResponse.Failure -> {
                     when {
                         response.errorCode in 400..499 -> errorStatus.value =
@@ -50,29 +61,24 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun updateHighlightSessionList() {
-        viewModelScope.launch {
-            isLoading.value = true
-            errorStatus.value = ErrorStatus.NO_ERROR
-            when (val response = repository.getConferenceData()) {
-                is KakaoApiResponse.Success -> _highlightSession.value =
-                    response.result.data.filter { it.spotlightYn == "Y" }
-                is KakaoApiResponse.Failure -> {
-                    when {
-                        response.errorCode in 400..499 -> errorStatus.value =
-                            ErrorStatus.CLIENT_ERROR
-                        response.errorCode >= 500 -> errorStatus.value = ErrorStatus.SERVER_ERROR
-                        else -> errorStatus.value = ErrorStatus.UNKNOWN_ERROR
-                    }
-                }
-            }
-            isLoading.value = false
-        }
+    fun setSharedSessionIndex(sessionIndex: Int) {
+        sharedSessionIndex = sessionIndex
     }
 
     fun setSelectedSession(item: Session) {
         _selectedSession.value = item
         findFavoriteSessionByIndex()
+    }
+
+    fun findSharedSession() {
+        _sessionList.value?.let { list ->
+            val sharedSessions = list.filter { it.idx == sharedSessionIndex }
+            if (sharedSessions.isNotEmpty()) {
+                _selectedSession.value = sharedSessions[0]
+                _findSharedSession.value = true
+            }
+        }
+        _findSharedSession.value = false
     }
 
     fun addFavoriteSession() {
@@ -102,6 +108,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             )
             _isFavorite.value = favoriteSession?.isFavorite ?: false
         }
+    }
+
+    fun removeSharedSessionIndex() {
+        sharedSessionIndex = NOT_SESSION_INDEX
     }
 
     companion object {

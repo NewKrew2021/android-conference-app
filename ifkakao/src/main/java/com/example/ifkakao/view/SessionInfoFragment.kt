@@ -49,7 +49,7 @@ class SessionInfoFragment : Fragment() {
             viewModel.selectedSession.value?.let {
                 makeShareLink(it.idx, successListener = { link ->
                     Intent(Intent.ACTION_SEND).run {
-                        type = "text/plain"
+                        type = TEXT_PLAIN
                         putExtra(Intent.EXTRA_TEXT, link)
                         startActivity(Intent.createChooser(this, getString(R.string.share_session)))
                     }
@@ -63,6 +63,7 @@ class SessionInfoFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.removeSharedSessionIndex()
         _binding = null
     }
 
@@ -72,5 +73,9 @@ class SessionInfoFragment : Fragment() {
 
     private fun scrollingUp(v: View) {
         binding.contentScroll.fullScroll(View.FOCUS_UP);
+    }
+
+    companion object {
+        const val TEXT_PLAIN = "text/plain"
     }
 }

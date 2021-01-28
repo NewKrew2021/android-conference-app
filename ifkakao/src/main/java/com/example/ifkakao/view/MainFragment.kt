@@ -77,7 +77,6 @@ class MainFragment : Fragment() {
             conferenceRecyclerView.adapter = adapter
             setVideoView()
         }
-        viewModel.updateSessionData()
     }
 
     override fun onDestroyView() {

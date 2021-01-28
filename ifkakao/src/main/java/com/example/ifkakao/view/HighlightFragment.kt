@@ -40,6 +40,12 @@ class HighlightFragment : Fragment() {
     private fun observeData() {
         viewModel.highlightSession.observe(viewLifecycleOwner) {
             adapter.submitList(it.toList())
+            viewModel.findSharedSession()
+        }
+        viewModel.findSharedSession.observe(viewLifecycleOwner) {
+            if (it) {
+                replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+            }
         }
     }
 
@@ -56,6 +62,11 @@ class HighlightFragment : Fragment() {
         binding.allSessionButton.setOnClickListener {
             replaceTransaction<MainFragment>(R.id.fragment_container_view)
         }
-        viewModel.updateHighlightSessionList()
+        viewModel.updateSessionData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
