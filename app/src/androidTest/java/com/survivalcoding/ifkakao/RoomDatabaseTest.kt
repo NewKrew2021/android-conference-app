@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.survivalcoding.ifkakao.second.model.favorite.database.AppDatabase
 import com.survivalcoding.ifkakao.second.model.favorite.database.Favorite
 import com.survivalcoding.ifkakao.second.model.favorite.database.FavoriteDao
+import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -36,7 +37,7 @@ class RoomDatabaseTest {
 
     @Test
     @Throws(Exception::class)
-    fun wrightAndReadList() {
+    fun writeAndReadList() = runBlocking {
         val data = listOf(
             Favorite(0, false),
             Favorite(1, true),
@@ -44,13 +45,10 @@ class RoomDatabaseTest {
             Favorite(1, false)
         )
         data.forEach { favoriteDao.insert(it) }
-        var datas = favoriteDao.getAll()
+        val datas = favoriteDao.getAll()
         assertEquals(datas.size, 3)
         assertEquals(datas[0].isFavorite, false)
         assertEquals(datas[1].isFavorite, false)
         assertEquals(datas[2].isFavorite, false)
-        data.forEach { favoriteDao.delete(it) }
-        datas = favoriteDao.getAll()
-        assertEquals(datas.size, 0)
     }
 }

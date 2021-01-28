@@ -13,7 +13,7 @@ class FavoriteRepository(context: Context) {
 
     fun getAll(): List<Favorite> = db.favoriteDao().getAll()
 
-    fun insert(favorite: Favorite) {
+    suspend fun insert(favorite: Favorite) {
         db.favoriteDao().insert(favorite)
     }
 }

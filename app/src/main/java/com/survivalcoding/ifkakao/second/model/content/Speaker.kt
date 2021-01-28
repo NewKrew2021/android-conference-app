@@ -11,4 +11,9 @@ data class Speaker(
     val nameEn: String,
     val nameKo: String,
     val occupation: String
-)
+) : DetailViewType()
+
+data class DetailHeader(val idx: Int) : DetailViewType()
+data class DetailFooter(val idx: Int) : DetailViewType()
+
+sealed class DetailViewType

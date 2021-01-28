@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/kakao_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_baseline_brightness_1_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_kakao"
+            app:layout_constraintBottom_toBottomOf="@id/kakao_image"
+            app:layout_constraintEnd_toEndOf="@id/kakao_image"
+            app:layout_constraintStart_toStartOf="@id/kakao_image"
+            app:layout_constraintTop_toTopOf="@id/kakao_image" />
+
+
+        <ImageView
+            android:id="@+id/facebook_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_baseline_brightness_1_24"
+            app:layout_constraintStart_toEndOf="@id/kakao_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_facebook"
+            app:layout_constraintBottom_toBottomOf="@id/facebook_image"
+            app:layout_constraintEnd_toEndOf="@id/facebook_image"
+            app:layout_constraintStart_toStartOf="@id/facebook_image"
+            app:layout_constraintTop_toTopOf="@id/facebook_image" />
+
+        <ImageView
+            android:id="@+id/link_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_baseline_brightness_1_24"
+            app:layout_constraintStart_toEndOf="@id/facebook_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_link"
+            app:layout_constraintBottom_toBottomOf="@id/link_image"
+            app:layout_constraintEnd_toEndOf="@id/link_image"
+            app:layout_constraintStart_toStartOf="@id/link_image"
+            app:layout_constraintTop_toTopOf="@id/link_image" />
+
+        <ImageView
+            android:id="@+id/copy_image"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="16dp"
+            android:src="@drawable/ic_baseline_brightness_1_24"
+            app:layout_constraintStart_toEndOf="@id/link_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_content_copy_24"
+            app:layout_constraintBottom_toBottomOf="@id/copy_image"
+            app:layout_constraintEnd_toEndOf="@id/copy_image"
+            app:layout_constraintStart_toStartOf="@id/copy_image"
+            app:layout_constraintTop_toTopOf="@id/copy_image"
+            app:tint="@color/black" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -31,10 +31,6 @@ data class ContentData(
     val videoYn: String
 ) : MainViewType()
 
-data class Header(val idx: Int) : MainViewType()
-data class Footer(val idx: Int) : MainViewType()
+data class MainHeader(val idx: Int) : MainViewType()
 
 sealed class MainViewType
-
-
-// sealed class를 외부에 선언하면 Cannot access '<init>': it is private in 'MainViewType' 오류가 나와서 내부에 함께 선언
