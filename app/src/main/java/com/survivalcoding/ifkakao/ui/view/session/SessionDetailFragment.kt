@@ -90,6 +90,10 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
             ivThumbnailSessionDetail.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
+
+            btnShowlistSessionDetail.setOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
         }
     }
 
