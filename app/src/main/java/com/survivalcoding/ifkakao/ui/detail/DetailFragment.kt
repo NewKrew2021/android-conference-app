@@ -7,7 +7,8 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.extension.popThis
@@ -32,7 +33,10 @@ class DetailFragment : Fragment() {
                 for (i in contentsSpeakerList.indices) {
                     contentsSpeakerList[i].profileImageUrl = linkList.speakerProfile[i].url
                 }
-                viewModel = DetailViewModel(it.idx)
+                viewModel = ViewModelProvider(
+                    this@DetailFragment,
+                    DetailViewModelFactory(requireActivity().application, idx)
+                ).get(DetailViewModel::class.java)
             }
         }
     }
@@ -43,7 +47,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-        _binding = DataBindingUtil.inflate<FragmentDetailBinding>(
+        _binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_detail,
             container,
@@ -80,15 +84,16 @@ class DetailFragment : Fragment() {
     }
 
     private fun setUpObservers() {
-        viewModel.targetUrl.observe(viewLifecycleOwner, Observer {
+
+        viewModel.targetUrl.observe(viewLifecycleOwner) {
             requireContext().startActivity(Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(it)
             })
-        })
+        }
 
-        viewModel.onBackButtonClicked.observe(viewLifecycleOwner, Observer {
+        viewModel.onBackButtonClicked.observe(viewLifecycleOwner) {
             popThis()
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {

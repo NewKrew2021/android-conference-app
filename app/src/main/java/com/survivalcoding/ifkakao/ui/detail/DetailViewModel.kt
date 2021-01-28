@@ -1,10 +1,10 @@
 package com.survivalcoding.ifkakao.ui.detail
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.survivalcoding.ifkakao.app.AppResources
 import com.survivalcoding.ifkakao.database.AppDatabase
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.model.like.Like
@@ -13,10 +13,14 @@ import com.survivalcoding.ifkakao.util.Event
 import com.survivalcoding.ifkakao.util.SingleLiveEvent
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val idx: Int) : ViewModel() {
+class DetailViewModel(
+    application: Application,
+    private val idx: Int,
+) :
+    AndroidViewModel(application) {
 
     private val repository =
-        LikeRepository(AppDatabase.getDatabase(AppResources.getContext()).likeDao())
+        LikeRepository(AppDatabase.getDatabase(application).likeDao())
 
     private val _likeState: LiveData<Boolean> = repository.likeByIdx(idx)
     val likeState: LiveData<Boolean>
@@ -27,7 +31,6 @@ class DetailViewModel(private val idx: Int) : ViewModel() {
         get() = _targetUrl
 
     private val _onBackButtonClicked = MutableLiveData<Event<Unit>>()
-
     val onBackButtonClicked: LiveData<Event<Unit>>
         get() = _onBackButtonClicked
 

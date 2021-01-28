@@ -11,4 +11,5 @@
     <color name="dark_grey">#3D3D3D</color>
     <color name="light_grey">#C1C1C1</color>
     <color name="grey_50">#D0808080</color>
+    <color name="blue">#0000FF</color>
 </resources>
