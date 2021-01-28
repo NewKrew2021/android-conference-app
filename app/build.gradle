@@ -71,4 +71,6 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+    implementation 'com.facebook.android:facebook-share:[5,6)'
 }
