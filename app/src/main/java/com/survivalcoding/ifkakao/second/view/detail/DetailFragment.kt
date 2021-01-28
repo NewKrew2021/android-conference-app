@@ -35,6 +35,14 @@ class DetailFragment : Fragment() {
                 viewModel.updateFavorite(it)
             },
             kakaoClickListenr = { title: String, idx: Int ->
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TITLE, title.removeTag())
+                    putExtra(Intent.EXTRA_TEXT, "https://if.kakao.com/session/${idx}")
+                    setPackage("com.kakao.talk")
+                }
+                val chooser = Intent.createChooser(intent, title.removeTag())
+                startActivity(chooser)
             },
             facebookClickListener = { title: String, idx: Int ->
             },
