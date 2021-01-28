@@ -14,7 +14,7 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
     private val favoriteRepository = FavoriteRepository(application.applicationContext)
 
     private val _getFavorite = MutableLiveData<Boolean>(false)
-    val getFavorite : LiveData<Boolean> get() = _getFavorite
+    val getFavorite: LiveData<Boolean> get() = _getFavorite
 
 
     fun setFavorite(favorite: Favorite) {
@@ -24,9 +24,11 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
         _getFavorite.value = favorite.isFavorite == 1
     }
 
-    fun getFavoriteInfo(idx : Int){
+    fun getFavoriteInfo(idx: Int) {
         viewModelScope.launch {
-            _getFavorite.value = favoriteRepository.getFavoriteWithIdx(idx) == 1
+            if (favoriteRepository.getFavoriteWithIdx(idx) != null) {
+                _getFavorite.value = favoriteRepository.getFavoriteWithIdx(idx) == 1
+            }
         }
     }
 }

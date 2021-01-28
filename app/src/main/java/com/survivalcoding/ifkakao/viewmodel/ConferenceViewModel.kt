@@ -19,6 +19,10 @@ class ConferenceViewModel : ViewModel() {
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    private val _isShareWindow = MutableLiveData(false)
+    val isShareWindow: LiveData<Boolean> get() = _isShareWindow
+
+
     fun loadData() {
         viewModelScope.launch {
             _isLoading.value = true
@@ -30,11 +34,17 @@ class ConferenceViewModel : ViewModel() {
 
     }
 
-
     fun setSelectItem(data: Data) {
         _selectItem.value = data
     }
 
+    fun onShareWindow() {
+        _isShareWindow.value = true
+    }
+
+    fun offShareWindow() {
+        _isShareWindow.value = false
+    }
 
 
 }

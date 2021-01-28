@@ -6,6 +6,8 @@
 
         <import type="android.graphics.Color" />
 
+
+
         <variable
             name="detail"
             type="com.survivalcoding.ifkakao.model.conferenceData.Data" />
@@ -13,6 +15,7 @@
         <variable
             name="favoriteViewModel"
             type="com.survivalcoding.ifkakao.viewmodel.FavoriteViewModel" />
+
     </data>
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -96,6 +99,160 @@
                     app:layout_constraintTop_toBottomOf="@id/video_play"
                     tools:text="08:27" />
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/share_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="#61000000"
+                    >
+
+                    <ImageView
+                        android:id="@+id/share_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_close"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/kakao_talk_share"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/back_share"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/kakao_story_share"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:scaleType="centerInside"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/kakaotalk" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/kakaotalk"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="@id/kakao_talk_share"
+                        app:layout_constraintRight_toRightOf="@id/kakao_talk_share"
+                        app:layout_constraintTop_toBottomOf="@id/kakao_talk_share" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/kakao_story_share"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:background="@drawable/back_share"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/kakao_talk_share"
+                        app:layout_constraintRight_toLeftOf="@id/faceBook_share"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:scaleType="centerInside"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/kakaostory" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/kakaostory"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="@id/kakao_story_share"
+                        app:layout_constraintRight_toRightOf="@id/kakao_story_share"
+                        app:layout_constraintTop_toBottomOf="@id/kakao_story_share" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/faceBook_share"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:background="@drawable/back_share"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/kakao_story_share"
+                        app:layout_constraintRight_toLeftOf="@id/clip_board"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:scaleType="centerInside"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/facebook" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/facebook"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="@id/faceBook_share"
+                        app:layout_constraintRight_toRightOf="@id/faceBook_share"
+                        app:layout_constraintTop_toBottomOf="@id/faceBook_share" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clip_board"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/back_share"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/faceBook_share"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:scaleType="centerInside"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/clipboard" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/url"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="@id/clip_board"
+                        app:layout_constraintRight_toRightOf="@id/clip_board"
+                        app:layout_constraintTop_toBottomOf="@id/clip_board" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -128,8 +285,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="30dp"
-                    android:tintMode="add"
                     android:background="@{favoriteViewModel.getFavorite ? @drawable/ic_favorite_check : @drawable/ic_favorite}"
+                    android:tintMode="add"
                     app:layout_constraintBottom_toBottomOf="@id/field"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@id/field" />
