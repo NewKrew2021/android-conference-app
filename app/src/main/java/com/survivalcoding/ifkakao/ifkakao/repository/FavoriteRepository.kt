@@ -11,19 +11,19 @@ class FavoriteRepository(context: Context) {
         InAppDataBase::class.java, "favorite.db"
     ).allowMainThreadQueries().build()
 
-    fun getFavoriteItem(): List<FavoriteTable> {
+    suspend fun getFavoriteItem(): List<FavoriteTable> {
         return db.favoriteDao().getAll()
     }
 
-    fun insert(favoriteTable: FavoriteTable) {
+    suspend fun insert(favoriteTable: FavoriteTable) {
         db.favoriteDao().insertIdx(favoriteTable)
     }
 
-    fun delete(favoriteTable: FavoriteTable) {
+    suspend fun delete(favoriteTable: FavoriteTable) {
         db.favoriteDao().deleteIdx(favoriteTable)
     }
 
-    fun isFavoriteSesstion(idx: Int): Boolean {
+    suspend fun isFavoriteSession(idx: Int): Boolean {
         db.favoriteDao().isFavoriteSession(idx)?.let { return true }
         return false
     }

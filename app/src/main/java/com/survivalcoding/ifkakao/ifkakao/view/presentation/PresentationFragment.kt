@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
 import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter
+import com.survivalcoding.ifkakao.ifkakao.viewmodel.FavoriteViewModel
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class PresentationFragment : Fragment() {
@@ -18,6 +20,7 @@ class PresentationFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: IfKakaoViewModel by activityViewModels()
+    private val favoriteViewModel: FavoriteViewModel by activityViewModels()
     private lateinit var presentationData: Data
 
     private val adapter = PresentationAdapter()
@@ -43,17 +46,14 @@ class PresentationFragment : Fragment() {
 
         binding.presentationData = presentationData
         binding.presenterList.adapter = adapter
-        binding.isFavorite = viewModel.favoriteDb.isFavoriteSesstion(presentationData.idx)
+
+        var isFavorite: Boolean = false
+        binding.isFavorite = isFavorite
+
+        favoriteViewModel.isFavoriteSession(presentationData.idx)
 
         binding.favoriteButton.setOnClickListener {
-            if (binding.isFavorite == true) {
-                viewModel.favoriteDb.delete(FavoriteTable(presentationData.idx, 0))
-                binding.isFavorite = false
-            } else {
-                viewModel.favoriteDb.insert(FavoriteTable(presentationData.idx, 0))
-                binding.isFavorite = true
-            }
-//            binding.isFavorite = !binding.isFavorite // impossible, 'binding.isFavorite' is a complex expression
+            favoriteViewModel.updateFavorite(presentationData.idx, isFavorite)
         }
 
         val presentItem = mutableListOf<PresenterInfo>()
@@ -67,6 +67,11 @@ class PresentationFragment : Fragment() {
         }
         presentItem.add(presentItem[0])
         updatePresenter(presentItem)
+
+        favoriteViewModel.isFavorite.observe(viewLifecycleOwner, Observer {
+            isFavorite = it
+            binding.isFavorite = isFavorite
+        })
     }
 
     private fun updatePresenter(item: List<PresenterInfo>) {

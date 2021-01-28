@@ -5,15 +5,15 @@ import androidx.room.*
 @Dao
 interface FavoriteDao {
     @Query("SELECT * FROM FavoriteTable")
-    fun getAll(): List<FavoriteTable>
+    suspend fun getAll(): List<FavoriteTable>
 
     @Query("SELECT * FROM FavoriteTable Where idx = (:idx)")
-    fun isFavoriteSession(idx: Int): FavoriteTable?
+    suspend fun isFavoriteSession(idx: Int): FavoriteTable?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertIdx(idx: FavoriteTable)
+    suspend fun insertIdx(idx: FavoriteTable)
 
     @Delete
-    fun deleteIdx(idx: FavoriteTable)
+    suspend fun deleteIdx(idx: FavoriteTable)
 
 }
