@@ -1,5 +1,10 @@
 package com.survivalcoding.ifkakao
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +15,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
@@ -40,7 +47,7 @@ class DetailFragment : Fragment() {
         conferenceViewModel.singleData.value?.let {
 
             adapter = SpeakerRecyclerAdapter(
-                it.contentsSpeackerList.size + 2,
+                it.contentsSpeackerList.size + 3,
                 {
 
                     conferenceViewModel.singleData.value = it
@@ -65,6 +72,27 @@ class DetailFragment : Fragment() {
                     } else {
                         binding.likeToggleButton.isChecked = false
                     }
+                }, { binding, data ->
+                    ShareDialog.show(
+                        requireActivity(), ShareLinkContent.Builder()
+                            .setContentUrl(Uri.parse("https://if.kakao.com/session/${data.id}"))
+                            .build()
+                    )
+                }, { binding, data ->
+                    var intent = Intent(Intent.ACTION_SEND)
+                    intent.setType("text/plain")
+                    var dataLink = "https://if.kakao.com/session/${data.id}"
+                    intent.putExtra(Intent.EXTRA_TEXT, dataLink)
+                    intent.setPackage("com.kakao.talk")
+                    startActivity(intent)
+                }, { binding, data ->
+                    val clipboardManager: ClipboardManager =
+                        requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                    val clipData =
+                        ClipData.newPlainText("link", "https://if.kakao.com/session/${data.id}")
+                    clipboardManager.setPrimaryClip(clipData)
+                    //Toast.makeText(requireContext(), "복사되었습니", Toast.LENGTH_SHORT).show()
+
                 })
 
             binding.speakerRecyclerView.adapter = adapter
@@ -84,19 +112,19 @@ class DetailFragment : Fragment() {
                         )
                     )
                 }
-                detailRecyclerList.add(
-                    SpeackerInfo(
-                        contentsSpeackerList[0],
-                        "11"
-                    )
-                )
             }
+            for (i in 0..1) {
+                detailRecyclerList.add(it)
+            }
+
 
             var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
             adapter.submitList(detailRecyclerList + relativeData)
 
             setWebView(it.videoUrl)
+
         }
+
 
         return view
     }

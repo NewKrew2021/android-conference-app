@@ -6,10 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
-import com.survivalcoding.ifkakao.databinding.ButtonItemBinding
-import com.survivalcoding.ifkakao.databinding.RecyclerHeaderBinding
-import com.survivalcoding.ifkakao.databinding.RelativeItemBinding
-import com.survivalcoding.ifkakao.databinding.SpeakerInfoBinding
+import com.survivalcoding.ifkakao.databinding.*
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 import com.survivalcoding.ifkakao.model.DetailRecyclerType
 import com.survivalcoding.ifkakao.model.SpeackerInfo
@@ -18,6 +15,7 @@ private val TYPE_HEADER = 0
 private val TYPE_FOOTER = 1
 private val TYPE_ITEM = 2
 private val TYPE_RELATIVE = 3
+private val TYPE_LINKER = 4
 
 class SpeakerRecyclerAdapter(
     val relativeStartIndex: Int,
@@ -25,6 +23,9 @@ class SpeakerRecyclerAdapter(
     val backItemClick: (Int) -> Unit,
     val favoritesClick: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
     val setFavoritesButton: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
+    val facebookClickListner: (LinkItemBinding, ConferenceAppFront) -> Unit,
+    val kakaoClickListener: (LinkItemBinding, ConferenceAppFront) -> Unit,
+    val copyClickListener: (LinkItemBinding, ConferenceAppFront) -> Unit,
 ) :
     ListAdapter<DetailRecyclerType, RecyclerView.ViewHolder>(SpeakerDiffCallback) {
 
@@ -42,6 +43,15 @@ class SpeakerRecyclerAdapter(
             val relativeItemBinding =
                 RelativeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return RelativeHolder(relativeItemBinding, itemClick)
+        } else if (viewType == TYPE_LINKER) {
+            val linkItemrBinding =
+                LinkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return LinkerHolder(
+                linkItemrBinding,
+                facebookClickListner,
+                kakaoClickListener,
+                copyClickListener
+            )
         }
         val speakerInfoBinding =
             SpeakerInfoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -52,6 +62,7 @@ class SpeakerRecyclerAdapter(
     override fun getItemViewType(position: Int): Int {
         if (position == 0) return TYPE_HEADER
         else if (position == relativeStartIndex - 1) return TYPE_FOOTER
+        else if (position == relativeStartIndex - 2) return TYPE_LINKER
         else if (position >= relativeStartIndex) return TYPE_RELATIVE
 
         return TYPE_ITEM
@@ -68,6 +79,8 @@ class SpeakerRecyclerAdapter(
             holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
         } else if (holder is ButtonHolder) {
             holder.clickListener()
+        } else if (holder is LinkerHolder) {
+            holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
         }
 
     }
@@ -96,6 +109,27 @@ class SpeakerHolder(
         }
 
     }
+}
+
+class LinkerHolder(
+    val binding: LinkItemBinding,
+    val facebookClickListner: (LinkItemBinding, ConferenceAppFront) -> Unit,
+    val kakaoClickListener: (LinkItemBinding, ConferenceAppFront) -> Unit,
+    val copyClickListener: (LinkItemBinding, ConferenceAppFront) -> Unit,
+) : RecyclerView.ViewHolder(binding.root) {
+    fun clickListener(data: ConferenceAppFront) {
+
+        binding.facebookButton.setOnClickListener {
+            facebookClickListner(binding, data)
+        }
+        binding.kakaoButton.setOnClickListener {
+            kakaoClickListener(binding, data)
+        }
+        binding.copyToClipboardButton.setOnClickListener {
+            copyClickListener(binding, data)
+        }
+    }
+
 }
 
 class ButtonHolder(
