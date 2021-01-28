@@ -80,7 +80,7 @@ class DetailFragment : Fragment() {
                             .setContentUrl(Uri.parse("https://if.kakao.com/session/" + data))
                             .build()
                     )
-                }, { binding, data ->
+                }, { binding, id ->
 
                     try {
                         var pi =
@@ -88,7 +88,7 @@ class DetailFragment : Fragment() {
 
                         var intent = Intent(Intent.ACTION_SEND)
                         intent.setType("text/plain")
-                        var dataLink = "https://if.kakao.com/session/" + data
+                        var dataLink = "https://if.kakao.com/session/" + id
                         intent.putExtra(Intent.EXTRA_TEXT, dataLink)
                         intent.setPackage("com.kakao.talk")
                         startActivity(intent)
@@ -96,6 +96,18 @@ class DetailFragment : Fragment() {
                     } catch (e: PackageManager.NameNotFoundException) {
                         Toast.makeText(requireContext(), "카카오톡 앱을 설치해야합니다", Toast.LENGTH_SHORT)
                             .show()
+
+                        val uriBuilder = Uri.parse("https://play.google.com/store/apps/details")
+                            .buildUpon()
+                            .appendQueryParameter("id", "com.kakao.talk")
+                            .appendQueryParameter("launch", "true")
+                            .appendQueryParameter("hl", "ko")
+
+                        val intent = Intent(Intent.ACTION_VIEW).apply {
+                            data = uriBuilder.build()
+                            setPackage("com.android.vending")
+                        }
+                        startActivity(intent)
                     }
 
 
