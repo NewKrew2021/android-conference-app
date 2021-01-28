@@ -7,13 +7,13 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
 import com.example.ifkakao.util.replaceTransaction
+import com.example.ifkakao.util.showToast
 import com.example.ifkakao.viewmodel.ErrorStatus
 import com.example.ifkakao.viewmodel.SessionViewModel
 
@@ -77,7 +77,6 @@ class MainFragment : Fragment() {
             conferenceRecyclerView.adapter = adapter
             setVideoView()
         }
-        viewModel.updateSessionData()
     }
 
     override fun onDestroyView() {
@@ -120,10 +119,6 @@ class MainFragment : Fragment() {
             setOnPreparedListener { it.start() }
             setOnCompletionListener { it.start() }
         }
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
     companion object {

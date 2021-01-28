@@ -1,5 +1,6 @@
 package com.example.ifkakao.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.databinding.FragmentSessionInfoBinding
+import com.example.ifkakao.util.makeShareLink
+import com.example.ifkakao.util.showToast
 import com.example.ifkakao.viewmodel.SessionViewModel
 
 class SessionInfoFragment : Fragment() {
@@ -41,10 +44,26 @@ class SessionInfoFragment : Fragment() {
             }
             binding.favoriteButton.setImageResource(imageResource)
         }
+
+        binding.shareButton.setOnClickListener {
+            viewModel.selectedSession.value?.let {
+                makeShareLink(it.idx, successListener = { link ->
+                    Intent(Intent.ACTION_SEND).run {
+                        type = TEXT_PLAIN
+                        putExtra(Intent.EXTRA_TEXT, link)
+                        startActivity(Intent.createChooser(this, getString(R.string.share_session)))
+                    }
+                }, failureListener = {
+                    showToast(getString(R.string.share_fail_message))
+                }
+                )
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        viewModel.removeSharedSessionIndex()
         _binding = null
     }
 
@@ -54,5 +73,9 @@ class SessionInfoFragment : Fragment() {
 
     private fun scrollingUp(v: View) {
         binding.contentScroll.fullScroll(View.FOCUS_UP);
+    }
+
+    companion object {
+        const val TEXT_PLAIN = "text/plain"
     }
 }
