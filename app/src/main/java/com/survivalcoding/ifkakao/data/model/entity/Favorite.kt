@@ -7,5 +7,4 @@ import androidx.room.PrimaryKey
 data class Favorite(
     @PrimaryKey
     var sessionId: Int,
-    var isFavorite: Int,
 )

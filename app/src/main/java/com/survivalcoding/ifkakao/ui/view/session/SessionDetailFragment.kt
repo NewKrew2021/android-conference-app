@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
@@ -36,11 +37,12 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
     }
 
     override fun getViewModelData() {
-        //
+        viewModel.getFavoriteSessionData()
     }
 
     override fun startObserveData() {
         observeSessionDetailData()
+        observeFavoriteData()
     }
 
     private fun observeSessionDetailData() {
@@ -54,7 +56,30 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         }
     }
 
-
+    private fun observeFavoriteData() {
+        viewModel.favoriteCheck.observe(this) {
+            if(it) {
+                binding.ivFavoriteSessionDetail.setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else {
+                binding.ivFavoriteSessionDetail.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+            binding.ivFavoriteSessionDetail.setOnClickListener { _ ->
+                if(it) {
+                    viewModel.sessionData.value?.idx?.let { it1 ->
+                        viewModel.deleteFavoriteSession(
+                            it1
+                        )
+                    }
+                } else {
+                    viewModel.sessionData.value?.idx?.let { it1 ->
+                        Favorite(
+                            it1
+                        )
+                    }?.let { it2 -> viewModel.insertFavoriteSession(it2) }
+                }
+            }
+        }
+    }
 
     private fun eventProcess() {
         val uri = Uri.parse(viewModel.sessionData.value?.linkList?.video?.get(0)?.url)

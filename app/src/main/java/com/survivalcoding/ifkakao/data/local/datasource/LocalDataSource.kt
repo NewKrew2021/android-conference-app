@@ -14,7 +14,7 @@ class LocalDataSource(private val favoriteDao: FavoriteDao) {
         return favoriteDao.deleteFavoriteSessionById(id)
     }
 
-    suspend fun getAllFavoriteSession(): List<Int> {
+    suspend fun getAllFavoriteSessionId(): List<Int> {
         return favoriteDao.getAllFavoriteSessionId()
     }
 }
