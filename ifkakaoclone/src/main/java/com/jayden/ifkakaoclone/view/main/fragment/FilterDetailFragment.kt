@@ -9,8 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.chip.Chip
 import com.jayden.ifkakaoclone.databinding.FragmentFilterDetailBinding
-import com.jayden.ifkakaoclone.view.main.model.Filter
-import com.jayden.ifkakaoclone.view.main.model.FilterType
+import com.jayden.ifkakaoclone.extensions.finish
 import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 
 class FilterDetailFragment : Fragment() {
@@ -41,11 +40,20 @@ class FilterDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
+        with(binding) {
+            imageClose.setOnClickListener { finish() }
+        }
     }
 
-    fun filterChipClicked(view: View, type: FilterType, name: String) {
-        val isChecked = (view as Chip).isChecked
-        if (isChecked) activityViewModel.addFilter(Filter(type, name))
-        else activityViewModel.removeFilter(Filter(type, name))
+    fun onFilterChipClicked(view: View, field: String) {
+        val chip = view as Chip
+        if (chip.isChecked) activityViewModel.addFilter(field)
+        else activityViewModel.removeFilter(field)
+    }
+
+    fun applyFilters() {
+        activityViewModel.applyFilters()
+        finish()
     }
 }

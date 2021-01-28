@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="com.jayden.ifkakaoclone.view.main.model.FilterType" />
+        <import type="com.jayden.ifkakaoclone.extensions.FragmentExtensionKt" />
 
         <variable
             name="fragment"
@@ -16,413 +15,89 @@
             type="com.jayden.ifkakaoclone.viewmodel.SessionViewModel" />
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:padding="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/image_close"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/black"
-            android:padding="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baseline_close_24" />
 
-            <ImageView
-                android:id="@+id/image_close"
+        <TextView
+            android:id="@+id/text_filter_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/filter_field_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_close" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips_field"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_filter_field">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_field_service"
+                style="@style/FilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_baseline_close_24" />
+                android:checked="@{viewModel.selectedFilters.contains(`서비스`)}"
+                android:onClick="@{(view) -> fragment.onFilterChipClicked(view, `서비스`)}"
+                android:text="@string/filter_field_service" />
 
-            <TextView
-                android:id="@+id/text_filter_field"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_field_business"
+                style="@style/FilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/filter_field_title"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_close" />
+                android:checked="@{viewModel.selectedFilters.contains(`비즈니스`)}"
+                android:onClick="@{(view) -> fragment.onFilterChipClicked(view, `비즈니스`)}"
+                android:text="@string/filter_field_business" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips_field"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_filter_field">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_field_service"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.FIELD, `서비스`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.FIELD, `서비스`)}"
-                    android:text="@string/filter_field_service" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_field_business"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.FIELD, `비즈니스`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.FIELD, `비즈니스`)}"
-                    android:text="@string/filter_field_business" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_field_tech"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.FIELD, `기술`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.FIELD, `기술`)}"
-                    android:text="@string/filter_field_tech" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:id="@+id/text_filter_keyword"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_field_tech"
+                style="@style/FilterChipStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/filter_keyword_title"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chips_field" />
+                android:checked="@{viewModel.selectedFilters.contains(`기술`)}"
+                android:onClick="@{(view) -> fragment.onFilterChipClicked(view, `기술`)}"
+                android:text="@string/filter_field_tech" />
+        </com.google.android.material.chip.ChipGroup>
 
-            <TextView
-                android:id="@+id/text_filter_keyword_service_and_business"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/filter_keyword_service_and_business_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_filter_keyword" />
+        <Button
+            android:id="@+id/btn_reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/dark_gray"
+            android:onClick="@{() -> viewModel.clearFilters()}"
+            android:text="@{viewModel.selectedFilters.size() > 0 ? @string/btn_reset + `(` + viewModel.selectedFilters.size() + `)` : @string/btn_reset}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/btn_reset" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips_keyword_service_and_business"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_filter_keyword_service_and_business">
+        <Button
+            android:id="@+id/btn_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/blue"
+            android:text="@string/btn_accept"
+            android:onClick="@{() -> fragment.applyFilters()}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_reset"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_reset" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_personal"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `개인화`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `개인화`)}"
-                    android:text="@string/filter_keyword_service_and_business_personal" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_ad"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `광고`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `광고`)}"
-                    android:text="@string/filter_keyword_service_and_business_ad" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_finance"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `금융`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `금융`)}"
-                    android:text="@string/filter_keyword_service_and_business_finance" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_data"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `데이터`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `데이터`)}"
-                    android:text="@string/filter_keyword_service_and_business_data" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_digital_assets"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `디지털자산`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `디지털자산`)}"
-                    android:text="@string/filter_keyword_service_and_business_digital_assets" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_mobility"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `모빌리티`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `모빌리티`)}"
-                    android:text="@string/filter_keyword_service_and_business_mobility" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_social"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `사회공헌`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `사회공헌`)}"
-                    android:text="@string/filter_keyword_service_and_business_social" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_engineering"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `엔지니어링`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `엔지니어링`)}"
-                    android:text="@string/filter_keyword_service_and_business_engineering" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_infra"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `인프라`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `인프라`)}"
-                    android:text="@string/filter_keyword_service_and_business_infra" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_contents"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `콘텐츠`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `콘텐츠`)}"
-                    android:text="@string/filter_keyword_service_and_business_contents" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_creator"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `크리에이터`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `크리에이터`)}"
-                    android:text="@string/filter_keyword_service_and_business_creator" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_platform"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `플랫폼`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `플랫폼`)}"
-                    android:text="@string/filter_keyword_service_and_business_platform" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_service_and_business_b2b"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_SERVICE_BUSINESS, `B2B`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_SERVICE_BUSINESS, `B2B`)}"
-                    android:text="@string/filter_keyword_service_and_business_b2b" />
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:id="@+id/text_filter_keyword_tech"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/filter_keyword_tech_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chips_keyword_service_and_business" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips_keyword_tech"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_filter_keyword_tech">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_backend"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `백엔드`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `백엔드`)}"
-                    android:text="@string/filter_keyword_tech_backend" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_ai"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `머신러닝/AI`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `머신러닝/AI`)}"
-                    android:text="@string/filter_keyword_tech_ai" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_data"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `데이터`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `데이터`)}"
-                    android:text="@string/filter_keyword_tech_data" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_cloud"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `클라우드`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `클라우드`)}"
-                    android:text="@string/filter_keyword_tech_cloud" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_infra"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `인프라/DevOps`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `인프라/DevOps`)}"
-                    android:text="@string/filter_keyword_tech_infra" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_block_chain"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `블록체인`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `블록체인`)}"
-                    android:text="@string/filter_keyword_tech_block_chain" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_mobile"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `모바일`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `모바일`)}"
-                    android:text="@string/filter_keyword_tech_mobile" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_android"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `Android`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `Android`)}"
-                    android:text="@string/filter_keyword_tech_android" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_ios"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `iOS`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `iOS`)}"
-                    android:text="@string/filter_keyword_tech_ios" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_web"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `웹/프론트엔드`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `웹/프론트엔드`)}"
-                    android:text="@string/filter_keyword_tech_web" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_windows"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `Windows`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `Windows`)}"
-                    android:text="@string/filter_keyword_tech_windows" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_game"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `게임개발`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `게임개발`)}"
-                    android:text="@string/filter_keyword_tech_game" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_environment"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `개발생태계`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `개발생태계`)}"
-                    android:text="@string/filter_keyword_tech_environment" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_culture"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `개발문화`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `개발문화`)}"
-                    android:text="@string/filter_keyword_tech_culture" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_hardware"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `하드웨어`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `하드웨어`)}"
-                    android:text="@string/filter_keyword_tech_hardware" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_embedded"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `EmbeddedSystem`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `EmbeddedSystem`)}"
-                    android:text="@string/filter_keyword_tech_embedded" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_keyword_tech_etc"
-                    style="@style/FilterChipStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="@{viewModel.isSelectedFilter(FilterType.KEYWORD_TECH, `기타`)}"
-                    android:onClick="@{(view) -> fragment.filterChipClicked(view, FilterType.KEYWORD_TECH, `기타`)}"
-                    android:text="@string/filter_keyword_tech_etc" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <Button
-                android:id="@+id/btn_reset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="64dp"
-                android:backgroundTint="@color/dark_gray"
-                android:text="@{viewModel.selectedFilters.size() > 0 ? @string/btn_reset + `(` + viewModel.selectedFilters.size() + `)` : @string/btn_reset}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chips_keyword_tech" />
-
-            <Button
-                android:id="@+id/btn_accept"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue"
-                android:text="@string/btn_accept"
-                app:layout_constraintBottom_toBottomOf="@id/btn_reset"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btn_reset" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
