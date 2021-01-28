@@ -9,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
+import com.survivalcoding.ifkakao.util.Event
+import com.survivalcoding.ifkakao.util.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
@@ -19,6 +21,10 @@ class ConferenceViewModel : ViewModel() {
     private val _sessions = MutableLiveData<List<Session>>()
     val sessions: LiveData<List<Session>>
         get() = _sessions
+
+    private val _onFilteringButtonClicked = SingleLiveEvent<Unit>()
+    val onFilteringButtonClicked: LiveData<Unit>
+        get() = _onFilteringButtonClicked
 
     var progressBarVisibility = ObservableField(View.GONE)
 
@@ -35,5 +41,9 @@ class ConferenceViewModel : ViewModel() {
                 progressBarVisibility.set(View.GONE)
             }
         }
+    }
+
+    fun onClickFilteringButton() {
+        _onFilteringButtonClicked.postValue(Unit)
     }
 }
