@@ -56,7 +56,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun updateUI(data: List<Speaker>) {
-        adapter.submitList(data)
+        adapter.submitListWithHeader(data)
     }
 
 }

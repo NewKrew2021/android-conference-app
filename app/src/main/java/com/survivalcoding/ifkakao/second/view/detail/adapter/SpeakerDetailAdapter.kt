@@ -6,8 +6,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondItemDetailHeaderBinding
 import com.survivalcoding.ifkakao.databinding.SecondItemSpeakerBinding
-import com.survivalcoding.ifkakao.second.model.content.ContentData
-import com.survivalcoding.ifkakao.second.model.content.Speaker
+import com.survivalcoding.ifkakao.second.model.content.*
 import com.survivalcoding.ifkakao.second.model.favorite.database.Favorite
 import com.survivalcoding.ifkakao.second.view.detail.holder.SpeakerDetailHolder
 
@@ -17,9 +16,10 @@ class SpeakerDetailAdapter(
     private val videoPlayListener: (String) -> Unit,
     private val favoriteClickListener: (Favorite) -> Unit,
 ) :
-    ListAdapter<Speaker, SpeakerDetailHolder>(SpeakerDetailDiffCallback) {
+    ListAdapter<DetailViewType, SpeakerDetailHolder>(SpeakerDetailDiffCallback) {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
+    private val VIEW_TYPE_FOOTER = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpeakerDetailHolder {
         return when (viewType) {
             VIEW_TYPE_ITEM -> {
@@ -36,6 +36,9 @@ class SpeakerDetailAdapter(
                 val holder = SpeakerDetailHolder(binding)
                 holder
             }
+            VIEW_TYPE_FOOTER -> {
+                throw ClassCastException("Unknown ViewType")
+            }
             else -> {
                 throw ClassCastException("Unknown ViewType")
             }
@@ -47,7 +50,7 @@ class SpeakerDetailAdapter(
             is SecondItemSpeakerBinding -> {
                 val speakerItem = getItem(position)
                 val fileItem = contentData.linkList.speackerProfile[holder.adapterPosition - 1]
-                holder.binding.speaker = speakerItem
+                holder.binding.speaker = speakerItem as Speaker
                 holder.binding.linkfile = fileItem
                 holder.binding.executePendingBindings()
 
@@ -64,14 +67,15 @@ class SpeakerDetailAdapter(
         }
     }
 
-    override fun getItem(position: Int): Speaker {
-        return super.getItem(position - 1)
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is DetailHeader -> VIEW_TYPE_HEADER
+            is Speaker -> VIEW_TYPE_ITEM
+            is DetailFooter -> VIEW_TYPE_FOOTER
+        }
     }
 
-    override fun getItemViewType(position: Int) =
-        if (position == 0) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
-
-    override fun getItemCount(): Int {
-        return super.getItemCount() + 1
+    fun submitListWithHeader(data: List<Speaker>) {
+        submitList(listOf(DetailHeader(0)) + data)
     }
 }
