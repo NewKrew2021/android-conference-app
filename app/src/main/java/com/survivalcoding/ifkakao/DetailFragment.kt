@@ -4,12 +4,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -79,12 +81,24 @@ class DetailFragment : Fragment() {
                             .build()
                     )
                 }, { binding, data ->
-                    var intent = Intent(Intent.ACTION_SEND)
-                    intent.setType("text/plain")
-                    var dataLink = "https://if.kakao.com/session/" + data
-                    intent.putExtra(Intent.EXTRA_TEXT, dataLink)
-                    intent.setPackage("com.kakao.talk")
-                    startActivity(intent)
+
+                    try {
+                        var pi =
+                            requireActivity().packageManager.getPackageInfo("com.kakao.talk", 0)
+
+                        var intent = Intent(Intent.ACTION_SEND)
+                        intent.setType("text/plain")
+                        var dataLink = "https://if.kakao.com/session/" + data
+                        intent.putExtra(Intent.EXTRA_TEXT, dataLink)
+                        intent.setPackage("com.kakao.talk")
+                        startActivity(intent)
+
+                    } catch (e: PackageManager.NameNotFoundException) {
+                        Toast.makeText(requireContext(), "카카오톡 앱을 설치해야합니다", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+
                 }, { binding, data ->
                     val clipboardManager: ClipboardManager =
                         requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
