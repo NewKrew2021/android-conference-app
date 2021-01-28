@@ -12,6 +12,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.openDetailFragment
 import com.survivalcoding.ifkakao.extension.openFilteringFragment
+import com.survivalcoding.ifkakao.extension.openInfoFragment
 import com.survivalcoding.ifkakao.ui.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
@@ -57,6 +58,7 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_button -> {
+                openInfoFragment()
                 true
             }
             else -> super.onOptionsItemSelected(item)

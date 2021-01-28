@@ -8,6 +8,7 @@ import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.ui.detail.DetailFragment
 import com.survivalcoding.ifkakao.ui.filter.FilteringFragment
+import com.survivalcoding.ifkakao.ui.info.InfoFragment
 import com.survivalcoding.ifkakao.ui.main.MainActivity.Companion.CONTAINER_VIEW_ID
 import com.survivalcoding.ifkakao.ui.main.MainFragment
 
@@ -34,6 +35,15 @@ fun Fragment.openFilteringFragment() {
 
     parentFragmentManager.commit {
         replace<FilteringFragment>(CONTAINER_VIEW_ID)
+        addToBackStack(null)
+        setReorderingAllowed(true)
+    }
+}
+
+fun Fragment.openInfoFragment() {
+
+    parentFragmentManager.commit {
+        replace<InfoFragment>(CONTAINER_VIEW_ID)
         addToBackStack(null)
         setReorderingAllowed(true)
     }
