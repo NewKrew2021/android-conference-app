@@ -39,6 +39,13 @@ class DetailFragment : Fragment() {
             facebookClickListener = { title: String, idx: Int ->
             },
             linkClickListener = { title: String, idx: Int ->
+                val intent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TITLE, title.removeTag())
+                    putExtra(Intent.EXTRA_TEXT, "https://if.kakao.com/session/${idx}")
+                }
+                val chooser = Intent.createChooser(intent, title.removeTag())
+                startActivity(chooser)
             },
             copyClickListener = { title: String, idx: Int ->
                 // 해당 세션 주소 클립보드에 저장
