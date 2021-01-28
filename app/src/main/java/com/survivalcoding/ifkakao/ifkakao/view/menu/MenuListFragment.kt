@@ -10,6 +10,7 @@ import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMenuListBinding
 import com.survivalcoding.ifkakao.ifkakao.view.main.IfKakaoFragment
+import com.survivalcoding.ifkakao.ifkakao.view.sorted.FavoriteListFragment
 
 class MenuListFragment() : Fragment() {
     private var _binding: FragmentMenuListBinding? = null
@@ -36,6 +37,15 @@ class MenuListFragment() : Fragment() {
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace<IfKakaoFragment>(R.id.if_kakao_fragment_container_view)
+                addToBackStack(null)
+            }
+        }
+
+        binding.menuFavoriteText.setOnClickListener {
+            parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<FavoriteListFragment>(R.id.if_kakao_fragment_container_view)
+                addToBackStack(null)
             }
         }
     }
