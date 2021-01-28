@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "639973912248",
+    "project_id": "if-kakao-12e37",
+    "storage_bucket": "if-kakao-12e37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639973912248:android:d9c3aada719feba8c48e4d",
+        "android_client_info": {
+          "package_name": "com.example.ifkakao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639973912248-i1g9tk7nc5lhlfva73n34s8r2puk5vgg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ifkakao",
+            "certificate_hash": "016b3106181329f01e54cc4f2ecd92d7c738b6bd"
+          }
+        },
+        {
+          "client_id": "639973912248-4s2po2c4m749r93u1e7443h9e5ohn6lh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSJHHLvA-GnmnOre35fv-I_EAT6VCNB-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639973912248-4s2po2c4m749r93u1e7443h9e5ohn6lh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
