@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jayden.ifkakaoclone">
 
+    <!-- 안드로이드 11부터 내 앱이 아닌 다른 패키지를 찾거나 다른 패키지의 액티비티를 실행하려면 queries로 의존적인 패키지명을
+         추가해야 한다.
+         이것을 구현하지 않으려면, QUERY_ALL_PACKAGES 퍼미션을 선언하면 되긴 한다. -->
+    <queries>
+        <package android:name="com.kakao.talk" />
+        <package android:name="com.facebook.katana" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
