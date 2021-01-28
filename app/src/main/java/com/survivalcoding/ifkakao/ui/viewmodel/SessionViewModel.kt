@@ -34,4 +34,13 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
     fun setLikeCheck(state: Boolean) {
         _likeCheck.value = state
     }
+
+    fun getFavoriteConferenceData() {
+        viewModelScope.launch {
+            _conferenceData.value = _conferenceData.value?.filter {
+                repository.getAllFavoriteSessionId().contains(it.idx)
+            }
+        }
+
+    }
 }

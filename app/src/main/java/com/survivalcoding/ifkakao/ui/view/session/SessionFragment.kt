@@ -35,6 +35,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         setVideoView()
         setToolbar()
         setRecyclerView()
+        viewModel.setLikeCheck(false)
     }
 
     override fun getViewModelData() {
@@ -47,7 +48,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             }
         } ?: viewModel.getConferenceData("")
 
-        viewModel.setLikeCheck(false)
     }
 
     override fun startObserveData() {
@@ -67,11 +67,11 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             if(it) {
                 likeItem.isVisible = true
                 unlikeItem.isVisible = false
-                // get filter data
+                viewModel.getFavoriteConferenceData()
             } else {
                 likeItem.isVisible = false
                 unlikeItem.isVisible = true
-                // get filter data
+                getViewModelData()
             }
         }
     }
