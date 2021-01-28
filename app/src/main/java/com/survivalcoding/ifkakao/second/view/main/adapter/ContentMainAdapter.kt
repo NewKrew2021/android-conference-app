@@ -7,8 +7,7 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondItemContentBinding
 import com.survivalcoding.ifkakao.databinding.SecondItemMainHeaderBinding
 import com.survivalcoding.ifkakao.second.model.content.ContentData
-import com.survivalcoding.ifkakao.second.model.content.Footer
-import com.survivalcoding.ifkakao.second.model.content.Header
+import com.survivalcoding.ifkakao.second.model.content.MainHeader
 import com.survivalcoding.ifkakao.second.model.content.MainViewType
 import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
@@ -19,7 +18,6 @@ class ContentMainAdapter(
     ListAdapter<MainViewType, ContentMainHolder>(ContentMainDiffCallback) {
     private val VIEW_TYPE_HEADER = 0
     private val VIEW_TYPE_ITEM = 1
-    private val VIEW_TYPE_FOOTER = 2
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentMainHolder {
         return when (viewType) {
             VIEW_TYPE_ITEM -> {
@@ -60,13 +58,12 @@ class ContentMainAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is Header -> VIEW_TYPE_HEADER
-            is Footer -> VIEW_TYPE_FOOTER
+            is MainHeader -> VIEW_TYPE_HEADER
             is ContentData -> VIEW_TYPE_ITEM
         }
     }
 
     fun submitListWithHeader(data: List<ContentData>) {
-        submitList(listOf(Header(0)) + data)
+        submitList(listOf(MainHeader(0)) + data)
     }
 }
