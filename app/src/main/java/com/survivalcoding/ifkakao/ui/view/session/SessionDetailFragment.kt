@@ -13,6 +13,7 @@ import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.setToolbar
+import com.survivalcoding.ifkakao.ui.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel
@@ -53,6 +54,9 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
                 tvContentsSessionDetail.text = it.parseString(it.content)
                 tvHashtagSessionDetail.text = it.contentTag
             }
+
+            val adapter = binding.rvSpeakerSessionDetail.adapter as SpeakerAdapter
+            adapter.setList(it.contentsSpeakerList, it.linkList.speakerProfile)
         }
     }
 
@@ -108,6 +112,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         binding.rvSpeakerSessionDetail.apply {
             layoutManager = LinearVerticalLayout(context)
             setHasFixedSize(true)
+            adapter = SpeakerAdapter()
         }
     }
 
