@@ -24,9 +24,7 @@ class SessionListFragment : Fragment() {
         get() = _binding!!
 
     private val adapter by lazy {
-        SessionListAdapter(
-            selectSessionEvent = { selectSessionEvent(it) }
-        )
+        SessionListAdapter { selectSessionEvent(it) }
     }
 
     private val activityViewModel: SessionViewModel by activityViewModels()

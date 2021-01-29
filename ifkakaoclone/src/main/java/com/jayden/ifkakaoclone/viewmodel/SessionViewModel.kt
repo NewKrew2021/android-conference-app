@@ -26,7 +26,7 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _action = SingleLiveData<Action>()
     val action: LiveData<Action> get() = _action
 
-    private val _isLoading = MutableLiveData<Boolean>(true)
+    private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     val favorite: LiveData<List<Favorite>> = repository.getFavorites()
