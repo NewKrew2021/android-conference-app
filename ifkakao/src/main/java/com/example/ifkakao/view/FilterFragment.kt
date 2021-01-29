@@ -39,6 +39,7 @@ class FilterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeData(view)
+        binding.root.setOnClickListener {}
     }
 
     private fun observeData(view: View) {
