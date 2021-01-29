@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
 import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
@@ -24,9 +25,7 @@ class PresentationFragment : Fragment() {
     private var _binding: FragmentPresentationBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: IfKakaoViewModel by activityViewModels()
     private val favoriteViewModel: FavoriteViewModel by activityViewModels()
-    private lateinit var presentationData: Data
 
     private val adapter = PresentationAdapter()
 
@@ -36,8 +35,6 @@ class PresentationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPresentationBinding.inflate(inflater, container, false)
-
-        viewModel.presentationData.value?.let { presentationData = it }
         return binding.root
     }
 
@@ -49,6 +46,8 @@ class PresentationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val args: PresentationFragmentArgs by navArgs()
+        val presentationData: Data = args.presentationData
         binding.presentationData = presentationData
         binding.onClickFragment = this@PresentationFragment
         binding.presenterList.adapter = adapter

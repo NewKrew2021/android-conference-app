@@ -9,6 +9,7 @@ import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentCoordinatorBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
@@ -17,7 +18,7 @@ import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
 import com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
-class IfKakaoFragment() : Fragment() {
+class IfKakaoFragment : Fragment() {
     private var _binding: FragmentCoordinatorBinding? = null
     private val binding get() = _binding!!
 
@@ -26,13 +27,11 @@ class IfKakaoFragment() : Fragment() {
     val model: IfKakaoViewModel by activityViewModels()
 
     val adapter = IfKakaoAdapter({
-        model.setPresentationData(it)
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
-            addToBackStack(null)
-        }
+        val action = IfKakaoFragmentDirections.actionIfKakaoFragmentToPresentationFragment(it)
+        findNavController().navigate(action)
     }, {
+//        val action = IfKakaoFragmentDirections.actionIfKakaoFragmentToSortedListFragment(it)
+//        findNavController().navigate(action)
         parentFragmentManager.commit {
             setReorderingAllowed(true)
             val bundle = bundleOf("field" to it)

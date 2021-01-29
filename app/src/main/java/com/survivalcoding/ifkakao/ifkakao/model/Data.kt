@@ -1,5 +1,10 @@
 package com.survivalcoding.ifkakao.ifkakao.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
+
+@Parcelize
 data class Data(
     val categoryIdx: Int,
     val companyName: String,
@@ -13,7 +18,7 @@ data class Data(
     val idx: Int,
     val lastModifiedDateTime: String,
     val lastModifiedUserIdx: Int,
-    val linkList: LinkList,
+    val linkList: @RawValue LinkList,
     val newCountentsYn: String,
     val reservationDate: String,
     val reservationTime: String,
@@ -25,4 +30,4 @@ data class Data(
     val title: String,
     val updateCountentsYn: String,
     val videoYn: String
-)
+) : Parcelable

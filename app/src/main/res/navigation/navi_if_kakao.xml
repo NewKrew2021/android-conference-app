@@ -5,29 +5,51 @@
     android:id="@+id/navi_if_kakao"
     app:startDestination="@id/ifKakaoFragment">
 
-    <activity
-        android:id="@+id/ifKakaoActivity"
-        android:name="com.survivalcoding.ifkakao.ifkakao.view.IfKakaoActivity"
-        android:label="IfKakaoActivity" />
     <fragment
         android:id="@+id/ifKakaoFragment"
         android:name="com.survivalcoding.ifkakao.ifkakao.view.main.IfKakaoFragment"
         android:label="fragment_coordinator"
-        tools:layout="@layout/fragment_coordinator" />
+        tools:layout="@layout/fragment_coordinator">
+        <action
+            android:id="@+id/action_ifKakaoFragment_to_presentationFragment"
+            app:destination="@id/presentationFragment" />
+        <action
+            android:id="@+id/action_ifKakaoFragment_to_sortedListFragment"
+            app:destination="@id/sortedListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/presentationFragment"
         android:name="com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment"
-        android:label="PresentationFragment" />
+        android:label="PresentationFragment">
+        <action
+            android:id="@+id/action_presentationFragment_to_sortedListFragment"
+            app:destination="@id/sortedListFragment" />
+        <argument
+            android:name="presentation_data"
+            app:argType="com.survivalcoding.ifkakao.ifkakao.model.Data" />
+    </fragment>
     <fragment
         android:id="@+id/sortedListFragment"
         android:name="com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment"
-        android:label="SortedListFragment" />
+        android:label="SortedListFragment" >
+        <argument
+            android:name="field_name"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/menuListFragment"
         android:name="com.survivalcoding.ifkakao.ifkakao.view.menu.MenuListFragment"
-        android:label="MenuListFragment" />
+        android:label="MenuListFragment">
+        <action
+            android:id="@+id/action_menuListFragment_to_favoriteListFragment"
+            app:destination="@id/favoriteListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteListFragment"
         android:name="com.survivalcoding.ifkakao.ifkakao.view.sorted.FavoriteListFragment"
-        android:label="FavoriteListFragment" />
+        android:label="FavoriteListFragment">
+        <action
+            android:id="@+id/action_favoriteListFragment_to_sortedListFragment"
+            app:destination="@id/sortedListFragment" />
+    </fragment>
 </navigation>
