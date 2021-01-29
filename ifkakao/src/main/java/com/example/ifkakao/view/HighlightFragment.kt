@@ -39,7 +39,8 @@ class HighlightFragment : Fragment() {
 
     private fun observeData() {
         viewModel.highlightSession.observe(viewLifecycleOwner) {
-            adapter.submitList(it.toList())
+//            adapter.submitList(it.toList())
+            adapter.setItemList(it)
             viewModel.findSharedSession()
         }
         viewModel.findSharedSession.observe(viewLifecycleOwner) {
@@ -56,7 +57,9 @@ class HighlightFragment : Fragment() {
                 viewModel.setSelectedSession(it)
                 replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
             },
-            upButtonClickListener = {}
+            upButtonClickListener = {
+                binding.highlightScroll.fullScroll(0)
+            }
         )
         binding.highlightListRecycler.adapter = adapter
         binding.allSessionButton.setOnClickListener {

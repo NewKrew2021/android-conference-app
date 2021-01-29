@@ -3,6 +3,7 @@ package com.example.ifkakao.view
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -70,7 +71,8 @@ class MainFragment : Fragment() {
                 replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
             },
             upButtonClickListener = {
-                binding.conferenceRecyclerView.smoothScrollToPosition(0)
+                Log.d("APIAPI", "initializeView: HI")
+                binding.conferenceRecyclerView.scrollToPosition(0)
             }
         )
         binding.apply {

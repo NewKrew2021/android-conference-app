@@ -9,7 +9,6 @@ import com.example.ifkakao.databinding.ItemSessionBinding
 import com.example.ifkakao.databinding.SessionListFooterBinding
 import com.example.ifkakao.model.jsonformat.Session
 
-// TODO: Footer 제
 class SessionAdapter(
     private val sessionClickListener: (Session) -> Unit,
     private val upButtonClickListener: (View) -> Unit
@@ -48,9 +47,17 @@ class SessionAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (position) {
-            itemCount -> TYPE_FOOTER
+            itemCount - 1 -> TYPE_FOOTER
             else -> TYPE_ITEM
         }
+    }
+
+    fun setItemList(list: List<Session>) {
+        val tempList = list.toMutableList()
+        if (list.isNotEmpty()) {
+            tempList.add(list[0])
+        }
+        submitList(tempList)
     }
 
     class SessionFooterViewHolder(private val binding: SessionListFooterBinding) :
