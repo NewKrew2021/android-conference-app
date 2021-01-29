@@ -28,9 +28,9 @@
             <ImageView
                 android:id="@+id/main_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
+                android:layout_height="424dp"
                 android:foreground="@color/main_image_filter_color"
+                android:scaleType="centerCrop"
                 android:src="@drawable/main_image_portrait"
                 app:layout_constraintTop_toTopOf="parent" />
 
