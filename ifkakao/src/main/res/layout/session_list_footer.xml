@@ -10,6 +10,16 @@
         tools:background="@color/black">
 
         <TextView
+            android:id="@+id/if_kakao_dev2019"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/if_kakao_dev2019"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/kakao_corp"
+            app:layout_constraintLeft_toLeftOf="@id/kakao_corp" />
+
+        <TextView
+            android:id="@+id/kakao_corp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
