@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.ifkakao.R
 import com.example.ifkakao.model.ConferenceRepository
 import com.example.ifkakao.model.KakaoApiResponse
 import com.example.ifkakao.model.Repository
@@ -20,10 +21,13 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private val repository: Repository = ConferenceRepository(application)
     private val _sessionList = MutableLiveData<List<Session>>(mutableListOf())
     val sessionList: LiveData<List<Session>> get() = _sessionList
+
     private val _highlightSession = MutableLiveData<List<Session>>(mutableListOf())
     val highlightSession: LiveData<List<Session>> get() = _highlightSession
+
     private val _selectedSession = MutableLiveData<Session>()
     val selectedSession: LiveData<Session> get() = _selectedSession
+
     var isLoading = MutableLiveData(false)
     var errorStatus = MutableLiveData(ErrorStatus.NO_ERROR)
 
@@ -40,6 +44,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private val _removedFilter = MutableLiveData<Int>()
     val removedFilter: LiveData<Int> get() = _removedFilter
 
+    private val _filteredSessionList = MutableLiveData<List<Session>>(mutableListOf())
+    val filteredSessionList: LiveData<List<Session>> get() = _filteredSessionList
+
     fun updateSessionData() {
         viewModelScope.launch {
             isLoading.value = true
@@ -48,6 +55,7 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
                 is KakaoApiResponse.Success -> {
                     response.result.data.let {
                         _sessionList.value = it
+                        _filteredSessionList.value = it
                         _highlightSession.value =
                             response.result.data.filter { it.spotlightYn == "Y" }
                     }
@@ -129,6 +137,31 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     fun removeSharedSessionIndex() {
         sharedSessionIndex = NOT_SESSION_INDEX
+    }
+
+    fun applyFilter() {
+        val realFilter = mutableSetOf<String>()
+        _selectedFilter.value?.let { filters ->
+            filters.forEach {
+                when (it) {
+                    R.id.service_button ->
+                        realFilter.add(getApplication<Application>().resources.getString(R.string.service))
+                    R.id.business_button ->
+                        realFilter.add(getApplication<Application>().resources.getString(R.string.business))
+                    R.id.tech_button ->
+                        realFilter.add(getApplication<Application>().resources.getString(R.string.tech))
+                }
+            }
+        }
+        if (realFilter.isNullOrEmpty()) {
+            _filteredSessionList.value = sessionList.value
+        } else {
+            val tempList = mutableListOf<Session>()
+            _sessionList.value?.let { list ->
+                tempList.addAll(list.filter { realFilter.contains(it.field) })
+            }
+            _filteredSessionList.value = tempList
+        }
     }
 
     fun clearFilter() {

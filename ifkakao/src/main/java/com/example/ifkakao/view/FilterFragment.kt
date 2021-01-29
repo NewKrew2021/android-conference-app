@@ -84,6 +84,11 @@ class FilterFragment : Fragment() {
         }
     }
 
+    fun onAcceptButtonClick(v: View) {
+        viewModel.applyFilter()
+        parentFragmentManager.popBackStack()
+    }
+
     fun onFilterButtonClick(v: View) = viewModel.setFilter(v.id)
 
     fun onClearButtonClick(v: View) = viewModel.clearFilter()

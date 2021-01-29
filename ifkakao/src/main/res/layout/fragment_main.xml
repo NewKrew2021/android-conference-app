@@ -115,7 +115,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/conference_recycler_view"
-                sessionList="@{viewModel.sessionList}"
+                sessionList="@{viewModel.filteredSessionList}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
