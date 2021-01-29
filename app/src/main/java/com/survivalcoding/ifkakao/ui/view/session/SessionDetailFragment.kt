@@ -12,11 +12,10 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
-import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -127,7 +126,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_main -> {
-                replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_session_event)
                 true
             }
             else -> super.onOptionsItemSelected(item)

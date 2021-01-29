@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.navigation.fragment.NavHostFragment
 import kotlin.reflect.KClass
 
 inline fun <reified F : Fragment> AppCompatActivity.replaceFragment(containerViewId: Int) {
@@ -33,3 +34,12 @@ fun Fragment.replaceFragmentWithBundle(containerViewId: Int, kClass: KClass<out 
         )
     }
 }
+
+fun Fragment.navigate(resId : Int): Unit =
+    NavHostFragment.findNavController(this).navigate(resId)
+
+fun Fragment.navigate(resId : Int, bundle: Bundle): Unit =
+    NavHostFragment.findNavController(this).navigate(resId, bundle)
+
+fun Fragment.popBackStack(): Boolean =
+    NavHostFragment.findNavController(this).popBackStack()

@@ -2,10 +2,9 @@ package com.survivalcoding.ifkakao.ui.view.menu
 
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionEventMenuBinding
-import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.extension.navigate
+import com.survivalcoding.ifkakao.extension.popBackStack
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.event.EventFragment
-import com.survivalcoding.ifkakao.ui.view.session.SessionFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionEventMenuViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,18 +30,17 @@ class SessionEventMenuFragment :
     }
 
     private fun eventProcess() {
-
         binding.run {
             ivCloseSessionEventMenu.setOnClickListener {
-                parentFragmentManager.popBackStack()
+                popBackStack()
             }
 
             tvSessionSessionEvent.setOnClickListener {
-                replaceFragment<SessionFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_session)
             }
 
             tvEventSessionEvent.setOnClickListener {
-                replaceFragment<EventFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_event)
             }
         }
     }

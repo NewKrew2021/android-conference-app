@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_main">
+
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="com.survivalcoding.ifkakao.ui.view.home.MainFragment"
+        tools:layout="@layout/fragment_main" />
+
+    <fragment
+        android:id="@+id/fragment_session"
+        android:name="com.survivalcoding.ifkakao.ui.view.session.SessionFragment"
+        tools:layout="@layout/fragment_session"/>
+
+    <fragment
+        android:id="@+id/fragment_event"
+        android:name="com.survivalcoding.ifkakao.ui.view.event.EventFragment"
+        tools:layout="@layout/fragment_event"/>
+
+    <fragment
+        android:id="@+id/fragment_session_event"
+        android:name="com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment"
+        tools:layout="@layout/fragment_session_event_menu">
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_session_detail"
+        android:name="com.survivalcoding.ifkakao.ui.view.session.SessionDetailFragment"
+        tools:layout="@layout/fragment_session_detail"/>
+
+    <fragment
+        android:id="@+id/fragment_session_filter"
+        android:name="com.survivalcoding.ifkakao.ui.view.filter.SessionFilterFragment"
+        tools:layout="@layout/fragment_session_filter"/>
+
+
+</navigation>

@@ -7,21 +7,15 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
-import com.survivalcoding.ifkakao.extension.replaceFragment
-import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
+import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
-import com.survivalcoding.ifkakao.ui.view.session.SessionDetailFragment
-import com.survivalcoding.ifkakao.ui.view.session.SessionFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -50,7 +44,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     private fun eventProcess() {
         binding.btnAllSessionMain.setOnClickListener {
-            replaceFragment<SessionFragment>(R.id.fragment_container_view)
+            navigate(R.id.fragment_session)
         }
     }
 
@@ -71,11 +65,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = SessionAdapter().apply {
                 this.setSessionClickListener {
-                    replaceFragmentWithBundle(
-                        R.id.fragment_container_view,
-                        SessionDetailFragment::class,
-                        bundleOf(SESSION_ITEM to it)
-                    )
+                    navigate(R.id.fragment_session_detail, bundleOf(SESSION_ITEM to it))
                 }
             }
         }
@@ -88,9 +78,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         setHasOptionsMenu(true)
 
         binding.include.tvTitleMain.setOnClickListener {
-            parentFragmentManager.commit {
-                replace<MainFragment>(R.id.fragment_container_view)
-            }
+            navigate(R.id.fragment_main)
         }
     }
 
@@ -103,10 +91,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_main -> {
-                parentFragmentManager.commit {
-                    addToBackStack(null)
-                    replace<SessionEventMenuFragment>(R.id.fragment_container_view)
-                }
+                navigate(R.id.fragment_session_event)
                 true
             }
             else -> super.onOptionsItemSelected(item)
