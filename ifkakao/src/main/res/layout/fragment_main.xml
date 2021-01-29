@@ -99,13 +99,16 @@
                             app:layout_constraintTop_toTopOf="@id/filter_button" />
 
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/filter_button"
-                            android:layout_width="wrap_content"
+                            layout_width="@{viewModel.selectedFilter.size() != 0 ? (viewModel.selectedFilter.size() >= 10 ? @dimen/selected_many_filter_button : @dimen/selected_filter_button) : @dimen/zero_filter_button}"
+                            android:layout_width='wrap_content'
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/button_color"
-                            android:src="@drawable/ic_baseline_tune_24"
+                            android:drawableLeft="@drawable/ic_baseline_tune_24"
+                            android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            android:text='@{viewModel.selectedFilter.size() != 0 ? String.valueOf(viewModel.selectedFilter.size()) : ""}'
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
