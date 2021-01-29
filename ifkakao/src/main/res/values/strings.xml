@@ -55,4 +55,5 @@
     <string name="share_fail_message">오류가 발생했습니다\n다시 시도해주세요.</string>
     <string name="share_session">세션 공유하기</string>
     <string name="if_kakao_dev2019">if(kakao)dev2019보기</string>
+    <string name="favorites">Favorites</string>
 </resources>
