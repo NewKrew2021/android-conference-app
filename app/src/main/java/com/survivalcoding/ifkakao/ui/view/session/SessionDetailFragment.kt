@@ -5,6 +5,7 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
@@ -35,6 +36,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         setImageView()
         setRecyclerView()
         eventProcess()
+        binding.progressSessionDetail.visibility = View.VISIBLE
     }
 
     override fun getViewModelData() {
@@ -57,6 +59,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
 
             val adapter = binding.rvSpeakerSessionDetail.adapter as SpeakerAdapter
             adapter.setList(it.contentsSpeakerList, it.linkList.speakerProfile)
+            binding.progressSessionDetail.visibility = View.GONE
         }
     }
 

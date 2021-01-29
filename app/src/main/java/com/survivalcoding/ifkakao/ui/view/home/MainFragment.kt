@@ -3,6 +3,8 @@ package com.survivalcoding.ifkakao.ui.view.home
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
@@ -35,6 +37,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         setToolbar()
         eventProcess()
         setRecyclerView()
+        binding.progressMain.visibility = VISIBLE
     }
 
     override fun getViewModelData() {
@@ -56,6 +59,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         viewModel.conferenceData.observe(this) {
             val adapter = binding.rvVideoMain.adapter as SessionAdapter
             adapter.setList(it)
+            binding.progressMain.visibility = GONE
         }
     }
 

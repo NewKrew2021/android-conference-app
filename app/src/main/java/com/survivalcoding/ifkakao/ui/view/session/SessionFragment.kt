@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
@@ -37,6 +38,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         setToolbar()
         setRecyclerView()
         viewModel.setLikeCheck(false)
+        binding.progressSession.visibility = View.VISIBLE
     }
 
     override fun getViewModelData() {
@@ -60,6 +62,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         viewModel.conferenceData.observe(this) {
             val adapter = binding.rvVideoSession.adapter as SessionAdapter
             adapter.setList(it)
+            binding.progressSession.visibility = View.GONE
         }
     }
 
