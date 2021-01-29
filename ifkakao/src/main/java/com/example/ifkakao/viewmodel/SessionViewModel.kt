@@ -35,6 +35,10 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
     private val _findSharedSession = MutableLiveData(false)
     val findSharedSession: LiveData<Boolean> get() = _findSharedSession
 
+    private val _selectedFilter = MutableLiveData<MutableSet<Int>>(mutableSetOf())
+    val selectedFilter: LiveData<MutableSet<Int>> get() = _selectedFilter
+    private val _removedFilter = MutableLiveData<Int>()
+    val removedFilter: LiveData<Int> get() = _removedFilter
 
     fun updateSessionData() {
         viewModelScope.launch {
@@ -110,11 +114,34 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
+    fun setFilter(filterId: Int) {
+        _selectedFilter.value?.let {
+            if (it.contains(filterId)) {
+                it.remove(filterId)
+                _removedFilter.value = filterId
+                _removedFilter.value = NO_FILTER_ID
+            } else {
+                it.add(filterId)
+                _selectedFilter.value = it.toMutableSet()
+            }
+        }
+    }
+
     fun removeSharedSessionIndex() {
         sharedSessionIndex = NOT_SESSION_INDEX
     }
 
+    fun clearFilter() {
+        _selectedFilter.value?.let { filters ->
+            filters.forEach { _removedFilter.value = it }
+            filters.clear()
+        }
+        _removedFilter.value = NO_FILTER_ID
+        _selectedFilter.value = mutableSetOf()
+    }
+
     companion object {
         const val NOT_SESSION_INDEX = -1
+        const val NO_FILTER_ID = 0
     }
 }
