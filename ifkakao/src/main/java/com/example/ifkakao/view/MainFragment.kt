@@ -3,7 +3,6 @@ package com.example.ifkakao.view
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +12,11 @@ import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentMainBinding
-import com.example.ifkakao.util.replaceTransaction
+import com.example.ifkakao.util.addTransaction
 import com.example.ifkakao.util.showToast
 import com.example.ifkakao.viewmodel.ErrorStatus
 import com.example.ifkakao.viewmodel.SessionViewModel
 
-
-/*
-TODO: 1. 필터링 기능 추가
- */
 class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +55,7 @@ class MainFragment : Fragment() {
 
     private fun setOnClickListener() {
         binding.filterButton.setOnClickListener {
-            replaceTransaction<FilterFragment>(R.id.fragment_container_view)
+            addTransaction<FilterFragment>(R.id.fragment_container_view)
         }
     }
 
@@ -68,10 +63,9 @@ class MainFragment : Fragment() {
         adapter = SessionAdapter(
             sessionClickListener = {
                 viewModel.setSelectedSession(it)
-                replaceTransaction<SessionInfoFragment>(R.id.fragment_container_view)
+                addTransaction<SessionInfoFragment>(R.id.fragment_container_view)
             },
             upButtonClickListener = {
-                Log.d("APIAPI", "initializeView: HI")
                 binding.conferenceRecyclerView.scrollToPosition(0)
             }
         )
