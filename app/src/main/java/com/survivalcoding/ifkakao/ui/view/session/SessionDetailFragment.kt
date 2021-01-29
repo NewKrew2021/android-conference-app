@@ -8,7 +8,9 @@ import android.view.MenuItem
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
+import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
@@ -30,15 +32,17 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
             viewModel.setConferenceSessionData(it.getParcelable(SESSION_ITEM))
         }
         setImageView()
+        setRecyclerView()
         eventProcess()
     }
 
     override fun getViewModelData() {
-        //
+        viewModel.getFavoriteSessionData()
     }
 
     override fun startObserveData() {
         observeSessionDetailData()
+        observeFavoriteData()
     }
 
     private fun observeSessionDetailData() {
@@ -48,7 +52,31 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
                 tvTitleSessionDetail.text = it.parseString(it.title)
                 tvContentsSessionDetail.text = it.parseString(it.content)
                 tvHashtagSessionDetail.text = it.contentTag
+            }
+        }
+    }
 
+    private fun observeFavoriteData() {
+        viewModel.favoriteCheck.observe(this) {
+            if(it) {
+                binding.ivFavoriteSessionDetail.setImageResource(R.drawable.ic_baseline_favorite_24)
+            } else {
+                binding.ivFavoriteSessionDetail.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+            }
+            binding.ivFavoriteSessionDetail.setOnClickListener { _ ->
+                if(it) {
+                    viewModel.sessionData.value?.idx?.let { it1 ->
+                        viewModel.deleteFavoriteSession(
+                            it1
+                        )
+                    }
+                } else {
+                    viewModel.sessionData.value?.idx?.let { it1 ->
+                        Favorite(
+                            it1
+                        )
+                    }?.let { it2 -> viewModel.insertFavoriteSession(it2) }
+                }
             }
         }
     }
@@ -62,14 +90,25 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
             ivThumbnailSessionDetail.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
+
+            btnShowlistSessionDetail.setOnClickListener {
+                parentFragmentManager.popBackStack()
+            }
         }
     }
 
-    private fun setImageView(){
+    private fun setImageView() {
         Glide.with(binding.ivThumbnailSessionDetail)
             .load(viewModel.sessionData.value?.parseImageUrl(viewModel.sessionData.value!!))
             .fitCenter()
             .into(binding.ivThumbnailSessionDetail)
+    }
+
+    private fun setRecyclerView() {
+        binding.rvSpeakerSessionDetail.apply {
+            layoutManager = LinearVerticalLayout(context)
+            setHasFixedSize(true)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

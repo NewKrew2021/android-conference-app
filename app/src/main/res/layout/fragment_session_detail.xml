@@ -139,34 +139,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_speaker_session_detail" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/iv_favorite_session_detail"
+                android:layout_width="24dp"
+                android:layout_height="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/spacing_8"
                 android:layout_marginEnd="@dimen/spacing_8"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_thumbnail_session_detail">
-
-                <ImageView
-                    android:id="@+id/iv_like_session_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_favorite_24" />
-
-                <ImageView
-                    android:id="@+id/iv_unlike_session_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/iv_thumbnail_session_detail"
+                app:srcCompat="@drawable/ic_baseline_favorite_24" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

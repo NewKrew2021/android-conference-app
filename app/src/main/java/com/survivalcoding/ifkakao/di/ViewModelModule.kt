@@ -9,6 +9,6 @@ val viewModelModule = module {
     viewModel { SessionEventMenuViewModel() }
     viewModel { SessionViewModel(get()) }
     viewModel { EventViewModel() }
-    viewModel { SessionDetailViewModel() }
+    viewModel { SessionDetailViewModel(get()) }
     viewModel { SessionFilterViewModel() }
 }
