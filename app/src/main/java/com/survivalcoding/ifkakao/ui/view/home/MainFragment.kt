@@ -3,7 +3,10 @@ package com.survivalcoding.ifkakao.ui.view.home
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +15,6 @@ import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.replaceFragment
 import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
-import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
@@ -30,7 +32,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override val viewModel: MainViewModel by viewModel()
 
     override fun initStartView() {
-        setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
+        setToolbar()
         eventProcess()
         setRecyclerView()
     }
@@ -75,6 +77,19 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         }
     }
 
+    /* set toolbar */
+    private fun setToolbar() {
+        val activity = activity as AppCompatActivity
+        activity.setSupportActionBar(binding.include.toolbarMain)
+        setHasOptionsMenu(true)
+
+        binding.include.tvTitleMain.setOnClickListener {
+            parentFragmentManager.commit {
+                replace<MainFragment>(R.id.fragment_container_view)
+            }
+        }
+    }
+
     /* set menu */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -84,7 +99,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_main -> {
-                replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+                parentFragmentManager.commit {
+                    addToBackStack(null)
+                    replace<SessionEventMenuFragment>(R.id.fragment_container_view)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
