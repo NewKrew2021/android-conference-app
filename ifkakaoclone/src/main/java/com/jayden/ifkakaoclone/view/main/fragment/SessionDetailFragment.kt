@@ -92,8 +92,8 @@ class SessionDetailFragment : Fragment() {
             playVideoByBrowser(it.url)
         }
 
-        activityViewModel.favorite.observe(viewLifecycleOwner) {
-            activityViewModel.setSelectedFavorite(it)
+        activityViewModel.favorites.observe(viewLifecycleOwner) {
+            activityViewModel.setSelectedFavorite(it, args.session.idx)
         }
 
         updateSpeaker()
@@ -104,11 +104,9 @@ class SessionDetailFragment : Fragment() {
     }
 
     private fun updateSpeaker() {
-        activityViewModel.selectedItem.value?.let { session ->
-            adapter.submitList(
-                session.contentsSpeackerList.zip(session.linkList.speackerProfile)
-                    .map { ContentsSpeakerWithLink(it.first, it.second) })
-        }
+        adapter.submitList(
+            args.session.contentsSpeackerList.zip(args.session.linkList.speackerProfile)
+                .map { ContentsSpeakerWithLink(it.first, it.second) })
     }
 
     private fun openIfKakao2019() {
@@ -117,28 +115,24 @@ class SessionDetailFragment : Fragment() {
     }
 
     private fun sendIntent(pkgName: String) {
-        activityViewModel.selectedItem.value?.let {
-            val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, "${SESSION_VIDEO_SUFFIX}${it.idx}")
-                setPackage(pkgName)
-            }
-            if (sendIntent.resolveActivity(requireActivity().packageManager) != null) {
-                startActivity(sendIntent)
-            }
+        val sendIntent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, "${SESSION_VIDEO_SUFFIX}${args.session.idx}")
+            setPackage(pkgName)
         }
-
+        if (sendIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(sendIntent)
+        }
     }
 
     private fun copyVideoUrl() {
-        activityViewModel.selectedItem.value?.let {
-            val clipBoardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            val clip = ClipData.newPlainText("VIDEO_URL", "${SESSION_VIDEO_SUFFIX}${it.idx}")
-            clipBoardManager.setPrimaryClip(clip)
+        val clipBoardManager =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("VIDEO_URL", "${SESSION_VIDEO_SUFFIX}${args.session.idx}")
+        clipBoardManager.setPrimaryClip(clip)
 
-            showToastMessage(getString(R.string.copy_url_complete))
-            binding.layoutShareItems.root.visibility = View.GONE
-        }
+        showToastMessage(getString(R.string.copy_url_complete))
+        binding.layoutShareItems.root.visibility = View.GONE
     }
 
     companion object {

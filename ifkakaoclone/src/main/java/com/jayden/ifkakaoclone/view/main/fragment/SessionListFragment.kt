@@ -80,7 +80,6 @@ class SessionListFragment : Fragment() {
     }
 
     private fun selectSessionEvent(session: Session) {
-        activityViewModel.setSelectedItem(session)
         val actionWithArgs = SessionListFragmentDirections.actionSessionListFragmentToSessionDetailFragment(session)
         findNavController().navigate(actionWithArgs)
     }

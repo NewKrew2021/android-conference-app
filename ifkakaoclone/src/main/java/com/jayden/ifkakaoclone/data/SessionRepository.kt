@@ -15,7 +15,8 @@ class SessionRepository(context: Context) : Repository {
 
     override suspend fun fetchContents(): List<Session> = remoteDataSource.fetchContents()
 
-    override fun getFavorites(): LiveData<List<Favorite>> = localDataSource.favoriteDao().getFavorites()
+    override fun getFavorites(): LiveData<List<Favorite>> =
+        localDataSource.favoriteDao().getFavorites()
 
     override suspend fun insertFavorite(favorite: Favorite) {
         withContext(Dispatchers.IO) {
