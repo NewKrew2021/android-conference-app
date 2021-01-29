@@ -119,11 +119,11 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
             if (it.contains(filterId)) {
                 it.remove(filterId)
                 _removedFilter.value = filterId
-                _removedFilter.value = NO_FILTER_ID
             } else {
                 it.add(filterId)
-                _selectedFilter.value = it.toMutableSet()
             }
+            _removedFilter.value = NO_FILTER_ID
+            _selectedFilter.value = it.toMutableSet()
         }
     }
 

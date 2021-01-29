@@ -6,6 +6,10 @@
         <variable
             name="fragment"
             type="com.example.ifkakao.view.FilterFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ifkakao.viewmodel.SessionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -524,13 +528,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
-                android:backgroundTint="@color/clear_button_color"
+                android:backgroundTint="@{viewModel.selectedFilter.size() == 0 ? @color/clear_button_color : @color/video_length_text_color}"
+                android:clickable="@{viewModel.selectedFilter.size() == 0 ? false : true}"
                 android:onClick="@{fragment.onClearButtonClick}"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:text="@string/clear"
+                android:textColor="@{viewModel.selectedFilter.size() == 0 ? @color/filter_item_color : @color/white}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.4" />
+                app:layout_constraintWidth_percent="0.4"
+                tools:backgroundTint="@color/clear_button_color" />
 
             <Button
                 android:id="@+id/accept_button"

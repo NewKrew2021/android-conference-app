@@ -31,6 +31,7 @@ class FilterFragment : Fragment() {
         return binding.let {
             it.lifecycleOwner = this
             it.fragment = this
+            it.viewModel = viewModel
             it.root
         }
     }
@@ -53,6 +54,7 @@ class FilterFragment : Fragment() {
                         )
                     }
                 }
+                setClearButton(filters)
             }
             removedFilter.observe(viewLifecycleOwner) {
                 if (it == SessionViewModel.NO_FILTER_ID) return@observe
@@ -71,6 +73,14 @@ class FilterFragment : Fragment() {
                     )
                 }
             }
+        }
+    }
+
+    private fun setClearButton(filters: Set<Int>) {
+        val buttonText = getString(R.string.clear)
+        binding.clearButton.apply {
+            text =
+                if (filters.isEmpty()) buttonText else "$buttonText(${filters.size})"
         }
     }
 
