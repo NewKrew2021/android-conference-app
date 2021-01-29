@@ -20,7 +20,7 @@ enum class ErrorStatus {
 class SessionViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: Repository = ConferenceRepository(application)
     private val _sessionList = MutableLiveData<List<Session>>(mutableListOf())
-    val sessionList: LiveData<List<Session>> get() = _sessionList
+    private val sessionList: LiveData<List<Session>> get() = _sessionList
 
     private val _highlightSession = MutableLiveData<List<Session>>(mutableListOf())
     val highlightSession: LiveData<List<Session>> get() = _highlightSession
@@ -46,6 +46,9 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
 
     private val _filteredSessionList = MutableLiveData<List<Session>>(mutableListOf())
     val filteredSessionList: LiveData<List<Session>> get() = _filteredSessionList
+
+    private val _favoriteSessionList = MutableLiveData<List<Session>>(mutableListOf())
+    val favoriteSessionList: LiveData<List<Session>> get() = _favoriteSessionList
 
     fun updateSessionData() {
         viewModelScope.launch {
@@ -171,6 +174,16 @@ class SessionViewModel(application: Application) : AndroidViewModel(application)
         }
         _removedFilter.value = NO_FILTER_ID
         _selectedFilter.value = mutableSetOf()
+    }
+
+    fun updateFavoriteSessionList() {
+        viewModelScope.launch {
+            val favorites = repository.getAllFavoriteSessions().map { it.sessionIndex }.toSet()
+            sessionList.value?.let { list ->
+                _favoriteSessionList.value =
+                    list.filter { favorites.contains(it.idx) }.toMutableList()
+            }
+        }
     }
 
     companion object {

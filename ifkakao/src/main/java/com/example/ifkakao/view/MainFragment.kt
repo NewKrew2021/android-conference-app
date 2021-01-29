@@ -58,7 +58,7 @@ class MainFragment : Fragment() {
             addTransaction<FilterFragment>(R.id.fragment_container_view)
         }
         binding.favoriteSessionButton.setOnClickListener {
-
+            addTransaction<FavoriteSessionFragment>(R.id.fragment_container_view)
         }
     }
 

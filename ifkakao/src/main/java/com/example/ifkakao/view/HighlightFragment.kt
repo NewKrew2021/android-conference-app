@@ -39,7 +39,6 @@ class HighlightFragment : Fragment() {
 
     private fun observeData() {
         viewModel.highlightSession.observe(viewLifecycleOwner) {
-//            adapter.submitList(it.toList())
             adapter.setItemList(it)
             viewModel.findSharedSession()
         }

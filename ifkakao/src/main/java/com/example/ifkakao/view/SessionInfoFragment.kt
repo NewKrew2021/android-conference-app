@@ -34,14 +34,19 @@ class SessionInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isFavorite.observe(viewLifecycleOwner) {
-            val imageResource =
-                if (it) R.drawable.ic_baseline_favorite_white_24 else R.drawable.ic_baseline_favorite_border_24
-            if (it) {
-                binding.favoriteButton.setOnClickListener { viewModel.deleteFavoriteSession() }
-            } else {
-                binding.favoriteButton.setOnClickListener { viewModel.addFavoriteSession() }
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            binding.favoriteButton.setOnClickListener {
+                viewModel.updateFavoriteSessionList()
+                if (isFavorite) {
+                    viewModel.deleteFavoriteSession()
+                } else {
+                    viewModel.addFavoriteSession()
+                }
+                viewModel.updateFavoriteSessionList()
+
             }
+            val imageResource =
+                if (isFavorite) R.drawable.ic_baseline_favorite_white_24 else R.drawable.ic_baseline_favorite_border_24
             binding.favoriteButton.setImageResource(imageResource)
         }
 

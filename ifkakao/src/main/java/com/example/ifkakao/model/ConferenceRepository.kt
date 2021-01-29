@@ -1,7 +1,6 @@
 package com.example.ifkakao.model
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.example.ifkakao.model.jsonformat.ConferenceData
 import com.example.ifkakao.model.local.FavoriteSession
 
@@ -26,7 +25,7 @@ class ConferenceRepository(private val context: Context) : Repository {
         }
     }
 
-    override suspend fun getAllFavoriteSessions(): LiveData<List<FavoriteSession>> {
+    override suspend fun getAllFavoriteSessions(): List<FavoriteSession> {
         return localDataSource.getAllFavoriteSessions()
     }
 
