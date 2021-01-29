@@ -6,6 +6,7 @@ buildscript {
             'coil': '1.1.1',
             'retrofit': '2.9.0',
             'room': '2.2.6',
+            'nav': '2.3.3',
     ]
 
     ext.deps = [
@@ -23,6 +24,10 @@ buildscript {
                         'runtime': "androidx.room:room-runtime:$versions.room",
                         'ktx': "androidx.room:room-ktx:$versions.room", // kotlin extensions ans coroutines support
                         'compiler': "androidx.room:room-compiler:$versions.room" // kapt
+                ],
+                'nav': [
+                        'fragment': "androidx.navigation:navigation-fragment-ktx:$versions.nav",
+                        'ui': "androidx.navigation:navigation-ui-ktx:$versions.nav"
                 ],
                 'test': [
                         'espresso': 'androidx.test.espresso:espresso-core:3.3.0',

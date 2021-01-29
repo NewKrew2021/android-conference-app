@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/blue"
             android:text="@string/btn_accept"
-            android:onClick="@{() -> fragment.applyFilters()}"
+            android:onClick="@{() -> fragment.applyFiltersThenFinish()}"
             app:layout_constraintBottom_toBottomOf="@id/btn_reset"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/btn_reset" />

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/sessionListFragment">
+
+    <fragment
+        android:id="@+id/sessionListFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.SessionListFragment"
+        android:label="SessionListFragment"
+        tools:layout="@layout/fragment_session_list">
+        <action
+            android:id="@+id/action_sessionListFragment_to_sessionDetailFragment"
+            app:destination="@id/sessionDetailFragment" />
+        <action
+            android:id="@+id/action_sessionListFragment_to_filterDetailFragment"
+            app:destination="@id/filterDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sessionDetailFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.SessionDetailFragment"
+        android:label="SessionDetailFragment"
+        tools:layout="@layout/fragment_session_detail"/>
+    <fragment
+        android:id="@+id/filterDetailFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.FilterDetailFragment"
+        android:label="FilterDetailFragment"
+        tools:layout="@layout/fragment_filter_detail"/>
+</navigation>

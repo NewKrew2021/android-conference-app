@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.databinding.FragmentSessionListBinding
-import com.jayden.ifkakaoclone.extensions.replaceTransaction
 import com.jayden.ifkakaoclone.view.main.adapter.SessionListAdapter
 import com.jayden.ifkakaoclone.view.main.model.Session
 import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
@@ -62,7 +62,7 @@ class SessionListFragment : Fragment() {
             )
 
             btnFilter.setOnClickListener {
-                replaceTransaction<FilterDetailFragment>(R.id.fragment_container_view)
+                findNavController().navigate(R.id.action_sessionListFragment_to_filterDetailFragment)
             }
 
             layoutFooter.imageScrollTop.setOnClickListener {
@@ -83,7 +83,7 @@ class SessionListFragment : Fragment() {
 
     private fun selectSessionEvent(session: Session) {
         activityViewModel.setSelectedItem(session)
-        replaceTransaction<SessionDetailFragment>(R.id.fragment_container_view)
+        findNavController().navigate(R.id.action_sessionListFragment_to_sessionDetailFragment)
     }
 
     private fun smoothScrollToAppbar() {
