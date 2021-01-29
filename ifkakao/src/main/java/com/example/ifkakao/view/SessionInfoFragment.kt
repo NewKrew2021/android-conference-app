@@ -36,7 +36,7 @@ class SessionInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.isFavorite.observe(viewLifecycleOwner) {
             val imageResource =
-                if (it) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
+                if (it) R.drawable.ic_baseline_favorite_white_24 else R.drawable.ic_baseline_favorite_border_24
             if (it) {
                 binding.favoriteButton.setOnClickListener { viewModel.deleteFavoriteSession() }
             } else {
