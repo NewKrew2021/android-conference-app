@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
 import com.survivalcoding.ifkakao.databinding.FragmentSortedListBinding
@@ -26,12 +28,8 @@ class SortedListFragment() : Fragment() {
 
     private val model: IfKakaoViewModel by activityViewModels()
     private val adapter: IfKakaoAdapter = IfKakaoAdapter({
-        model.setPresentationData(it)
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
-            addToBackStack(null)
-        }
+        val action = SortedListFragmentDirections.actionSortedListFragmentToPresentationFragment(it)
+        findNavController().navigate(action)
     }, {
         Toast.makeText(context, "이미 ${it}입니다.", Toast.LENGTH_SHORT).show()
     })
@@ -53,7 +51,8 @@ class SortedListFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val fieldText = arguments?.getString("field")
+        val args: SortedListFragmentArgs by navArgs()
+        val fieldText = args.fieldName
         binding.itemText = fieldText
         binding.sortedItemList.adapter = adapter    // if kakao list와 같은 어댑터라서 동일하게 사용
 

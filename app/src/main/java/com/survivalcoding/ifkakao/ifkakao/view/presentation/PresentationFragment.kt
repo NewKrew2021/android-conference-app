@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
@@ -84,11 +85,8 @@ class PresentationFragment : Fragment() {
     }
 
     fun textListener(title: String) {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            val bundle = bundleOf("field" to title)
-            replace<SortedListFragment>(R.id.if_kakao_fragment_container_view, args = bundle)
-            addToBackStack(null)
-        }
+        val action =
+            PresentationFragmentDirections.actionPresentationFragmentToSortedListFragment(title)
+        findNavController().navigate(action)
     }
 }

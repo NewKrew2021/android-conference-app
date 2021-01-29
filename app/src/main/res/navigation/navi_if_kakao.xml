@@ -35,6 +35,9 @@
         <argument
             android:name="field_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_sortedListFragment_to_presentationFragment"
+            app:destination="@id/presentationFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuListFragment"
@@ -51,5 +54,8 @@
         <action
             android:id="@+id/action_favoriteListFragment_to_sortedListFragment"
             app:destination="@id/sortedListFragment" />
+        <action
+            android:id="@+id/action_favoriteListFragment_to_presentationFragment"
+            app:destination="@id/presentationFragment" />
     </fragment>
 </navigation>

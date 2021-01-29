@@ -30,14 +30,8 @@ class IfKakaoFragment : Fragment() {
         val action = IfKakaoFragmentDirections.actionIfKakaoFragmentToPresentationFragment(it)
         findNavController().navigate(action)
     }, {
-//        val action = IfKakaoFragmentDirections.actionIfKakaoFragmentToSortedListFragment(it)
-//        findNavController().navigate(action)
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            val bundle = bundleOf("field" to it)
-            replace<SortedListFragment>(R.id.if_kakao_fragment_container_view, args = bundle)
-            addToBackStack(null)
-        }
+        val action = IfKakaoFragmentDirections.actionIfKakaoFragmentToSortedListFragment(it)
+        findNavController().navigate(action)
     })
 
     override fun onCreateView(
