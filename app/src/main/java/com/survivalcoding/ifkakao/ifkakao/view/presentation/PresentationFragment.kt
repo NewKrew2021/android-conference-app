@@ -4,23 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
-import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter
-import com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.FavoriteViewModel
-import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class PresentationFragment : Fragment() {
     private var _binding: FragmentPresentationBinding? = null

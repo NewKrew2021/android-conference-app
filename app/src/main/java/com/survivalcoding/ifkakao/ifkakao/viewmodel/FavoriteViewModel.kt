@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
 import com.survivalcoding.ifkakao.ifkakao.repository.FavoriteRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class FavoriteViewModel(application: Application) : AndroidViewModel(application) {

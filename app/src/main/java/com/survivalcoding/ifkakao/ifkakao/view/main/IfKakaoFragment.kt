@@ -6,7 +6,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.core.net.toUri
-import androidx.core.os.bundleOf
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,8 +13,6 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentCoordinatorBinding
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.view.main.adapter.IfKakaoAdapter
-import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
-import com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class IfKakaoFragment : Fragment() {
