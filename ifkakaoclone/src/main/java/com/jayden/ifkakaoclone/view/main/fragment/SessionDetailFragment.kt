@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.databinding.FragmentSessionDetailBinding
 import com.jayden.ifkakaoclone.extensions.showToastMessage
@@ -30,6 +31,8 @@ class SessionDetailFragment : Fragment() {
 
     private val activityViewModel: SessionViewModel by activityViewModels()
 
+    private val args: SessionDetailFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,6 +42,7 @@ class SessionDetailFragment : Fragment() {
             lifecycleOwner = this@SessionDetailFragment
             viewModel = activityViewModel
             fragment = this@SessionDetailFragment
+            session = args.session
         }
         return binding.root
     }

@@ -81,7 +81,8 @@ class SessionListFragment : Fragment() {
 
     private fun selectSessionEvent(session: Session) {
         activityViewModel.setSelectedItem(session)
-        findNavController().navigate(R.id.action_sessionListFragment_to_sessionDetailFragment)
+        val actionWithArgs = SessionListFragmentDirections.actionSessionListFragmentToSessionDetailFragment(session)
+        findNavController().navigate(actionWithArgs)
     }
 
     private fun smoothScrollToAppbar() {

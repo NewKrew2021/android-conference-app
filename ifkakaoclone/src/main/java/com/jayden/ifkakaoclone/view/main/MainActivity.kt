@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.jayden.ifkakaoclone.App
 import com.jayden.ifkakaoclone.R
 import com.jayden.ifkakaoclone.data.Repository
-import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 import com.jayden.ifkakaoclone.databinding.ActivityMainBinding
+import com.jayden.ifkakaoclone.viewmodel.SessionViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

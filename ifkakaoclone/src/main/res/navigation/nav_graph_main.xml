@@ -21,7 +21,11 @@
         android:id="@+id/sessionDetailFragment"
         android:name="com.jayden.ifkakaoclone.view.main.fragment.SessionDetailFragment"
         android:label="SessionDetailFragment"
-        tools:layout="@layout/fragment_session_detail"/>
+        tools:layout="@layout/fragment_session_detail">
+        <argument
+            android:name="session"
+            app:argType="com.jayden.ifkakaoclone.view.main.model.Session" />
+    </fragment>
     <fragment
         android:id="@+id/filterDetailFragment"
         android:name="com.jayden.ifkakaoclone.view.main.fragment.FilterDetailFragment"
