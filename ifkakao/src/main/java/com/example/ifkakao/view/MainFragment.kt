@@ -122,7 +122,7 @@ class MainFragment : Fragment() {
     }
 
     companion object {
-        const val VIDEO_PORTRAIT_HEIGHT = 411F
+        const val VIDEO_PORTRAIT_HEIGHT = 360F
         const val VIDEO_URL = "android.resource://%s/%d"
         const val VIDEO_LANDSCAPE_HEIGHT = 292F
     }
