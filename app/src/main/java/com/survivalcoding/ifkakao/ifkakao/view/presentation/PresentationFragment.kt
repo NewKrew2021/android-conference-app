@@ -76,7 +76,7 @@ class PresentationFragment : Fragment() {
 
         favoriteViewModel.isFavorite.observe(viewLifecycleOwner, Observer {
             isFavorite = it
-            binding.isFavorite = isFavorite
+            binding.isFavorite = it
         })
     }
 

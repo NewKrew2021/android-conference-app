@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navi_if_kakao"
+    app:startDestination="@id/ifKakaoFragment">
+
+    <activity
+        android:id="@+id/ifKakaoActivity"
+        android:name="com.survivalcoding.ifkakao.ifkakao.view.IfKakaoActivity"
+        android:label="IfKakaoActivity" />
+    <fragment
+        android:id="@+id/ifKakaoFragment"
+        android:name="com.survivalcoding.ifkakao.ifkakao.view.main.IfKakaoFragment"
+        android:label="fragment_coordinator"
+        tools:layout="@layout/fragment_coordinator" />
+    <fragment
+        android:id="@+id/presentationFragment"
+        android:name="com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment"
+        android:label="PresentationFragment" />
+    <fragment
+        android:id="@+id/sortedListFragment"
+        android:name="com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment"
+        android:label="SortedListFragment" />
+    <fragment
+        android:id="@+id/menuListFragment"
+        android:name="com.survivalcoding.ifkakao.ifkakao.view.menu.MenuListFragment"
+        android:label="MenuListFragment" />
+    <fragment
+        android:id="@+id/favoriteListFragment"
+        android:name="com.survivalcoding.ifkakao.ifkakao.view.sorted.FavoriteListFragment"
+        android:label="FavoriteListFragment" />
+</navigation>

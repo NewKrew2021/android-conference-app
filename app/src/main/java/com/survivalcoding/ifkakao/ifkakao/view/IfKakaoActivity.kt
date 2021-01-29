@@ -13,14 +13,7 @@ import com.survivalcoding.ifkakao.ifkakao.view.menu.MenuListFragment
 
 class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = IfKakaoFactory()
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<IfKakaoFragment>(R.id.if_kakao_fragment_container_view)
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

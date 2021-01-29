@@ -6,12 +6,15 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/if_kakao_fragment_container_view"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/navi_if_kakao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
