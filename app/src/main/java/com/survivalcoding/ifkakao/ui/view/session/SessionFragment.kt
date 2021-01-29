@@ -20,6 +20,7 @@ import com.survivalcoding.ifkakao.ui.view.filter.SessionFilterFragment
 import com.survivalcoding.ifkakao.ui.view.home.MainFragment
 import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
+import com.survivalcoding.ifkakao.util.EMPTY_STRING
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import com.survivalcoding.ifkakao.util.SESSION_MAIN_VIDEO_URL
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -44,9 +45,9 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             if (filter != null) {
                 viewModel.getConferenceData(filter)
             } else {
-                viewModel.getConferenceData("")
+                viewModel.getConferenceData(EMPTY_STRING)
             }
-        } ?: viewModel.getConferenceData("")
+        } ?: viewModel.getConferenceData(EMPTY_STRING)
 
     }
 
@@ -154,5 +155,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
 }

@@ -5,8 +5,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 
-@BindingAdapter("bindSessionVideoThumbnail")
-fun bindSessionVideoThumbnail(view: ImageView, imageUrl: String?) {
+@BindingAdapter("bindImage")
+fun bindImage(view: ImageView, imageUrl: String?) {
     Glide.with(view.context)
         .load(imageUrl)
         .fitCenter()

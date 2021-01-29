@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/round_image"
                 android:scaleType="fitXY"
-                app:bindSessionVideoThumbnail="@{session.parseImageUrl(session)}"
+                app:bindImage="@{session.parseImageUrl(session)}"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView

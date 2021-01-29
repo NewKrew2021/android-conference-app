@@ -28,6 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:bindImage="@{image.url}"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
@@ -36,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8"
             android:layout_marginTop="@dimen/spacing_8"
-            android:text="TextView"
+            android:text="@{speaker.nameKo + ' ' + speaker.nameEn}"
             android:textColor="@color/white"
             android:textSize="@dimen/body_14"
             app:layout_constraintStart_toEndOf="@+id/iv_speaker"
@@ -48,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8"
             android:layout_marginTop="@dimen/spacing_8"
-            android:text="TextView"
+            android:text="@{speaker.company}"
             android:textSize="@dimen/body_14"
             app:layout_constraintStart_toEndOf="@+id/iv_speaker"
             app:layout_constraintTop_toBottomOf="@+id/tv_name_speaker" />
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_8"
             android:layout_marginTop="@dimen/spacing_8"
-            android:text="TextView"
+            android:text="@{speaker.occupation}"
             app:layout_constraintStart_toEndOf="@+id/iv_speaker"
             app:layout_constraintTop_toBottomOf="@+id/tv_company_speaker" />
     </androidx.constraintlayout.widget.ConstraintLayout>

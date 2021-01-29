@@ -3,7 +3,6 @@ package com.survivalcoding.ifkakao.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.data.model.response.ConferenceContentsSpeakerResponse
 import com.survivalcoding.ifkakao.data.model.response.ConferenceDetailResponse
 import com.survivalcoding.ifkakao.databinding.ItemSpeakerBinding
@@ -40,13 +39,7 @@ class SpeakerViewHolder(private val binding: ItemSpeakerBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bindView(speaker: ConferenceContentsSpeakerResponse, image: ConferenceDetailResponse) {
-        binding.tvNameSpeaker.text = speaker.nameKo
-        binding.tvCompanySpeaker.text = speaker.company
-        binding.tvOccupationSpeaker.text = speaker.occupation
-
-        Glide.with(binding.ivSpeaker)
-            .load(image.url)
-            .fitCenter()
-            .into(binding.ivSpeaker)
+        binding.speaker = speaker
+        binding.image = image
     }
 }
