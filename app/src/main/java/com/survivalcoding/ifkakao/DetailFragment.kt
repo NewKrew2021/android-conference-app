@@ -14,8 +14,8 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
@@ -33,6 +33,7 @@ class DetailFragment : Fragment() {
     val binding get() = _binding!!
     val conferenceViewModel: ConferenceViewModel by activityViewModels()
     private lateinit var adapter: SpeakerRecyclerAdapter
+    val args: DetailFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,22 +48,16 @@ class DetailFragment : Fragment() {
         _binding = FragmentDetailBinding.inflate(layoutInflater)
         val view = binding.root
 
-        conferenceViewModel.singleData.value?.let {
-
             adapter = SpeakerRecyclerAdapter(
                 {
-
-                    conferenceViewModel.singleData.value = it
-
-                    parentFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace<DetailFragment>(R.id.fragment_container_view)
-                    }
+                    val action = DetailFragmentDirections.actionDetailFragmentSelf(it)
+                    findNavController().navigate(action)
                 }, {
-                    parentFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace<MainFragment>(R.id.fragment_container_view)
-                    }
+                    if (!findNavController().popBackStack(
+                            R.id.mainFragment,
+                            false
+                        )
+                    ) findNavController().popBackStack(R.id.highlightFragment, false)
                 }, { binding, data ->
                     if (binding.likeToggleButton.isChecked == true) conferenceViewModel.addFavoritesItem(
                         data.id
@@ -74,17 +69,15 @@ class DetailFragment : Fragment() {
                     } else {
                         binding.likeToggleButton.isChecked = false
                     }
-                }, { binding, data ->
+                }, { data ->
                     ShareDialog.show(
                         requireActivity(), ShareLinkContent.Builder()
                             .setContentUrl(Uri.parse("https://if.kakao.com/session/" + data))
                             .build()
                     )
-                }, { binding, id ->
+                }, { id ->
 
                     try {
-                        var pi =
-                            requireActivity().packageManager.getPackageInfo("com.kakao.talk", 0)
 
                         var intent = Intent(Intent.ACTION_SEND)
                         intent.setType("text/plain")
@@ -111,7 +104,7 @@ class DetailFragment : Fragment() {
                     }
 
 
-                }, { binding, data ->
+                }, { data ->
                     val clipboardManager: ClipboardManager =
                         requireContext().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
                     val clipData =
@@ -120,36 +113,34 @@ class DetailFragment : Fragment() {
 
                 })
 
-            binding.speakerRecyclerView.adapter = adapter
-            binding.speakerRecyclerView.layoutManager =
-                LinearLayoutManager(requireContext().applicationContext)
-            val contentsSpeackerList = it.contentsSpeackerList
-            val speackerProfileList = it.speackerProfileList
-            val detailRecyclerList = mutableListOf<DetailRecyclerType>()
-            detailRecyclerList.add(it)
+        val singleData = args.singleData
+        binding.speakerRecyclerView.adapter = adapter
+        binding.speakerRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext().applicationContext)
+        val contentsSpeackerList = singleData.contentsSpeackerList
+        val speackerProfileList = singleData.speackerProfileList
+        val detailRecyclerList = mutableListOf<DetailRecyclerType>()
+        detailRecyclerList.add(singleData)
 
-            if (contentsSpeackerList != null && speackerProfileList != null) {
-                for (i in 0..contentsSpeackerList.size - 1) {
-                    detailRecyclerList.add(
-                        SpeackerInfo(
-                            contentsSpeackerList[i],
-                            speackerProfileList[i].url
-                        )
+        if (contentsSpeackerList != null && speackerProfileList != null) {
+            for (i in 0..contentsSpeackerList.size - 1) {
+                detailRecyclerList.add(
+                    SpeackerInfo(
+                        contentsSpeackerList[i],
+                        speackerProfileList[i].url
                     )
-                }
+                )
             }
-
-            detailRecyclerList.add(SpecificData("${it.id}"))
-            detailRecyclerList.add(SpecificData("listButton"))
-
-
-            var relativeData = conferenceViewModel.getRelativeData(it.field, it.id)
-            adapter.submitList(detailRecyclerList + relativeData)
-
-            setWebView(it.videoUrl)
-
         }
 
+        detailRecyclerList.add(SpecificData("${singleData.id}"))
+        detailRecyclerList.add(SpecificData("listButton"))
+
+        var relativeData = conferenceViewModel.getRelativeData(singleData.field, singleData.id)
+        adapter.submitList(detailRecyclerList + relativeData)
+
+        setWebView(singleData.videoUrl)
+        // }
 
         return view
     }

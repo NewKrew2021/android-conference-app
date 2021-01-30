@@ -7,9 +7,8 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
@@ -47,14 +46,9 @@ class HighlightFragment : Fragment() {
 
 
         adapter = RecyclerAdapter() {
-            conferenceViewModel.singleData.value = it
-            //conferenceViewModel.getSingleData(it)
 
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<DetailFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
+            val action = HighlightFragmentDirections.actionHighlightFragmentToDetailFragment(it)
+            findNavController().navigate(action)
         }
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
@@ -68,11 +62,7 @@ class HighlightFragment : Fragment() {
 
         binding.totalImageView.setOnClickListener {
 
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<MainFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
+            findNavController().navigate(R.id.action_highlightFragment_to_mainFragment)
         }
 
         imageSetting()

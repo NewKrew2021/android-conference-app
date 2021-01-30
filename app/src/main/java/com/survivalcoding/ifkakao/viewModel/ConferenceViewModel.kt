@@ -22,8 +22,8 @@ class ConferenceViewModel(application: Application) : AndroidViewModel(applicati
     private var _listData = MutableLiveData<MutableList<ConferenceAppFront>>()
     val listData get() = _listData
 
-    private var _singleData = MutableLiveData<ConferenceAppFront>()
-    val singleData get() = _singleData
+    // private var _singleData = MutableLiveData<ConferenceAppFront>()
+    // val singleData get() = _singleData
     private var _selectInterests = mutableSetOf<String>()
     val selectInterests get() = _selectInterests
     var nonChoice = true

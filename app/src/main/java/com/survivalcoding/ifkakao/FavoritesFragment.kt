@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentFavoritesBinding
 import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
@@ -35,13 +34,8 @@ class FavoritesFragment : Fragment() {
         val view = binding.root
 
         adapter = RecyclerAdapter() {
-            conferenceViewModel.singleData.value = it
-
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<DetailFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
+            val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(it)
+            findNavController().navigate(action)
         }
 
         binding.recyclerView.adapter = adapter

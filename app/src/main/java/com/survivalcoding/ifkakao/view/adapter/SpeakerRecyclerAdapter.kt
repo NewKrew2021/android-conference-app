@@ -23,9 +23,9 @@ class SpeakerRecyclerAdapter(
     val backItemClick: (Int) -> Unit,
     val favoritesClick: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
     val setFavoritesButton: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
-    val facebookClickListner: (LinkItemBinding, String) -> Unit,
-    val kakaoClickListener: (LinkItemBinding, String) -> Unit,
-    val copyClickListener: (LinkItemBinding, String) -> Unit,
+    val facebookClickListner: (String) -> Unit,
+    val kakaoClickListener: (String) -> Unit,
+    val copyClickListener: (String) -> Unit,
 ) :
     ListAdapter<DetailRecyclerType, RecyclerView.ViewHolder>(SpeakerDiffCallback) {
 
@@ -114,20 +114,20 @@ class SpeakerHolder(
 
 class LinkerHolder(
     val binding: LinkItemBinding,
-    val facebookClickListner: (LinkItemBinding, String) -> Unit,
-    val kakaoClickListener: (LinkItemBinding, String) -> Unit,
-    val copyClickListener: (LinkItemBinding, String) -> Unit,
+    val facebookClickListner: (String) -> Unit,
+    val kakaoClickListener: (String) -> Unit,
+    val copyClickListener: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun clickListener(data: SpecificData) {
 
         binding.facebookButton.setOnClickListener {
-            facebookClickListner(binding, data.type)
+            facebookClickListner(data.type)
         }
         binding.kakaoButton.setOnClickListener {
-            kakaoClickListener(binding, data.type)
+            kakaoClickListener(data.type)
         }
         binding.copyToClipboardButton.setOnClickListener {
-            copyClickListener(binding, data.type)
+            copyClickListener(data.type)
         }
     }
 

@@ -1,9 +1,11 @@
 package com.survivalcoding.ifkakao.model
 
+import android.os.Parcelable
 import com.survivalcoding.ifkakao.model.jsonModel.ContentsSpeacker
 import com.survivalcoding.ifkakao.model.jsonModel.SPEACKERPROFILE
+import kotlinx.android.parcel.Parcelize
 
-
+@Parcelize
 data class ConferenceAppFront(
     var videoLength: String,
     var field: String,
@@ -17,4 +19,7 @@ data class ConferenceAppFront(
     var sessionType: String,
     var videoUrl: String,
     var id: Int,
-) : DetailRecyclerType
+) : DetailRecyclerType, Parcelable
+
+
+

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import androidx.fragment.app.*
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
@@ -59,24 +61,16 @@ class MainFragment : Fragment() {
         setSpinner()
 
         binding.imageView.setOnClickListener {
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<FilterFragment>(R.id.fragment_container_view)
-                //addToBackStack(null)
-            }
+            findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
         }
         return view
     }
 
     fun setRecyclerView() {
         adapter = RecyclerAdapter() {
-            conferenceViewModel.singleData.value = it
 
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<DetailFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
+            val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
+            findNavController().navigate(action)
         }
 
         binding.recyclerView.adapter = adapter
