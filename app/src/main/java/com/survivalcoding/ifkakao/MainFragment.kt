@@ -1,10 +1,8 @@
 package com.survivalcoding.ifkakao
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
@@ -24,7 +22,7 @@ class MainFragment : Fragment() {
     private lateinit var adapter: RecyclerAdapter
 
     private val binding get() = _binding!!
-    val conferenceViewModel: ConferenceViewModel by activityViewModels()
+    private val conferenceViewModel: ConferenceViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,19 +53,14 @@ class MainFragment : Fragment() {
             }
         }
 
-
-        setVideoView()
-
-        setSpinner()
-
         binding.imageView.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_filterFragment)
         }
         return view
     }
 
-    fun setRecyclerView() {
-        adapter = RecyclerAdapter() {
+    private fun setRecyclerView() {
+        adapter = RecyclerAdapter {
 
             val action = MainFragmentDirections.actionMainFragmentToDetailFragment(it)
             findNavController().navigate(action)
@@ -76,30 +69,6 @@ class MainFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireActivity().applicationContext)
-    }
-
-    fun setSpinner() {
-        var dataArr = arrayOf("Day1", "Day2", "Day3(All)")
-        var spinnerAdapter = ArrayAdapter(requireContext(), R.layout.spinner_item, dataArr)
-
-        binding.spinner.apply {
-            adapter = spinnerAdapter
-            onItemSelectedListener = MySpinnerListener()
-            setSelection(2)
-        }
-
-    }
-
-    fun setVideoView() {
-        binding.videoView.apply {
-            setVideoURI(Uri.parse("android.resource://${requireActivity().packageName}/raw/main_video"))
-            setOnPreparedListener {
-                it.start()
-            }
-            setOnCompletionListener {
-                it.start()
-            }
-        }
     }
 
 

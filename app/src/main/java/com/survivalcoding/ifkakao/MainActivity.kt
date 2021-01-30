@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
 
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.setTitle("")
+        supportActionBar?.title = ""
 
         setSupportActionBar(binding.toolbar)
         val navHostFragment =

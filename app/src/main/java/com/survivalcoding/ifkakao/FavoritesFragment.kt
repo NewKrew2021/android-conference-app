@@ -18,7 +18,7 @@ class FavoritesFragment : Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     val binding get() = _binding!!
     private lateinit var adapter: RecyclerAdapter
-    val conferenceViewModel: ConferenceViewModel by activityViewModels()
+    private val conferenceViewModel: ConferenceViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class FavoritesFragment : Fragment() {
         _binding = FragmentFavoritesBinding.inflate(layoutInflater)
         val view = binding.root
 
-        adapter = RecyclerAdapter() {
+        adapter = RecyclerAdapter {
             val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(it)
             findNavController().navigate(action)
         }
@@ -42,9 +42,7 @@ class FavoritesFragment : Fragment() {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext().applicationContext)
 
-
         adapter.submitList(conferenceViewModel.getFavoritesData())
-
 
         return view
     }

@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import coil.transform.RoundedCornersTransformation
-import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.databinding.FragmentHighlightBinding
 import com.survivalcoding.ifkakao.view.adapter.RecyclerAdapter
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
@@ -26,7 +25,7 @@ class HighlightFragment : Fragment() {
     private lateinit var adapter: RecyclerAdapter
 
     private val binding get() = _binding!!
-    val conferenceViewModel: ConferenceViewModel by activityViewModels()
+    private val conferenceViewModel: ConferenceViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +44,7 @@ class HighlightFragment : Fragment() {
         val view = binding.root
 
 
-        adapter = RecyclerAdapter() {
+        adapter = RecyclerAdapter {
 
             val action = HighlightFragmentDirections.actionHighlightFragmentToDetailFragment(it)
             findNavController().navigate(action)
@@ -69,12 +68,7 @@ class HighlightFragment : Fragment() {
         return view
     }
 
-    fun imageSetting() {
-        binding.highlightImageView.load(R.drawable.bg_bye)
-        binding.highlightImageView.setImageAlpha(130)
-        Glide.with(requireActivity()).load(R.drawable.ico_bye).into(binding.handImageView)
-        //움직이는 gif
-
+    private fun imageSetting() {
         binding.totalImageView.load(R.drawable.total_icon) {
             transformations(
                 RoundedCornersTransformation(
@@ -85,8 +79,6 @@ class HighlightFragment : Fragment() {
                 )
             )
         }
-
-
     }
 
     override fun onDestroyView() {

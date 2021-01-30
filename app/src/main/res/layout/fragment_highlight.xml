@@ -1,127 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainFragment">
+    tools:context=".HighlightFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <LinearLayout
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBarLayout"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="520dp"
-            android:fitsSystemWindows="true">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="520dp"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        app:layout_collapseMode="pin" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="545dp"
+                        android:layout_gravity="bottom">
+
+
+                        <ImageView
+                            android:id="@+id/highlightImageView"
+                            android:layout_width="0dp"
+                            android:layout_height="475dp"
+                            app:highlightImage="@{@drawable/bg_bye}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/hightlightTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:text="Highlight"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/totalImageView"
+                            android:layout_width="130dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="5dp"
+                            android:background="@color/black"
+                            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <ImageView
+                            android:id="@+id/handImageView"
+                            android:layout_width="79dp"
+                            android:layout_height="72dp"
+                            android:layout_marginBottom="120dp"
+                            app:handImage="@{@drawable/ico_bye}"
+                            app:layout_constraintBottom_toBottomOf="@+id/highlightImageView"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/highlightImageView"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/mainTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:text="if(kakao)2020이 \n 여러분의 관심 속에 마무리되었습니다. \n 우리, 내년에 또 만나요! \n 오늘도 카카오는 일상을 바꾸는 중"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/handImageView" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="90dp"
+                            android:layout_height="64dp"
+                            android:layout_marginBottom="4dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.466"
+                            app:layout_constraintStart_toStartOf="@+id/hightlightTextView" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin" />
+            </androidx.recyclerview.widget.RecyclerView>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="545dp"
-                    android:layout_gravity="bottom">
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-                    <ImageView
-                        android:id="@+id/highlightImageView"
-                        android:layout_width="0dp"
-                        android:layout_height="475dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/hightlightTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="Highlight"
-                        android:textColor="@color/white"
-                        android:textSize="24sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-
-                    <ImageView
-                        android:id="@+id/totalImageView"
-                        android:layout_width="130dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="bottom|end"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="5dp"
-                        android:background="@color/black"
-                        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        tools:src="@tools:sample/avatars" />
-
-                    <ImageView
-                        android:id="@+id/handImageView"
-                        android:layout_width="79dp"
-                        android:layout_height="72dp"
-                        android:layout_marginBottom="120dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/highlightImageView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/highlightImageView"
-                        tools:src="@tools:sample/avatars" />
-
-                    <TextView
-                        android:id="@+id/mainTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="center"
-                        android:text="if(kakao)2020이 \n 여러분의 관심 속에 마무리되었습니다. \n 우리, 내년에 또 만나요! \n 오늘도 카카오는 일상을 바꾸는 중"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/handImageView" />
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="?android:attr/progressBarStyle"
-                        android:layout_width="90dp"
-                        android:layout_height="64dp"
-                        android:layout_marginBottom="4dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.466"
-                        app:layout_constraintStart_toStartOf="@+id/hightlightTextView" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</layout>
