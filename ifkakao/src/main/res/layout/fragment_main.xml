@@ -87,18 +87,6 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageButton
-                            android:id="@+id/favorite_session_button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/button_color"
-                            android:src="@drawable/ic_baseline_favorite_24"
-                            app:layout_constraintBottom_toBottomOf="@id/filter_button"
-                            app:layout_constraintRight_toLeftOf="@id/filter_button"
-                            app:layout_constraintTop_toTopOf="@id/filter_button" />
-
-
                         <Button
                             android:id="@+id/filter_button"
                             layout_width="@{viewModel.selectedFilter.size() != 0 ? (viewModel.selectedFilter.size() >= 10 ? @dimen/selected_many_filter_button : @dimen/selected_filter_button) : @dimen/zero_filter_button}"
