@@ -5,11 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="singleData"
             type="com.survivalcoding.ifkakao.model.ConferenceAppFront" />
-
     </data>
 
     <LinearLayout

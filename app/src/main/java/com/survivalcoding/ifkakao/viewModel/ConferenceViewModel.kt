@@ -28,7 +28,7 @@ class ConferenceViewModel(application: Application) : AndroidViewModel(applicati
     val selectInterests get() = _selectInterests
     var nonChoice = true
 
-    val handler = CoroutineExceptionHandler { _, exception ->
+    private val handler = CoroutineExceptionHandler { _, exception ->
         Log.d("log2", "데이터를 받아오는데 실패하였습니다.")
     }
 
@@ -56,8 +56,8 @@ class ConferenceViewModel(application: Application) : AndroidViewModel(applicati
         val tmpList = mutableListOf<ConferenceAppFront>()
 
         _listData.value?.let {
-            for (i in 0..it.size - 1) {
-                if (favoritesSet.contains(it.get(i).id)) tmpList.add(it.get(i))
+            for (i in 0 until it.size) {
+                if (favoritesSet.contains(it[i].id)) tmpList.add(it[i])
             }
         }
         return tmpList.toList()
@@ -73,24 +73,24 @@ class ConferenceViewModel(application: Application) : AndroidViewModel(applicati
         }
     }
 
-    fun parsingToConferenceAppFront(topData: Conference) {
+    private fun parsingToConferenceAppFront(topData: Conference) {
 
         val tmpData = mutableListOf<ConferenceAppFront>()
 
         for (i in 0..topData.data.size - 1) {
-            var length = topData.data[i].linkList.VIDEO[0].description
-            var field = topData.data[i].field
-            var titleTmp = topData.data[i].title
-            var imageUrl = topData.data[i].linkList.PC_IMAGE[0].url
-            var content = topData.data[i].content
-            var contentTag = topData.data[i].contentTag ?: ""
-            var contentsSpeackerList = topData.data[i].contentsSpeackerList
-            var speackerProfileList = topData.data[i].linkList.SPEACKER_PROFILE
-            var spotlightYn = topData.data[i].spotlightYn
-            var sessionType = topData.data[i].sessionType
-            var videoUrl = topData.data[i].linkList.VIDEO[0].url
-            var id = topData.data[i].idx
-            var title = titleTmp.replace("<br>", "\n")
+            val length = topData.data[i].linkList.VIDEO[0].description
+            val field = topData.data[i].field
+            val titleTmp = topData.data[i].title
+            val imageUrl = topData.data[i].linkList.PC_IMAGE[0].url
+            val content = topData.data[i].content
+            val contentTag = topData.data[i].contentTag ?: ""
+            val contentsSpeackerList = topData.data[i].contentsSpeackerList
+            val speackerProfileList = topData.data[i].linkList.SPEACKER_PROFILE
+            val spotlightYn = topData.data[i].spotlightYn
+            val sessionType = topData.data[i].sessionType
+            val videoUrl = topData.data[i].linkList.VIDEO[0].url
+            val id = topData.data[i].idx
+            val title = titleTmp.replace("<br>", "\n")
             tmpData.add(
                 ConferenceAppFront(
                     length,
@@ -112,12 +112,12 @@ class ConferenceViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun getHighlightData(): MutableList<ConferenceAppFront> {
-        var tmpList = mutableListOf<ConferenceAppFront>()
+        val tmpList = mutableListOf<ConferenceAppFront>()
 
         _listData.value?.let {
 
-            for (i in 0..it.size - 1) {
-                if (it.get(i).spotlightYn == "Y") tmpList.add(it.get(i))
+            for (i in 0 until it.size) {
+                if (it[i].spotlightYn == "Y") tmpList.add(it[i])
             }
         }
         return tmpList

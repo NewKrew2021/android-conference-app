@@ -24,8 +24,8 @@ fun setVideoView(view: VideoView, tmp: String?) {
 
 @BindingAdapter("setSpinner")
 fun setSpinner(view: Spinner, tmp: String?) {
-    var dataArr = arrayOf("Day1", "Day2", "Day3(All)")
-    var spinnerAdapter = ArrayAdapter(view.context, R.layout.spinner_item, dataArr)
+    val dataArr = arrayOf("Day1", "Day2", "Day3(All)")
+    val spinnerAdapter = ArrayAdapter(view.context, R.layout.spinner_item, dataArr)
 
     view.apply {
         adapter = spinnerAdapter

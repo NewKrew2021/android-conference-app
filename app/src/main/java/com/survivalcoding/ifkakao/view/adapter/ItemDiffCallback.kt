@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.view.adapter
 
-import android.content.ClipData
 import androidx.recyclerview.widget.DiffUtil
 import com.survivalcoding.ifkakao.model.ConferenceAppFront
 

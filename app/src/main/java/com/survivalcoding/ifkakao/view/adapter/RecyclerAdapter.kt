@@ -53,10 +53,10 @@ class Holder(
     RecyclerView.ViewHolder(binding.root) {
 
     fun setData(data: ConferenceAppFront) {
-        binding.lengthTextView.text = "${data.videoLength}"
-        binding.fieldTextView.text = "${data.field}"
-        binding.titleTextView.text = "${data.title}"
-        binding.imageView.load("${data.imageUrl}") {
+        binding.lengthTextView.text = data.videoLength
+        binding.fieldTextView.text = data.field
+        binding.titleTextView.text = data.title
+        binding.imageView.load(data.imageUrl) {
             transformations(
                 RoundedCornersTransformation(
                     topRight = 20f,
