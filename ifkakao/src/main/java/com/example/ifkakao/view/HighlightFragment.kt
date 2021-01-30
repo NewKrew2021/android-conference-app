@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
 import com.example.ifkakao.databinding.FragmentHighlighBinding
+import com.example.ifkakao.util.addTransaction
 import com.example.ifkakao.util.replaceTransaction
 import com.example.ifkakao.viewmodel.SessionViewModel
 
@@ -35,6 +36,15 @@ class HighlightFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
         observeData()
+        binding.toolbar.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_button -> {
+                    addTransaction<MenuFragment>(R.id.fragment_container_view)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun observeData() {

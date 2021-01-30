@@ -32,7 +32,20 @@ class FavoriteSessionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeView()
         observeData()
+        setOnClickListener()
         viewModel.updateFavoriteSessionList()
+    }
+
+    private fun setOnClickListener() {
+        binding.toolbar.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_button -> {
+                    addTransaction<MenuFragment>(R.id.fragment_container_view)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun observeData() {

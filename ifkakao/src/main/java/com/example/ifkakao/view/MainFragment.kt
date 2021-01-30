@@ -54,11 +54,22 @@ class MainFragment : Fragment() {
     }
 
     private fun setOnClickListener() {
-        binding.filterButton.setOnClickListener {
-            addTransaction<FilterFragment>(R.id.fragment_container_view)
-        }
-        binding.favoriteSessionButton.setOnClickListener {
-            addTransaction<FavoriteSessionFragment>(R.id.fragment_container_view)
+        binding.apply {
+            filterButton.setOnClickListener {
+                addTransaction<FilterFragment>(R.id.fragment_container_view)
+            }
+            favoriteSessionButton.setOnClickListener {
+                addTransaction<FavoriteSessionFragment>(R.id.fragment_container_view)
+            }
+            toolbar.toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_button -> {
+                        addTransaction<MenuFragment>(R.id.fragment_container_view)
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
     }
 
