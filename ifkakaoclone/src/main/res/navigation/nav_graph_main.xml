@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_sessionListFragment_to_filterDetailFragment"
             app:destination="@id/filterDetailFragment" />
+        <action
+            android:id="@+id/action_sessionListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/sessionDetailFragment"
@@ -31,4 +34,9 @@
         android:name="com.jayden.ifkakaoclone.view.main.fragment.FilterDetailFragment"
         android:label="FilterDetailFragment"
         tools:layout="@layout/fragment_filter_detail"/>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" />
 </navigation>
