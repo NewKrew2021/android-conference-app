@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.survivalcoding.ifkakao.databinding.SecondActivityMainBinding
 import com.survivalcoding.ifkakao.second.App
-import com.survivalcoding.ifkakao.second.factory.ContentFragmentFactory
 import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.model.favorite.repository.FavoriteRepository
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
@@ -29,7 +28,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = ContentFragmentFactory()
         super.onCreate(savedInstanceState)
         binding = SecondActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
