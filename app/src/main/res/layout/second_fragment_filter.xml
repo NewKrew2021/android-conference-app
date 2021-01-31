@@ -15,7 +15,7 @@
 
         <variable
             name="viewmodel"
-            type="com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel" />
+            type="com.survivalcoding.ifkakao.second.viewmodel.FilterViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

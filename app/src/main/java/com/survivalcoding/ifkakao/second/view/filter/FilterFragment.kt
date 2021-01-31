@@ -5,16 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.databinding.SecondFragmentFilterBinding
 import com.survivalcoding.ifkakao.second.model.filter.FilterType
-import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
+import com.survivalcoding.ifkakao.second.viewmodel.FilterViewModel
 
 class FilterFragment : Fragment() {
     private var _binding: SecondFragmentFilterBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ContentViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +29,6 @@ class FilterFragment : Fragment() {
         requireActivity().title = "if(kakao)2020"
         binding.resetButton.setOnClickListener { viewModel.resetFilter() }
         binding.submitButton.setOnClickListener {
-            viewModel.submitFilter()
             findNavController().popBackStack()
         }
         return binding.root
