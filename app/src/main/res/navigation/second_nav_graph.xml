@@ -21,7 +21,11 @@
         android:id="@+id/secondDetailFragment"
         android:name="com.survivalcoding.ifkakao.second.view.main.DetailFragment"
         android:label="second_fragment_detail"
-        tools:layout="@layout/second_fragment_detail" />
+        tools:layout="@layout/second_fragment_detail">
+        <argument
+            android:name="contentData"
+            app:argType="com.survivalcoding.ifkakao.second.model.content.ContentData" />
+    </fragment>
     <fragment
         android:id="@+id/secondFilterFragment"
         android:name="com.survivalcoding.ifkakao.second.view.filter.FilterFragment"

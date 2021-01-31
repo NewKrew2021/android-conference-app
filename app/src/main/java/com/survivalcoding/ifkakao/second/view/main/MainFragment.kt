@@ -22,8 +22,9 @@ class MainFragment : Fragment() {
     private val adapter by lazy {
         ContentMainAdapter(
             itemClickListener = {
-                viewModel.setSelectedItem(it)
-                findNavController().navigate(R.id.action_main_to_detail)
+                val action = MainFragmentDirections.actionMainToDetail(it)
+                viewModel.getFavorite(it)
+                findNavController().navigate(action)
             },
             filterClickListener = {
                 findNavController().navigate(R.id.action_main_to_filter)

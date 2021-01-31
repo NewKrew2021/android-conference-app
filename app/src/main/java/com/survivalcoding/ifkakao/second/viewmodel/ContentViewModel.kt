@@ -33,7 +33,6 @@ class ContentViewModel(
     val selectedItem: ContentData get() = _selectedItem
 
     private var _selectedDate: Int = -1
-    val selectedDate: Int get() = _selectedDate
 
     private var _favorites = mutableListOf<Favorite>()
 
@@ -82,6 +81,12 @@ class ContentViewModel(
                 remove(filterType)
             }
         }
+    }
+
+    fun getFavorite(item: ContentData) {
+        _selectedFavorite = _favorites.filter { it.idx == item.idx }.toMutableList().apply {
+            if (size == 0) add(Favorite(item.idx, false))
+        }[0]
     }
 
     fun resetFilter() {

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.databinding.SecondFragmentDetailBinding
 import com.survivalcoding.ifkakao.second.extension.removeTag
 import com.survivalcoding.ifkakao.second.model.content.Speaker
@@ -23,9 +24,10 @@ class DetailFragment : Fragment() {
     private var _binding: SecondFragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ContentViewModel by activityViewModels()
+    private val args: DetailFragmentArgs by navArgs()
     private val adapter by lazy {
         SpeakerDetailAdapter(
-            contentData = viewModel.selectedItem,
+            contentData = args.contentData,
             favorite = viewModel.selectedFavorite,
             videoPlayListener = {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
@@ -83,9 +85,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.recyclerView.adapter = adapter
-        viewModel.speakers.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
+        updateUI(args.contentData.contentsSpeackerList)
     }
 
     override fun onDestroyView() {
