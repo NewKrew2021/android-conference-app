@@ -20,6 +20,9 @@ class ContentViewModel(
     private val _data = MutableLiveData<List<ContentData>>()
     val data: LiveData<List<ContentData>> get() = _data
 
+    private val _filteredData = MutableLiveData<List<ContentData>>()
+    val filteredData: LiveData<List<ContentData>> get() = _filteredData
+
     private val _speakers = MutableLiveData<List<Speaker>>()
     val speakers: LiveData<List<Speaker>> get() = _speakers
 
@@ -28,6 +31,9 @@ class ContentViewModel(
 
     private lateinit var _selectedItem: ContentData
     val selectedItem: ContentData get() = _selectedItem
+
+    private var _selectedDate: Int = 3
+    val selectedDate: Int get() = _selectedDate
 
     private var _favorites = mutableListOf<Favorite>()
 
@@ -79,4 +85,9 @@ class ContentViewModel(
 
     fun isSelectedFilter(filterType: FilterType, name: String): Boolean =
         _filters.value?.find(filterType, name) ?: false
+
+    fun setSelectedDate(date: Int) {
+        _selectedDate = date
+        _filteredData.value = _data.value?.filter { it.createdDateTime[9] == (date).toString()[0] }
+    }
 }

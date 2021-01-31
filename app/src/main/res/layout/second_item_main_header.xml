@@ -28,6 +28,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/main_image" />
 
+
+        <Spinner
+            android:id="@+id/filter_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/filter_text"
+            app:layout_constraintTop_toTopOf="@id/filter_text" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -50,6 +58,16 @@
             app:layout_constraintLeft_toLeftOf="@id/main_image"
             app:layout_constraintRight_toRightOf="@id/main_image"
             app:layout_constraintTop_toTopOf="@id/main_image" />
+
+        <Button
+            android:id="@+id/show_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/content_button_border"
+            android:text="전체세션 보기"
+            app:layout_constraintBottom_toBottomOf="@id/filter_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/filter_text" />
 
         <Button
             android:id="@+id/filter_button"

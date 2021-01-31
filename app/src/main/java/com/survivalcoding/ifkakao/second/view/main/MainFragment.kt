@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -36,6 +38,24 @@ class MainFragment : Fragment() {
                     addToBackStack(null)
                 }
             },
+            spinnerArrayAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.filter_array,
+                android.R.layout.simple_spinner_item
+            ),
+            spinnerChangeListener = object : AdapterView.OnItemSelectedListener {
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    viewModel.setSelectedDate(3 - position)
+                }
+            }
         )
     }
     private val viewModel: ContentViewModel by activityViewModels()
@@ -55,6 +75,9 @@ class MainFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
+        viewModel.filteredData.observe(viewLifecycleOwner) {
+            updateUI(it)
+        }
         viewModel.data.observe(viewLifecycleOwner) {
             updateUI(it)
         }
