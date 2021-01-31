@@ -16,6 +16,11 @@
         <action
             android:id="@+id/action_main_to_filter"
             app:destination="@id/secondFilterFragment" />
+        <argument
+            android:name="filter"
+            android:defaultValue="@null"
+            app:argType="com.survivalcoding.ifkakao.second.model.filter.Filter"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/secondDetailFragment"
@@ -30,5 +35,9 @@
         android:id="@+id/secondFilterFragment"
         android:name="com.survivalcoding.ifkakao.second.view.filter.FilterFragment"
         android:label="FilterFragment"
-        tools:layout="@layout/second_fragment_filter" />
+        tools:layout="@layout/second_fragment_filter">
+        <action
+            android:id="@+id/action_filter_to_main"
+            app:destination="@id/secondMainFragment" />
+    </fragment>
 </navigation>
