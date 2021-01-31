@@ -46,3 +46,8 @@ fun VideoView.loadVideoThenLoop(videoUrl: String) {
 fun View.whenShouldItGone(shouldBeGone: Boolean) {
     visibility = if (shouldBeGone) View.GONE else View.VISIBLE
 }
+
+@BindingAdapter(value = ["app:srcCompat", "drawableWhenTrue", "drawableWhenFalse"])
+fun ImageView.srcCompatByCondition(condition: Boolean, drawableWhenTrue: Drawable, drawableWhenFalse: Drawable) {
+    setImageDrawable(if (condition) drawableWhenTrue else drawableWhenFalse)
+}

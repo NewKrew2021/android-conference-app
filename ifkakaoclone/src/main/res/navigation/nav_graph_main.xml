@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/highlightFragment">
+
+    <fragment
+        android:id="@+id/sessionListFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.SessionListFragment"
+        android:label="SessionListFragment"
+        tools:layout="@layout/fragment_session_list">
+        <action
+            android:id="@+id/action_sessionListFragment_to_sessionDetailFragment"
+            app:destination="@id/sessionDetailFragment" />
+        <action
+            android:id="@+id/action_sessionListFragment_to_filterDetailFragment"
+            app:destination="@id/filterDetailFragment" />
+        <action
+            android:id="@+id/action_sessionListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sessionDetailFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.SessionDetailFragment"
+        android:label="SessionDetailFragment"
+        tools:layout="@layout/fragment_session_detail">
+        <argument
+            android:name="session"
+            app:argType="com.jayden.ifkakaoclone.view.main.model.Session" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterDetailFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.FilterDetailFragment"
+        android:label="FilterDetailFragment"
+        tools:layout="@layout/fragment_filter_detail"/>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/highlightFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.HighlightFragment"
+        android:label="fragment_highlight"
+        tools:layout="@layout/fragment_highlight" >
+        <action
+            android:id="@+id/action_highlightFragment_to_sessionListFragment"
+            app:destination="@id/sessionListFragment" />
+        <action
+            android:id="@+id/action_highlightFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_highlightFragment_to_sessionDetailFragment"
+            app:destination="@id/sessionDetailFragment" />
+    </fragment>
+</navigation>

@@ -20,18 +20,15 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     private val _sessions: MutableLiveData<List<Session>> by lazy { MutableLiveData<List<Session>>() }
     val sessions: LiveData<List<Session>> get() = _sessions
 
-    private val _selectedItem = MutableLiveData<Session>()
-    val selectedItem: LiveData<Session> get() = _selectedItem
-
     private val _action = SingleLiveData<Action>()
     val action: LiveData<Action> get() = _action
 
-    private val _isLoading = MutableLiveData<Boolean>(true)
+    private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    val favorite: LiveData<List<Favorite>> = repository.getFavorites()
+    val favorites: LiveData<List<Favorite>> = repository.getFavorites()
 
-    private val _selectedFavorite = MutableLiveData<Favorite>()
+    private var _selectedFavorite = MutableLiveData<Favorite>()
     val selectedFavorite: LiveData<Favorite> get() = _selectedFavorite
 
     private val _selectedFilters = MutableLiveData<Set<String>>().also {
@@ -44,6 +41,9 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     }
     val appliedFilters: LiveData<Set<String>> get() = _appliedFilters
 
+    private val _shouldFilterWithFavorite = MutableLiveData(false)
+    val shouldFilterWithFavorite: LiveData<Boolean> get() = _shouldFilterWithFavorite
+
     fun fetchContents() {
         viewModelScope.launch {
             _isLoading.value = true
@@ -52,14 +52,9 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun setSelectedItem(session: Session) {
-        _selectedItem.value = session
-    }
-
-    fun setSelectedFavorite(items: List<Favorite>) {
-        val sessionIdx: Int? = selectedItem.value?.idx
+    fun setSelectedFavorite(items: List<Favorite>, sessionIndex: Int) {
         _selectedFavorite.value =
-            items.find { sessionIdx == it.uid } ?: Favorite(uid = sessionIdx ?: 0)
+            items.find { sessionIndex == it.uid } ?: Favorite(uid = sessionIndex)
     }
 
     fun playVideo(url: String) {
@@ -96,6 +91,12 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     fun applyFilters() {
         _appliedFilters.value?.let {
             _appliedFilters.value = _selectedFilters.value
+        }
+    }
+
+    fun toggleFilterWithFavorite() {
+        _shouldFilterWithFavorite.value?.let {
+            _shouldFilterWithFavorite.value = !it
         }
     }
 }

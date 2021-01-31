@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -50,6 +51,8 @@ dependencies {
     implementation deps.androidx.room.runtime
     implementation deps.androidx.room.ktx
     kapt deps.androidx.room.compiler
+    implementation deps.androidx.nav.fragment
+    implementation deps.androidx.nav.ui
 
     implementation deps.material
 

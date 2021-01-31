@@ -1,7 +1,10 @@
 package com.jayden.ifkakaoclone.view.main.model
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class Session(
     val categoryIdx: Int,
@@ -28,4 +31,4 @@ data class Session(
     val title: String,
     val updateCountentsYn: String,
     val videoYn: String
-)
+) : Parcelable

@@ -52,7 +52,7 @@ class FilterDetailFragment : Fragment() {
         else activityViewModel.removeFilter(field)
     }
 
-    fun applyFilters() {
+    fun applyFiltersThenFinish() {
         activityViewModel.applyFilters()
         finish()
     }

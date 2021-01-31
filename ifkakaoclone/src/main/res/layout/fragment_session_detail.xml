@@ -14,6 +14,10 @@
             type="com.jayden.ifkakaoclone.viewmodel.SessionViewModel" />
 
         <variable
+            name="session"
+            type="com.jayden.ifkakaoclone.view.main.model.Session" />
+
+        <variable
             name="fragment"
             type="com.jayden.ifkakaoclone.view.main.fragment.SessionDetailFragment" />
     </data>
@@ -40,7 +44,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:alpha="0.5"
-                    app:imageUrl="@{viewModel.selectedItem.linkList.pcImage[0].url}"
+                    app:imageUrl="@{session.linkList.pcImage[0].url}"
                     app:layout_constraintBottom_toTopOf="@id/text_field"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +61,7 @@
                     android:layout_marginEnd="16dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="@{StringExtensionKt.removeHtmlTag(viewModel.selectedItem.title)}"
+                    android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
                     app:layout_constraintEnd_toStartOf="@id/image_video_share"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -78,7 +82,7 @@
                     android:id="@+id/image_video_play"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:onClick="@{() -> viewModel.playVideo(viewModel.selectedItem.linkList.video[0].url)}"
+                    android:onClick="@{() -> viewModel.playVideo(session.linkList.video[0].url)}"
                     app:layout_constraintBottom_toBottomOf="@id/image_thumbnail"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +93,7 @@
                     android:id="@+id/text_video_length"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.selectedItem.linkList.video[0].description}"
+                    android:text="@{session.linkList.video[0].description}"
                     app:layout_constraintEnd_toEndOf="@id/image_video_play"
                     app:layout_constraintStart_toStartOf="@id/image_video_play"
                     app:layout_constraintTop_toBottomOf="@id/image_video_play"
@@ -103,7 +107,7 @@
                     android:layout_marginTop="16dp"
                     android:background="@drawable/session_field_border"
                     android:padding="4dp"
-                    android:text="@{viewModel.selectedItem.field}"
+                    android:text="@{session.field}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/image_thumbnail"
@@ -139,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="@{StringExtensionKt.removeHtmlTag(viewModel.selectedItem.title)}"
+                android:text="@{StringExtensionKt.removeHtmlTag(session.title)}"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 tools:text="오프닝 키노트" />
@@ -149,7 +153,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="@{viewModel.selectedItem.content}"
+                android:text="@{session.content}"
                 tools:text="if(kakao)2020은 더 나은 세상을 만들기 위한 카카오의 많은 생각과 도전들을 담았습니다.\n오프닝키노트를 시작으로 11월 18일부터 3일 동안 다양한 카카오의 이야기가 펼쳐집니다. \nif(kakao)에서 카카오의 변화를 함께 확인해 보시죠!\n\n오늘도 카카오는 일상을 바꾸는 중." />
 
             <TextView
@@ -157,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="@{viewModel.selectedItem.contentTag}"
+                android:text="@{session.contentTag}"
                 android:textColor="@color/session_footer_copyright_gray"
                 tools:text="#ifkakao2020 #이프카카오2020 #카카오컨퍼런스" />
 

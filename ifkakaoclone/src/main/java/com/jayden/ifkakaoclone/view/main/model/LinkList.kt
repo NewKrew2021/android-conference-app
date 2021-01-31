@@ -1,9 +1,12 @@
 package com.jayden.ifkakaoclone.view.main.model
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class LinkList(
     @Json(name = "FILE")
@@ -25,7 +28,7 @@ data class LinkList(
     @Json(name = "PC_SPOTLIGHT")
     val pcSpotlight: List<Link>,
     @Json(name = "PC_THUMBNAIL")
-    val pcThumbnail: List<Any>,
+    val pcThumbnail: List<Link>,
     @Json(name = "SHARE_IMAGE")
     val shareImage: List<Link>,
     @Json(name = "SPEACKER_PROFILE")
@@ -36,4 +39,4 @@ data class LinkList(
     val video: List<Link>,
     @Json(name = "WEB_URL")
     val webUrl: List<Link>
-)
+) : Parcelable
