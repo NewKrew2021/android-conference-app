@@ -66,7 +66,10 @@
     <string name="fragment_menu_qna">문의하기</string>
     <string name="fragment_menu_talk_channel">ifkakao(톡채널)</string>
     <string name="fragment_menu_mail_address">ifkakao@kakao.com</string>
-
+    <!-- HighlightFragment -->
+    <string name="fragment_highlight_bye">if(kakao)2020이\n여러본의 관심 속에 마무리되었습니다.\n우리, 내년에 또 만나요!\n오늘도 카카오는 세상을 바꾸는 중</string>
+    <string name="fragment_highlight_title">Highlight</string>
+    <string name="fragment_highlight_show_all_sessions">전체세션 보기</string>
     <!-- container_share_items -->
     <string name="share_kakaotalk">카카오톡</string>
     <string name="share_facebook">페이스북</string>

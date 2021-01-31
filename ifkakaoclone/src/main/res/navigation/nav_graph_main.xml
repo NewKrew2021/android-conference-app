@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/sessionListFragment">
+    app:startDestination="@id/highlightFragment">
 
     <fragment
         android:id="@+id/sessionListFragment"
@@ -39,4 +39,19 @@
         android:name="com.jayden.ifkakaoclone.view.main.fragment.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/highlightFragment"
+        android:name="com.jayden.ifkakaoclone.view.main.fragment.HighlightFragment"
+        android:label="fragment_highlight"
+        tools:layout="@layout/fragment_highlight" >
+        <action
+            android:id="@+id/action_highlightFragment_to_sessionListFragment"
+            app:destination="@id/sessionListFragment" />
+        <action
+            android:id="@+id/action_highlightFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_highlightFragment_to_sessionDetailFragment"
+            app:destination="@id/sessionDetailFragment" />
+    </fragment>
 </navigation>

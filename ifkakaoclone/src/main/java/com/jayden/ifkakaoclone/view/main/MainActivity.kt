@@ -30,12 +30,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-
+        binding = ActivityMainBinding.inflate(layoutInflater).apply {
+            viewModel = this@MainActivity.viewModel
+            lifecycleOwner = this@MainActivity
+        }
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+
+        with(binding) {
+            setSupportActionBar(binding.toolbar)
+
+            toolbar.setOnClickListener { findNavController(R.id.fragment_container_view).navigateSingleTop(R.id.highlightFragment) }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
