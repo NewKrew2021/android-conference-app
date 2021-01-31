@@ -6,14 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.databinding.SecondFragmentFilterBinding
 import com.survivalcoding.ifkakao.second.model.filter.FilterType
-import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
+import com.survivalcoding.ifkakao.second.viewmodel.FilterViewModel
 
 class FilterFragment : Fragment() {
     private var _binding: SecondFragmentFilterBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ContentViewModel by activityViewModels()
+    private val viewModel: FilterViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +27,11 @@ class FilterFragment : Fragment() {
             viewmodel = viewModel
         }
         requireActivity().title = "if(kakao)2020"
+        binding.resetButton.setOnClickListener { viewModel.resetFilter() }
+        binding.submitButton.setOnClickListener {
+            val action = FilterFragmentDirections.actionFilterToMain(viewModel.filters.value)
+            findNavController().navigate(action)
+        }
         return binding.root
     }
 
@@ -39,5 +45,4 @@ class FilterFragment : Fragment() {
         if (isChecked) viewModel.removeFilter(type)
         else viewModel.addFilter(type, name)
     }
-
 }

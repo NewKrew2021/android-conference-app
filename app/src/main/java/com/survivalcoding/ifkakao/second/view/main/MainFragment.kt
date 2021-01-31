@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
+import com.survivalcoding.ifkakao.second.App
 import com.survivalcoding.ifkakao.second.model.content.ContentData
-import com.survivalcoding.ifkakao.second.view.filter.FilterFragment
+import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
@@ -19,26 +23,38 @@ import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 class MainFragment : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ContentViewModel by activityViewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return modelClass.getConstructor(
+                    Repository::class.java,
+                ).newInstance(
+                    (requireActivity().application as App).repository,
+                )
+            }
+        }
+    }
+    private val args: MainFragmentArgs by navArgs()
     private val adapter by lazy {
         ContentMainAdapter(
+            selectedDate = viewModel.selectedDate,
             itemClickListener = {
-                viewModel.setSelectedItem(it)
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace<DetailFragment>(R.id.fragment_container_view)
-                    addToBackStack(null)
-                }
+                val action = MainFragmentDirections.actionMainToDetail(it)
+                findNavController().navigate(action)
             },
             filterClickListener = {
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    replace<FilterFragment>(R.id.fragment_container_view)
-                    addToBackStack(null)
-                }
+                findNavController().navigate(R.id.action_main_to_filter)
             },
+            spinnerArrayAdapter = ArrayAdapter.createFromResource(
+                requireContext(),
+                R.array.filter_array,
+                android.R.layout.simple_spinner_item
+            ),
+            spinnerChangeListener = {
+                viewModel.setSelectedDate(it)
+            }
         )
     }
-    private val viewModel: ContentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,10 +71,10 @@ class MainFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
-        viewModel.data.observe(viewLifecycleOwner) {
+        viewModel.loadData()
+        viewModel.filteredData.observe(viewLifecycleOwner) {
             updateUI(it)
         }
-        viewModel.loadData()
     }
 
     override fun onDestroyView() {
@@ -67,7 +83,12 @@ class MainFragment : Fragment() {
     }
 
     private fun updateUI(data: List<ContentData>) {
-        adapter.submitListWithHeader(data)
+        if (args.filter == null)
+            adapter.submitListWithHeader(data)
+        else
+            args.filter?.let {
+                adapter.submitListWithHeader(data, it)
+            }
     }
 
 }

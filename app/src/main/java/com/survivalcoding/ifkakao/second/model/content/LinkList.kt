@@ -1,9 +1,12 @@
 package com.survivalcoding.ifkakao.second.model.content
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
 data class LinkList(
     @Json(name = "FILE")
@@ -36,4 +39,4 @@ data class LinkList(
     val video: List<LinkFile>,
     @Json(name = "WEB_URL")
     val webUrl: List<LinkFile>,
-)
+) : Parcelable

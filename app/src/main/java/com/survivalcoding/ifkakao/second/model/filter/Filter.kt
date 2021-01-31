@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-enum class FilterType : Parcelable {
-    FIELD, SERVICE_BUSINNES, TECH
-}
+data class Filter(
+    var data: Map<FilterType, String>
+) : Parcelable
