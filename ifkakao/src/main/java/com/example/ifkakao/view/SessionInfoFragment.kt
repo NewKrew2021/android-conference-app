@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.ifkakao.R
 import com.example.ifkakao.databinding.FragmentSessionInfoBinding
+import com.example.ifkakao.util.addTransaction
 import com.example.ifkakao.util.makeShareLink
 import com.example.ifkakao.util.showToast
 import com.example.ifkakao.viewmodel.SessionViewModel
@@ -34,29 +35,55 @@ class SessionInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isFavorite.observe(viewLifecycleOwner) {
-            val imageResource =
-                if (it) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
-            if (it) {
-                binding.favoriteButton.setOnClickListener { viewModel.deleteFavoriteSession() }
-            } else {
-                binding.favoriteButton.setOnClickListener { viewModel.addFavoriteSession() }
+        observeData()
+        setOnClickListener()
+    }
+
+    private fun observeData() {
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            binding.favoriteButton.setOnClickListener {
+                viewModel.updateFavoriteSessionList()
+                if (isFavorite) {
+                    viewModel.deleteFavoriteSession()
+                } else {
+                    viewModel.addFavoriteSession()
+                }
+                viewModel.updateFavoriteSessionList()
+
             }
+            val imageResource =
+                if (isFavorite) R.drawable.ic_baseline_favorite_white_24 else R.drawable.ic_baseline_favorite_border_24
             binding.favoriteButton.setImageResource(imageResource)
         }
+    }
 
+    private fun setOnClickListener() {
         binding.shareButton.setOnClickListener {
             viewModel.selectedSession.value?.let {
                 makeShareLink(it.idx, successListener = { link ->
                     Intent(Intent.ACTION_SEND).run {
                         type = TEXT_PLAIN
                         putExtra(Intent.EXTRA_TEXT, link)
-                        startActivity(Intent.createChooser(this, getString(R.string.share_session)))
+                        startActivity(
+                            Intent.createChooser(
+                                this,
+                                getString(R.string.share_session)
+                            )
+                        )
                     }
                 }, failureListener = {
                     showToast(getString(R.string.share_fail_message))
                 }
                 )
+            }
+        }
+        binding.toolbar.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_button -> {
+                    addTransaction<MenuFragment>(R.id.fragment_container_view)
+                    true
+                }
+                else -> false
             }
         }
     }

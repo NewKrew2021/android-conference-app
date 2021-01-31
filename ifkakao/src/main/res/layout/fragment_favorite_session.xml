@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".view.HighlightFragment">
+    tools:context=".view.FavoriteSessionFragment">
 
     <include
         android:id="@+id/toolbar"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/highlight_scroll"
+        android:id="@+id/favorite_scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,43 +25,53 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <FrameLayout
                 android:id="@+id/main_image"
                 android:layout_width="match_parent"
                 android:layout_height="424dp"
-                android:foreground="@color/main_image_filter_color"
-                android:scaleType="centerCrop"
-                android:src="@drawable/main_image_portrait"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/hand_image"
-                android:layout_width="48dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                app:layout_constraintBottom_toTopOf="@id/main_text"
-                app:layout_constraintLeft_toLeftOf="@id/main_image"
-                app:layout_constraintRight_toRightOf="@id/main_image"
-                tools:src="@drawable/shake_hand" />
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_marginTop="48dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/bg_if" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/bg_arrow" />
+
+                <ImageView
+                    android:id="@+id/top_gif_image"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_marginTop="72dp"
+                    android:adjustViewBounds="true"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+                <ImageView
+                    android:id="@+id/bottom_gif_image"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_marginBottom="16dp"
+                    android:adjustViewBounds="true"
+                    tools:srcCompat="@tools:sample/avatars" />
+            </FrameLayout>
 
             <TextView
-                android:id="@+id/main_text"
+                android:id="@+id/favorite_session_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/main_text"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/main_image"
-                app:layout_constraintLeft_toLeftOf="@id/main_image"
-                app:layout_constraintRight_toRightOf="@id/main_image"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/highlight"
+                android:text="@string/favorites"
                 android:textColor="@color/white"
                 android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="@id/all_session_button"
@@ -79,15 +89,13 @@
                 app:layout_constraintTop_toBottomOf="@id/main_image" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/highlight_list_recycler"
+                android:id="@+id/favorite_recycler_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/left_guideline"
                 app:layout_constraintRight_toRightOf="@id/right_guideline"
-                app:layout_constraintTop_toBottomOf="@id/all_session_button"
+                app:layout_constraintTop_toBottomOf="@id/favorite_session_text"
                 tools:listitem="@layout/item_session" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -104,6 +112,7 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.95" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

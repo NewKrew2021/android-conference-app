@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="fragment"
             type="com.example.ifkakao.view.FilterFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.example.ifkakao.viewmodel.SessionViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/button_color"
@@ -58,6 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/service"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -68,6 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/business"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -78,6 +84,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/tech"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -111,6 +118,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/personalize"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -121,6 +129,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/advertise"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -131,6 +140,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/finance"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -141,6 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/data"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -157,6 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/digital_property"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -167,6 +179,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/mobility"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -177,6 +190,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/social_contribution"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -193,6 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/engineering"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -203,6 +218,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/infra"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -213,6 +229,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/contents"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -229,6 +246,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/creator"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -239,6 +257,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/platform"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -249,6 +268,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/b2b"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -273,6 +293,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/backend"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -283,6 +304,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/ai"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -293,6 +315,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/data"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -310,6 +333,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/cloud"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -320,6 +344,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/infra_dev_ops"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -330,6 +355,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/block_chain"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -346,6 +372,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/mobile"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -356,6 +383,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/android"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -366,6 +394,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/ios"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -382,6 +411,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/web"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -392,6 +422,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/windows"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -402,6 +433,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/game"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -418,6 +450,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/development_ecosystem"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -428,6 +461,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/development_culture"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -438,6 +472,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/hardware"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -455,6 +490,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/embedded"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -465,6 +501,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/filter_item_border"
+                        android:onClick="@{fragment.onFilterButtonClick}"
                         android:text="@string/etc"
                         android:textColor="@color/filter_item_color"
                         android:textSize="16sp" />
@@ -478,6 +515,7 @@
             android:id="@+id/button_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingTop="16dp"
             android:paddingBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@id/left_guideline"
@@ -488,12 +526,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
-                android:backgroundTint="@color/clear_button_color"
+                android:backgroundTint="@{viewModel.selectedFilter.size() == 0 ? @color/clear_button_color : @color/video_length_text_color}"
+                android:clickable="@{viewModel.selectedFilter.size() == 0 ? false : true}"
+                android:onClick="@{fragment.onClearButtonClick}"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:text="@string/clear"
+                android:textColor="@{viewModel.selectedFilter.size() == 0 ? @color/filter_item_color : @color/white}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintWidth_percent="0.4" />
+                app:layout_constraintWidth_percent="0.4"
+                tools:backgroundTint="@color/clear_button_color" />
 
             <Button
                 android:id="@+id/accept_button"
@@ -501,6 +543,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:backgroundTint="@color/filter_button_color"
+                android:onClick="@{fragment.onAcceptButtonClick}"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:text="@string/accept"

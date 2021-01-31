@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="zero_filter_button">48dp</dimen>
+    <dimen name="selected_filter_button">72dp</dimen>
+    <dimen name="selected_many_filter_button">88dp</dimen>
+</resources>

@@ -12,7 +12,7 @@ class LocalDataSource(context: Context) {
     private val db =
         Room.databaseBuilder(context, IfKakaoDatabase::class.java, DATABASE_NAME).build()
 
-    suspend fun getAllFavoriteSessions(): LiveData<List<FavoriteSession>> =
+    suspend fun getAllFavoriteSessions(): List<FavoriteSession> =
         withContext(Dispatchers.IO) {
             db.sessionDao().getAllFavoriteSessions()
         }
