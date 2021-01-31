@@ -4,23 +4,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.ifkakao.view.main.IfKakaoFragment
 import com.survivalcoding.ifkakao.ifkakao.view.menu.MenuListFragment
 
 class IfKakaoActivity : AppCompatActivity(R.layout.activity_if_kakao) {
     override fun onCreate(savedInstanceState: Bundle?) {
-        supportFragmentManager.fragmentFactory = IfKakaoFactory()
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<IfKakaoFragment>(R.id.if_kakao_fragment_container_view)
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

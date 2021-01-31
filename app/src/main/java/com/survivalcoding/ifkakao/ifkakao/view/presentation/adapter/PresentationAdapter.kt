@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -54,7 +53,6 @@ class PresentationAdapter() :
     }
 
     override fun getItemViewType(position: Int): Int {
-        Log.d("TAG", "onBindViewHolder: itemCount : ${itemCount}")
         return when (position) {
             itemCount - 1 -> TYPE_FOOTER
             else -> TYPE_ITEM
@@ -65,8 +63,7 @@ class PresentationAdapter() :
     class FooterViewHolder(private val binding: ItemFooterBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setListener() {
-            Log.d("TAG", "setListener: up button onclicked")
-            binding.scrollUpButton.setOnClickListener { itemView.scrollTo(0, 0)}
+            binding.scrollUpButton.setOnClickListener { itemView.scrollTo(0, 0) }
         }
     }
 }

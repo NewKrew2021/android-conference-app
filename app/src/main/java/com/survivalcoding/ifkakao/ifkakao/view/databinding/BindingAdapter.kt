@@ -43,7 +43,6 @@ fun concatName(view: TextView, nameKo: String, nameEn: String) {
 @BindingAdapter("webViewPlay")
 fun webViewPlay(view: WebView, uri: String) {
     view.settings.javaScriptEnabled = true
-//    view.webViewClient = WebViewClient()
     view.webChromeClient = WebChromeClient()
     view.loadUrl(uri)
 }

@@ -4,16 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
-import com.survivalcoding.ifkakao.R
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.databinding.FragmentSortedListBinding
 import com.survivalcoding.ifkakao.ifkakao.view.main.adapter.IfKakaoAdapter
-import com.survivalcoding.ifkakao.ifkakao.view.presentation.PresentationFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.FavoriteViewModel
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
@@ -25,19 +21,14 @@ class FavoriteListFragment : Fragment() {
     private val favoriteViewModel: FavoriteViewModel by activityViewModels()
 
     private val adapter: IfKakaoAdapter = IfKakaoAdapter({
-        model.setPresentationData(it)
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<PresentationFragment>(R.id.if_kakao_fragment_container_view)
-            addToBackStack(null)
-        }
+        // java.lang.IllegalStateException: View androidx.constraintlayout.widget.ConstraintLayout{a1c22a1 V.E...... ........ 0,0-1080,1868} does not have a NavController set
+        val action =
+            FavoriteListFragmentDirections.actionFavoriteListFragmentToPresentationFragment(it)
+        findNavController().navigate(action)
     }, {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            val bundle = bundleOf("field" to it)
-            replace<SortedListFragment>(R.id.if_kakao_fragment_container_view, args = bundle)
-            addToBackStack(null)
-        }
+        val action =
+            FavoriteListFragmentDirections.actionFavoriteListFragmentToSortedListFragment(it)
+        findNavController().navigate(action)
     })
 
     override fun onCreateView(

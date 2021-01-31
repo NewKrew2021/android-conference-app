@@ -4,29 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
-import com.survivalcoding.ifkakao.R
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.databinding.FragmentPresentationBinding
-import com.survivalcoding.ifkakao.ifkakao.database.FavoriteTable
 import com.survivalcoding.ifkakao.ifkakao.model.Data
 import com.survivalcoding.ifkakao.ifkakao.model.speakermodel.PresenterInfo
 import com.survivalcoding.ifkakao.ifkakao.view.presentation.adapter.PresentationAdapter
-import com.survivalcoding.ifkakao.ifkakao.view.sorted.SortedListFragment
 import com.survivalcoding.ifkakao.ifkakao.viewmodel.FavoriteViewModel
-import com.survivalcoding.ifkakao.ifkakao.viewmodel.IfKakaoViewModel
 
 class PresentationFragment : Fragment() {
     private var _binding: FragmentPresentationBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: IfKakaoViewModel by activityViewModels()
     private val favoriteViewModel: FavoriteViewModel by activityViewModels()
-    private lateinit var presentationData: Data
 
     private val adapter = PresentationAdapter()
 
@@ -36,8 +29,6 @@ class PresentationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPresentationBinding.inflate(inflater, container, false)
-
-        viewModel.presentationData.value?.let { presentationData = it }
         return binding.root
     }
 
@@ -49,6 +40,8 @@ class PresentationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val args: PresentationFragmentArgs by navArgs()
+        val presentationData: Data = args.presentationData
         binding.presentationData = presentationData
         binding.onClickFragment = this@PresentationFragment
         binding.presenterList.adapter = adapter
@@ -76,7 +69,7 @@ class PresentationFragment : Fragment() {
 
         favoriteViewModel.isFavorite.observe(viewLifecycleOwner, Observer {
             isFavorite = it
-            binding.isFavorite = isFavorite
+            binding.isFavorite = it
         })
     }
 
@@ -85,11 +78,8 @@ class PresentationFragment : Fragment() {
     }
 
     fun textListener(title: String) {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            val bundle = bundleOf("field" to title)
-            replace<SortedListFragment>(R.id.if_kakao_fragment_container_view, args = bundle)
-            addToBackStack(null)
-        }
+        val action =
+            PresentationFragmentDirections.actionPresentationFragmentToSortedListFragment(title)
+        findNavController().navigate(action)
     }
 }
