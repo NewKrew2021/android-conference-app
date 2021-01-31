@@ -4,6 +4,7 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
@@ -12,14 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
-import com.survivalcoding.ifkakao.extension.replaceFragment
-import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
+import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.filter.SessionFilterFragment
-import com.survivalcoding.ifkakao.ui.view.home.MainFragment
-import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
+import com.survivalcoding.ifkakao.util.EMPTY_STRING
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import com.survivalcoding.ifkakao.util.SESSION_MAIN_VIDEO_URL
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -36,6 +34,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         setToolbar()
         setRecyclerView()
         viewModel.setLikeCheck(false)
+        binding.progressSession.visibility = View.VISIBLE
     }
 
     override fun getViewModelData() {
@@ -44,9 +43,9 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             if (filter != null) {
                 viewModel.getConferenceData(filter)
             } else {
-                viewModel.getConferenceData("")
+                viewModel.getConferenceData(EMPTY_STRING)
             }
-        } ?: viewModel.getConferenceData("")
+        } ?: viewModel.getConferenceData(EMPTY_STRING)
 
     }
 
@@ -59,6 +58,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         viewModel.conferenceData.observe(this) {
             val adapter = binding.rvVideoSession.adapter as SessionAdapter
             adapter.setList(it)
+            binding.progressSession.visibility = View.GONE
         }
     }
 
@@ -84,11 +84,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             adapter = SessionAdapter().apply {
                 this.setSessionClickListener {
-                    replaceFragmentWithBundle(
-                        R.id.fragment_container_view,
-                        SessionDetailFragment::class,
-                        bundleOf(SESSION_ITEM to it)
-                    )
+                    navigate(R.id.fragment_session_detail, bundleOf(SESSION_ITEM to it))
                 }
             }
         }
@@ -103,13 +99,13 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         binding.include.toolbarMain.run {
             inflateMenu(R.menu.toolbar_menu_main)
             setOnMenuItemClickListener {
-                if (it.itemId == R.id.action_main) replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+                if (it.itemId == R.id.action_main) navigate(R.id.fragment_session_event)
                 true
             }
         }
 
         binding.include.tvTitleMain.setOnClickListener {
-            replaceFragment<MainFragment>(R.id.fragment_container_view)
+            navigate(R.id.fragment_main)
         }
     }
 
@@ -140,7 +136,7 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_filter -> {
-                replaceFragment<SessionFilterFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_session_filter)
                 true
             }
             R.id.action_like -> {
@@ -154,5 +150,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 
 }

@@ -6,11 +6,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentEventBinding
-import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.EventViewModel
+import com.survivalcoding.ifkakao.util.COLOR_BLUE
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
@@ -21,7 +21,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     override val viewModel: EventViewModel by viewModel()
 
     override fun initStartView() {
-        binding.include.toolbarMain.setBackgroundColor(Color.parseColor("#FF0133F7"))
+        binding.include.toolbarMain.setBackgroundColor(Color.parseColor(COLOR_BLUE))
         setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
     }
 
@@ -42,7 +42,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_main -> {
-                replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_session_event)
                 true
             }
             else -> super.onOptionsItemSelected(item)

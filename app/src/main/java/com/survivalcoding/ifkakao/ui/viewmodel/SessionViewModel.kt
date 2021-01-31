@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.data.repository.ConferenceRepository
+import com.survivalcoding.ifkakao.util.EMPTY_STRING
 import kotlinx.coroutines.launch
 
 class SessionViewModel(private val repository: ConferenceRepository) : ViewModel() {
@@ -20,7 +21,7 @@ class SessionViewModel(private val repository: ConferenceRepository) : ViewModel
 
     fun getConferenceData(filter: String) {
         viewModelScope.launch {
-            val filteredData = if (filter == "") {
+            val filteredData = if (filter == EMPTY_STRING) {
                 repository.getAllSession().data
             } else {
                 repository.getAllSession().data.filter {

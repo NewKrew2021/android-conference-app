@@ -5,16 +5,17 @@ import android.net.Uri
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.observe
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
-import com.survivalcoding.ifkakao.extension.replaceFragment
+import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.extension.setToolbar
+import com.survivalcoding.ifkakao.ui.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.menu.SessionEventMenuFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,6 +35,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         setImageView()
         setRecyclerView()
         eventProcess()
+        binding.progressSessionDetail.visibility = View.VISIBLE
     }
 
     override fun getViewModelData() {
@@ -53,6 +55,10 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
                 tvContentsSessionDetail.text = it.parseString(it.content)
                 tvHashtagSessionDetail.text = it.contentTag
             }
+
+            val adapter = binding.rvSpeakerSessionDetail.adapter as SpeakerAdapter
+            adapter.setList(it.contentsSpeakerList, it.linkList.speakerProfile)
+            binding.progressSessionDetail.visibility = View.GONE
         }
     }
 
@@ -108,6 +114,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
         binding.rvSpeakerSessionDetail.apply {
             layoutManager = LinearVerticalLayout(context)
             setHasFixedSize(true)
+            adapter = SpeakerAdapter()
         }
     }
 
@@ -119,7 +126,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_main -> {
-                replaceFragment<SessionEventMenuFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_session_event)
                 true
             }
             else -> super.onOptionsItemSelected(item)

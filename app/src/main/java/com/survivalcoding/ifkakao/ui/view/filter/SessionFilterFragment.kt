@@ -4,12 +4,10 @@ import android.widget.ToggleButton
 import androidx.core.os.bundleOf
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionFilterBinding
+import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.extension.off
 import com.survivalcoding.ifkakao.extension.on
-import com.survivalcoding.ifkakao.extension.replaceFragment
-import com.survivalcoding.ifkakao.extension.replaceFragmentWithBundle
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
-import com.survivalcoding.ifkakao.ui.view.session.SessionFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionFilterViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,7 +33,7 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
     private fun eventProcess() {
         binding.run {
             ivCloseSessionFilter.setOnClickListener {
-                replaceFragment<SessionFragment>(R.id.fragment_container_view)
+                navigate(R.id.fragment_session)
             }
 
             btnServiceSessionFilter.setOnClickListener {
@@ -61,11 +59,7 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
                 if (btnServiceSessionFilter.isChecked) str.append("서비스,")
                 if (btnBusinessSessionFilter.isChecked) str.append("비즈니스,")
                 if (btnTechSessionFilter.isChecked) str.append("기술,")
-                replaceFragmentWithBundle(
-                    R.id.fragment_container_view,
-                    SessionFragment::class,
-                    bundleOf("filter" to str.toString())
-                )
+                navigate(R.id.fragment_session, bundleOf("filter" to str.toString()))
             }
         }
     }
