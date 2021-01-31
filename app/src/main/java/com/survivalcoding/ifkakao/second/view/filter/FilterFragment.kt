@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.databinding.SecondFragmentFilterBinding
 import com.survivalcoding.ifkakao.second.model.filter.FilterType
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
@@ -29,7 +30,7 @@ class FilterFragment : Fragment() {
         binding.resetButton.setOnClickListener { viewModel.resetFilter() }
         binding.submitButton.setOnClickListener {
             viewModel.submitFilter()
-            parentFragmentManager.popBackStack()
+            findNavController().popBackStack()
         }
         return binding.root
     }

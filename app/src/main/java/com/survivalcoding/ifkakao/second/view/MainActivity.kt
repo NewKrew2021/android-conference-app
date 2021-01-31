@@ -3,17 +3,13 @@ package com.survivalcoding.ifkakao.second.view
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondActivityMainBinding
 import com.survivalcoding.ifkakao.second.App
 import com.survivalcoding.ifkakao.second.factory.ContentFragmentFactory
 import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.model.favorite.repository.FavoriteRepository
-import com.survivalcoding.ifkakao.second.view.main.MainFragment
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -38,12 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding = SecondActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<MainFragment>(R.id.fragment_container_view)
-            }
-        }
         viewModel
     }
 }

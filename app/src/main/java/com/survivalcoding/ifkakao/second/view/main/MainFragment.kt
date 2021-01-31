@@ -8,12 +8,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.content.ContentData
-import com.survivalcoding.ifkakao.second.view.filter.FilterFragment
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
@@ -25,18 +23,10 @@ class MainFragment : Fragment() {
         ContentMainAdapter(
             itemClickListener = {
                 viewModel.setSelectedItem(it)
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    add<DetailFragment>(R.id.fragment_container_view)
-                    addToBackStack(null)
-                }
+                findNavController().navigate(R.id.action_main_to_detail)
             },
             filterClickListener = {
-                parentFragmentManager.commit {
-                    setReorderingAllowed(true)
-                    add<FilterFragment>(R.id.fragment_container_view)
-                    addToBackStack(null)
-                }
+                findNavController().navigate(R.id.action_main_to_filter)
             },
             spinnerArrayAdapter = ArrayAdapter.createFromResource(
                 requireContext(),
