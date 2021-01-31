@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentFilterBinding
 import com.survivalcoding.ifkakao.viewmodel.FilterViewModel
 
@@ -33,5 +34,23 @@ class FilterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModels = viewModel
         binding.lifecycleOwner = requireActivity()
+        val clearString = resources.getString(R.string.clear)
+        viewModel.filterSize.observe(viewLifecycleOwner) {
+            if (it <= 0) {
+                binding.clearBtn.text = clearString
+            } else {
+                binding.clearBtn.text = clearString + "(${it})"
+            }
+        }
+        binding.clearBtn.setOnClickListener {
+            viewModel.setInitFilter()
+        }
+
+        binding.adaptBtn.setOnClickListener {
+            viewModel.setAdaptFilter()
+            parentFragmentManager.popBackStack()
+        }
+
     }
+
 }
