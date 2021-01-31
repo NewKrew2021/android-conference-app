@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import com.bumptech.glide.Glide
 import com.example.ifkakao.R
 import com.example.ifkakao.adapter.SessionAdapter
@@ -37,13 +39,21 @@ class FavoriteSessionFragment : Fragment() {
     }
 
     private fun setOnClickListener() {
-        binding.toolbar.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_button -> {
-                    addTransaction<MenuFragment>(R.id.fragment_container_view)
-                    true
+        binding.apply {
+            toolbar.toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.menu_button -> {
+                        addTransaction<MenuFragment>(R.id.fragment_container_view)
+                        true
+                    }
+                    else -> false
                 }
-                else -> false
+            }
+            allSessionButton.setOnClickListener {
+                parentFragmentManager.popBackStack()
+                parentFragmentManager.commit {
+                    replace<MainFragment>(R.id.fragment_container_view)
+                }
             }
         }
     }
