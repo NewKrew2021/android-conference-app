@@ -8,8 +8,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.add
 import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.model.content.ContentData
@@ -27,14 +27,14 @@ class MainFragment : Fragment() {
                 viewModel.setSelectedItem(it)
                 parentFragmentManager.commit {
                     setReorderingAllowed(true)
-                    replace<DetailFragment>(R.id.fragment_container_view)
+                    add<DetailFragment>(R.id.fragment_container_view)
                     addToBackStack(null)
                 }
             },
             filterClickListener = {
                 parentFragmentManager.commit {
                     setReorderingAllowed(true)
-                    replace<FilterFragment>(R.id.fragment_container_view)
+                    add<FilterFragment>(R.id.fragment_container_view)
                     addToBackStack(null)
                 }
             },
@@ -76,9 +76,6 @@ class MainFragment : Fragment() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         viewModel.filteredData.observe(viewLifecycleOwner) {
-            updateUI(it)
-        }
-        viewModel.data.observe(viewLifecycleOwner) {
             updateUI(it)
         }
         viewModel.loadData()

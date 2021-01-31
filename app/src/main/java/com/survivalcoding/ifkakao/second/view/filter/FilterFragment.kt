@@ -26,6 +26,11 @@ class FilterFragment : Fragment() {
             viewmodel = viewModel
         }
         requireActivity().title = "if(kakao)2020"
+        binding.resetButton.setOnClickListener { viewModel.resetFilter() }
+        binding.submitButton.setOnClickListener {
+            viewModel.submitFilter()
+            parentFragmentManager.popBackStack()
+        }
         return binding.root
     }
 
@@ -39,5 +44,4 @@ class FilterFragment : Fragment() {
         if (isChecked) viewModel.removeFilter(type)
         else viewModel.addFilter(type, name)
     }
-
 }

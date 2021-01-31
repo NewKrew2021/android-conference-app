@@ -32,7 +32,7 @@ class ContentViewModel(
     private lateinit var _selectedItem: ContentData
     val selectedItem: ContentData get() = _selectedItem
 
-    private var _selectedDate: Int = 3
+    private var _selectedDate: Int = -1
     val selectedDate: Int get() = _selectedDate
 
     private var _favorites = mutableListOf<Favorite>()
@@ -50,6 +50,7 @@ class ContentViewModel(
             _data.value = repository.getData().data
             _favorites = favoriteRepository.getAll().toMutableList()
             _isLoading.value = false
+            _filteredData.value = _data.value
         }
     }
 
@@ -83,11 +84,24 @@ class ContentViewModel(
         }
     }
 
+    fun resetFilter() {
+        _filters.value = mapOf()
+    }
+
     fun isSelectedFilter(filterType: FilterType, name: String): Boolean =
         _filters.value?.find(filterType, name) ?: false
 
     fun setSelectedDate(date: Int) {
         _selectedDate = date
-        _filteredData.value = _data.value?.filter { it.createdDateTime[9] == (date).toString()[0] }
+        _filteredData.value =
+            _data.value?.filter { _selectedDate == -1 || it.createdDateTime[9] == (date).toString()[0] }
+    }
+
+    fun submitFilter() {
+        _filteredData.value = _data.value?.filter {
+            it.createdDateTime[9] == (_selectedDate).toString()[0] &&
+                    ((_filters.value?.containsValue(it.field)
+                        ?: true) || _filters.value?.isEmpty() ?: true)
+        }
     }
 }
