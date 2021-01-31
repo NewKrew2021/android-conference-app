@@ -1,9 +1,12 @@
 package com.survivalcoding.ifkakao.second.model.content
 
 
+import android.os.Parcelable
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
+@Parcelize
 data class ContentData(
     val categoryIdx: Int,
     val companyName: String?,
@@ -29,7 +32,7 @@ data class ContentData(
     val title: String,
     val updateCountentsYn: String,
     val videoYn: String
-) : MainViewType()
+) : MainViewType(), Parcelable
 
 data class MainHeader(val idx: Int) : MainViewType()
 
