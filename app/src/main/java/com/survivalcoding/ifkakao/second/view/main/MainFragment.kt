@@ -7,11 +7,15 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
+import com.survivalcoding.ifkakao.second.App
 import com.survivalcoding.ifkakao.second.model.content.ContentData
+import com.survivalcoding.ifkakao.second.model.content.Repository
 import com.survivalcoding.ifkakao.second.view.main.adapter.ContentMainAdapter
 import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 
@@ -19,11 +23,21 @@ import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 class MainFragment : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: ContentViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return modelClass.getConstructor(
+                    Repository::class.java,
+                ).newInstance(
+                    (requireActivity().application as App).repository,
+                )
+            }
+        }
+    }
     private val adapter by lazy {
         ContentMainAdapter(
             itemClickListener = {
                 val action = MainFragmentDirections.actionMainToDetail(it)
-                viewModel.getFavorite(it)
                 findNavController().navigate(action)
             },
             filterClickListener = {
@@ -49,7 +63,6 @@ class MainFragment : Fragment() {
             }
         )
     }
-    private val viewModel: ContentViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

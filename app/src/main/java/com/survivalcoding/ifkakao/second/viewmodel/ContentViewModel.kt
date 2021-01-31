@@ -6,16 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.second.model.content.ContentData
 import com.survivalcoding.ifkakao.second.model.content.Repository
-import com.survivalcoding.ifkakao.second.model.content.Speaker
-import com.survivalcoding.ifkakao.second.model.favorite.database.Favorite
-import com.survivalcoding.ifkakao.second.model.favorite.repository.FavoriteRepository
 import com.survivalcoding.ifkakao.second.model.filter.FilterType
 import com.survivalcoding.ifkakao.second.util.find
 import kotlinx.coroutines.launch
 
 class ContentViewModel(
     private val repository: Repository,
-    private val favoriteRepository: FavoriteRepository
 ) : ViewModel() {
     private val _data = MutableLiveData<List<ContentData>>()
     val data: LiveData<List<ContentData>> get() = _data
@@ -23,21 +19,11 @@ class ContentViewModel(
     private val _filteredData = MutableLiveData<List<ContentData>>()
     val filteredData: LiveData<List<ContentData>> get() = _filteredData
 
-    private val _speakers = MutableLiveData<List<Speaker>>()
-    val speakers: LiveData<List<Speaker>> get() = _speakers
-
     private val _isLoading = MutableLiveData(true)
     val isLoading: LiveData<Boolean> get() = _isLoading
 
-    private lateinit var _selectedItem: ContentData
-    val selectedItem: ContentData get() = _selectedItem
-
     private var _selectedDate: Int = -1
 
-    private var _favorites = mutableListOf<Favorite>()
-
-    private lateinit var _selectedFavorite: Favorite
-    val selectedFavorite: Favorite get() = _selectedFavorite
 
     private val _filters = MutableLiveData<Map<FilterType, String>>(mapOf())
     val filters: LiveData<Map<FilterType, String>> get() = _filters
@@ -47,24 +33,9 @@ class ContentViewModel(
         viewModelScope.launch {
             _isLoading.value = true
             _data.value = repository.getData().data
-            _favorites = favoriteRepository.getAll().toMutableList()
             _isLoading.value = false
             _filteredData.value = _data.value
         }
-    }
-
-    fun updateFavorite(item: Favorite) {
-        viewModelScope.launch {
-            favoriteRepository.insert(item)
-        }
-    }
-
-    fun setSelectedItem(item: ContentData) {
-        _selectedItem = item
-        _speakers.value = item.contentsSpeackerList
-        _selectedFavorite = _favorites.filter { it.idx == item.idx }.toMutableList().apply {
-            if (size == 0) add(Favorite(item.idx, false))
-        }[0]
     }
 
     fun addFilter(filterType: FilterType, name: String) {
@@ -83,11 +54,6 @@ class ContentViewModel(
         }
     }
 
-    fun getFavorite(item: ContentData) {
-        _selectedFavorite = _favorites.filter { it.idx == item.idx }.toMutableList().apply {
-            if (size == 0) add(Favorite(item.idx, false))
-        }[0]
-    }
 
     fun resetFilter() {
         _filters.value = mapOf()

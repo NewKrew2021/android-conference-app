@@ -11,20 +11,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.databinding.SecondFragmentDetailBinding
+import com.survivalcoding.ifkakao.second.App
 import com.survivalcoding.ifkakao.second.extension.removeTag
 import com.survivalcoding.ifkakao.second.model.content.Speaker
+import com.survivalcoding.ifkakao.second.model.favorite.repository.FavoriteRepository
 import com.survivalcoding.ifkakao.second.view.detail.adapter.SpeakerDetailAdapter
-import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
+import com.survivalcoding.ifkakao.second.viewmodel.FavoriteViewModel
 
 
 class DetailFragment : Fragment() {
     private var _binding: SecondFragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ContentViewModel by activityViewModels()
     private val args: DetailFragmentArgs by navArgs()
+    private val viewModel: FavoriteViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return modelClass.getConstructor(
+                    FavoriteRepository::class.java,
+                ).newInstance(
+                    (requireActivity().application as App).favoriteRepository,
+                )
+            }
+        }
+    }
     private val adapter by lazy {
         SpeakerDetailAdapter(
             contentData = args.contentData,
@@ -79,6 +93,7 @@ class DetailFragment : Fragment() {
     ): View {
         _binding = SecondFragmentDetailBinding.inflate(inflater, container, false)
         requireActivity().title = "if(kakao)2020"
+        viewModel.loadData(args.contentData.idx)
         return binding.root
     }
 
