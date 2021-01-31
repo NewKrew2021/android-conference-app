@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.databinding.FragmentFilterBinding
 import com.survivalcoding.ifkakao.viewModel.ConferenceViewModel
 
@@ -55,10 +54,8 @@ class FilterFragment : Fragment() {
                 )
                 conferenceViewModel.nonChoice = true
             } else conferenceViewModel.nonChoice = false
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<MainFragment>(R.id.fragment_container_view)
-            }
+
+            findNavController().popBackStack()
         }
     }
 

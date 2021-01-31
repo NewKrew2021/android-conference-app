@@ -1,6 +1,9 @@
 package com.survivalcoding.ifkakao.model.jsonModel
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class SPEACKERPROFILE(
     val contentsIdx: Int,
     val description: String,
@@ -9,4 +12,4 @@ data class SPEACKERPROFILE(
     val mainYn: String,
     val type: String,
     val url: String
-)
+) : Parcelable

@@ -2,9 +2,8 @@ package com.survivalcoding.ifkakao
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.factory.MyFragmentFactory
 
@@ -21,29 +20,29 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.fragmentFactory =
             MyFragmentFactory()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<HighlightFragment>(R.id.fragment_container_view)
-            }
-        }
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.setTitle("")
 
         setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = ""
+
+        setSupportActionBar(binding.toolbar)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        val navController = navHostFragment.navController
         binding.textView.setOnClickListener {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<HighlightFragment>(R.id.fragment_container_view)
-            }
+
+            navController.popBackStack(R.id.highlightFragment, false)
         }
 
         binding.button.setOnClickListener {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<MenuFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
+
+            val currentFragment =
+                findNavController(R.id.fragment_container_view).currentDestination?.id
+            if (findNavController(R.id.fragment_container_view).popBackStack(
+                    R.id.menuFragment,
+                    false
+                )
+            )
+            else if (currentFragment != R.id.menuFragment) navController.navigate(R.id.menuFragment)
         }
     }
 }

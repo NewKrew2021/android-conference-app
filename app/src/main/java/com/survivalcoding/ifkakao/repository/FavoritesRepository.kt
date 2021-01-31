@@ -13,10 +13,6 @@ class FavoritesRepository(context: Context) {
         AppDatabase::class.java, "favorites.db"
     ).build()
 
-    private var _dataList = mutableSetOf<Int>()
-    val datalist get() = _dataList
-
-
     suspend fun getData(): List<Int> {
         return db.favoritesDao().getAll()
     }

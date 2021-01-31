@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
+import androidx.navigation.fragment.findNavController
 import com.survivalcoding.ifkakao.databinding.FragmentMenuBinding
 
 
@@ -29,18 +28,14 @@ class MenuFragment : Fragment() {
         val view = binding.root
 
         binding.sessionTextView.setOnClickListener {
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<MainFragment>(R.id.fragment_container_view)
+            if (!findNavController().popBackStack(R.id.mainFragment, false)) {
+                findNavController().popBackStack(R.id.highlightFragment, false)
+                findNavController().navigate(R.id.action_highlightFragment_to_mainFragment)  //popback한 다음에도 수행이 됨
             }
         }
 
         binding.favoritesTextView.setOnClickListener {
-            parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace<FavoritesFragment>(R.id.fragment_container_view)
-                addToBackStack(null)
-            }
+            findNavController().navigate(R.id.action_menuFragment_to_favoritesFragment)
         }
         return view
     }

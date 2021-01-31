@@ -23,9 +23,9 @@ class SpeakerRecyclerAdapter(
     val backItemClick: (Int) -> Unit,
     val favoritesClick: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
     val setFavoritesButton: (RecyclerHeaderBinding, ConferenceAppFront) -> Unit,
-    val facebookClickListner: (LinkItemBinding, String) -> Unit,
-    val kakaoClickListener: (LinkItemBinding, String) -> Unit,
-    val copyClickListener: (LinkItemBinding, String) -> Unit,
+    val facebookClickListner: (String) -> Unit,
+    val kakaoClickListener: (String) -> Unit,
+    val copyClickListener: (String) -> Unit,
 ) :
     ListAdapter<DetailRecyclerType, RecyclerView.ViewHolder>(SpeakerDiffCallback) {
 
@@ -70,18 +70,24 @@ class SpeakerRecyclerAdapter(
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is SpeakerHolder) {
-            holder.setData(getItem(holder.adapterPosition) as SpeackerInfo)
-        } else if (holder is HeaderHolder) {
-            holder.setData(getItem(holder.adapterPosition) as ConferenceAppFront)
-            holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
-        } else if (holder is RelativeHolder) {
-            holder.setData(getItem(holder.adapterPosition) as ConferenceAppFront)
-            holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
-        } else if (holder is ButtonHolder) {
-            holder.clickListener()
-        } else if (holder is LinkerHolder) {
-            holder.clickListener(getItem(holder.adapterPosition) as SpecificData)
+        when (holder) {
+            is SpeakerHolder -> {
+                holder.setData(getItem(holder.adapterPosition) as SpeackerInfo)
+            }
+            is HeaderHolder -> {
+                holder.setData(getItem(holder.adapterPosition) as ConferenceAppFront)
+                holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
+            }
+            is RelativeHolder -> {
+                holder.setData(getItem(holder.adapterPosition) as ConferenceAppFront)
+                holder.clickListener(getItem(holder.adapterPosition) as ConferenceAppFront)
+            }
+            is ButtonHolder -> {
+                holder.clickListener()
+            }
+            is LinkerHolder -> {
+                holder.clickListener(getItem(holder.adapterPosition) as SpecificData)
+            }
         }
 
     }
@@ -95,10 +101,10 @@ class SpeakerHolder(
     fun setData(data: SpeackerInfo) {
 
         binding.nameTextView.text = "${data.contentsSpeaker.nameKo} ${data.contentsSpeaker.nameEn}"
-        binding.companyTextView.text = "${data.contentsSpeaker.company}"
-        binding.occupationTextView.text = "${data.contentsSpeaker.occupation}"
+        binding.companyTextView.text = data.contentsSpeaker.company
+        binding.occupationTextView.text = data.contentsSpeaker.occupation
 
-        binding.imageView.load("${data.url}") {
+        binding.imageView.load(data.url) {
             transformations(
                 RoundedCornersTransformation(
                     topRight = 72f,
@@ -114,20 +120,20 @@ class SpeakerHolder(
 
 class LinkerHolder(
     val binding: LinkItemBinding,
-    val facebookClickListner: (LinkItemBinding, String) -> Unit,
-    val kakaoClickListener: (LinkItemBinding, String) -> Unit,
-    val copyClickListener: (LinkItemBinding, String) -> Unit,
+    val facebookClickListner: (String) -> Unit,
+    val kakaoClickListener: (String) -> Unit,
+    val copyClickListener: (String) -> Unit,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun clickListener(data: SpecificData) {
 
         binding.facebookButton.setOnClickListener {
-            facebookClickListner(binding, data.type)
+            facebookClickListner(data.type)
         }
         binding.kakaoButton.setOnClickListener {
-            kakaoClickListener(binding, data.type)
+            kakaoClickListener(data.type)
         }
         binding.copyToClipboardButton.setOnClickListener {
-            copyClickListener(binding, data.type)
+            copyClickListener(data.type)
         }
     }
 
@@ -171,10 +177,10 @@ class RelativeHolder(
     RecyclerView.ViewHolder(binding.root) {
 
     fun setData(data: ConferenceAppFront) {
-        binding.lengthTextView.text = "${data.videoLength}"
-        binding.fieldTextView.text = "${data.field}"
-        binding.titleTextView.text = "${data.title}"
-        binding.imageView.load("${data.imageUrl}") {
+        binding.lengthTextView.text = data.videoLength
+        binding.fieldTextView.text = data.field
+        binding.titleTextView.text = data.title
+        binding.imageView.load(data.imageUrl) {
             transformations(
                 RoundedCornersTransformation(
                     topRight = 20f,
