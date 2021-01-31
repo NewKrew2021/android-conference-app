@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/secondMainFragment"
         android:name="com.survivalcoding.ifkakao.second.view.main.MainFragment"
-        android:label="MainFragment">
+        android:label="MainFragment"
+        tools:layout="@layout/second_fragment_main">
         <action
             android:id="@+id/action_main_to_detail"
             app:destination="@id/secondDetailFragment" />
@@ -24,5 +25,6 @@
     <fragment
         android:id="@+id/secondFilterFragment"
         android:name="com.survivalcoding.ifkakao.second.view.filter.FilterFragment"
-        android:label="FilterFragment" />
+        android:label="FilterFragment"
+        tools:layout="@layout/second_fragment_filter" />
 </navigation>
