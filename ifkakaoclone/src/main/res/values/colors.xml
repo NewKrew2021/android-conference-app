@@ -20,4 +20,5 @@
     <!-- FilterDetailFragment -->
     <color name="blue">#0050FF</color>
     <color name="dark_gray">#262626</color>
+    <color name="red">#FF0000</color>
 </resources>

@@ -68,22 +68,55 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/btn_my_list"
+                            android:id="@+id/text_toolbar_filter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginEnd="8dp"
-                            android:background="@color/fragment_session_detail_btn_go_to_list"
-                            android:drawablePadding="8dp"
-                            android:padding="8dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/btn_my_list"
-                            android:textAllCaps="false"
-                            android:textColor="@color/session_footer_copyright_gray"
-                            app:drawableStartCompat="@drawable/ic_favorite_white_24"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:text="@{viewModel.shouldFilterWithFavorite ? @string/toolbar_filter_title_if_favorite : null}"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/btn_filter"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/toolbar_filter_title_if_favorite" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/layout_my_list"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:background="@color/fragment_session_detail_btn_go_to_list"
+                            android:padding="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_filter"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/image_my_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                app:drawableWhenFalse="@{ @drawable/ic_favorite_border_24}"
+                                app:drawableWhenTrue="@{ @drawable/ic_favorite_white_24 }"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@id/text_my_list"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@{viewModel.shouldFilterWithFavorite}"
+                                tools:srcCompat="@drawable/ic_favorite_border_24" />
+
+                            <TextView
+                                android:id="@+id/text_my_list"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:text="@string/btn_my_list"
+                                android:textAllCaps="false"
+                                android:textColor="@color/session_footer_copyright_gray"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <TextView
                             android:id="@+id/btn_filter"
@@ -97,9 +130,9 @@
                             android:text="@{viewModel.appliedFilters.size() > 0 ? String.valueOf(viewModel.appliedFilters.size()) : null}"
                             android:textColor="@color/session_footer_copyright_gray"
                             app:drawableStartCompat="@drawable/ic_baseline_filter_list_24"
-                            app:layout_constraintBottom_toBottomOf="@id/btn_my_list"
+                            app:layout_constraintBottom_toBottomOf="@id/layout_my_list"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/btn_my_list"
+                            app:layout_constraintTop_toTopOf="@id/layout_my_list"
                             tools:text="3" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

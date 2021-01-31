@@ -59,6 +59,10 @@ class SessionListFragment : Fragment() {
                 )
             )
 
+            layoutMyList.setOnClickListener {
+                activityViewModel.toggleFilterWithFavorite()
+            }
+
             btnFilter.setOnClickListener {
                 findNavController().navigate(R.id.action_sessionListFragment_to_filterDetailFragment)
             }
@@ -73,14 +77,21 @@ class SessionListFragment : Fragment() {
         }
 
         activityViewModel.sessions.observe(viewLifecycleOwner) {
-            updateSessionsWithFiltersIfNotEmpty(it)
+            updateSessionsWithFilters(it)
         }
+
+        activityViewModel.shouldFilterWithFavorite.observe(viewLifecycleOwner) {
+            updateSessionsWithFilters(activityViewModel.sessions.value ?: listOf())
+        }
+
+        activityViewModel.favorites.observe(viewLifecycleOwner) { } // DB에 접근하기 전까진 favorites 가 null 이여서
 
         activityViewModel.fetchContents()
     }
 
     private fun selectSessionEvent(session: Session) {
-        val actionWithArgs = SessionListFragmentDirections.actionSessionListFragmentToSessionDetailFragment(session)
+        val actionWithArgs =
+            SessionListFragmentDirections.actionSessionListFragmentToSessionDetailFragment(session)
         findNavController().navigate(actionWithArgs)
     }
 
@@ -96,13 +107,23 @@ class SessionListFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun updateSessionsWithFiltersIfNotEmpty(sessions: List<Session>) {
+    private fun updateSessionsWithFilters(sessions: List<Session>) {
+        val shouldFilterWithFavorite = activityViewModel.shouldFilterWithFavorite.value ?: false
+
+        val filtered = if (shouldFilterWithFavorite) filteredByFavorite(sessions) else sessions
+
         activityViewModel.appliedFilters.value?.let { filters ->
             if (filters.isNotEmpty()) {
-                adapter.submitList(sessions.filter { filters.contains(it.field) })
+                adapter.submitList(filtered.filter { filters.contains(it.field) })
             } else {
-                adapter.submitList(sessions)
+                adapter.submitList(filtered)
             }
-        } ?: adapter.submitList(sessions)
+        } ?: adapter.submitList(filtered)
+    }
+
+    private fun filteredByFavorite(sessions: List<Session>): List<Session> {
+        val favoriteIndexes = activityViewModel.favorites.value?.filter { it.isFavorite }?.map { it.uid } ?: listOf()
+
+        return sessions.filter { favoriteIndexes.contains(it.idx) }
     }
 }

@@ -15,6 +15,7 @@
     <!-- SessionListFragment -->
     <string name="session_header_title">Session</string>
     <string name="btn_my_list">My List</string>
+    <string name="toolbar_filter_title_if_favorite">Favorite</string>
     <!-- SessionDetailFragment -->
     <string name="fragment_session_detail_btn_back_to_list">목록보기</string>
     <!-- FilterDetailFragment -->

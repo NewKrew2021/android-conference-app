@@ -41,6 +41,9 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     }
     val appliedFilters: LiveData<Set<String>> get() = _appliedFilters
 
+    private val _shouldFilterWithFavorite = MutableLiveData(false)
+    val shouldFilterWithFavorite: LiveData<Boolean> get() = _shouldFilterWithFavorite
+
     fun fetchContents() {
         viewModelScope.launch {
             _isLoading.value = true
@@ -88,6 +91,12 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
     fun applyFilters() {
         _appliedFilters.value?.let {
             _appliedFilters.value = _selectedFilters.value
+        }
+    }
+
+    fun toggleFilterWithFavorite() {
+        _shouldFilterWithFavorite.value?.let {
+            _shouldFilterWithFavorite.value = !it
         }
     }
 }
