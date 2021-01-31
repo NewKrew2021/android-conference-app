@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.SecondFragmentMainBinding
 import com.survivalcoding.ifkakao.second.App
@@ -23,7 +23,7 @@ import com.survivalcoding.ifkakao.second.viewmodel.ContentViewModel
 class MainFragment : Fragment() {
     private var _binding: SecondFragmentMainBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ContentViewModel by viewModels {
+    private val viewModel: ContentViewModel by activityViewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
                 return modelClass.getConstructor(
@@ -34,8 +34,10 @@ class MainFragment : Fragment() {
             }
         }
     }
+    private val args: MainFragmentArgs by navArgs()
     private val adapter by lazy {
         ContentMainAdapter(
+            selectedDate = viewModel.selectedDate,
             itemClickListener = {
                 val action = MainFragmentDirections.actionMainToDetail(it)
                 findNavController().navigate(action)
@@ -48,18 +50,8 @@ class MainFragment : Fragment() {
                 R.array.filter_array,
                 android.R.layout.simple_spinner_item
             ),
-            spinnerChangeListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    viewModel.setSelectedDate(3 - position)
-                }
+            spinnerChangeListener = {
+                viewModel.setSelectedDate(it)
             }
         )
     }
@@ -79,10 +71,10 @@ class MainFragment : Fragment() {
         binding.recyclerView.adapter = adapter
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
+        viewModel.loadData()
         viewModel.filteredData.observe(viewLifecycleOwner) {
             updateUI(it)
         }
-        viewModel.loadData()
     }
 
     override fun onDestroyView() {
@@ -91,7 +83,12 @@ class MainFragment : Fragment() {
     }
 
     private fun updateUI(data: List<ContentData>) {
-        adapter.submitListWithHeader(data)
+        if (args.filter == null)
+            adapter.submitListWithHeader(data)
+        else
+            args.filter?.let {
+                adapter.submitListWithHeader(data, it)
+            }
     }
 
 }

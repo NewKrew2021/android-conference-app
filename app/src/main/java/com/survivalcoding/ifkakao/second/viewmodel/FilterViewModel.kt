@@ -38,12 +38,4 @@ class FilterViewModel : ViewModel() {
     fun isSelectedFilter(filterType: FilterType, name: String): Boolean =
         _filters.value?.data?.find(filterType, name) ?: false
 
-
-//    fun submitFilter() {
-//        _filteredData.value = _data.value?.filter {
-//            it.createdDateTime[9] == (_selectedDate).toString()[0] &&
-//                    ((_filters.value?.containsValue(it.field)
-//                        ?: true) || _filters.value?.isEmpty() ?: true)
-//        }
-//    }
 }

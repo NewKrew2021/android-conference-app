@@ -12,13 +12,15 @@ import com.survivalcoding.ifkakao.databinding.SecondItemMainHeaderBinding
 import com.survivalcoding.ifkakao.second.model.content.ContentData
 import com.survivalcoding.ifkakao.second.model.content.MainHeader
 import com.survivalcoding.ifkakao.second.model.content.MainViewType
+import com.survivalcoding.ifkakao.second.model.filter.Filter
 import com.survivalcoding.ifkakao.second.view.main.holder.ContentMainHolder
 
 class ContentMainAdapter(
+    private var selectedDate: Int = -1,
     private val itemClickListener: (item: ContentData) -> Unit,
     private val filterClickListener: () -> Unit,
     private val spinnerArrayAdapter: ArrayAdapter<CharSequence>,
-    private val spinnerChangeListener: AdapterView.OnItemSelectedListener,
+    private val spinnerChangeListener: (Int) -> Unit,
 
     ) :
     ListAdapter<MainViewType, ContentMainHolder>(ContentMainDiffCallback) {
@@ -46,15 +48,26 @@ class ContentMainAdapter(
                     binding.filterButton.visibility = View.VISIBLE
                 }
                 binding.filterButton.setOnClickListener { filterClickListener.invoke() }
-                binding.filterButton.visibility = View.INVISIBLE
-                binding.filterSpinner.visibility = View.INVISIBLE
                 spinnerArrayAdapter.also { adapter ->
-                    // Specify the layout to use when the list of choices appears
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    // Apply the adapter to the spinner
                     binding.filterSpinner.adapter = adapter
                 }
-                binding.filterSpinner.onItemSelectedListener = spinnerChangeListener
+                if (selectedDate != -1) binding.filterSpinner.setSelection(3 - selectedDate)
+                binding.filterSpinner.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                        }
+
+                        override fun onItemSelected(
+                            parent: AdapterView<*>?,
+                            view: View?,
+                            position: Int,
+                            id: Long
+                        ) {
+                            selectedDate = 3 - position
+                            spinnerChangeListener.invoke(selectedDate)
+                        }
+                    }
                 holder
             }
             else -> {
@@ -72,7 +85,17 @@ class ContentMainAdapter(
 
             }
             is SecondItemMainHeaderBinding -> {
-
+                if (selectedDate != -1) {
+                    holder.binding.filterText.visibility = View.INVISIBLE
+                    holder.binding.filterSpinner.visibility = View.VISIBLE
+                    holder.binding.showButton.visibility = View.INVISIBLE
+                    holder.binding.filterButton.visibility = View.VISIBLE
+                } else {
+                    holder.binding.filterText.visibility = View.VISIBLE
+                    holder.binding.filterSpinner.visibility = View.INVISIBLE
+                    holder.binding.showButton.visibility = View.VISIBLE
+                    holder.binding.filterButton.visibility = View.INVISIBLE
+                }
             }
         }
     }
@@ -86,5 +109,11 @@ class ContentMainAdapter(
 
     fun submitListWithHeader(data: List<ContentData>) {
         submitList(listOf(MainHeader(0)) + data)
+    }
+
+    fun submitListWithHeader(data: List<ContentData>, filter: Filter) {
+        submitList(listOf(MainHeader(0)) + data.filter {
+            filter.data.containsValue(it.field) || filter.data.isEmpty()
+        })
     }
 }
