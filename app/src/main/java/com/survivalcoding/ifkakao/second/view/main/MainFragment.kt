@@ -83,7 +83,7 @@ class MainFragment : Fragment() {
     }
 
     private fun updateUI(data: List<ContentData>) {
-        if (args.filter == null) adapter.submitListWithHeader(data)
+        if (args.filter == null) adapter.submitHighlightWithHeader(data)
         else args.filter?.let {
             adapter.submitListWithHeader(data, it)
         }

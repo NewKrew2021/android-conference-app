@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
                     NavOptions.Builder().apply {
                         setLaunchSingleTop(true)
                     }.build()
-                )    // 동일한 프래그먼트 쌓이는 것을 방지하기 위해
+                )
                 true
             }
             else -> super.onOptionsItemSelected(item)

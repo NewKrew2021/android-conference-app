@@ -107,13 +107,14 @@ class ContentMainAdapter(
         }
     }
 
-    fun submitListWithHeader(data: List<ContentData>) {
-        submitList(listOf(MainHeader(0)) + data)
-    }
-
     fun submitListWithHeader(data: List<ContentData>, filter: Filter) {
         submitList(listOf(MainHeader(0)) + data.filter {
             filter.data.containsValue(it.field) || filter.data.isEmpty()
         })
+    }
+
+    fun submitHighlightWithHeader(data: List<ContentData>) {
+        selectedDate = -1
+        submitList(listOf(MainHeader(0)) + data)
     }
 }
