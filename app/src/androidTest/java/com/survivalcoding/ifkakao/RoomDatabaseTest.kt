@@ -2,7 +2,6 @@ package com.survivalcoding.ifkakao
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.*
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,8 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
 import kotlin.jvm.Throws
 
 @RunWith(AndroidJUnit4::class)
@@ -60,15 +57,20 @@ class RoomDatabaseTest {
         likeDao.insert(Like(2, false))
         likeDao.insert(Like(3, true))
 
+        assertEquals(4, likeDao.getAllLikeStates().size)
+
         /**
          * way 1
          */
-        assertEquals(4, LiveDataTestUtil.getValue(likeDao.getAllLikeStates()).size)
+        assertEquals(true, LiveDataTestUtil.getValue(likeDao.getLikeStateByIdx(0)))
+
+//        assertEquals(true, likeDao.getLikeStateByIdx(0)) // error
+
         /**
          * way 2
          */
-        likeDao.getAllLikeStates().observeOnce {
-            assertEquals(4, it.size)
+        likeDao.getLikeStateByIdx(1).observeOnce {
+            assertEquals(true, it)
         }
     }
 }
