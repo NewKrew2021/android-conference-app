@@ -1,7 +1,6 @@
 package com.survivalcoding.ifkakao.view
 
 import android.os.Bundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import com.survivalcoding.ifkakao.R
@@ -25,11 +24,6 @@ class MainActivity : AppCompatActivity() {
                 add(R.id.fragmentContainerView, ConferenceListFragment())
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.actionbar, menu)
-        return true
     }
 
 }
