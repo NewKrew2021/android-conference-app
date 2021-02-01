@@ -55,6 +55,16 @@ class DetailFragment : Fragment() {
         binding.detail = viewModel.selectItem.value
         binding.favoriteViewModel = favoriteViewModel
         binding.lifecycleOwner = this
+        viewModel.offShareWindow()
+        viewModel.isShareWindow.observe(viewLifecycleOwner) {
+            if (it == true) {
+                binding.videoShare.visibility = View.GONE
+                binding.shareLayout.visibility = View.VISIBLE
+            } else {
+                binding.videoShare.visibility = View.VISIBLE
+                binding.shareLayout.visibility = View.GONE
+            }
+        }
 
         viewModel.selectItem.value?.let {
             it.linkList.speackerProfile.zip(it.contentsSpeackerList).forEach { pair ->
@@ -87,15 +97,6 @@ class DetailFragment : Fragment() {
 
                 }
             }
-            viewModel.isShareWindow.observe(viewLifecycleOwner) {
-                if (it == true) {
-                    binding.videoShare.visibility = View.GONE
-                    binding.shareLayout.visibility = View.VISIBLE
-                } else {
-                    binding.videoShare.visibility = View.VISIBLE
-                    binding.shareLayout.visibility = View.GONE
-                }
-            }
 
             videoShare.setOnClickListener {
                 viewModel.onShareWindow()
@@ -111,9 +112,8 @@ class DetailFragment : Fragment() {
             implicitIntent.putExtra(Intent.EXTRA_TEXT, link)
 
             kakaoTalkShare.setOnClickListener {
-                var intent = Intent(Intent.ACTION_SEND)
+                val intent = Intent(Intent.ACTION_SEND)
                 intent.setType("text/plain")
-
                 intent.putExtra(Intent.EXTRA_TEXT, link)
                 intent.setPackage("com.kakao.talk")
                 if (intent.resolveActivity(requireContext().packageManager) != null) {

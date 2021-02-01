@@ -9,6 +9,7 @@ import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.factory.ConferenceFragmentFactory
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 
+
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private val repository = ConferenceRepository
@@ -18,8 +19,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        if(savedInstanceState == null){
-            supportFragmentManager.commit{
+        if (savedInstanceState == null) {
+            supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 add(R.id.fragmentContainerView, ConferenceListFragment())
             }
@@ -30,4 +31,5 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.actionbar, menu)
         return true
     }
+
 }

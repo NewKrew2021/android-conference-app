@@ -19,6 +19,7 @@ import com.survivalcoding.ifkakao.adapter.SpinnerAdapter
 import com.survivalcoding.ifkakao.databinding.FragmentConferenceListBinding
 import com.survivalcoding.ifkakao.model.conferenceData.Data
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
+import com.survivalcoding.ifkakao.viewmodel.FilterViewModel
 
 
 class ConferenceListFragment() : Fragment() {
@@ -26,7 +27,7 @@ class ConferenceListFragment() : Fragment() {
     lateinit var conferenceListAdapter: ConferenceListAdapter
     private val binding get() = _bindng!!
     val viewModel: ConferenceViewModel by activityViewModels()
-
+    val filterViewModel: FilterViewModel by activityViewModels()
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -100,6 +101,19 @@ class ConferenceListFragment() : Fragment() {
             updateList(it)
         })
         viewModel.loadData()
+
+        filterViewModel.adaptFilter.observe(viewLifecycleOwner) {
+            val list = conferenceListAdapter.currentList
+            val filterList = mutableListOf<Data>()
+            for (i in 0 until list.size) {
+                for (j in 0 until it.size) {
+                    if (list[i].contentTag?.contains(it[j]) == true) {
+                        filterList.add(list[i])
+                    }
+                }
+            }
+            updateList(filterList)
+        }
 
     }
 
