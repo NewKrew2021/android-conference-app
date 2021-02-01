@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -44,5 +45,11 @@ class MainActivity : AppCompatActivity() {
             )
             else if (currentFragment != R.id.menuFragment) navController.navigate(R.id.menuFragment)
         }
+
+        val serviceIntent = Intent(this, MyService::class.java)
+        serviceIntent.putExtra("noahName", "jinhong")
+        startService(serviceIntent)
+
+
     }
 }
