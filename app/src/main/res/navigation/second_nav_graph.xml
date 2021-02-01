@@ -40,4 +40,9 @@
             android:id="@+id/action_filter_to_main"
             app:destination="@id/secondMainFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.survivalcoding.ifkakao.second.view.menu.MenuFragment"
+        android:label="MenuFragment"
+        tools:layout="@layout/second_fragment_menu" />
 </navigation>
