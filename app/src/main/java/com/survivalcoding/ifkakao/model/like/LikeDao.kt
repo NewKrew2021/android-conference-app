@@ -13,7 +13,7 @@ interface LikeDao {
     fun getLikeStateByIdx(idx: Int): LiveData<Boolean>
 
     @Query("SELECT * FROM like_table")
-    fun getAllLikeStates(): LiveData<List<Like>>
+    suspend fun getAllLikeStates(): List<Like>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(like: Like)

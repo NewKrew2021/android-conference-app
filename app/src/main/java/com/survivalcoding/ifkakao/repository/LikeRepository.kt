@@ -6,7 +6,7 @@ import com.survivalcoding.ifkakao.model.like.LikeDao
 
 class LikeRepository(private val likeDao: LikeDao) {
 
-    val allLikes: LiveData<List<Like>> = likeDao.getAllLikeStates()
+    suspend fun allLikes() = likeDao.getAllLikeStates()
 
     suspend fun updateState(like: Like) {
         likeDao.insert(like)
