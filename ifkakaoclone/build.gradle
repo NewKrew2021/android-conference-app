@@ -67,4 +67,8 @@ dependencies {
     testImplementation deps.junit
     androidTestImplementation deps.androidx.test.espresso
     androidTestImplementation deps.androidx.test.ext
+
+    // LiveData Dependencies
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"    // 원래는 2.0.0이 기본으로 들어가있음
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
 }
