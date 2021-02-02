@@ -1,6 +1,5 @@
 package com.survivalcoding.ifkakao.ui.view.session
 
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +12,10 @@ import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
-import com.survivalcoding.ifkakao.extension.*
+import com.survivalcoding.ifkakao.extension.initToLinearLayout
+import com.survivalcoding.ifkakao.extension.navigate
+import com.survivalcoding.ifkakao.extension.setToolbar
+import com.survivalcoding.ifkakao.extension.stop
 import com.survivalcoding.ifkakao.ui.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel
@@ -29,10 +31,9 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.fragment = this
         getData()
         setView()
-        setOnClick()
         subscribeUI()
 
     }
@@ -50,6 +51,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
 
     private fun getViewModelData() {
         viewModel.getFavoriteSessionData()
+        binding.videoUri = Uri.parse(viewModel.sessionData.value?.linkList?.video?.get(0)?.url)
     }
 
     private fun setView() {
@@ -71,29 +73,6 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
             isDivider = false,
             adapter = SpeakerAdapter()
         )
-    }
-
-    private fun setOnClick() {
-        onClickVideo()
-        onClickShowList()
-    }
-
-    private fun onClickVideo() {
-        val uri = Uri.parse(viewModel.sessionData.value?.linkList?.video?.get(0)?.url)
-        binding.run {
-            ivPlaySessionDetail.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
-            }
-            ivThumbnailSessionDetail.setOnClickListener {
-                startActivity(Intent(Intent.ACTION_VIEW, uri))
-            }
-        }
-    }
-
-    private fun onClickShowList() {
-        binding.btnShowlistSessionDetail.setOnClickListener {
-            popBackStack()
-        }
     }
 
     private fun subscribeUI() = with(viewModel) {

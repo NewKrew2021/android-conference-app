@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_session_filter.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/fragment_session_filter.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_session_event_menu.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/fragment_session_event_menu.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_session_detail.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/fragment_session_detail.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_session.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/item_session.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_session.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/fragment_session.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_main.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/fragment_main.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/fragment_event.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/fragment_event.xml"
+    },
+    {
+        "merged": "/Users/finn/Desktop/android-conference-app/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_toolbar.xml",
+        "source": "/Users/finn/Desktop/android-conference-app/app/src/main/res/layout/item_toolbar.xml"
+    }
+]
