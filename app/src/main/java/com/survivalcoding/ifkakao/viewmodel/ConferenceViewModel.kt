@@ -47,8 +47,7 @@ class ConferenceViewModel : ViewModel() {
         _isShareWindow.value = false
     }
 
-    fun setFilterList(filterList : List<Data>){
+    fun setFilterList(filterList: List<Data>) {
         _list.postValue(filterList)
     }
-
 }

@@ -32,20 +32,21 @@ class NavigationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.sessionMoveToButton.setOnClickListener {
-            // backStack 다 비우
+            // backStack 다 비우기
             parentFragmentManager.clearBackStack()
+            parentFragmentManager.popBackStack("ConferenceListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(R.id.fragmentContainerView, ConferenceListFragment())
+                replace(R.id.fragmentContainerView, ConferenceListFragment())
             }
         }
-        binding.likeMoveToButton.setOnClickListener{
+        binding.likeMoveToButton.setOnClickListener {
             //이미 있다면 다 지우기
             parentFragmentManager.popBackStack("NavigationFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.popBackStack("FavoriteListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager.commit {
                 setReorderingAllowed(true)
-                replace(R.id.fragmentContainerView,FavoriteListFragment())
+                replace(R.id.fragmentContainerView, FavoriteListFragment())
                 addToBackStack("FavoriteListFragment")
             }
         }
