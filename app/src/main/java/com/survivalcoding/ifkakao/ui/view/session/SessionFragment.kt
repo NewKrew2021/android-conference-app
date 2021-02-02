@@ -1,6 +1,7 @@
 package com.survivalcoding.ifkakao.ui.view.session
 
 import android.net.Uri
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -8,14 +9,16 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.lifecycle.observe
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
+import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.databinding.FragmentSessionBinding
-import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
+import com.survivalcoding.ifkakao.extension.initToLinearLayout
 import com.survivalcoding.ifkakao.extension.navigate
+import com.survivalcoding.ifkakao.extension.stop
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
+import com.survivalcoding.ifkakao.ui.view.filter.SessionFilterFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
 import com.survivalcoding.ifkakao.util.EMPTY_STRING
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
@@ -29,68 +32,43 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
 
     override val viewModel: SessionViewModel by viewModel()
 
-    override fun initStartView() {
-        setVideoView()
-        setToolbar()
-        setRecyclerView()
-        viewModel.setLikeCheck(false)
-        binding.progressSession.visibility = View.VISIBLE
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getFilteredDataFromBundle()
+        setView()
+        subscribeUI()
     }
 
-    override fun getViewModelData() {
+    private fun getFilteredDataFromBundle() {
         arguments?.let {
-            val filter = it.getString("filter")
+            val filter = it.getString(SessionFilterFragment.KEY_OF_FILTER_BUNDLE)
             if (filter != null) {
                 viewModel.getConferenceData(filter)
             } else {
                 viewModel.getConferenceData(EMPTY_STRING)
             }
         } ?: viewModel.getConferenceData(EMPTY_STRING)
-
     }
 
-    override fun startObserveData() {
-        observeConferenceSessionData()
+    private fun setView() {
+        setRecyclerView()
+        setToolbar()
+        setVideoView()
+        viewModel.setLikeCheck(false)
     }
 
-    // observe data
-    private fun observeConferenceSessionData() {
-        viewModel.conferenceData.observe(this) {
-            val adapter = binding.rvVideoSession.adapter as SessionAdapter
-            adapter.setList(it)
-            binding.progressSession.visibility = View.GONE
-        }
-    }
-
-    private fun observeLikeCheck(likeItem: MenuItem, unlikeItem: MenuItem) {
-        viewModel.likeCheck.observe(this) {
-            if(it) {
-                likeItem.isVisible = true
-                unlikeItem.isVisible = false
-                viewModel.getFavoriteConferenceData()
-            } else {
-                likeItem.isVisible = false
-                unlikeItem.isVisible = true
-                getViewModelData()
-            }
-        }
-    }
-
-    // set recycler view
     private fun setRecyclerView() {
-        binding.rvVideoSession.apply {
-            layoutManager = LinearVerticalLayout(context)
-            setHasFixedSize(true)
-            addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+        binding.rvVideoSession.initToLinearLayout(
+            layoutType = LinearLayoutManager.VERTICAL,
+            isDivider = true,
             adapter = SessionAdapter().apply {
                 this.setSessionClickListener {
                     navigate(R.id.fragment_session_detail, bundleOf(SESSION_ITEM to it))
                 }
             }
-        }
+        )
     }
 
-    // set toolbar
     private fun setToolbar() {
         val activity = activity as AppCompatActivity
         activity.setSupportActionBar(binding.toolbarSession)
@@ -109,7 +87,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         }
     }
 
-    // set video view
     private fun setVideoView() {
         binding.videoViewSession.apply {
             setVideoURI(Uri.parse(SESSION_MAIN_VIDEO_URL))
@@ -121,6 +98,31 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             }
         }
     }
+
+    private fun subscribeUI() = with(viewModel) {
+        conferenceData.observe { setSessionAdapterData(it) }
+    }
+
+    private fun setSessionAdapterData(list: List<ConferenceSessionResponse>) {
+        val adapter = binding.rvVideoSession.adapter as SessionAdapter
+        adapter.setList(list)
+        binding.progressSession.stop()
+    }
+
+    private fun observeLikeCheck(likeItem: MenuItem, unlikeItem: MenuItem) {
+        viewModel.likeCheck.observe(this) {
+            if (it) {
+                likeItem.isVisible = true
+                unlikeItem.isVisible = false
+                viewModel.getFavoriteConferenceData()
+            } else {
+                likeItem.isVisible = false
+                unlikeItem.isVisible = true
+                getFilteredDataFromBundle()
+            }
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -149,7 +151,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             }
             else -> super.onOptionsItemSelected(item)
         }
+
     }
-
-
 }

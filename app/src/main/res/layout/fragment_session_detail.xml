@@ -5,9 +5,23 @@
 
     <data>
 
+        <import type="com.survivalcoding.ifkakao.extension.FragmentReplaceExtKt" />
+
+        <import type="com.survivalcoding.ifkakao.extension.IntentExtKt" />
+
+        <import type="android.content.Intent" />
+
         <variable
             name="viewModel"
             type="com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.survivalcoding.ifkakao.ui.view.session.SessionDetailFragment" />
+
+        <variable
+            name="videoUri"
+            type="android.net.Uri" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -31,10 +45,11 @@
                 android:id="@+id/iv_thumbnail_session_detail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/iv_thumbnail_session_detail_height"
+                android:layout_marginStart="@dimen/spacing_8"
+                android:layout_marginEnd="@dimen/spacing_8"
+                android:onClick="@{() -> IntentExtKt.startActivityForXml(fragment, Intent.ACTION_VIEW, videoUri)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="@dimen/spacing_8"
-                android:layout_marginStart="@dimen/spacing_8"
                 app:layout_constraintTop_toBottomOf="@+id/include"
                 tools:srcCompat="@drawable/ic_launcher_foreground" />
 
@@ -42,6 +57,7 @@
                 android:id="@+id/iv_play_session_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="@{() -> IntentExtKt.startActivityForXml(fragment, Intent.ACTION_VIEW, videoUri)}"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_thumbnail_session_detail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -133,6 +149,7 @@
                 android:layout_marginTop="@dimen/spacing_24"
                 android:layout_marginBottom="@dimen/spacing_24"
                 android:backgroundTint="#6E6E6E"
+                android:onClick="@{() -> FragmentReplaceExtKt.popBackStack(fragment)}"
                 android:text="@string/btn_showlist_session_detail"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -143,9 +160,9 @@
                 android:id="@+id/iv_favorite_session_detail"
                 android:layout_width="24dp"
                 android:layout_height="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="@dimen/spacing_8"
                 android:layout_marginEnd="@dimen/spacing_8"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_thumbnail_session_detail"
                 app:srcCompat="@drawable/ic_baseline_favorite_24" />
 

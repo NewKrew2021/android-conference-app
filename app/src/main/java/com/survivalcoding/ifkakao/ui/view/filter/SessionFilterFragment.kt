@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.ui.view.filter
 
+import android.os.Bundle
+import android.view.View
 import android.widget.ToggleButton
 import androidx.core.os.bundleOf
 import com.survivalcoding.ifkakao.R
@@ -18,58 +20,43 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
 
     override val viewModel: SessionFilterViewModel by viewModel()
 
-    override fun initStartView() {
-        eventProcess()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.fragment = this
     }
 
-    override fun getViewModelData() {
-        //
-    }
-
-    override fun startObserveData() {
-        //
-    }
-
-    private fun eventProcess() {
-        binding.run {
-            ivCloseSessionFilter.setOnClickListener {
-                navigate(R.id.fragment_session)
-            }
-
-            btnServiceSessionFilter.setOnClickListener {
-                clickToggleButton(it as ToggleButton)
-            }
-
-            btnTechSessionFilter.setOnClickListener {
-                clickToggleButton(it as ToggleButton)
-            }
-
-            btnBusinessSessionFilter.setOnClickListener {
-                clickToggleButton(it as ToggleButton)
-            }
-
-            btnResetSessionFilter.setOnClickListener {
-                btnServiceSessionFilter.off()
-                btnBusinessSessionFilter.off()
-                btnTechSessionFilter.off()
-            }
-
-            btnApplySessionFilter.setOnClickListener {
-                val str = StringBuilder()
-                if (btnServiceSessionFilter.isChecked) str.append("서비스,")
-                if (btnBusinessSessionFilter.isChecked) str.append("비즈니스,")
-                if (btnTechSessionFilter.isChecked) str.append("기술,")
-                navigate(R.id.fragment_session, bundleOf("filter" to str.toString()))
-            }
-        }
-    }
-
-    private fun clickToggleButton(view: ToggleButton) {
-        if (view.isChecked) {
-            view.on()
+    fun clickToggleButton(view: View) {
+        val toggle = view as ToggleButton
+        if (toggle.isChecked) {
+            toggle.on()
         } else {
-            view.off()
+            toggle.off()
         }
+    }
+
+    fun onClickApply() {
+        binding.run {
+            val str = StringBuilder()
+            if (btnServiceSessionFilter.isChecked) str.append(SERVICE_CHECK)
+            if (btnBusinessSessionFilter.isChecked) str.append(BUSINESS_CHECK)
+            if (btnTechSessionFilter.isChecked) str.append(TECH_CHECK)
+            navigate(R.id.fragment_session, bundleOf(KEY_OF_FILTER_BUNDLE to str.toString()))
+        }
+    }
+
+    fun onClickReset() {
+        binding.run {
+            btnServiceSessionFilter.off()
+            btnBusinessSessionFilter.off()
+            btnTechSessionFilter.off()
+        }
+    }
+
+    companion object {
+        const val SERVICE_CHECK = "서비스,"
+        const val BUSINESS_CHECK = "비즈니스,"
+        const val TECH_CHECK = "기술,"
+        const val KEY_OF_FILTER_BUNDLE = "filter"
     }
 
 }

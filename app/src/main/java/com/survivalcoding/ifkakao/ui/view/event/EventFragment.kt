@@ -1,16 +1,17 @@
 package com.survivalcoding.ifkakao.ui.view.event
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentEventBinding
 import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.EventViewModel
-import com.survivalcoding.ifkakao.util.COLOR_BLUE
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
@@ -20,18 +21,14 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
 
     override val viewModel: EventViewModel by viewModel()
 
-    override fun initStartView() {
-        binding.include.toolbarMain.setBackgroundColor(Color.parseColor(COLOR_BLUE))
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setToolbar()
+    }
+
+    private fun setToolbar() {
+        binding.include.toolbarMain.setBackgroundColor(Color.BLUE)
         setToolbar(binding.include.toolbarMain, binding.include.tvTitleMain)
-    }
-
-    override fun getViewModelData() {
-        //
-    }
-
-    override fun startObserveData() {
-        //
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
