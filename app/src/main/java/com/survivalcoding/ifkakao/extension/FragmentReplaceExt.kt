@@ -43,3 +43,6 @@ fun Fragment.navigate(resId : Int, bundle: Bundle): Unit =
 
 fun Fragment.popBackStack(): Boolean =
     NavHostFragment.findNavController(this).popBackStack()
+
+fun Fragment.popBackStack(fragment: Fragment): Boolean =
+    NavHostFragment.findNavController(fragment).popBackStack()

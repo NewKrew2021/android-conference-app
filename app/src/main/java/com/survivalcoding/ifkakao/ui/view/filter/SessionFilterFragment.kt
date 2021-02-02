@@ -22,48 +22,33 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setOnClick()
+        binding.fragment = this
     }
 
-    private fun setOnClick() {
-        binding.run {
-            ivCloseSessionFilter.setOnClickListener {
-                navigate(R.id.fragment_session)
-            }
-
-            btnServiceSessionFilter.setOnClickListener {
-                clickToggleButton(it as ToggleButton)
-            }
-
-            btnTechSessionFilter.setOnClickListener {
-                clickToggleButton(it as ToggleButton)
-            }
-
-            btnBusinessSessionFilter.setOnClickListener {
-                clickToggleButton(it as ToggleButton)
-            }
-
-            btnResetSessionFilter.setOnClickListener {
-                btnServiceSessionFilter.off()
-                btnBusinessSessionFilter.off()
-                btnTechSessionFilter.off()
-            }
-
-            btnApplySessionFilter.setOnClickListener {
-                val str = StringBuilder()
-                if (btnServiceSessionFilter.isChecked) str.append(SERVICE_CHECK)
-                if (btnBusinessSessionFilter.isChecked) str.append(BUSINESS_CHECK)
-                if (btnTechSessionFilter.isChecked) str.append(TECH_CHECK)
-                navigate(R.id.fragment_session, bundleOf(KEY_OF_FILTER_BUNDLE to str.toString()))
-            }
+    fun clickToggleButton(view: View) {
+        val toggle = view as ToggleButton
+        if (toggle.isChecked) {
+            toggle.on()
+        } else {
+            toggle.off()
         }
     }
 
-    private fun clickToggleButton(view: ToggleButton) {
-        if (view.isChecked) {
-            view.on()
-        } else {
-            view.off()
+    fun onClickApply() {
+        binding.run {
+            val str = StringBuilder()
+            if (btnServiceSessionFilter.isChecked) str.append(SERVICE_CHECK)
+            if (btnBusinessSessionFilter.isChecked) str.append(BUSINESS_CHECK)
+            if (btnTechSessionFilter.isChecked) str.append(TECH_CHECK)
+            navigate(R.id.fragment_session, bundleOf(KEY_OF_FILTER_BUNDLE to str.toString()))
+        }
+    }
+
+    fun onClickReset() {
+        binding.run {
+            btnServiceSessionFilter.off()
+            btnBusinessSessionFilter.off()
+            btnTechSessionFilter.off()
         }
     }
 
