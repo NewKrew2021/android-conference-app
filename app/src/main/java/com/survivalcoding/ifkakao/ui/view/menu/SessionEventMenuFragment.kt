@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.ui.view.menu
 
+import android.os.Bundle
+import android.view.View
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionEventMenuBinding
 import com.survivalcoding.ifkakao.extension.navigate
@@ -16,20 +18,12 @@ class SessionEventMenuFragment :
 
     override val viewModel: SessionEventMenuViewModel by viewModel()
 
-    override fun initStartView() {
-        eventProcess()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setOnClick()
     }
 
-    override fun getViewModelData() {
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-    }
-
-    override fun startObserveData() {
-        //
-    }
-
-    private fun eventProcess() {
+    private fun setOnClick() {
         binding.run {
             ivCloseSessionEventMenu.setOnClickListener {
                 popBackStack()

@@ -1,5 +1,6 @@
 package com.survivalcoding.ifkakao.ui.view
 
+import android.os.Bundle
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
 import com.survivalcoding.ifkakao.ui.base.BaseActivity
@@ -13,18 +14,10 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
 
     override val viewModel: MainViewModel by viewModel()
 
-    override fun initStartView() {
-        //
-    }
-
-    override fun getViewModelData() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
-
-    override fun startObserveData() {
-        //
-    }
-
 
 }

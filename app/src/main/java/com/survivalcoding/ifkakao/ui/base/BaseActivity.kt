@@ -14,19 +14,8 @@ abstract class BaseActivity<T : ViewDataBinding, R : ViewModel> : AppCompatActiv
 
     abstract val viewModel: R
 
-    abstract fun initStartView()
-
-    abstract fun getViewModelData()
-
-    abstract fun startObserveData()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, layoutResourceId)
-
-        initStartView()
-        getViewModelData()
-        startObserveData()
     }
 }

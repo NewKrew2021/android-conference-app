@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.data.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.extension.toLiveData
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: ConferenceRepository) : ViewModel() {
@@ -18,9 +17,7 @@ class MainViewModel(private val repository: ConferenceRepository) : ViewModel() 
         viewModelScope.launch {
             _conferenceData.postValue(repository.getAllSession().data)
         }
-        GlobalScope.launch {
 
-        }
     }
 
 }

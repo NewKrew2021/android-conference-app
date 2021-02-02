@@ -1,5 +1,7 @@
 package com.survivalcoding.ifkakao.ui.view.filter
 
+import android.os.Bundle
+import android.view.View
 import android.widget.ToggleButton
 import androidx.core.os.bundleOf
 import com.survivalcoding.ifkakao.R
@@ -18,19 +20,12 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
 
     override val viewModel: SessionFilterViewModel by viewModel()
 
-    override fun initStartView() {
-        eventProcess()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setOnClick()
     }
 
-    override fun getViewModelData() {
-        //
-    }
-
-    override fun startObserveData() {
-        //
-    }
-
-    private fun eventProcess() {
+    private fun setOnClick() {
         binding.run {
             ivCloseSessionFilter.setOnClickListener {
                 navigate(R.id.fragment_session)
@@ -56,10 +51,10 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
 
             btnApplySessionFilter.setOnClickListener {
                 val str = StringBuilder()
-                if (btnServiceSessionFilter.isChecked) str.append("서비스,")
-                if (btnBusinessSessionFilter.isChecked) str.append("비즈니스,")
-                if (btnTechSessionFilter.isChecked) str.append("기술,")
-                navigate(R.id.fragment_session, bundleOf("filter" to str.toString()))
+                if (btnServiceSessionFilter.isChecked) str.append(SERVICE_CHECK)
+                if (btnBusinessSessionFilter.isChecked) str.append(BUSINESS_CHECK)
+                if (btnTechSessionFilter.isChecked) str.append(TECH_CHECK)
+                navigate(R.id.fragment_session, bundleOf(KEY_OF_FILTER_BUNDLE to str.toString()))
             }
         }
     }
@@ -70,6 +65,13 @@ class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, Session
         } else {
             view.off()
         }
+    }
+
+    companion object {
+        const val SERVICE_CHECK = "서비스,"
+        const val BUSINESS_CHECK = "비즈니스,"
+        const val TECH_CHECK = "기술,"
+        const val KEY_OF_FILTER_BUNDLE = "filter"
     }
 
 }
