@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.VideoView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.lifecycle.Observer
@@ -27,9 +28,9 @@ class ConferenceListFragment() : Fragment() {
     val viewModel: ConferenceViewModel by activityViewModels()
     val filterViewModel: FilterViewModel by activityViewModels()
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
         _bindng = FragmentConferenceListBinding.inflate(inflater, container, false)
@@ -45,23 +46,27 @@ class ConferenceListFragment() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         conferenceListAdapter = ConferenceListAdapter(
-                showDetail = {
-                    viewModel.setSelectItem(it)
-                    parentFragmentManager.commit {
-                        setReorderingAllowed(true)
-                        replace(R.id.fragmentContainerView, DetailFragment())
-                        addToBackStack(null)
-                    }
+            showDetail = {
+                viewModel.setSelectItem(it)
+                parentFragmentManager.popBackStack(
+                    "DetailFragment",
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.fragmentContainerView, DetailFragment())
+                    addToBackStack("DetailFragment")
                 }
+            }
         )
         val dividerItemDecoration = DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
+            context,
+            DividerItemDecoration.VERTICAL
         )
         ResourcesCompat.getDrawable(requireContext().resources, R.drawable.custom_divider, null)
-                ?.let {
-                    dividerItemDecoration.setDrawable(it)
-                }
+            ?.let {
+                dividerItemDecoration.setDrawable(it)
+            }
         binding.apply {
             //Setting viewModel
             viewModels = viewModel
@@ -71,15 +76,15 @@ class ConferenceListFragment() : Fragment() {
 
             //Recycler View
             conferenceListView.addItemDecoration(
-                    dividerItemDecoration
+                dividerItemDecoration
             )
             conferenceListView.adapter = conferenceListAdapter
 
             //spinner
             ArrayAdapter.createFromResource(
-                    requireContext(),
-                    R.array.spinner_filter,
-                    R.layout.spinner_item
+                requireContext(),
+                R.array.spinner_filter,
+                R.layout.spinner_item
             ).also {
                 it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 spinner.adapter = it
@@ -88,10 +93,14 @@ class ConferenceListFragment() : Fragment() {
             spinner.onItemSelectedListener = SpinnerAdapter()
 
             fieldFilterButton.setOnClickListener {
+                parentFragmentManager.popBackStack(
+                    "FilterFragment",
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
                 parentFragmentManager.commit {
                     setReorderingAllowed(true)
                     replace(R.id.fragmentContainerView, FilterFragment())
-                    addToBackStack(null)
+                    addToBackStack("FilterFragment")
                 }
             }
         }
@@ -110,9 +119,9 @@ class ConferenceListFragment() : Fragment() {
                     }
                 }
             }
-            if(filterList.size > 0){ // filter 가 있다면
+            if (filterList.size > 0) { // filter 가 있다면
                 viewModel.setFilterList(filterList)
-            }else{
+            } else {
                 viewModel.loadData()
             }
 
@@ -128,7 +137,7 @@ class ConferenceListFragment() : Fragment() {
 
     private fun playVideoTeaser(videoView: VideoView) {
         val videoUri =
-                Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4")
+            Uri.parse("https://t1.kakaocdn.net/service_if_kakao_prod/videos/mo/vod_teaser.mp4")
         videoView.setVideoURI(videoUri)
         videoView.requestFocus()
         videoView.setOnPreparedListener {
@@ -144,12 +153,19 @@ class ConferenceListFragment() : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.navigationButton-> parentFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace(R.id.fragmentContainerView, NavigationFragment())
-                addToBackStack(null)
+        when (item.itemId) {
+            R.id.navigationButton -> {
+                parentFragmentManager.popBackStack(
+                    "NavigationFragment",
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+                parentFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace(R.id.fragmentContainerView, NavigationFragment())
+                    addToBackStack("NavigationFragment")
+                }
             }
+
         }
         return super.onOptionsItemSelected(item)
     }

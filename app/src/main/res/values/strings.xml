@@ -53,6 +53,7 @@
     <string name="facebook">페이스북</string>
     <string name="url">URL 복사</string>
     <string name="facebook_app_id">1167728596976472</string>
+    <string name="favorite">Favorite</string>
 
 
 </resources>
