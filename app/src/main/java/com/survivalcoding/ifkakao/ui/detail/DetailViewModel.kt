@@ -28,6 +28,10 @@ class DetailViewModel(
     val onBackButtonClicked: LiveData<Event<Unit>>
         get() = _onBackButtonClicked
 
+    private val _onCopyButtonClicked = SingleLiveEvent<Unit>()
+    val onCopyButtonClicked: LiveData<Unit>
+        get() = _onCopyButtonClicked
+
     fun openVideoLink(target: Session) {
         _targetUrl.postValue(target.linkList.video[0].url)
     }
@@ -45,6 +49,10 @@ class DetailViewModel(
                 likeRepository.updateState(Like(idx, it xor true))
             }
         }
+    }
+
+    fun copyUrlLink() {
+        _onCopyButtonClicked.postValue(Unit)
     }
 
 }
