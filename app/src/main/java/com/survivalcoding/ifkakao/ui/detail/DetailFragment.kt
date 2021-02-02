@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.extension.popThis
@@ -35,7 +36,9 @@ class DetailFragment : Fragment() {
                 }
                 viewModel = ViewModelProvider(
                     this@DetailFragment,
-                    DetailViewModelFactory(requireActivity().application, idx)
+                    DetailViewModelFactory(
+                        (requireActivity().application as App).likeRepository, idx
+                    )
                 ).get(DetailViewModel::class.java)
             }
         }

@@ -5,7 +5,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
@@ -22,7 +22,10 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var adapter: ConferenceAdapter
-    private val viewModel: ConferenceViewModel by viewModels()
+
+    private val viewModel: ConferenceViewModel by activityViewModels {
+        (requireActivity() as MainActivity).confViewModelFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +70,10 @@ class MainFragment : Fragment() {
 
     private fun initView() {
 
-        binding.videwModel = viewModel
+        binding.apply {
+            viewModel = this@MainFragment.viewModel
+            lifecycleOwner = this@MainFragment
+        }
 
         binding.toolbar.apply {
             title = "if(kakao)2020"
@@ -91,7 +97,7 @@ class MainFragment : Fragment() {
     }
 
     private fun setUpObserver() {
-        viewModel.sessions.observe(viewLifecycleOwner) {
+        viewModel.sessionsForShow.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
