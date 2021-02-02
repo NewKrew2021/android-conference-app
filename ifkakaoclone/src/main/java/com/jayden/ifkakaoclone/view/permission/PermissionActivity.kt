@@ -47,7 +47,7 @@ class PermissionActivity : AppCompatActivity() {
             when {
                 ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_GRANTED -> {
-                    Log.d(javaClass.simpleName, "사용자가 권한을 바로 동의하였습니다.")
+                    Log.d(javaClass.simpleName, "사용자가 권한을 동의하였습니다.")
                     fakeFunctionWithCamera()
                 }
                 // Deny 할 시 다음 실행부터 이 곳으로 분기된다.
@@ -66,7 +66,7 @@ class PermissionActivity : AppCompatActivity() {
         } else {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED) {
-                Log.d(javaClass.simpleName, "사용자가 권한을 바로 동의하였습니다.")
+                Log.d(javaClass.simpleName, "사용자가 권한을 동의하였습니다.")
                 fakeFunctionWithCamera()
             } else {
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
