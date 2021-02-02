@@ -2,9 +2,7 @@ package com.survivalcoding.ifkakao.view
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.VideoView
 import androidx.core.content.res.ResourcesCompat
@@ -33,6 +31,7 @@ class ConferenceListFragment() : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _bindng = FragmentConferenceListBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -66,7 +65,7 @@ class ConferenceListFragment() : Fragment() {
         binding.apply {
             //Setting viewModel
             viewModels = viewModel
-            lifecycleOwner = this@ConferenceListFragment
+            lifecycleOwner = requireActivity()
             //video Teaser
             playVideoTeaser(teaser)
 
@@ -100,7 +99,6 @@ class ConferenceListFragment() : Fragment() {
         viewModel.list.observe(viewLifecycleOwner, Observer<List<Data>> {
             updateList(it)
         })
-        viewModel.loadData()
 
         filterViewModel.adaptFilter.observe(viewLifecycleOwner) {
             val list = conferenceListAdapter.currentList
@@ -112,13 +110,20 @@ class ConferenceListFragment() : Fragment() {
                     }
                 }
             }
-            updateList(filterList)
+            if(filterList.size > 0){ // filter 가 있다면
+                viewModel.setFilterList(filterList)
+            }else{
+                viewModel.loadData()
+            }
+
         }
+        retainInstance = true
 
     }
 
     private fun updateList(list: List<Data>) {
         conferenceListAdapter.submitList(list)
+        binding.conferenceListView.scrollToPosition(0)
     }
 
     private fun playVideoTeaser(videoView: VideoView) {
@@ -132,5 +137,21 @@ class ConferenceListFragment() : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear();
+        inflater.inflate(R.menu.actionbar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.navigationButton-> parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fragmentContainerView, NavigationFragment())
+                addToBackStack(null)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }

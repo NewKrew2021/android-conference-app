@@ -9,6 +9,7 @@ import com.survivalcoding.ifkakao.repository.ConferenceRepository
 import kotlinx.coroutines.launch
 
 class ConferenceViewModel : ViewModel() {
+
     private val repository = ConferenceRepository
     private val _list = MutableLiveData<List<Data>>()
     val list: LiveData<List<Data>> get() = _list
@@ -46,5 +47,8 @@ class ConferenceViewModel : ViewModel() {
         _isShareWindow.value = false
     }
 
+    fun setFilterList(filterList : List<Data>){
+        _list.postValue(filterList)
+    }
 
 }

@@ -8,18 +8,17 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.commit
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
+import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.extension.loadUrlWithRoundCorner
 import com.survivalcoding.ifkakao.model.conferenceData.ContentsSpeacker
@@ -39,6 +38,7 @@ class DetailFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _bindng = FragmentDetailBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -209,6 +209,22 @@ class DetailFragment : Fragment() {
 
         binding.contentSpeakerLayout.addView(linearLayout)
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.actionbar, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.navigationButton-> parentFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fragmentContainerView, NavigationFragment())
+                addToBackStack(null)
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
