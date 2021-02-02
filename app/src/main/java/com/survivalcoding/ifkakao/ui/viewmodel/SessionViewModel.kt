@@ -1,23 +1,21 @@
 package com.survivalcoding.ifkakao.ui.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.data.repository.ConferenceRepository
+import com.survivalcoding.ifkakao.extension.toLiveData
 import com.survivalcoding.ifkakao.util.EMPTY_STRING
 import kotlinx.coroutines.launch
 
 class SessionViewModel(private val repository: ConferenceRepository) : ViewModel() {
 
     private val _conferenceData = MutableLiveData<List<ConferenceSessionResponse>>()
-    val conferenceData: LiveData<List<ConferenceSessionResponse>>
-        get() = _conferenceData
+    val conferenceData = _conferenceData.toLiveData()
 
     private val _likeCheck = MutableLiveData<Boolean>()
-    val likeCheck: LiveData<Boolean>
-        get() = _likeCheck
+    val likeCheck = _likeCheck.toLiveData()
 
     fun getConferenceData(filter: String) {
         viewModelScope.launch {

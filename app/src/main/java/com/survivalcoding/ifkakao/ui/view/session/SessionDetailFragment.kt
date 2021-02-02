@@ -13,6 +13,7 @@ import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.databinding.FragmentSessionDetailBinding
 import com.survivalcoding.ifkakao.extension.LinearVerticalLayout
 import com.survivalcoding.ifkakao.extension.navigate
+import com.survivalcoding.ifkakao.extension.popBackStack
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
@@ -98,7 +99,7 @@ class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, Session
             }
 
             btnShowlistSessionDetail.setOnClickListener {
-                parentFragmentManager.popBackStack()
+                popBackStack()
             }
         }
     }

@@ -23,6 +23,7 @@ class ConferenceRepository(
 
     override suspend fun getAllFavoriteSessionId(): List<Int> {
         return localDataSource.getAllFavoriteSessionId()
+
     }
 
 }
