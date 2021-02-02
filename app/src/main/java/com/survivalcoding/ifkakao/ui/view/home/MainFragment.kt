@@ -29,10 +29,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.fragment = this
         getViewModelData()
         setView()
-        onClickAllSession()
         subscribeUI()
     }
 
@@ -64,12 +63,6 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
         binding.include.tvTitleMain.setOnClickListener {
             navigate(R.id.fragment_main)
-        }
-    }
-
-    private fun onClickAllSession() {
-        binding.btnAllSessionMain.setOnClickListener {
-            navigate(R.id.fragment_session)
         }
     }
 
