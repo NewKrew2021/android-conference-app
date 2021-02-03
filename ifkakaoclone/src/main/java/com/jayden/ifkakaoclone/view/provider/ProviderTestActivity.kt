@@ -51,11 +51,11 @@ class ProviderTestActivity : AppCompatActivity() {
             }
             ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
-                Manifest.permission.CAMERA
+                Manifest.permission.READ_EXTERNAL_STORAGE
             ) -> {
                 showPermissionRequestExplanation(
-                    Manifest.permission.CAMERA,
-                    "무슨 기능 때문에 카메라 권한이 필요합니다."
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    "무슨 기능 때문에 저장 공간 읽기 권한이 필요합니다."
                 ) { requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE) }
                 false
             }
