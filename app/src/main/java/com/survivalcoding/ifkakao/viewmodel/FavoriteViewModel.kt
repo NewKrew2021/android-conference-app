@@ -17,6 +17,9 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
     val getFavorite: LiveData<Boolean> get() = _getFavorite
 
 
+    val favoriteAllList: LiveData<List<Favorite>> get() = favoriteRepository.getAllFavoriteList()
+
+
     fun setFavorite(favorite: Favorite) {
         viewModelScope.launch {
             favoriteRepository.insert(favorite)
@@ -31,4 +34,6 @@ class FavoriteViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
+
+
 }
