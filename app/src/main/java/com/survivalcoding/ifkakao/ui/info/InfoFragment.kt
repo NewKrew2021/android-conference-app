@@ -42,7 +42,6 @@ class InfoFragment : Fragment() {
             popThis()
         }
         binding.favorites.setOnClickListener {
-            viewModel.filterFavorites()
             popThis()
         }
     }

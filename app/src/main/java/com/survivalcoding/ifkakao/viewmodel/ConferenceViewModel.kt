@@ -3,10 +3,7 @@ package com.survivalcoding.ifkakao.viewmodel
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.repository.LikeRepository
@@ -23,7 +20,15 @@ class ConferenceViewModel(
 
     private val _sessionsForShow = MutableLiveData<List<Session>>()
     val sessionsForShow: LiveData<List<Session>>
-        get() = _sessionsForShow
+        get() {
+            return Transformations.switchMap(likeRepository.allLikes()) { likes ->
+                val favorites = likes.filter { it.liked }.map { it.idx }
+                _sessions.value?.let { list ->
+                    _sessionsForShow.value = list.filter { it.idx in favorites }
+                }
+                _sessionsForShow
+            }
+        }
 
     private val _onFilteringButtonClicked = SingleLiveEvent<Unit>()
     val onFilteringButtonClicked: LiveData<Unit>
@@ -51,16 +56,6 @@ class ConferenceViewModel(
 
     fun showAllSessions() {
         _sessionsForShow.postValue(_sessions.value)
-    }
-
-    fun filterFavorites() = viewModelScope.launch {
-
-        likeRepository.allLikes().let { likes ->
-            val favorites = likes.filter { it.liked }.map { it.idx }
-            _sessions.value?.let { list ->
-                _sessionsForShow.postValue(list.filter { it.idx in favorites })
-            }
-        }
     }
 
     fun onClickFilteringButton() {
