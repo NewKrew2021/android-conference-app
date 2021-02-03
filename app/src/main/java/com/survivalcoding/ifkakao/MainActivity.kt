@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         binding.button.setOnClickListener {
 
+            /*
+            findNavController(R.id.fragment_container_view).navigate(R.id.menuFragment,null,
+                NavOptions.Builder().setLaunchSingleTop(true).build())
+
+             */
+
             val currentFragment =
                 findNavController(R.id.fragment_container_view).currentDestination?.id
             if (findNavController(R.id.fragment_container_view).popBackStack(
@@ -54,7 +62,10 @@ class MainActivity : AppCompatActivity() {
                 )
             )
             else if (currentFragment != R.id.menuFragment) navController.navigate(R.id.menuFragment)
+
         }
+
+
         /*
 
         val serviceIntent = Intent(this, MyService::class.java)
@@ -64,8 +75,28 @@ class MainActivity : AppCompatActivity() {
          */
 
         checkPermission()
+        var projection = arrayOf(
+            ContactsContract.Profile._ID,
+            ContactsContract.Profile.DISPLAY_NAME_PRIMARY,
+        )
 
+        var profileCursor = contentResolver.query(
+            ContactsContract.Contacts.CONTENT_URI,
+            projection,
+            null,
+            null,
+            null
+        )
+        var count = 5
 
+        profileCursor?.moveToPosition(3)
+        while (count > 0 && profileCursor?.moveToNext() ?: false) {
+
+            val name = profileCursor?.getString(1)
+            Log.d("log2", "${name}")
+
+            count -= 1
+        }
     }
 
     private fun checkPermission() {
@@ -73,14 +104,14 @@ class MainActivity : AppCompatActivity() {
         when {
             ContextCompat.checkSelfPermission(
                 this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_CONTACTS
             ) == PackageManager.PERMISSION_GRANTED -> {
                 // You can use the API that requires the permission.
                 Toast.makeText(this, "테스트 : 권한이 이미 있습니다", Toast.LENGTH_SHORT).show()
             }
             ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_CONTACTS
             ) -> {
                 // In an educational UI, explain to the user why your app requires this
                 // permission for a specific feature to behave as expected. In this UI,
@@ -110,12 +141,13 @@ class MainActivity : AppCompatActivity() {
                 // You can directly ask for the permission.
                 ActivityCompat.requestPermissions(
                     this,
-                    arrayOf<String>(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    arrayOf<String>(Manifest.permission.READ_CONTACTS),
                     PERMISSION_REQUEST_CODE
                 )
             }
         }
     }
+
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
