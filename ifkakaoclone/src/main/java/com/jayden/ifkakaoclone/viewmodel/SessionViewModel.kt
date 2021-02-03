@@ -1,9 +1,6 @@
 package com.jayden.ifkakaoclone.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.jayden.ifkakaoclone.data.Repository
 import com.jayden.ifkakaoclone.data.db.Favorite
 import com.jayden.ifkakaoclone.util.SingleLiveData
@@ -43,6 +40,14 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
 
     private val _shouldFilterWithFavorite = MutableLiveData(false)
     val shouldFilterWithFavorite: LiveData<Boolean> get() = _shouldFilterWithFavorite
+
+    // Multiple Source MediatorLiveData
+    val filteredSessions = MediatorLiveData<List<Session>>().apply {
+        addSource(_sessions) { value = filterSessions() }
+        addSource(favorites) { value = filterSessions() }
+        addSource(_shouldFilterWithFavorite) { value = filterSessions() }
+        addSource(_appliedFilters) { value = filterSessions() }
+    }
 
     fun fetchContents() {
         viewModelScope.launch {
@@ -98,5 +103,23 @@ class SessionViewModel(private val repository: Repository) : ViewModel() {
         _shouldFilterWithFavorite.value?.let {
             _shouldFilterWithFavorite.value = !it
         }
+    }
+
+    private fun filterSessions(): List<Session> {
+        return _sessions.value?.let { items ->
+            var filtered = items
+
+            if (_shouldFilterWithFavorite.value == true) {
+                favorites.value?.filter { it.isFavorite }?.map { it.uid }?.let { favoriteIndexes ->
+                    filtered = filtered.filter { favoriteIndexes.contains(it.idx) }
+                }
+            }
+            _appliedFilters.value?.let { filters ->
+                if (filters.isNotEmpty()) {
+                    filtered = filtered.filter { filters.contains(it.field) }
+                }
+            }
+            filtered
+        } ?: listOf()
     }
 }

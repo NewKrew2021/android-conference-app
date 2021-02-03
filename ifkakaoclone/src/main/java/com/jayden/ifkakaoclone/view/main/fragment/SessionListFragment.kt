@@ -76,15 +76,9 @@ class SessionListFragment : Fragment() {
             }
         }
 
-        activityViewModel.sessions.observe(viewLifecycleOwner) {
-            updateSessionsWithFilters(it)
+        activityViewModel.filteredSessions.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
         }
-
-        activityViewModel.shouldFilterWithFavorite.observe(viewLifecycleOwner) {
-            updateSessionsWithFilters(activityViewModel.sessions.value ?: listOf())
-        }
-
-        activityViewModel.favorites.observe(viewLifecycleOwner) { } // DB에 접근하기 전까진 favorites 가 null 이여서
 
         activityViewModel.fetchContents()
     }
@@ -105,25 +99,5 @@ class SessionListFragment : Fragment() {
     private fun openIfKakao2019() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://if.kakao.com/2019"))
         startActivity(intent)
-    }
-
-    private fun updateSessionsWithFilters(sessions: List<Session>) {
-        val shouldFilterWithFavorite = activityViewModel.shouldFilterWithFavorite.value ?: false
-
-        val filtered = if (shouldFilterWithFavorite) filteredByFavorite(sessions) else sessions
-
-        activityViewModel.appliedFilters.value?.let { filters ->
-            if (filters.isNotEmpty()) {
-                adapter.submitList(filtered.filter { filters.contains(it.field) })
-            } else {
-                adapter.submitList(filtered)
-            }
-        } ?: adapter.submitList(filtered)
-    }
-
-    private fun filteredByFavorite(sessions: List<Session>): List<Session> {
-        val favoriteIndexes = activityViewModel.favorites.value?.filter { it.isFavorite }?.map { it.uid } ?: listOf()
-
-        return sessions.filter { favoriteIndexes.contains(it.idx) }
     }
 }
