@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.provider.ProviderTestActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="Hello World!" />
+
+        <Button
+            android:id="@+id/btn_show_all_files"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="모든 이미지 파일 보기" />
+    </LinearLayout>
+</ScrollView>
