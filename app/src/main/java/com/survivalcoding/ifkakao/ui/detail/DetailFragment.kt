@@ -1,5 +1,8 @@
 package com.survivalcoding.ifkakao.ui.detail
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -13,6 +16,7 @@ import com.survivalcoding.ifkakao.App
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentDetailBinding
 import com.survivalcoding.ifkakao.extension.popThis
+import com.survivalcoding.ifkakao.extension.showToast
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.ui.detail.adapter.SpeakerAdapter
 
@@ -96,6 +100,20 @@ class DetailFragment : Fragment() {
 
         viewModel.onBackButtonClicked.observe(viewLifecycleOwner) {
             popThis()
+        }
+
+        viewModel.onCopyButtonClicked.observe(viewLifecycleOwner) {
+            copyUrlLinkToClipboard()
+        }
+    }
+
+    private fun copyUrlLinkToClipboard() {
+        val clipboard =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        item?.let {
+            val link = ClipData.newPlainText("link", it.linkList.video[0].url)
+            clipboard.setPrimaryClip(link)
+            showToast("클립보드에 저장되었습니다.")
         }
     }
 
