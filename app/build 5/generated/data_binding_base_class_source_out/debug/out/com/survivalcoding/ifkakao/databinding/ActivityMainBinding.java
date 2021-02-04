@@ -4,16 +4,16 @@ package com.survivalcoding.ifkakao.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.Bindable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentContainerView;
+
 import com.survivalcoding.ifkakao.R;
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel;
-import java.lang.Deprecated;
-import java.lang.Object;
 
 public abstract class ActivityMainBinding extends ViewDataBinding {
   @NonNull

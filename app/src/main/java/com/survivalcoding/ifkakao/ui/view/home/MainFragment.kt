@@ -13,6 +13,7 @@ import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.initToLinearLayout
 import com.survivalcoding.ifkakao.extension.navigate
+import com.survivalcoding.ifkakao.extension.popBackStack
 import com.survivalcoding.ifkakao.extension.stop
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
@@ -62,6 +63,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         setHasOptionsMenu(true)
 
         binding.include.tvTitleMain.setOnClickListener {
+            popBackStack()
             navigate(R.id.fragment_main)
         }
     }

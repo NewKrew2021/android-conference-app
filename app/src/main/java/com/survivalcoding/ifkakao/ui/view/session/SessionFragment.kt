@@ -123,7 +123,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.toolbar_menu_session, menu)
