@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.provider.Settings
 import android.util.Log
 import android.widget.Toast
@@ -17,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import com.survivalcoding.ifkakao.databinding.ActivityMainBinding
+import com.survivalcoding.ifkakao.delegate.UserInfo
 import com.survivalcoding.ifkakao.factory.MyFragmentFactory
 
 class MainActivity : AppCompatActivity() {
@@ -24,11 +24,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val PERMISSION_REQUEST_CODE = 1
 
+    private val userInfo by lazy {
+        UserInfo(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
+
+        userInfo.userName = "jinhong"
+        userInfo.userEnglishName = "noah"
+        Log.d("log2", "${userInfo.userEnglishName} is ${userInfo.userName}")
 
         supportFragmentManager.fragmentFactory =
             MyFragmentFactory()
@@ -74,6 +82,7 @@ class MainActivity : AppCompatActivity() {
 
          */
 
+        /*
         checkPermission()
         var projection = arrayOf(
             ContactsContract.Profile._ID,
@@ -97,7 +106,14 @@ class MainActivity : AppCompatActivity() {
 
             count -= 1
         }
+        profileCursor?.close()
+
+
+         */
+
+
     }
+
 
     private fun checkPermission() {
 
@@ -149,6 +165,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    /*
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>, grantResults: IntArray
@@ -178,6 +195,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+     */
 
 
 }
