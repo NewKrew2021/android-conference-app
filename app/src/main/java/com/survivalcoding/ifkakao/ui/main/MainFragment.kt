@@ -5,14 +5,14 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.openDetailFragment
-import com.survivalcoding.ifkakao.extension.openFilteringFragment
-import com.survivalcoding.ifkakao.extension.openInfoFragment
+import com.survivalcoding.ifkakao.extension.openFragmentWith
+import com.survivalcoding.ifkakao.ui.filter.FilteringFragment
+import com.survivalcoding.ifkakao.ui.info.InfoFragment
 import com.survivalcoding.ifkakao.ui.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
@@ -23,8 +23,8 @@ class MainFragment : Fragment() {
 
     private lateinit var adapter: ConferenceAdapter
 
-    private val viewModel: ConferenceViewModel by activityViewModels {
-        (requireActivity() as MainActivity).confViewModelFactory
+    private val viewModel: ConferenceViewModel by lazy {
+        (requireActivity() as MainActivity).confViewModel
     }
 
     override fun onCreateView(
@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        setUpObserver()
+        setUpObservers()
         setHasOptionsMenu(true)
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_button -> {
-                openInfoFragment()
+                openFragmentWith<InfoFragment>()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -96,13 +96,13 @@ class MainFragment : Fragment() {
         viewModel.requestConfData()
     }
 
-    private fun setUpObserver() {
+    private fun setUpObservers() {
         viewModel.sessionsForShow.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
         viewModel.onFilteringButtonClicked.observe(viewLifecycleOwner) {
-            openFilteringFragment()
+            openFragmentWith<FilteringFragment>()
         }
     }
 
