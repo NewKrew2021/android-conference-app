@@ -7,9 +7,13 @@ import com.survivalcoding.ifkakao.data.model.entity.Favorite
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.data.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.extension.toLiveData
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SessionDetailViewModel(private val repository: ConferenceRepository) : ViewModel() {
+@HiltViewModel
+class SessionDetailViewModel @Inject constructor(private val repository: ConferenceRepository) :
+    ViewModel() {
 
     private val _sessionData = MutableLiveData<ConferenceSessionResponse>()
     val sessionData = _sessionData.toLiveData()
@@ -17,7 +21,7 @@ class SessionDetailViewModel(private val repository: ConferenceRepository) : Vie
     private val _favoriteCheck = MutableLiveData<Boolean>()
     val favoriteCheck = _favoriteCheck.toLiveData()
 
-    fun setConferenceSessionData(data : ConferenceSessionResponse?) {
+    fun setConferenceSessionData(data: ConferenceSessionResponse?) {
         if (data != null) {
             _sessionData.value = data
         }
@@ -25,7 +29,8 @@ class SessionDetailViewModel(private val repository: ConferenceRepository) : Vie
 
     fun getFavoriteSessionData() {
         viewModelScope.launch {
-            _favoriteCheck.value = repository.getAllFavoriteSessionId().contains(_sessionData.value?.idx)
+            _favoriteCheck.value =
+                repository.getAllFavoriteSessionId().contains(_sessionData.value?.idx)
         }
     }
 
@@ -42,7 +47,6 @@ class SessionDetailViewModel(private val repository: ConferenceRepository) : Vie
         }
         _favoriteCheck.value = true
     }
-
 
 
 }

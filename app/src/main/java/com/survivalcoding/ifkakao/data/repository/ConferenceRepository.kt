@@ -6,8 +6,8 @@ import com.survivalcoding.ifkakao.data.model.response.ConferenceResponse
 import com.survivalcoding.ifkakao.data.remote.datasource.RemoteDataSource
 
 class ConferenceRepository(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val localDataSource: LocalDataSource,
+    private val remoteDataSource: RemoteDataSource
 ) :
     ConferenceRepositoryContract {
 

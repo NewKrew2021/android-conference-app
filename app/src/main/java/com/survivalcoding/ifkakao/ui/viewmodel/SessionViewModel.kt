@@ -7,9 +7,13 @@ import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.data.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.extension.toLiveData
 import com.survivalcoding.ifkakao.util.EMPTY_STRING
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SessionViewModel(private val repository: ConferenceRepository) : ViewModel() {
+@HiltViewModel
+class SessionViewModel @Inject constructor(private val repository: ConferenceRepository) :
+    ViewModel() {
 
     private val _conferenceData = MutableLiveData<List<ConferenceSessionResponse>>()
     val conferenceData = _conferenceData.toLiveData()

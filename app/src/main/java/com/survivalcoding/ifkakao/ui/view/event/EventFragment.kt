@@ -6,20 +6,22 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentEventBinding
 import com.survivalcoding.ifkakao.extension.navigate
 import com.survivalcoding.ifkakao.extension.setToolbar
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.EventViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_event
 
-    override val viewModel: EventViewModel by viewModel()
+    private val viewModel: EventViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
