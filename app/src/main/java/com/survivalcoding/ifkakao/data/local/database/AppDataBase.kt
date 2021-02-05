@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 import com.survivalcoding.ifkakao.data.model.entity.Favorite
 
 @Database(entities = [Favorite::class], version = 1, exportSchema = false)
-abstract class IfKakaoDatabase : RoomDatabase() {
+abstract class AppDataBase : RoomDatabase() {
 
-    abstract fun ifKakaoDao() : FavoriteDao
+    abstract fun favoriteDao() : FavoriteDao
 }

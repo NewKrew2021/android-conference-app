@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ToggleButton
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.databinding.FragmentSessionFilterBinding
 import com.survivalcoding.ifkakao.extension.navigate
@@ -11,14 +12,15 @@ import com.survivalcoding.ifkakao.extension.off
 import com.survivalcoding.ifkakao.extension.on
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionFilterViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SessionFilterFragment : BaseFragment<FragmentSessionFilterBinding, SessionFilterViewModel>() {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_session_filter
 
-    override val viewModel: SessionFilterViewModel by viewModel()
+    private val viewModel: SessionFilterViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

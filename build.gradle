@@ -37,6 +37,10 @@ buildscript {
 
         // navigation
         nav_version = "2.3.2"
+
+        // hilt
+        hilt_version = "2.31.2-alpha"
+        jetpack_hilt_version = "1.0.0-alpha03"
     }
 
     repositories {
@@ -48,6 +52,8 @@ buildscript {
         classpath "com.android.tools.build:gradle:4.1.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
+        // hilt
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

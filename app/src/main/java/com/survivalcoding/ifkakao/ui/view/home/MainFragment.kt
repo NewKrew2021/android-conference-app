@@ -7,25 +7,28 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
 import com.survivalcoding.ifkakao.data.model.response.ConferenceSessionResponse
 import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
 import com.survivalcoding.ifkakao.extension.initToLinearLayout
 import com.survivalcoding.ifkakao.extension.navigate
+import com.survivalcoding.ifkakao.extension.popBackStack
 import com.survivalcoding.ifkakao.extension.stop
 import com.survivalcoding.ifkakao.ui.adapter.SessionAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.MainViewModel
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_main
 
-    override val viewModel: MainViewModel by viewModel()
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,6 +65,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
         setHasOptionsMenu(true)
 
         binding.include.tvTitleMain.setOnClickListener {
+            popBackStack()
             navigate(R.id.fragment_main)
         }
     }

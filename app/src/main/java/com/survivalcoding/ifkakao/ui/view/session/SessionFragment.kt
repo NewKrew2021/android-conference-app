@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.survivalcoding.ifkakao.R
@@ -23,14 +24,15 @@ import com.survivalcoding.ifkakao.ui.viewmodel.SessionViewModel
 import com.survivalcoding.ifkakao.util.EMPTY_STRING
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
 import com.survivalcoding.ifkakao.util.SESSION_MAIN_VIDEO_URL
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>() {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_session
 
-    override val viewModel: SessionViewModel by viewModel()
+    private val viewModel: SessionViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -122,7 +124,6 @@ class SessionFragment : BaseFragment<FragmentSessionBinding, SessionViewModel>()
             }
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)

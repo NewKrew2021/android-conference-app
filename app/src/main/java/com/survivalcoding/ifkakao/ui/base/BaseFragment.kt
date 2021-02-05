@@ -17,8 +17,6 @@ abstract class BaseFragment<T : ViewDataBinding, R : ViewModel> : Fragment() {
 
     abstract val layoutResourceId: Int
 
-    abstract val viewModel: R
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

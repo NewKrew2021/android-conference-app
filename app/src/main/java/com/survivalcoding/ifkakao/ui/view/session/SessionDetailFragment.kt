@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.survivalcoding.ifkakao.R
@@ -20,14 +21,15 @@ import com.survivalcoding.ifkakao.ui.adapter.SpeakerAdapter
 import com.survivalcoding.ifkakao.ui.base.BaseFragment
 import com.survivalcoding.ifkakao.ui.viewmodel.SessionDetailViewModel
 import com.survivalcoding.ifkakao.util.SESSION_ITEM
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SessionDetailFragment : BaseFragment<FragmentSessionDetailBinding, SessionDetailViewModel>() {
 
     override val layoutResourceId: Int
         get() = R.layout.fragment_session_detail
 
-    override val viewModel: SessionDetailViewModel by viewModel()
+    private val viewModel: SessionDetailViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
