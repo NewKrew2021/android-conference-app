@@ -1,4 +1,4 @@
-package com.survivalcoding.ifkakao.ui.main
+package com.survivalcoding.ifkakao.ui.favorite
 
 import android.os.Bundle
 import android.view.*
@@ -8,17 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.survivalcoding.ifkakao.R
-import com.survivalcoding.ifkakao.databinding.FragmentMainBinding
+import com.survivalcoding.ifkakao.databinding.FragmentFavoriteBinding
 import com.survivalcoding.ifkakao.extension.openDetailFragment
 import com.survivalcoding.ifkakao.extension.openFragmentWith
-import com.survivalcoding.ifkakao.ui.filter.FilteringFragment
 import com.survivalcoding.ifkakao.ui.info.InfoFragment
+import com.survivalcoding.ifkakao.ui.main.MainActivity
 import com.survivalcoding.ifkakao.ui.main.adapter.ConferenceAdapter
 import com.survivalcoding.ifkakao.viewmodel.ConferenceViewModel
 
-class MainFragment : Fragment() {
+class FavoriteFragment : Fragment() {
 
-    private var _binding: FragmentMainBinding? = null
+    private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var adapter: ConferenceAdapter
@@ -32,7 +32,8 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
 
         adapter = ConferenceAdapter(
             itemClickListener = {
@@ -47,7 +48,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        setUpObservers()
+        setUpObserver()
         setHasOptionsMenu(true)
 
         (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
@@ -68,19 +69,20 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun setUpObserver() {
+        viewModel.favoriteSessions.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+    }
+
     private fun initView() {
 
-        binding.apply {
-            viewModel = this@MainFragment.viewModel
-            lifecycleOwner = this@MainFragment
-        }
-
         binding.toolbar.apply {
-            title = "if(kakao)2020"
+            title = "Favorites"
         }
 
         binding.recyclerview.apply {
-            adapter = this@MainFragment.adapter
+            adapter = this@FavoriteFragment.adapter
             addItemDecoration(
                 DividerItemDecoration(
                     requireActivity(),
@@ -88,26 +90,5 @@ class MainFragment : Fragment() {
                 )
             )
         }
-
-        loadConferencesFromServer()
-    }
-
-    private fun loadConferencesFromServer() {
-        viewModel.requestConfData()
-    }
-
-    private fun setUpObservers() {
-        viewModel.sessionsForShow.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
-        }
-
-        viewModel.onFilteringButtonClicked.observe(viewLifecycleOwner) {
-            openFragmentWith<FilteringFragment>()
-        }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

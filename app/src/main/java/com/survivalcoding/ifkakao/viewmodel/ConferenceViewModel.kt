@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
+import com.survivalcoding.ifkakao.extension.addSources
 import com.survivalcoding.ifkakao.model.Session
 import com.survivalcoding.ifkakao.repository.ConferenceRepository
 import com.survivalcoding.ifkakao.repository.LikeRepository
@@ -18,26 +19,15 @@ class ConferenceViewModel(
 
     private val _sessions = MutableLiveData<List<Session>>()
 
-    private var showAll = true
-
     private val _sessionsForShow = MutableLiveData<List<Session>>()
     val sessionsForShow: LiveData<List<Session>>
-        get() {
-            return Transformations.switchMap(likeRepository.allLikes()) { likes ->
+        get() = _sessionsForShow
 
-                if (showAll) {
-                    _sessions.value?.let {
-                        _sessionsForShow.value = it
-                    }
-                } else {
-                    val favorites = likes.filter { it.liked }.map { it.idx }
-                    _sessions.value?.let { list ->
-                        _sessionsForShow.value = list.filter { it.idx in favorites }
-                    }
-                }
-                _sessionsForShow
-            }
-        }
+    private val likeStates = likeRepository.allLikes()
+
+    val favoriteSessions = MediatorLiveData<List<Session>>().apply {
+        addSources(_sessionsForShow, likeStates) { getFavoriteSessions() }
+    }
 
     private val _onFilteringButtonClicked = SingleLiveEvent<Unit>()
     val onFilteringButtonClicked: LiveData<Unit>
@@ -63,12 +53,18 @@ class ConferenceViewModel(
         }
     }
 
-    fun showAllSessions() {
-        showAll = true
-    }
+    private fun getFavoriteSessions(): List<Session> {
+        return _sessionsForShow.value?.let { list ->
 
-    fun filterFavorites() {
-        showAll = false
+            var ret = listOf<Session>()
+
+            likeStates.value?.let { likes ->
+                val favorites = likes.filter { it.liked }.map { it.idx }
+                ret = list.filter { it.idx in favorites }
+            }
+
+            ret
+        } ?: listOf()
     }
 
     fun onClickFilteringButton() {

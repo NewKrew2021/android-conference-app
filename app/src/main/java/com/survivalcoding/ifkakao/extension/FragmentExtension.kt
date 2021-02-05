@@ -32,19 +32,10 @@ fun Fragment.openDetailFragment(conference: Session) {
     }
 }
 
-fun Fragment.openFilteringFragment() {
+inline fun <reified F : Fragment> Fragment.openFragmentWith() {
 
     parentFragmentManager.commit {
-        replace<FilteringFragment>(CONTAINER_VIEW_ID)
-        addToBackStack(null)
-        setReorderingAllowed(true)
-    }
-}
-
-fun Fragment.openInfoFragment() {
-
-    parentFragmentManager.commit {
-        replace<InfoFragment>(CONTAINER_VIEW_ID)
+        replace<F>(CONTAINER_VIEW_ID)
         addToBackStack(null)
         setReorderingAllowed(true)
     }
